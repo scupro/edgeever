@@ -348,7 +348,7 @@ pub(crate) fn resolve_custom_merge_title<'a>(
     titles
         .into_iter()
         .map(str::trim)
-        .find(|title| !title.is_empty() && *title != "无标题笔记")
+        .find(|title| !title.is_empty() && *title != "無標題筆記")
         .map(str::to_owned)
 }
 

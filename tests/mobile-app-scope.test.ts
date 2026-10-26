@@ -91,7 +91,7 @@ describe("mobile app scope", () => {
 
   test("keeps version history reachable from an active note", () => {
     expect(memoDetailSource).toContain("{!memo.isDeleted ? (");
-    expect(memoDetailSource).toContain('label={resolvedLocale !== "zh-CN" ? "Version history" : "版本历史"}');
+    expect(memoDetailSource).toContain('label={resolvedLocale !== "zh-TW" ? "Version history" : "版本歷史"}');
     expect(memoDetailSource).toContain("onPress={() => closeActionsAndRun(() => onOpenRevisions(memo))}");
     expect(memoDetailSource).toContain('syncStatus === "conflict"');
     expect(memoDetailSource).toContain("onResolveSyncConflict");
@@ -129,12 +129,12 @@ describe("mobile app scope", () => {
   });
 
   test("keeps in-note search on one icon row", () => {
-    expect(memoDetailSource).toContain('accessibilityLabel="上一个搜索结果"');
-    expect(memoDetailSource).toContain('accessibilityLabel="下一个搜索结果"');
-    expect(memoDetailSource).toContain('accessibilityLabel="关闭搜索"');
-    expect(memoDetailSource).not.toContain("label=\"上一个搜索结果\"");
-    expect(memoDetailSource).not.toContain("label=\"下一个搜索结果\"");
-    expect(memoDetailSource).not.toContain("label=\"关闭搜索\"");
+    expect(memoDetailSource).toContain('accessibilityLabel="上一個搜尋結果"');
+    expect(memoDetailSource).toContain('accessibilityLabel="下一個搜尋結果"');
+    expect(memoDetailSource).toContain('accessibilityLabel="關閉搜尋"');
+    expect(memoDetailSource).not.toContain("label=\"上一個搜尋結果\"");
+    expect(memoDetailSource).not.toContain("label=\"下一個搜尋結果\"");
+    expect(memoDetailSource).not.toContain("label=\"關閉搜尋\"");
     const stylesSource = readFileSync(
       new URL("../apps/mobile/src/screens/workspace-styles.ts", import.meta.url),
       "utf8",
@@ -152,15 +152,15 @@ describe("mobile app scope", () => {
 
   test("puts specific tag filtering on the visible list chip instead of tagged/untagged toggles", () => {
     expect(notesViewSource).toContain("onOpenTagFilter");
-    expect(notesViewSource).toContain('label={selectedTag ? `#${selectedTag}` : "按标签筛选"}');
-    expect(notesViewSource).not.toContain('label="有标签"');
-    expect(notesViewSource).not.toContain('label="无标签"');
+    expect(notesViewSource).toContain('label={selectedTag ? `#${selectedTag}` : "按標籤篩選"}');
+    expect(notesViewSource).not.toContain('label="有標籤"');
+    expect(notesViewSource).not.toContain('label="無標籤"');
     expect(workspaceSource).toContain("onOpenTagFilter={() => setTagFilterPickerOpen(true)}");
 
     expect(iosWorkspaceViewSource).toContain("store.showTagFilterPicker = true");
-    expect(iosWorkspaceViewSource).toContain('env.preferences.t("按标签筛选", en: "Filter by tag"');
-    expect(iosWorkspaceViewSource).not.toContain('env.preferences.t("有标签", en: "Tagged")');
-    expect(iosWorkspaceViewSource).not.toContain('env.preferences.t("无标签", en: "Untagged")');
+    expect(iosWorkspaceViewSource).toContain('env.preferences.t("按標籤篩選", en: "Filter by tag"');
+    expect(iosWorkspaceViewSource).not.toContain('env.preferences.t("有標籤", en: "Tagged")');
+    expect(iosWorkspaceViewSource).not.toContain('env.preferences.t("無標籤", en: "Untagged")');
   });
 
   test("applies exact tag matching in the local memo list instead of json_each on the full note blob", () => {
@@ -197,7 +197,7 @@ describe("mobile app scope", () => {
       workspaceEditorsSource.indexOf("export const RichEditorModal =")
     );
     const titleInput = createMemoSource.match(
-      /<TextInput\s+autoCorrect\s+accessibilityLabel="笔记标题"[\s\S]*?\/>/
+      /<TextInput\s+autoCorrect\s+accessibilityLabel="筆記標題"[\s\S]*?\/>/
     )?.[0];
 
     expect(createMemoSource).toMatch(/<LocalTiptapEditor\s+autoFocus\s/);
@@ -229,7 +229,7 @@ describe("mobile app scope", () => {
     expect(memoDetailSource).toContain("payload: { notebookId: viewerNotebookId, tags: viewerTags }");
     expect(memoDetailSource).toContain("onPress={() => void saveViewerMetadata()}");
     expect(memoDetailSource).toContain("includeAllNotes={false}");
-    expect(memoDetailSource).toContain('accessibilityLabel="所在笔记本"');
+    expect(memoDetailSource).toContain('accessibilityLabel="所在筆記本"');
     expect(memoDetailSource).toContain("handleViewerNotebookSelect");
     expect(mobilePickersSource).toContain("includeAllNotes = true");
     expect(iosMemoDetailSource).toContain("showNotebookPicker = true");

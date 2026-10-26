@@ -166,12 +166,10 @@ describe("cross-platform Wrangler runner", () => {
     expect(deployedWorkerSettings(JSON.stringify({
       resources: {
         bindings: [
-          { name: "RESOURCES", type: "r2_bucket", bucket_name: "my-old-edgeever-bucket" },
           { name: "EDGE_EVER_AUTH_USERNAME", type: "plain_text", text: "owner" },
         ],
       },
     }))).toEqual({
-      r2BucketName: "my-old-edgeever-bucket",
       authUsername: "owner",
     });
   });

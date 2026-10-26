@@ -14,7 +14,7 @@ current concrete implementation lives in
 - `DatabaseAdapter`: SQL statements and batches.
 - `BlobStoreAdapter`: attachment `get`, `put`, and `delete` operations.
 
-Cloudflare injects the D1/R2 adapter into `fetchEdgeEverApp`; the Bun entrypoint
+Cloudflare injects the D1 plus S3-compatible object storage adapter into `fetchEdgeEverApp`; the Bun entrypoint
 injects the SQLite/filesystem or SQLite/S3 adapter into that same function.
 Neither entrypoint owns route or business decisions.
 

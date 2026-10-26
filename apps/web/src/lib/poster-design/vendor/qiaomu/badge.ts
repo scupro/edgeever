@@ -16,7 +16,7 @@ interface Metrics { width: number; ascent: number; descent: number }
 /** Width of the text and the ink extent of a reference glyph pair (cap/CJK height), in px. */
 export function measureLabel(text: string, size: number, weight: string, family: string): Metrics {
   const c = measureCtx(); if (!c) return { width: [...text].length * size * 0.8, ascent: size * 0.8, descent: size * 0.04 };
-  c.font = `${weight} ${size}px ${family}`; const width = c.measureText(text).width; const ref = c.measureText('H国');
+  c.font = `${weight} ${size}px ${family}`; const width = c.measureText(text).width; const ref = c.measureText('H國');
   return { width, ascent: ref.actualBoundingBoxAscent || size * 0.8, descent: Math.max(0, ref.actualBoundingBoxDescent || size * 0.04) };
 }
 

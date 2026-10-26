@@ -59,19 +59,19 @@ const createLocalImagePreviewDataUrl = async (asset: { mimeType?: string | null;
 };
 
 const alertProtectedImageLoadFailure = (
-  locale: "zh-CN" | "en-US" | "ja" | "pl",
+  locale: "zh-TW" | "en-US" | "ja" | "pl",
   failure: ProtectedResourceLoadFailure
 ) => {
   const statusLabel = failure.status != null
     ? String(failure.status)
-    : locale !== "zh-CN"
+    : locale !== "zh-TW"
       ? "network error"
-      : "网络错误";
+      : "網路錯誤";
   Alert.alert(
-    locale !== "zh-CN" ? "Image failed to load" : "图片加载失败",
-    locale !== "zh-CN"
+    locale !== "zh-TW" ? "Image failed to load" : "圖片載入失敗",
+    locale !== "zh-TW"
       ? `Could not load a note image (${statusLabel}). Check the network and try again.`
-      : `笔记中的图片未能加载（${statusLabel}）。请检查网络后重试。`
+      : `筆記中的圖片未能載入（${statusLabel}）。請檢查網路後重試。`
   );
 };
 
@@ -147,16 +147,16 @@ export const useMobileRichEditor = ({
   const { pickUploadAssets, uploadSourcePicker } = useMobileEditorUploadAsset();
   const notebookLabel = notebooks.find((notebook) => notebook.id === notebookId)?.name ?? localizeMissingNotebookName(resolvedLocale);
   const saveLabel = error
-    ? "保存失败"
+    ? "儲存失敗"
     : saving
-      ? "保存中"
+      ? "儲存中"
       : uploading
-        ? "上传中"
+        ? "上傳中"
         : dirty
-          ? (draftRestored ? "本地草稿" : "未保存")
+          ? (draftRestored ? "本機草稿" : "未儲存")
           : ready
-            ? "已保存"
-            : "加载中";
+            ? "已儲存"
+            : "載入中";
   const titleRef = useRef(title);
   const tagsTextRef = useRef(tagsText);
   const notebookIdRef = useRef(notebookId);
@@ -294,7 +294,7 @@ export const useMobileRichEditor = ({
       return savedMemo;
     } catch (saveError) {
       closingRef.current = false;
-      setError(saveError instanceof Error ? saveError.message : "保存失败");
+      setError(saveError instanceof Error ? saveError.message : "儲存失敗");
       return null;
     } finally {
       savingRef.current = false;
@@ -371,7 +371,7 @@ export const useMobileRichEditor = ({
       return;
     }
     if (currentMemo.id.startsWith("local:")) {
-      Alert.alert("正在同步新笔记", "首次同步完成后即可上传本地图片；图片链接现在就可以直接粘贴到正文。");
+      Alert.alert("正在同步新筆記", "首次同步完成後即可上傳本機圖片；圖片連結現在就可以直接貼上到正文。");
       return;
     }
     const assets = await pickUploadAssets();
@@ -394,13 +394,13 @@ export const useMobileRichEditor = ({
         }
         const uploadAsset = await prepareUploadAsset(asset, imageCompressionEnabled);
         const { resource } = await uploadMobileResource(client, currentMemo.id, uploadAsset);
-        applyMobileEditorUpload(editorRef, resource, uploadId, uploadAsset.name || (resource.kind === "image" ? "图片" : "附件"));
+        applyMobileEditorUpload(editorRef, resource, uploadId, uploadAsset.name || (resource.kind === "image" ? "圖片" : "附件"));
         if (resource.kind === "image") sources.push(resource.url);
         uploadId = null;
       }
     } catch (uploadError) {
       cancelMobileEditorUpload(editorRef, uploadId);
-      setError(uploadError instanceof Error ? uploadError.message : "附件上传失败");
+      setError(uploadError instanceof Error ? uploadError.message : "附件上傳失敗");
     } finally {
       safeDomCall(() => editorRef.current?.finishImageBatch(sources));
       uploadingRef.current = false;

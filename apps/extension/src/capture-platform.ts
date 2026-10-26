@@ -85,9 +85,9 @@ import { platformHtmlMarkdown, platformTarget, type PlatformLabels, type Platfor
     if (initial.ok || initial.reason !== "incomplete" || expected.platform !== "xiaoyuzhou") return initial;
     // Click only the sampled Show Notes control, once. Never touch a player,
     // login dialog, unrelated "more" button, or a link to the native app.
-    const section = document.querySelector('section[aria-label="节目show notes"]');
+    const section = document.querySelector('section[aria-label="節目show notes"]');
     const button = section?.parentElement?.querySelector<HTMLElement>(".expand-wrap .expand");
-    if (!button || !/^展开\s*Show\s*Notes$/i.test(button.textContent?.trim() || "")) return initial;
+    if (!button || !/^展開\s*Show\s*Notes$/i.test(button.textContent?.trim() || "")) return initial;
     return new Promise<PlatformRead>((resolve) => {
       let settled = false;
       const complete = (value: PlatformRead) => {

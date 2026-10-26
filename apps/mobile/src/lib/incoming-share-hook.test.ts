@@ -187,7 +187,7 @@ test("workspace finishes the accepted clip when resolved payloads rerun its effe
     notebooksQuery: { isSuccess: true },
     processedShareUrlRef: { current: null },
     incomingShareTaskRef: { current: null },
-    resolvedLocale: "zh-CN",
+    resolvedLocale: "zh-TW",
     isWeChatArticleUrl: () => false,
     setIsImportingShare: (value: boolean) => { importing = value; },
     buildMobileWebClipDraft: () => request.promise,
@@ -202,7 +202,7 @@ test("workspace finishes the accepted clip when resolved payloads rerun its effe
   // with resolved payloads, even though the article URL has not changed.
   if (typeof cleanup === "function") cleanup();
   runEffect();
-  const draft = { title: "知乎", contentMarkdown: "来源链接" };
+  const draft = { title: "知乎", contentMarkdown: "來源連結" };
   request.resolve([draft]);
   await request.promise;
   await new Promise((resolve) => setTimeout(resolve, 0));

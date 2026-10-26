@@ -27,8 +27,8 @@ describe("print PDF outline", () => {
   test("nests body headings under the note title and records where they sit", () => {
     const { document } = parseHTML("<!doctype html><body></body>");
     document.body.innerHTML = `
-      <div class="pagedjs_page"><h1>欢迎使用 EdgeEver</h1><h2>概览</h2><h2>海报</h2><h3>排版定制</h3></div>
-      <div class="pagedjs_page"><h2 data-split-from="1">海报</h2><h2>表达力</h2></div>
+      <div class="pagedjs_page"><h1>歡迎使用 EdgeEver</h1><h2>概覽</h2><h2>海報</h2><h3>排版定製</h3></div>
+      <div class="pagedjs_page"><h2 data-split-from="1">海報</h2><h2>表達力</h2></div>
     `;
     for (const page of document.querySelectorAll(".pagedjs_page")) page.getBoundingClientRect = rect(0, 1000);
     const headings = [...document.querySelectorAll("h1, h2, h3")];
@@ -40,18 +40,18 @@ describe("print PDF outline", () => {
 
     expect(collectPrintOutline(document)).toEqual([
       {
-        title: "欢迎使用 EdgeEver",
+        title: "歡迎使用 EdgeEver",
         pageIndex: 0,
         topRatio: 0.04,
         children: [
-          { title: "概览", pageIndex: 0, topRatio: 0.2, children: [] },
+          { title: "概覽", pageIndex: 0, topRatio: 0.2, children: [] },
           {
-            title: "海报",
+            title: "海報",
             pageIndex: 0,
             topRatio: 0.4,
-            children: [{ title: "排版定制", pageIndex: 0, topRatio: 0.46, children: [] }],
+            children: [{ title: "排版定製", pageIndex: 0, topRatio: 0.46, children: [] }],
           },
-          { title: "表达力", pageIndex: 1, topRatio: 0.08, children: [] },
+          { title: "表達力", pageIndex: 1, topRatio: 0.08, children: [] },
         ],
       },
     ]);
@@ -62,13 +62,13 @@ describe("print PDF outline", () => {
     pdf.addPage([100, 200]);
     pdf.addPage([100, 200]);
     addPdfOutline(pdf, [{
-      title: "欢迎使用 EdgeEver",
+      title: "歡迎使用 EdgeEver",
       pageIndex: 0,
       topRatio: 0,
-      children: [{ title: "表达力", pageIndex: 1, topRatio: 0.25, children: [] }],
+      children: [{ title: "表達力", pageIndex: 1, topRatio: 0.25, children: [] }],
     }]);
     const saved = await PDFDocument.load(await pdf.save());
-    expect(outlineTitles(saved)).toEqual(["欢迎使用 EdgeEver", "表达力"]);
+    expect(outlineTitles(saved)).toEqual(["歡迎使用 EdgeEver", "表達力"]);
     const outlines = saved.context.lookup(saved.catalog.get(PDFName.of("Outlines")));
     expect(outlines.get(PDFName.of("Count")).asNumber()).toBe(2);
   });

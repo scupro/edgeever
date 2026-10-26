@@ -30,17 +30,17 @@ describe("mobile editor contract", () => {
   });
 
   test("provides the same localized copy to both mobile clients", () => {
-    expect(getMobileEditorPlaceholder("zh-CN")).toBe("开始记录...");
+    expect(getMobileEditorPlaceholder("zh-TW")).toBe("開始記錄...");
     expect(getMobileEditorPlaceholder("en-US")).toBe("Start writing...");
-    expect(getMobileEditorToolbarLabel("zh-CN")).toBe("编辑器工具栏");
-    expect(getMobileEditorToolbarActionLabel("undo", "zh-CN")).toBe("撤销");
+    expect(getMobileEditorToolbarLabel("zh-TW")).toBe("編輯器工具欄");
+    expect(getMobileEditorToolbarActionLabel("undo", "zh-TW")).toBe("撤銷");
     expect(getMobileEditorToolbarActionLabel("redo", "en-US")).toBe("Redo");
     expect(getMobileEditorToolbarActionLabel("undo", "ja")).toBe("元に戻す");
     expect(getMobileEditorToolbarActionLabel("bulletList", "en-US")).toBe("Bullet list");
-    expect(getMobileEditorToolbarActionLabel("taskList", "zh-CN")).toBe("任务清单");
-    expect(getMobileEditorToolbarActionLabel("increaseListIndent", "zh-CN")).toBe("增加列表层级（Tab）");
+    expect(getMobileEditorToolbarActionLabel("taskList", "zh-TW")).toBe("任務清單");
+    expect(getMobileEditorToolbarActionLabel("increaseListIndent", "zh-TW")).toBe("增加列表層級（Tab）");
     expect(getMobileEditorToolbarActionLabel("decreaseListIndent", "en-US")).toBe("Decrease list level (Shift + Tab)");
-    expect(getMobileEditorImageScaleLabel("zh-CN")).toBe("图片显示尺寸");
+    expect(getMobileEditorImageScaleLabel("zh-TW")).toBe("圖片顯示尺寸");
     expect(getMobileEditorImageWidthPresetLabel("medium", "en-US")).toBe("Medium");
   });
 

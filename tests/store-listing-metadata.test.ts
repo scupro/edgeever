@@ -39,7 +39,7 @@ const headingBlock = (source: string, heading: string) => {
 
 describe("App Store listing copy", () => {
   const english = read("apps/mobile/store-assets/app-store/metadata.en-US.md");
-  const chinese = read("apps/mobile/store-assets/app-store/metadata.zh-CN.md");
+  const chinese = read("apps/mobile/store-assets/app-store/metadata.zh-TW.md");
   const japanese = read("apps/mobile/store-assets/app-store/metadata.ja.md");
 
   test("keeps Japanese fields within App Store Connect limits", () => {
@@ -75,13 +75,13 @@ describe("App Store listing copy", () => {
 
 describe("Google Play listing copy", () => {
   const english = read("apps/mobile/store-assets/play/metadata.en-US.md");
-  const chinese = read("apps/mobile/store-assets/play/metadata.zh-CN.md");
+  const chinese = read("apps/mobile/store-assets/play/metadata.zh-TW.md");
   const japanese = read("apps/mobile/store-assets/play/metadata.ja-JP.md");
 
   test("keeps Play listing fields within Console limits", () => {
     for (const [source, titleHeading, shortHeading, fullHeading] of [
       [english, "Title", "Short description", "Full description"],
-      [chinese, "标题", "简短说明", "完整说明"],
+      [chinese, "標題", "簡短說明", "完整說明"],
       [japanese, "Title", "Short description", "Full description"],
     ] as const) {
       expect(headingBlock(source, titleHeading).length).toBeLessThanOrEqual(PLAY_LIMITS.title);

@@ -272,16 +272,16 @@ describe("shared companion MCP adapter", () => {
     expect(tools.get_diagram).toBeTruthy();
     const created = await tools.create_diagram_memo.execute({
       notebookId: "ideas",
-      title: "RAG 原理思维导图",
+      title: "RAG 原理思維導圖",
       kind: "mind-map",
       theme: "mint",
       nodes: [
         { id: "root", label: "RAG" },
-        { id: "retrieve", label: "检索", parentId: "root" },
+        { id: "retrieve", label: "檢索", parentId: "root" },
         { id: "generate", label: "生成", parentId: "root" },
       ],
     });
-    expect(created).toMatchObject({ applied: true, title: "RAG 原理思维导图", diagramKind: "mind-map", nodeCount: 3 });
+    expect(created).toMatchObject({ applied: true, title: "RAG 原理思維導圖", diagramKind: "mind-map", nodeCount: 3 });
     expect(created.id).toBeTruthy();
     expect(JSON.stringify(created)).not.toContain("edgeever-diagram-v1");
     const memo = await getMemoDetail(f.db, scope.workspaceId, created.id);
@@ -301,18 +301,18 @@ describe("shared companion MCP adapter", () => {
     expect(f.sqlite.query("SELECT COUNT(*) AS n FROM companion_actions").get().n).toBe(0);
     expect(() => validateCompanionTool("update_diagram", {
       memoId: created.id, expectedRevision: 0,
-      operations: [{ op: "add_node", node: { id: "eval", label: "评估", parentId: "root" } }],
+      operations: [{ op: "add_node", node: { id: "eval", label: "評估", parentId: "root" } }],
     })).not.toThrow();
     const editor = createCompanionTools({ ...f, scope, signal: new AbortController().signal, assertActive: async () => {}, sources: [] });
     await expect(editor.update_diagram.execute({
       memoId: created.id, expectedRevision: 0,
-      operations: [{ op: "add_node", node: { id: "eval", label: "评估", parentId: "root" } }],
+      operations: [{ op: "add_node", node: { id: "eval", label: "評估", parentId: "root" } }],
     })).rejects.toMatchObject({ code: "companion_action_unread" });
     const graph = await editor.get_diagram.execute({ memoId: created.id });
     expect(graph).toMatchObject({ memo: { id: created.id }, diagram: { kind: "mind-map" } });
     const updated = await editor.update_diagram.execute({
       memoId: created.id, expectedRevision: graph.memo.revision,
-      operations: [{ op: "add_node", node: { id: "eval", label: "评估", parentId: "root" } }],
+      operations: [{ op: "add_node", node: { id: "eval", label: "評估", parentId: "root" } }],
     });
     expect(updated).toMatchObject({ applied: true, id: created.id, nodeCount: 4 });
     expect(parseDiagramDocument((await getMemoDetail(f.db, scope.workspaceId, created.id)).contentMarkdown).nodes.map(node => node.id))
@@ -322,8 +322,8 @@ describe("shared companion MCP adapter", () => {
   test("creates a structured table in the inbox and adds a record using real field IDs", async () => {
     const f = await setup();
     const inboxId = `${scope.workspaceId}_inbox`;
-    f.sqlite.query("INSERT INTO notebooks(id, workspace_id, name, slug) VALUES (?, ?, '等待分类', 'inbox')").run(inboxId, scope.workspaceId);
-    const input = { ...f.input, message: "帮我生成一个自媒体选题库的多维表格" };
+    f.sqlite.query("INSERT INTO notebooks(id, workspace_id, name, slug) VALUES (?, ?, '等待分類', 'inbox')").run(inboxId, scope.workspaceId);
+    const input = { ...f.input, message: "幫我生成一個自媒體選題庫的多維表格" };
     const definition = companionToolDefinitions(input).find(tool => tool.name === "create_table_memo");
     expect(definition).toBeTruthy();
     expect(definition.inputSchema.required).not.toContain("notebookId");
@@ -331,25 +331,25 @@ describe("shared companion MCP adapter", () => {
     const sources = [];
     const tools = createCompanionTools({ ...f, input, scope, signal: new AbortController().signal, assertActive: async () => {}, sources });
     const created = await tools.create_table_memo.execute({
-      title: "自媒体选题库",
+      title: "自媒體選題庫",
       fields: [
-        { name: "选题标题", type: "text" },
-        { name: "平台", type: "select", options: ["小红书", "抖音", "公众号"] },
-        { name: "计划发布时间", type: "date" },
+        { name: "選題標題", type: "text" },
+        { name: "平臺", type: "select", options: ["小紅書", "抖音", "公眾號"] },
+        { name: "計劃釋出時間", type: "date" },
       ],
     });
-    expect(created).toMatchObject({ applied: true, title: "自媒体选题库", notebookId: inboxId, fieldCount: 3 });
+    expect(created).toMatchObject({ applied: true, title: "自媒體選題庫", notebookId: inboxId, fieldCount: 3 });
     expect(created).not.toHaveProperty("memo");
     expect(sources.map(source => source.id)).toContain(created.id);
     const memo = await getMemoDetail(f.db, scope.workspaceId, created.id);
     expect(parseTableDocument(memo.contentMarkdown)).toMatchObject({ records: [], fields: [
-      { name: "选题标题", type: "text" },
-      { name: "平台", type: "select", options: ["小红书", "抖音", "公众号"] },
-      { name: "计划发布时间", type: "date" },
+      { name: "選題標題", type: "text" },
+      { name: "平臺", type: "select", options: ["小紅書", "抖音", "公眾號"] },
+      { name: "計劃釋出時間", type: "date" },
     ] });
     const table = await tools.get_table_records.execute({ memoId: created.id });
     expect(table).toMatchObject({ memoId: created.id, totalRecords: 0 });
-    const cells = Object.fromEntries(table.fields.slice(0, 2).map((field, index) => [field.id, ["秋季选题", "小红书"][index]]));
+    const cells = Object.fromEntries(table.fields.slice(0, 2).map((field, index) => [field.id, ["秋季選題", "小紅書"][index]]));
     const added = await tools.add_table_record.execute({ memoId: created.id, expectedRevision: table.revision, cells });
     expect(added).toMatchObject({ applied: true });
     expect((await tools.get_table_records.execute({ memoId: created.id })).totalRecords).toBe(1);
@@ -398,23 +398,23 @@ describe("shared companion MCP adapter", () => {
     expect(diagram.edges[0].id).toBeTruthy();
   });
   test("an explicit diagram type narrows the Agent schema and rejects a mismatched write", async () => {
-    expect(explicitDiagramKind("帮我生成一个架构图笔记作为说明。")).toBe("architecture");
+    expect(explicitDiagramKind("幫我生成一個架構圖筆記作為說明。")).toBe("architecture");
     expect(explicitDiagramKind("Create a flow chart note.")).toBe("flowchart");
     expect(explicitDiagramKind("マインドマップを作成して")).toBe("mind-map");
-    expect(explicitDiagramKind("比较思维导图和架构图")).toBeUndefined();
+    expect(explicitDiagramKind("比較思維導圖和架構圖")).toBeUndefined();
 
     const f = await setup();
-    const agentInput = { ...f.input, message: "帮我生成一个架构图笔记作为说明。" };
+    const agentInput = { ...f.input, message: "幫我生成一個架構圖筆記作為說明。" };
     const definition = companionToolDefinitions(agentInput).find(tool => tool.name === "create_diagram_memo");
     expect(definition.inputSchema.properties.kind.enum).toEqual(["architecture"]);
     expect(definition.inputSchema.required ?? []).not.toContain("notebookId");
     expect(definition.description).toContain("use exactly that kind");
-    expect(definition.description).toContain("等待分类");
+    expect(definition.description).toContain("等待分類");
     const plain = companionToolDefinitions(f.input);
     for (const name of ["create_memo", "create_diagram_memo", "create_infographic_memo", "create_poster_memo", "use_note_template"]) {
       const tool = plain.find(item => item.name === name);
       expect(tool.inputSchema.required ?? []).not.toContain("notebookId");
-      expect(tool.description).toContain("等待分类");
+      expect(tool.description).toContain("等待分類");
     }
     expect(plain.find(item => item.name === "ask_user_question").description).toContain("Do not use this to choose a notebook");
 
@@ -434,20 +434,20 @@ describe("shared companion MCP adapter", () => {
   test("a new note or diagram without a named notebook is saved in the inbox", async () => {
     const f = await setup();
     const inboxId = `${scope.workspaceId}_inbox`;
-    f.sqlite.query("INSERT INTO notebooks(id, workspace_id, name, slug) VALUES (?, ?, '等待分类', 'inbox')").run(inboxId, scope.workspaceId);
+    f.sqlite.query("INSERT INTO notebooks(id, workspace_id, name, slug) VALUES (?, ?, '等待分類', 'inbox')").run(inboxId, scope.workspaceId);
     const tools = createCompanionTools({ ...f, scope, signal: new AbortController().signal, assertActive: async () => {}, sources: [] });
     const note = await tools.create_memo.execute({ title: "Inbox note", contentMarkdown: "Saved without asking" });
     expect(note.memo.notebookId).toBe(inboxId);
-    const poster = await tools.create_poster_memo.execute({ title: "精力管理", heading: "精力管理大于时间管理", subtitle: "把精力留给重要的事" });
+    const poster = await tools.create_poster_memo.execute({ title: "精力管理", heading: "精力管理大於時間管理", subtitle: "把精力留給重要的事" });
     expect(poster).toMatchObject({ applied: true, notebookId: inboxId, poster: true });
     const savedPoster = await getMemoDetail(f.db, scope.workspaceId, poster.id);
-    expect(parsePosterDocument(savedPoster.contentMarkdown).copy.title).toBe("精力管理大于时间管理");
+    expect(parsePosterDocument(savedPoster.contentMarkdown).copy.title).toBe("精力管理大於時間管理");
     const diagram = await tools.create_diagram_memo.execute({
-      title: "模型蒸馏",
+      title: "模型蒸餾",
       kind: "flowchart",
       nodes: [
-        { id: "teacher", label: "教师模型", type: "process" },
-        { id: "student", label: "学生模型", type: "process" },
+        { id: "teacher", label: "教師模型", type: "process" },
+        { id: "student", label: "學生模型", type: "process" },
       ],
       edges: [{ source: "teacher", target: "student" }],
     });
@@ -457,32 +457,32 @@ describe("shared companion MCP adapter", () => {
     expect(await resolveWorkspaceInboxId(f.db, scope.workspaceId)).toBe(inboxId);
   });
   test("an infographic request creates a pie infographic instead of a mind map", async () => {
-    const message = "给我生成一个腾讯营收占比的信息图。";
+    const message = "給我生成一個騰訊營收佔比的資訊圖。";
     expect(requestsInfographic(message)).toBe(true);
     expect(explicitDiagramKind(message)).toBeUndefined();
     const f = await setup();
     const inboxId = `${scope.workspaceId}_inbox`;
-    f.sqlite.query("INSERT INTO notebooks(id, workspace_id, name, slug) VALUES (?, ?, '等待分类', 'inbox')").run(inboxId, scope.workspaceId);
+    f.sqlite.query("INSERT INTO notebooks(id, workspace_id, name, slug) VALUES (?, ?, '等待分類', 'inbox')").run(inboxId, scope.workspaceId);
     const agentInput = { ...f.input, message };
     const definitions = companionToolDefinitions(agentInput);
     expect(definitions.find(tool => tool.name === "create_diagram_memo").description).toContain("create_infographic_memo");
     expect(definitions.find(tool => tool.name === "create_infographic_memo").description).toContain("chart-pie-donut-plain-text");
     const tools = createCompanionTools({ ...f, input: agentInput, scope, signal: new AbortController().signal, assertActive: async () => {}, sources: [] });
     await expect(tools.create_diagram_memo.execute({
-      title: "腾讯 2025 年营收占比信息图",
+      title: "騰訊 2025 年營收佔比資訊圖",
       kind: "mind-map",
-      nodes: [{ id: "root", label: "营收" }, { id: "ads", label: "网络广告 16%", parentId: "root" }],
+      nodes: [{ id: "root", label: "營收" }, { id: "ads", label: "網路廣告 16%", parentId: "root" }],
     })).rejects.toMatchObject({ code: "invalid_params", message: expect.stringContaining("create_infographic_memo") });
-    expect(f.sqlite.query("SELECT COUNT(*) AS n FROM memos WHERE title LIKE '%营收%'").get().n).toBe(0);
+    expect(f.sqlite.query("SELECT COUNT(*) AS n FROM memos WHERE title LIKE '%營收%'").get().n).toBe(0);
     const created = await tools.create_infographic_memo.execute({
       data: {
-        title: "腾讯 2025 年营收占比",
-        desc: "图中比例为演示用估算，不代表腾讯官方披露数据。",
+        title: "騰訊 2025 年營收佔比",
+        desc: "圖中比例為演示用估算，不代表騰訊官方披露資料。",
         values: [
-          { label: "增值服务", value: 52 },
-          { label: "金融科技与企业服务", value: 30 },
-          { label: "网络广告", value: 16 },
-          { label: "其他业务", value: 2 },
+          { label: "增值服務", value: 52 },
+          { label: "金融科技與企業服務", value: 30 },
+          { label: "網路廣告", value: 16 },
+          { label: "其他業務", value: 2 },
         ],
       },
       template: "chart-pie-donut-plain-text",
@@ -491,14 +491,14 @@ describe("shared companion MCP adapter", () => {
       applied: true,
       notebookId: inboxId,
       template: "chart-pie-donut-plain-text",
-      title: "腾讯 2025 年营收占比",
+      title: "騰訊 2025 年營收佔比",
       infographic: true,
     });
     expect(JSON.stringify(created)).not.toContain("edgeever-infographic-v1");
     const stored = await getMemoDetail(f.db, scope.workspaceId, created.id);
     const infographic = parseInfographicDocument(stored.contentMarkdown);
     expect(infographic.syntax).toContain("infographic chart-pie-donut-plain-text");
-    expect(infographic.syntax).toContain("label 增值服务");
+    expect(infographic.syntax).toContain("label 增值服務");
     expect(infographic.syntax).not.toContain("parentId");
     const read = await tools.get_memo.execute({ memoId: created.id });
     expect(read.infographic).toMatchObject({ template: "chart-pie-donut-plain-text" });
@@ -513,7 +513,7 @@ describe("shared companion MCP adapter", () => {
     const run = { tools: [], todos: [], questions: [], pause: { ask: false } };
     const tools = createCompanionTools({
       ...f,
-      input: { ...f.input, message: "给我生成一个模型蒸馏的流程图" },
+      input: { ...f.input, message: "給我生成一個模型蒸餾的流程圖" },
       scope,
       signal: new AbortController().signal,
       assertActive: async () => {},
@@ -521,17 +521,17 @@ describe("shared companion MCP adapter", () => {
       run,
     });
     const blocked = await tools.ask_user_question.execute({
-      questions: [{ id: "notebook", prompt: "流程图要保存到哪个笔记本？请提供笔记本名称。", inputType: "free_text" }],
+      questions: [{ id: "notebook", prompt: "流程圖要儲存到哪個筆記本？請提供筆記本名稱。", inputType: "free_text" }],
     });
-    expect(blocked).toMatchObject({ waiting: false, error: expect.stringContaining("等待分类") });
+    expect(blocked).toMatchObject({ waiting: false, error: expect.stringContaining("等待分類") });
     expect(run.pause.ask).toBe(false);
     expect(run.questions).toEqual([]);
     const allowed = await tools.ask_user_question.execute({
       questions: [{
         id: "strategy",
-        prompt: "按主题合并，还是按时间合并？",
+        prompt: "按主題合併，還是按時間合併？",
         inputType: "single_select",
-        options: [{ id: "topic", label: "主题" }, { id: "time", label: "时间" }],
+        options: [{ id: "topic", label: "主題" }, { id: "time", label: "時間" }],
       }],
     });
     expect(allowed).toMatchObject({ waiting: true });
@@ -677,7 +677,7 @@ describe("shared companion MCP adapter", () => {
     expect(await tools.get_memo.execute({ memoId: f.notes[1].id })).toMatchObject({
       createdAt: f.notes[1].createdAt, updatedAt: f.notes[1].updatedAt,
     });
-    const missed = await tools.search_memos.execute({ query: "最近一周" });
+    const missed = await tools.search_memos.execute({ query: "最近一週" });
     expect(missed.memos).toEqual([]);
   });
 });

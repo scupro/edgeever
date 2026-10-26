@@ -24,14 +24,14 @@ describe("EdgeEverLink", () => {
   }
 
   test("pasting the reported sentence links only the domain", () => {
-    const text = "我让他先去refero.design挑选参考样子，然后apple-design skill落地，品质线是获奖级——Awwwards / Webby / FWA 那个水准，交付前自我检查，不达标就反复打磨，不许一版交差。";
+    const text = "我讓他先去refero.design挑選參考樣子，然後apple-design skill落地，品質線是獲獎級——Awwwards / Webby / FWA 那個水準，交付前自我檢查，不達標就反覆打磨，不許一版交差。";
     expect(pastedLinks(text)).toEqual([
       { text: "refero.design", index: 5, href: "http://refero.design" },
     ]);
   });
 
   test.each([
-    ["先看参考refero.design", "refero.design"],
+    ["先看參考refero.design", "refero.design"],
     ["参考はrefero.design", "refero.design"],
     ["참고refero.design", "refero.design"],
     ["查看www.example.com/path?q=中文", "www.example.com/path?q=中文"],
@@ -45,7 +45,7 @@ describe("EdgeEverLink", () => {
   test.each([
     "https://example.com/中文",
     "https://中文example.com/path",
-    "例子.中国",
+    "例子.中國",
     "user@example.com",
     "中文user@example.com",
     "example.com/path?q=中文",
@@ -68,7 +68,7 @@ describe("EdgeEverLink", () => {
   });
 
   test("preserves explicit Markdown link labels", () => {
-    const text = "[我让他先去refero.design](https://example.com)";
+    const text = "[我讓他先去refero.design](https://example.com)";
     expect(pastedLinks(text, EdgeEverLink.configure({ markdownLinks: true }))).toEqual([
       { text, index: 0, href: "https://example.com" },
     ]);

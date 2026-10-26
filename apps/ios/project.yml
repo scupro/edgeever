@@ -88,7 +88,7 @@ targets:
         CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
         CFBundleLocalizations:
           - en
-          - zh-Hans
+          - zh-Hant
           - ja
           - pl
         UILaunchScreen: {}

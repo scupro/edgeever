@@ -67,12 +67,12 @@ export const noteProseCssDropsDeclarations = (css: string): boolean => {
 };
 
 /** Starter sheet. Each group sets light layout and color, then :root.dark overrides color only. */
-export const DEFAULT_NOTE_PROSE_CSS = `/* 同一份样式。
- * 浅色写间距和颜色，紧跟着的 :root.dark 只覆盖颜色。
- * 字号和行高由上面的档位决定，写在这里会被丢掉。
+export const DEFAULT_NOTE_PROSE_CSS = `/* 同一份樣式。
+ * 淺色寫間距和顏色，緊跟著的 :root.dark 只覆蓋顏色。
+ * 字號和行高由上面的檔位決定，寫在這裡會被丟掉。
  */
 
-/* 正文。text-indent 是首行缩进，margin-bottom 是段距。 */
+/* 正文。text-indent 是首行縮排，margin-bottom 是段距。 */
 p {
   color: #212121;
   text-indent: 0;
@@ -84,7 +84,7 @@ p {
   color: #dee3e0;
 }
 
-/* 一级标题 */
+/* 一級標題 */
 h1 {
   color: #1a1d21;
   letter-spacing: -0.02em;
@@ -92,7 +92,7 @@ h1 {
   margin-bottom: 0.85rem;
 }
 
-/* 二级标题 */
+/* 二級標題 */
 h2 {
   color: #27272a;
   letter-spacing: -0.015em;
@@ -100,7 +100,7 @@ h2 {
   margin-bottom: 0.6rem;
 }
 
-/* 三级标题 */
+/* 三級標題 */
 h3 {
   color: #27272a;
   letter-spacing: -0.01em;
@@ -108,7 +108,7 @@ h3 {
   margin-bottom: 0.5rem;
 }
 
-/* 四级标题 */
+/* 四級標題 */
 h4 {
   color: #1e293b;
   letter-spacing: -0.006em;
@@ -116,21 +116,21 @@ h4 {
   margin-bottom: 0.45rem;
 }
 
-/* 五级标题 */
+/* 五級標題 */
 h5 {
   color: #334155;
   margin-top: 0.95rem;
   margin-bottom: 0.4rem;
 }
 
-/* 六级标题 */
+/* 六級標題 */
 h6 {
   color: #334155;
   margin-top: 0.85rem;
   margin-bottom: 0.35rem;
 }
 
-/* 深色 · 标题 */
+/* 深色 · 標題 */
 :root.dark h1,
 :root.dark h2,
 :root.dark h3,
@@ -140,7 +140,7 @@ h6 {
   color: #dee3e0;
 }
 
-/* 链接 */
+/* 連結 */
 a {
   color: #334155;
   text-decoration: underline;
@@ -150,7 +150,7 @@ a {
   color: #dee3e0;
 }
 
-/* 粗体 */
+/* 粗體 */
 strong,
 b {
   color: #212121;
@@ -161,7 +161,7 @@ b {
   color: #dee3e0;
 }
 
-/* 斜体 */
+/* 斜體 */
 em,
 i {
   color: #212121;
@@ -172,7 +172,7 @@ i {
   color: #dee3e0;
 }
 
-/* 行内代码 */
+/* 行內程式碼 */
 code {
   color: #3d4450;
   background-color: #f3f5f7;
@@ -187,7 +187,7 @@ code {
   border-color: #3a403c;
 }
 
-/* 代码块 */
+/* 程式碼塊 */
 pre {
   color: #0f172a;
   background-color: #f8fafc;
@@ -197,7 +197,7 @@ pre {
   margin-bottom: 1rem;
 }
 
-/* 代码块内部不再套一层行内代码的底色 */
+/* 程式碼塊內部不再套一層行內程式碼的底色 */
 pre code {
   color: inherit;
   background-color: transparent;
@@ -225,7 +225,7 @@ blockquote {
   background-color: #2a2e2c;
 }
 
-/* 分隔线 */
+/* 分隔線 */
 hr {
   border-color: #e7ebe8;
 }

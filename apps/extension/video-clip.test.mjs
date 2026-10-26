@@ -32,21 +32,21 @@ import {
 const CURRENT_ID = "abcdefghijk";
 const PREVIOUS_ID = "zyxwvutsrqp";
 const LABELS = {
-  source: "来源",
-  platform: "平台",
+  source: "來源",
+  platform: "平臺",
   captions: "字幕",
-  capturedAt: "保存时间",
-  summary: "核心总结",
-  outline: "分段大纲",
-  takeaways: "要点",
-  transcript: "字幕实录",
+  capturedAt: "儲存時間",
+  summary: "核心總結",
+  outline: "分段大綱",
+  takeaways: "要點",
+  transcript: "字幕實錄",
   coverAlt: "封面",
   youtube: "YouTube",
-  bilibili: "哔哩哔哩",
-  captionsAuto: "平台自动字幕",
-  captionsCreator: "创作者字幕",
-  noCaptions: "这一集没有可用字幕",
-  fallbackTitle: "视频笔记",
+  bilibili: "嗶哩嗶哩",
+  captionsAuto: "平臺自動字幕",
+  captionsCreator: "創作者字幕",
+  noCaptions: "這一集沒有可用字幕",
+  fallbackTitle: "影片筆記",
 };
 
 const messages = (locale) => JSON.parse(readFileSync(
@@ -147,11 +147,11 @@ test("accepts Bilibili video pages and keeps only the video and part on the sour
 test("prefers a human caption in the interface language before ASR and other languages", () => {
   const tracks = playerResponse(CURRENT_ID).captions.playerCaptionsTracklistRenderer.captionTracks
     .map((track) => ({ ...track, human: track.kind !== "asr" }));
-  expect(pickYouTubeCaptionTrack(tracks, "zh-CN")?.baseUrl).toBe("https://example.invalid/zh");
+  expect(pickYouTubeCaptionTrack(tracks, "zh-TW")?.baseUrl).toBe("https://example.invalid/zh");
   const asrOnly = tracks.filter((track) => track.baseUrl !== "https://example.invalid/zh");
-  expect(pickYouTubeCaptionTrack(asrOnly, "zh-CN")?.baseUrl).toBe("https://example.invalid/zh-auto");
+  expect(pickYouTubeCaptionTrack(asrOnly, "zh-TW")?.baseUrl).toBe("https://example.invalid/zh-auto");
   const other = tracks.filter((track) => !track.languageCode.startsWith("zh"));
-  expect(pickYouTubeCaptionTrack(other, "zh-CN")?.baseUrl).toBe("https://example.invalid/ja");
+  expect(pickYouTubeCaptionTrack(other, "zh-TW")?.baseUrl).toBe("https://example.invalid/ja");
 });
 
 test("reads json3 and timedtext XML, drops newline-only events, and decodes entities", () => {
@@ -217,25 +217,25 @@ test("locks chapter times from the player payload and rejects live or upcoming p
 test("treats ai- language codes as platform captions and ignores is_machine", () => {
   const tracks = bilibiliSubtitleTracks({
     subtitles: [
-      { lan: "zh-CN", subtitle_url: "//example.invalid/human.json", is_machine: true },
+      { lan: "zh-TW", subtitle_url: "//example.invalid/human.json", is_machine: true },
       { lan: "ai-zh", subtitle_url: "https://example.invalid/auto.json", is_machine: false },
       { lan: "en", subtitle_url: "//example.invalid/en.json" },
     ],
   });
   expect(tracks.map((track) => [track.lan, track.human, track.subtitleUrl])).toEqual([
-    ["zh-CN", true, "https://example.invalid/human.json"],
+    ["zh-TW", true, "https://example.invalid/human.json"],
     ["ai-zh", false, "https://example.invalid/auto.json"],
     ["en", true, "https://example.invalid/en.json"],
   ]);
-  expect(pickBilibiliSubtitleTrack(tracks, "zh-CN")?.lan).toBe("zh-CN");
-  expect(pickBilibiliSubtitleTrack(tracks.filter((track) => track.lan !== "zh-CN"), "zh")?.lan).toBe("ai-zh");
+  expect(pickBilibiliSubtitleTrack(tracks, "zh-TW")?.lan).toBe("zh-TW");
+  expect(pickBilibiliSubtitleTrack(tracks.filter((track) => track.lan !== "zh-TW"), "zh")?.lan).toBe("ai-zh");
   expect(chaptersFromViewPoints([
-    { from: 0, content: "开场" },
+    { from: 0, content: "開場" },
     { from: 252.4, content: "PARA" },
     { from: 10 },
     { from: 12, content: "   " },
   ])).toEqual([
-    { start: 0, title: "开场" },
+    { start: 0, title: "開場" },
     { start: 252, title: "PARA" },
   ]);
 });
@@ -244,7 +244,7 @@ test("does not turn a bangumi redirect or a part-less page into a note", () => {
   const video = {
     bvid: "BV1xx411c7xx",
     aid: 1,
-    title: "番剧",
+    title: "番劇",
     redirect_url: "https://www.bilibili.com/bangumi/play/ep1",
     duration: 100,
     pages: [{ cid: 1, page: 1, part: "正片", duration: 100 }],
@@ -252,7 +252,7 @@ test("does not turn a bangumi redirect or a part-less page into a note", () => {
   expect(bilibiliCaptureFromRead("https://www.bilibili.com/video/BV1xx411c7xx", {
     video,
     viewPoints: [],
-    subtitleBody: JSON.stringify({ body: [{ from: 0, to: 1, content: "不会写入" }] }),
+    subtitleBody: JSON.stringify({ body: [{ from: 0, to: 1, content: "不會寫入" }] }),
   })).toEqual({ ok: false, reason: "unsupported" });
   expect(bilibiliCaptureFromRead("https://www.bilibili.com/video/BV1xx411c7xx?p=2", {
     video: { ...video, redirect_url: "", pages: [{ cid: 1, page: 1, part: "只有一 P", duration: 20 }] },
@@ -286,7 +286,7 @@ describe.serial("page main world", () => {
         }
         return new Response("", { status: 404 });
       };
-    }, () => readYouTubeVideoInPage("zh-CN"));
+    }, () => readYouTubeVideoInPage("zh-TW"));
     expect(read.ok).toBe(true);
     if (!read.ok) return;
     expect(read.playerResponse.videoDetails.videoId).toBe(CURRENT_ID);
@@ -346,7 +346,7 @@ describe.serial("page main world", () => {
           headers: { "content-type": "image/jpeg" },
         });
       };
-    }, () => readYouTubeVideoInPage("zh-CN"));
+    }, () => readYouTubeVideoInPage("zh-TW"));
     expect(read.ok).toBe(true);
     if (!read.ok) return;
     expect(read.thumbnail?.mimeType).toBe("image/jpeg");
@@ -371,7 +371,7 @@ describe.serial("page main world", () => {
       globalThis.window = {};
       globalThis.location = new URL(`https://www.youtube.com/shorts/${CURRENT_ID}`);
       globalThis.fetch = async () => new Response("", { status: 404 });
-    }, () => readInPage("zh-CN"));
+    }, () => readInPage("zh-TW"));
     expect(read.ok).toBe(true);
     if (!read.ok) return;
     expect(read.playerResponse.videoDetails.videoId).toBe(CURRENT_ID);
@@ -431,10 +431,10 @@ describe.serial("page main world", () => {
               subtitle: {
                 subtitles: [
                   { lan: "ai-zh", subtitle_url: "//example.invalid/auto.json", is_machine: false },
-                  { lan: "zh-CN", subtitle_url: "//example.invalid/human.json", is_machine: true },
+                  { lan: "zh-TW", subtitle_url: "//example.invalid/human.json", is_machine: true },
                 ],
               },
-              view_points: [{ from: 4, content: "这一 P 的章节" }],
+              view_points: [{ from: 4, content: "這一 P 的章節" }],
             },
           });
         }
@@ -445,7 +445,7 @@ describe.serial("page main world", () => {
         }
         return new Response("not an image", { status: 200, headers: { "content-type": "text/plain" } });
       };
-    }, () => readBilibiliVideoInPage("zh-CN"));
+    }, () => readBilibiliVideoInPage("zh-TW"));
     expect(calls.some((url) => new URL(url).pathname === "/x/player/v2")).toBe(false);
     const signed = calls.map((url) => new URL(url)).find((url) => url.pathname === "/x/player/wbi/v2");
     expect(signed?.searchParams.get("cid")).toBe("22");
@@ -457,7 +457,7 @@ describe.serial("page main world", () => {
     expect(calls).not.toContain("https://example.invalid/auto.json");
     expect(read.ok).toBe(true);
     if (!read.ok) return;
-    expect(read.trackLan).toBe("zh-CN");
+    expect(read.trackLan).toBe("zh-TW");
     const captured = bilibiliCaptureFromRead("https://www.bilibili.com/video/BV1xx411c7xx?p=2&t=15", read);
     expect(captured.ok).toBe(true);
     if (!captured.ok) return;
@@ -465,7 +465,7 @@ describe.serial("page main world", () => {
     expect(captured.capture.partTitle).toBe("第二段");
     expect(captured.capture.sourceUrl).toBe("https://www.bilibili.com/video/BV1xx411c7xx?p=2");
     expect(captured.capture.subtitleOrigin).toBe("creator");
-    expect(captured.capture.chapters).toEqual([{ start: 4, title: "这一 P 的章节" }]);
+    expect(captured.capture.chapters).toEqual([{ start: 4, title: "這一 P 的章節" }]);
     expect(captured.capture.cues).toEqual([{ start: 4, end: 6, text: "人工字幕&正文" }]);
     expect(captured.capture.thumbnail).toBeUndefined();
     expect(JSON.stringify(captured.capture)).not.toContain("hdslb.com");
@@ -477,25 +477,25 @@ test("assembles the Chinese note from chapters and keeps the transcript outside 
     platform: "bilibili",
     videoId: "BV1xx411c7xx",
     partIndex: 1,
-    partTitle: "知识库的核心逻辑",
-    title: "打造第二大脑：从零构建个人知识库系统",
-    author: "影视飓风",
+    partTitle: "知識庫的核心邏輯",
+    title: "打造第二大腦：從零構建個人知識庫系統",
+    author: "影視颶風",
     duration: 1455,
     sourceUrl: "https://www.bilibili.com/video/BV1xx411c7xx?p=1",
     subtitleOrigin: "platform_auto",
     chapters: [
-      { start: 0, title: "为什么只靠文件夹分类会失效" },
-      { start: 252, title: "PARA 与渐进式总结如何叠在一起" },
+      { start: 0, title: "為什麼只靠資料夾分類會失效" },
+      { start: 252, title: "PARA 與漸進式總結如何疊在一起" },
     ],
     cues: [
-      { start: 0, end: 4, text: "大家好，今天我们来聊知识管理。" },
-      { start: 25, end: 29, text: "很多人收藏之后就没有再打开。" },
+      { start: 0, end: 4, text: "大家好，今天我們來聊知識管理。" },
+      { start: 25, end: 29, text: "很多人收藏之後就沒有再開啟。" },
     ],
   };
   const outline = {
-    tldr: "视频说明知识管理为什么要形成输入、整理和输出的闭环。",
-    sections: [{ start: 0, text: "模型不该重写大纲" }],
-    takeaways: ["未经整理的收藏，之后很难再被用到。"],
+    tldr: "影片說明知識管理為什麼要形成輸入、整理和輸出的閉環。",
+    sections: [{ start: 0, text: "模型不該重寫大綱" }],
+    takeaways: ["未經整理的收藏，之後很難再被用到。"],
   };
   const note = buildVideoNote({
     capture,
@@ -505,41 +505,41 @@ test("assembles the Chinese note from chapters and keeps the transcript outside 
     capturedOn: "2026-10-05",
     cover: "placeholder",
   });
-  expect(note.markdown).toBe(`# 打造第二大脑：从零构建个人知识库系统
+  expect(note.markdown).toBe(`# 打造第二大腦：從零構建個人知識庫系統
 
-> **来源**：[影视飓风 - 打造第二大脑：从零构建个人知识库系统](https://www.bilibili.com/video/BV1xx411c7xx?p=1)
-> **平台**：哔哩哔哩 · P1 知识库的核心逻辑 · 24:15
-> **字幕**：平台自动字幕 · **保存时间**：2026-10-05
+> **來源**：[影視颶風 - 打造第二大腦：從零構建個人知識庫系統](https://www.bilibili.com/video/BV1xx411c7xx?p=1)
+> **平臺**：嗶哩嗶哩 · P1 知識庫的核心邏輯 · 24:15
+> **字幕**：平臺自動字幕 · **儲存時間**：2026-10-05
 
 ![封面](/api/v1/resources/EDGEVERRESOURCEID/blob)
 
-## 核心总结
+## 核心總結
 
-视频说明知识管理为什么要形成输入、整理和输出的闭环。
+影片說明知識管理為什麼要形成輸入、整理和輸出的閉環。
 
-## 分段大纲
+## 分段大綱
 
-- [00:00](https://www.bilibili.com/video/BV1xx411c7xx?p=1&t=0) 为什么只靠文件夹分类会失效
-- [04:12](https://www.bilibili.com/video/BV1xx411c7xx?p=1&t=252) PARA 与渐进式总结如何叠在一起
+- [00:00](https://www.bilibili.com/video/BV1xx411c7xx?p=1&t=0) 為什麼只靠資料夾分類會失效
+- [04:12](https://www.bilibili.com/video/BV1xx411c7xx?p=1&t=252) PARA 與漸進式總結如何疊在一起
 
-## 要点
+## 要點
 
-- 未经整理的收藏，之后很难再被用到。
+- 未經整理的收藏，之後很難再被用到。
 
 <details>
-<summary>字幕实录</summary>
+<summary>字幕實錄</summary>
 
-- [00:00](https://www.bilibili.com/video/BV1xx411c7xx?p=1&t=0) 大家好，今天我们来聊知识管理。
-- [00:25](https://www.bilibili.com/video/BV1xx411c7xx?p=1&t=25) 很多人收藏之后就没有再打开。
+- [00:00](https://www.bilibili.com/video/BV1xx411c7xx?p=1&t=0) 大家好，今天我們來聊知識管理。
+- [00:25](https://www.bilibili.com/video/BV1xx411c7xx?p=1&t=25) 很多人收藏之後就沒有再開啟。
 
 </details>
 `);
-  expect(note.markdown).not.toContain("模型不该重写大纲");
+  expect(note.markdown).not.toContain("模型不該重寫大綱");
   expect(note.markdown).not.toContain("hdslb.com");
   expect(note.markdown).not.toContain("ytimg.com");
   const body = videoOutlineRequestBody(capture);
   expect(body.hasChapters).toBe(true);
-  expect(body.blocks).toEqual([{ start: 0, text: "大家好，今天我们来聊知识管理。 很多人收藏之后就没有再打开。" }]);
+  expect(body.blocks).toEqual([{ start: 0, text: "大家好，今天我們來聊知識管理。 很多人收藏之後就沒有再開啟。" }]);
   expect(JSON.stringify(body)).not.toContain("<details>");
   expect(JSON.stringify(body)).not.toContain("## ");
   expect(JSON.stringify(body)).not.toContain("tStartMs");
@@ -601,8 +601,8 @@ test("still writes the transcript when the outline is refused, unconfigured, inv
     });
     expect(note.markdown).toContain("<details>");
     expect(note.markdown).toContain("Hello&amp; there");
-    expect(note.markdown).not.toContain("## 核心总结");
-    expect(note.markdown).not.toContain("## 分段大纲");
+    expect(note.markdown).not.toContain("## 核心總結");
+    expect(note.markdown).not.toContain("## 分段大綱");
   }
   const scope = videoNoteFromCapture({
     capture: { ...capture, cues: [{ start: 0, end: 2, text: "Hello& there" }] },
@@ -620,7 +620,7 @@ test("still writes the transcript when the outline is refused, unconfigured, inv
     cover: "none",
   });
   expect(bare.toast).toBe("info");
-  expect(bare.markdown).toContain("这一集没有可用字幕");
+  expect(bare.markdown).toContain("這一集沒有可用字幕");
   expect(bare.markdown).not.toContain("<details>");
 });
 
@@ -685,7 +685,7 @@ test("saves a video without captions as a source note without queuing transcript
   });
   expect(uploaded[0].videoTranscript).toBeUndefined();
   expect(memos[0].videoTranscript).toBeUndefined();
-  expect(memos[0].contentMarkdown).toContain("这一集没有可用字幕");
+  expect(memos[0].contentMarkdown).toContain("這一集沒有可用字幕");
   expect(memos[0].contentMarkdown).toContain(`https://www.youtube.com/watch?v=${CURRENT_ID}`);
   expect(memos[0].contentMarkdown).not.toContain("edgeever-video-v1");
 });
@@ -729,17 +729,17 @@ test("keeps the video menu hosts away from the other page commands", () => {
 });
 
 test("ships the video-note phrases in the extension locales", () => {
-  const zh = messages("zh_CN");
-  expect(zh.saveVideoNoteToEdgeEver.message).toBe("保存视频笔记到 EdgeEver");
-  expect(zh.videoNoteSaved.message).toBe("已保存视频笔记");
-  expect(zh.videoTranscriptSaved.message).toBe("已保存字幕，总结未生成");
-  expect(zh.videoTranscriptNeedScope.message).toBe("已保存字幕，总结未生成。请在设置中为 Token 加上 ai:generate，并配置默认模型。");
-  expect(zh.videoTranscriptNeedModel.message).toBe("已保存字幕，总结未生成。请先配置默认模型。");
-  expect(zh.videoTranscriptTooLong.message).toBe("已保存字幕。这篇太长，没有生成总结。");
-  expect(zh.videoInfoSaved.message).toBe("已保存视频信息");
-  expect(zh.videoPageUnsupported.message).toBe("暂不支持这个页面");
-  expect(zh.videoNotRead.message).toBe("没有读到这个视频");
-  expect(zh.videoNoCaptions.message).toBe("这一集没有可用字幕");
+  const zh = messages("zh_TW");
+  expect(zh.saveVideoNoteToEdgeEver.message).toBe("儲存影片筆記到 EdgeEver");
+  expect(zh.videoNoteSaved.message).toBe("已儲存影片筆記");
+  expect(zh.videoTranscriptSaved.message).toBe("已儲存字幕，總結未生成");
+  expect(zh.videoTranscriptNeedScope.message).toBe("已儲存字幕，總結未生成。請在設定中為 Token 加上 ai:generate，並配置預設模型。");
+  expect(zh.videoTranscriptNeedModel.message).toBe("已儲存字幕，總結未生成。請先配置預設模型。");
+  expect(zh.videoTranscriptTooLong.message).toBe("已儲存字幕。這篇太長，沒有生成總結。");
+  expect(zh.videoInfoSaved.message).toBe("已儲存影片資訊");
+  expect(zh.videoPageUnsupported.message).toBe("暫不支援這個頁面");
+  expect(zh.videoNotRead.message).toBe("沒有讀到這個影片");
+  expect(zh.videoNoCaptions.message).toBe("這一集沒有可用字幕");
   const pl = messages("pl");
   expect(pl.saveVideoNoteToEdgeEver.message).toBe("Zapisz notatkę z wideo w EdgeEver");
   expect(pl.videoSummaryHeading.message).toBe("Podsumowanie");

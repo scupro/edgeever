@@ -26,21 +26,21 @@ describe("AI tag response parsing", () => {
   });
 
   test("accepts the reasoning-model-safe tag block", () => {
-    expect(parseAiTagSuggestionNames(`Analysis omitted.\n<edgeever-tags>\n历史人物\n轻小说\n跨界创作\n</edgeever-tags>`))
-      .toEqual(["历史人物", "轻小说", "跨界创作"]);
+    expect(parseAiTagSuggestionNames(`Analysis omitted.\n<edgeever-tags>\n歷史人物\n輕小說\n跨界創作\n</edgeever-tags>`))
+      .toEqual(["歷史人物", "輕小說", "跨界創作"]);
   });
 
   test("accepts plain tag lines from compatible models but drops explanatory prose", () => {
-    expect(parseAiTagSuggestionNames("以下是建议标签：\n历史人物\n日本轻小说"))
-      .toEqual(["历史人物", "日本轻小说"]);
-    expect(parseAiTagSuggestionNames("日本轻小说")).toEqual(["日本轻小说"]);
+    expect(parseAiTagSuggestionNames("以下是建議標籤：\n歷史人物\n日本輕小說"))
+      .toEqual(["歷史人物", "日本輕小說"]);
+    expect(parseAiTagSuggestionNames("日本輕小說")).toEqual(["日本輕小說"]);
   });
 
   test("accepts concise delimited tags from models that ignore the requested block", () => {
-    expect(parseAiTagSuggestionNames("标签：军人婚姻、少数民族加分、政策公平"))
-      .toEqual(["军人婚姻", "少数民族加分", "政策公平"]);
+    expect(parseAiTagSuggestionNames("標籤：軍人婚姻、少數民族加分、政策公平"))
+      .toEqual(["軍人婚姻", "少數民族加分", "政策公平"]);
     expect(parseAiTagSuggestionNames("React, AI")).toEqual(["React", "AI"]);
-    expect(parseAiTagSuggestionNames("没有合适的标签。 ")).toEqual([]);
+    expect(parseAiTagSuggestionNames("沒有合適的標籤。 ")).toEqual([]);
   });
 
   test("scans past reasoning braces to find a later suggestions object", () => {

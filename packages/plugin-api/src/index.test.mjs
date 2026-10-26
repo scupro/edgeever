@@ -31,7 +31,7 @@ describe("extension manifests", () => {
       settingsUi: "host",
       description: "English description",
       locales: {
-        zh_CN: { name: "本地化插件", description: " 中文说明 " },
+        zh_TW: { name: "本地化外掛", description: " 中文說明 " },
         ja: { description: "日本語の説明", html: "<script>" },
       },
       entry: "./main.js",
@@ -39,7 +39,7 @@ describe("extension manifests", () => {
     });
 
     expect(manifest.locales).toEqual({
-      "zh-CN": { name: "本地化插件", description: "中文说明" },
+      "zh-TW": { name: "本地化外掛", description: "中文說明" },
       ja: { description: "日本語の説明" },
     });
   });
@@ -56,7 +56,7 @@ describe("extension manifests", () => {
       permissions: [],
     };
     expect(() => parseExtensionManifest({ ...base, locales: { invalid_locale_tag: { description: "Bad" } } })).toThrow("BCP 47");
-    expect(() => parseExtensionManifest({ ...base, locales: { "zh-CN": {} } })).toThrow("name or description");
+    expect(() => parseExtensionManifest({ ...base, locales: { "zh-TW": {} } })).toThrow("name or description");
   });
 
   test("rejects unsupported capability metadata", () => {
@@ -164,7 +164,7 @@ describe("extension manifests", () => {
             key: "endpoint",
             type: "text",
             label: "Endpoint",
-            locales: { "zh-CN": { label: "服务地址", description: "连接地址", placeholder: "请输入地址" } },
+            locales: { "zh-TW": { label: "服務地址", description: "連線地址", placeholder: "請輸入地址" } },
             default: "https://example.com",
             className: "plugin-owned-layout",
             style: { color: "red" },
@@ -197,7 +197,7 @@ describe("extension manifests", () => {
     expect(manifest.type).toBe("plugin");
     expect(manifest.settings?.fields).toHaveLength(6);
     expect(manifest.settings?.fields[0]).toMatchObject({ key: "endpoint", default: "https://example.com" });
-    expect(manifest.settings?.fields[0].locales?.["zh-CN"]).toEqual({ label: "服务地址", description: "连接地址", placeholder: "请输入地址" });
+    expect(manifest.settings?.fields[0].locales?.["zh-TW"]).toEqual({ label: "服務地址", description: "連線地址", placeholder: "請輸入地址" });
     expect(manifest.settings?.fields[4].locales?.ja?.options).toEqual({ md: "マークダウン" });
     expect(manifest.settings?.fields[0]).not.toHaveProperty("className");
     expect(manifest.settings?.fields[0]).not.toHaveProperty("style");
@@ -253,7 +253,7 @@ describe("marketplace registry", () => {
         id: "org.edgeever.example",
         name: "Example",
         description: "Example plugin",
-        locales: { "zh-CN": { description: "示例插件" } },
+        locales: { "zh-TW": { description: "示例外掛" } },
         author: "EdgeEver",
         publisher: "edgeever",
         category: "Productivity",
@@ -264,7 +264,7 @@ describe("marketplace registry", () => {
     }).entries[0]).toMatchObject({
       id: "org.edgeever.example",
       publisher: "edgeever",
-      locales: { "zh-CN": { description: "示例插件" } },
+      locales: { "zh-TW": { description: "示例外掛" } },
       verification: { version: "1.0.0" },
     });
   });
@@ -321,7 +321,7 @@ describe("marketplace registry", () => {
         listing: "community",
         publisher: undefined,
       }],
-      revocations: [{ id: "com.example.old", reason: "仓库已转为私有", revokedAt: "2026-10-05T00:00:00.000Z" }],
+      revocations: [{ id: "com.example.old", reason: "倉庫已轉為私有", revokedAt: "2026-10-05T00:00:00.000Z" }],
     });
 
     expect(registry.entries[0]).toMatchObject({
@@ -333,7 +333,7 @@ describe("marketplace registry", () => {
     expect(registry.entries[0]).not.toHaveProperty("listing");
     expect(registry.entries[0]).not.toHaveProperty("publisher");
     expect(registry.revocations).toEqual([
-      { id: "com.example.old", reason: "仓库已转为私有", revokedAt: "2026-10-05T00:00:00.000Z" },
+      { id: "com.example.old", reason: "倉庫已轉為私有", revokedAt: "2026-10-05T00:00:00.000Z" },
     ]);
   });
 });
@@ -399,7 +399,7 @@ describe("community marketplace merge", () => {
       registryVersion: "1",
       updatedAt: "2026-10-05T00:00:00.000Z",
       entries: [communityEntry],
-      revocations: [{ id: "com.example.readwise", reason: "仓库已转为私有", revokedAt: "2026-10-05T00:00:00.000Z" }],
+      revocations: [{ id: "com.example.readwise", reason: "倉庫已轉為私有", revokedAt: "2026-10-05T00:00:00.000Z" }],
     });
     const remembered = rememberMarketplaceRevocations([], community.revocations);
     const merged = mergeCommunityMarketplace(bundled, community, new Set(remembered.map((item) => item.id)));

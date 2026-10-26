@@ -4,7 +4,7 @@ export const WINDOWS_SHARE_MENU_KEY = "HKCU\\Software\\Classes\\*\\shell\\EdgeEv
 
 export const windowsShareMenuLabel = (locale) => {
   const value = String(locale || "").toLowerCase();
-  if (value.startsWith("zh")) return "发送到 EdgeEver";
+  if (value.startsWith("zh")) return "傳送到 EdgeEver";
   if (value.startsWith("ja")) return "EdgeEver に送る";
   return "Send to EdgeEver";
 };

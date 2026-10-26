@@ -35,7 +35,7 @@ const memo = (db: Database) => db.query("SELECT * FROM memos WHERE id = 'memo_we
 const changes = (db: Database) => db.query("SELECT * FROM mobile_sync_changes ORDER BY id").all();
 const assertRepaired = (db: Database) => {
   const row = content(db);
-  expect(row.content_markdown).toBe(buildWelcomeMemoContent("zh-CN").contentMarkdown);
+  expect(row.content_markdown).toBe(buildWelcomeMemoContent("zh-TW").contentMarkdown);
   expect(row.content_markdown).not.toContain("\\n");
   expect(row.content_markdown.split("\n\n")).toHaveLength(3);
   expect(row.content_hash).toBe(createHash("sha256").update(row.content_markdown + row.content_json).digest("hex"));
@@ -121,7 +121,7 @@ describe("welcome Markdown repair", () => {
   test("preserves other notes containing the exact same content", () => {
     const db = legacy();
     db.exec(`INSERT INTO memos (id, notebook_id, title, created_by, updated_by)
-      VALUES ('memo_user', 'nb_inbox', '欢迎来到 EdgeEver', 'system', 'system');
+      VALUES ('memo_user', 'nb_inbox', '歡迎來到 EdgeEver', 'system', 'system');
       INSERT INTO memo_contents (memo_id, content_json, content_markdown, content_text, content_hash)
       SELECT 'memo_user', content_json, content_markdown, content_text, content_hash
       FROM memo_contents WHERE memo_id = 'memo_welcome'`);

@@ -5,11 +5,11 @@ import WebKit
 enum NoteImageFontPickerOptions {
     static func choices(_ preferences: PreferencesStore) -> [(id: String, label: String)] {
         [
-            ("auto", preferences.t("跟随主题", en: "Follow Theme", pl: "Zgodnie z motywem") + " (" + themeLabel(preferences) + ")"),
-            ("kai", preferences.t("文楷手书", en: "Handwritten Kai", pl: "Pismo odręczne Kai")),
-            ("serif", preferences.t("文艺衬线", en: "Serif", pl: "Szeryfowa")),
-            ("sans", preferences.t("现代无衬线", en: "Sans", pl: "Bezszeryfowa")),
-            ("mono", preferences.t("极客等宽", en: "Mono", pl: "Monospace")),
+            ("auto", preferences.t("跟隨主題", en: "Follow Theme", pl: "Zgodnie z motywem") + " (" + themeLabel(preferences) + ")"),
+            ("kai", preferences.t("文楷手書", en: "Handwritten Kai", pl: "Pismo odręczne Kai")),
+            ("serif", preferences.t("文藝襯線", en: "Serif", pl: "Szeryfowa")),
+            ("sans", preferences.t("現代無襯線", en: "Sans", pl: "Bezszeryfowa")),
+            ("mono", preferences.t("極客等寬", en: "Mono", pl: "Monospace")),
         ] + NoteImageFontCatalog.choices.map { ($0.id, preferences.t($0.zh, en: $0.en, pl: $0.en)) }
     }
 
@@ -50,9 +50,9 @@ struct NoteImageFontPickerView: View {
                 if loading { ProgressView() }
                 if failed {
                     ContentUnavailableView {
-                        Label(env.preferences.t("加载失败", en: "Failed to load", pl: "Nie udało się wczytać"), systemImage: "exclamationmark.triangle")
+                        Label(env.preferences.t("載入失敗", en: "Failed to load", pl: "Nie udało się wczytać"), systemImage: "exclamationmark.triangle")
                     } actions: {
-                        Button(env.preferences.t("重试", en: "Retry", pl: "Spróbuj ponownie")) {
+                        Button(env.preferences.t("重試", en: "Retry", pl: "Spróbuj ponownie")) {
                             failed = false
                             loading = true
                             attempt += 1
@@ -60,10 +60,10 @@ struct NoteImageFontPickerView: View {
                     }
                 }
             } else {
-                ContentUnavailableView(env.preferences.t("加载失败", en: "Failed to load", pl: "Nie udało się wczytać"), systemImage: "exclamationmark.triangle")
+                ContentUnavailableView(env.preferences.t("載入失敗", en: "Failed to load", pl: "Nie udało się wczytać"), systemImage: "exclamationmark.triangle")
             }
         }
-        .navigationTitle(env.preferences.t("字体风格", en: "Typography", pl: "Typografia"))
+        .navigationTitle(env.preferences.t("字型風格", en: "Typography", pl: "Typografia"))
         .navigationBarTitleDisplayMode(.inline)
     }
 
@@ -73,11 +73,11 @@ struct NoteImageFontPickerView: View {
             "selected": preferences.noteImageShare.fontStyle,
             "theme": preferences.noteImageShare.theme,
             "dark": colorScheme == .dark,
-            "title": preferences.t("字体风格", en: "Typography", pl: "Typografia"),
-            "sample": preferences.t("记录此刻的灵感", en: "Capture a little inspiration", ja: "今この瞬間のひらめきを記録", pl: "Zapisz chwilę inspiracji"),
+            "title": preferences.t("字型風格", en: "Typography", pl: "Typografia"),
+            "sample": preferences.t("記錄此刻的靈感", en: "Capture a little inspiration", ja: "今この瞬間のひらめきを記録", pl: "Zapisz chwilę inspiracji"),
             "latinSample": "Capture a little inspiration",
-            "loading": preferences.t("正在加载示例…", en: "Loading preview…", ja: "プレビューを読み込み中…", pl: "Ładowanie podglądu…"),
-            "unavailable": preferences.t("示例暂不可用，仍可选择", en: "Preview unavailable; you can still select this font", ja: "プレビューを表示できませんが、選択できます", pl: "Podgląd niedostępny; nadal możesz wybrać tę czcionkę"),
+            "loading": preferences.t("正在載入示例…", en: "Loading preview…", ja: "プレビューを読み込み中…", pl: "Ładowanie podglądu…"),
+            "unavailable": preferences.t("示例暫不可用，仍可選擇", en: "Preview unavailable; you can still select this font", ja: "プレビューを表示できませんが、選択できます", pl: "Podgląd niedostępny; nadal możesz wybrać tę czcionkę"),
             "options": NoteImageFontPickerOptions.choices(preferences).map { ["id": $0.id, "label": $0.label] },
         ]
     }

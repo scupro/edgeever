@@ -30,12 +30,12 @@ enum CreateSaveStatus: Equatable, Sendable {
 
     var labelZH: String {
         switch self {
-        case .starting: return "正在启动"
-        case .saved: return "已保存"
-        case .saving: return "保存中"
-        case .creating: return "正在创建"
-        case .uploading: return "正在上传"
-        case .error: return "保存失败"
+        case .starting: return "正在啟動"
+        case .saved: return "已儲存"
+        case .saving: return "儲存中"
+        case .creating: return "正在建立"
+        case .uploading: return "正在上傳"
+        case .error: return "儲存失敗"
         }
     }
 
@@ -117,9 +117,9 @@ enum DetailSyncStatus: Equatable, Sendable {
         switch self {
         case .synced: return "已同步"
         case .pending: return "待同步"
-        case .syncing: return "保存中"
-        case .conflict: return "同步冲突"
-        case .error: return "同步失败"
+        case .syncing: return "儲存中"
+        case .conflict: return "同步衝突"
+        case .error: return "同步失敗"
         }
     }
 

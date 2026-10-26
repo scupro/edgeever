@@ -38,18 +38,18 @@ const formatExecutionEnvironment = (environment: string | null | undefined, loca
 
   switch (environment) {
     case "standalone":
-      return english ? "Standalone app" : "独立安装包";
+      return english ? "Standalone app" : "獨立安裝包";
     case "storeClient":
-      return english ? "Expo Go / development client" : "Expo Go / 开发客户端";
+      return english ? "Expo Go / development client" : "Expo Go / 開發客戶端";
     case "bare":
-      return english ? "Native app" : "原生应用";
+      return english ? "Native app" : "原生應用";
     default:
       return environment || getMobileSystemInfoText(localePreference).unknown;
   }
 };
 const MOBILE_LOCALE_OPTIONS: Array<{ label: string; value: MobileLocalePreference }> = [
-  { label: "跟随系统", value: "system" },
-  { label: "简体中文", value: "zh-CN" },
+  { label: "跟隨系統", value: "system" },
+  { label: "繁體中文", value: "zh-TW" },
   { label: "English", value: "en-US" },
   { label: "日本語", value: "ja" },
   { label: "Polski", value: "pl" },
@@ -140,8 +140,8 @@ export const SettingsView = ({
     refetchInterval: activeTab === "system" ? 10_000 : false,
   });
   const tabs: Array<{ key: SettingsTab; label: string; icon: ReactNode }> = [
-    { key: "general", label: "常规设置", icon: <SlidersHorizontal color="#059669" size={17} /> },
-    { key: "account", label: "登录设置", icon: <ShieldCheck color="#059669" size={17} /> },
+    { key: "general", label: "常規設定", icon: <SlidersHorizontal color="#059669" size={17} /> },
+    { key: "account", label: "登入設定", icon: <ShieldCheck color="#059669" size={17} /> },
   ];
   const systemInfoCopy = getMobileSystemInfoText(localePreference);
   const systemInfoDescription = hasUpdate ? systemInfoCopy.updateAvailableDescription : systemInfoCopy.description;
@@ -149,7 +149,7 @@ export const SettingsView = ({
     ? { label: systemInfoCopy.title, icon: <Info color="#059669" size={17} /> }
     : tabs.find((tab) => tab.key === activeTab);
   const title = activeTabItem?.label ?? "我的";
-  const activeLocaleLabel = MOBILE_LOCALE_OPTIONS.find((option) => option.value === localePreference)?.label ?? "跟随系统";
+  const activeLocaleLabel = MOBILE_LOCALE_OPTIONS.find((option) => option.value === localePreference)?.label ?? "跟隨系統";
   const openLocalePicker = () => {
     localeSelectRef.current?.measureInWindow((left, top, width, height) => {
       setLocalePickerAnchor({ left, top: top + height + 4, width });
@@ -203,14 +203,14 @@ export const SettingsView = ({
     if (activeTab === "general") {
       return (
         <View style={styles.settingsDetailList}>
-          <SettingsGroup title="偏好设置" icon={<ImageIcon color="#047857" size={16} />}>
+          <SettingsGroup title="偏好設定" icon={<ImageIcon color="#047857" size={16} />}>
             <View style={styles.settingsContentRow}>
               <View style={styles.preferenceStack}>
                 <View style={styles.preferenceText}>
-                  <Text style={styles.settingsRowTitle}>界面语言</Text>
-                  <Text style={styles.settingsRowDescription}>切换产品界面的显示语言。</Text>
+                  <Text style={styles.settingsRowTitle}>介面語言</Text>
+                  <Text style={styles.settingsRowDescription}>切換產品介面的顯示語言。</Text>
                 </View>
-                <Pressable accessibilityLabel="界面语言" accessibilityRole="button" onPress={openLocalePicker} ref={localeSelectRef} style={styles.settingsSelect}>
+                <Pressable accessibilityLabel="介面語言" accessibilityRole="button" onPress={openLocalePicker} ref={localeSelectRef} style={styles.settingsSelect}>
                   <Text style={styles.settingsSelectText}>{activeLocaleLabel}</Text>
                   <ChevronDown color="#64748b" size={18} />
                 </Pressable>
@@ -219,22 +219,22 @@ export const SettingsView = ({
             <View style={styles.settingsContentRow}>
               <View style={styles.preferenceStack}>
                 <View style={styles.preferenceText}>
-                  <Text style={styles.settingsRowTitle}>压缩笔记内图片</Text>
-                  <Text style={styles.settingsRowDescription}>上传大图时在本地压缩，节省资源占用。</Text>
+                  <Text style={styles.settingsRowTitle}>壓縮筆記內圖片</Text>
+                  <Text style={styles.settingsRowDescription}>上傳大圖時在本機壓縮，節省資源佔用。</Text>
                 </View>
                 <View style={styles.settingsSwitchStart}>
-                  <Switch accessibilityLabel={translate("是否压缩笔记内图片")} onValueChange={onImageCompressionChange} value={imageCompressionEnabled} />
+                  <Switch accessibilityLabel={translate("是否壓縮筆記內圖片")} onValueChange={onImageCompressionChange} value={imageCompressionEnabled} />
                 </View>
               </View>
             </View>
             <View style={styles.settingsContentRow}>
               <View style={styles.preferenceStack}>
                 <View style={styles.preferenceText}>
-                  <Text style={styles.settingsRowTitle}>父笔记本中显示子笔记本笔记</Text>
-                  {showDescendantNotesSaveFailed ? <Text accessibilityRole="alert" style={styles.errorText}>无法保存“父笔记本中显示子笔记本笔记”设置，请稍后重试</Text> : null}
+                  <Text style={styles.settingsRowTitle}>父筆記本中顯示子筆記本筆記</Text>
+                  {showDescendantNotesSaveFailed ? <Text accessibilityRole="alert" style={styles.errorText}>無法儲存“父筆記本中顯示子筆記本筆記”設定，請稍後重試</Text> : null}
                 </View>
                 <View style={styles.settingsSwitchStart}>
-                  <Switch accessibilityLabel={translate("是否在父笔记本中显示子笔记本中的笔记")} onValueChange={onShowDescendantNotesChange} value={showDescendantNotes} />
+                  <Switch accessibilityLabel={translate("是否在父筆記本中顯示子筆記本中的筆記")} onValueChange={onShowDescendantNotesChange} value={showDescendantNotes} />
                 </View>
               </View>
             </View>
@@ -249,10 +249,10 @@ export const SettingsView = ({
             <UserRound color="#047857" size={19} />
           </View>
       <View style={styles.accountSummaryContent}>
-            <Text style={styles.accountSummaryTitle}>{translate("当前账户")}</Text>
+            <Text style={styles.accountSummaryTitle}>{translate("當前賬戶")}</Text>
             <Text style={styles.accountSummaryName}>{currentUser?.displayName || currentUser?.username || "—"}</Text>
         <Text style={styles.accountSummaryHelp}>
-              @{currentUser?.username ?? "—"} · {currentUser?.role === "owner" ? translate("实例管理员") : translate("成员")}
+              @{currentUser?.username ?? "—"} · {currentUser?.role === "owner" ? translate("實例管理員") : translate("成員")}
             </Text>
           </View>
         </View>
@@ -262,7 +262,7 @@ export const SettingsView = ({
         <View style={styles.settingsLogoutCard}>
           <Pressable onPress={onSignOut} style={styles.settingsLogoutButton}>
             <LogOut color="#ffffff" size={17} />
-            <Text style={styles.settingsLogoutText}>退出登录</Text>
+            <Text style={styles.settingsLogoutText}>退出登入</Text>
           </Pressable>
         </View>
       </View>
@@ -280,13 +280,13 @@ export const SettingsView = ({
           <Text numberOfLines={1} style={styles.settingsTitle}>{title}</Text>
         </View>
         <Pressable
-          accessibilityLabel={resolvedTheme === "dark" ? "切换到浅色模式" : "切换到深色模式"}
+          accessibilityLabel={resolvedTheme === "dark" ? "切換到淺色模式" : "切換到深色模式"}
           accessibilityRole="button"
           onPress={toggleTheme}
           style={styles.settingsThemeButton}
         >
           {resolvedTheme === "dark" ? <Sun color="#64748b" size={19} /> : <Moon color="#64748b" size={19} />}
-          <Text numberOfLines={1} style={styles.settingsThemeText}>{resolvedTheme === "dark" ? "切换到浅色模式" : "切换到深色模式"}</Text>
+          <Text numberOfLines={1} style={styles.settingsThemeText}>{resolvedTheme === "dark" ? "切換到淺色模式" : "切換到深色模式"}</Text>
         </Pressable>
       </View>
       <ScrollView contentContainerStyle={styles.settingsScrollContent} style={styles.viewBody}>
@@ -329,8 +329,8 @@ export const SettingsView = ({
                 <View style={styles.settingsMenuLabel}>
                   <View style={[styles.settingsMenuIcon, styles.settingsFeedbackIcon]}><MessageSquare color="#64748b" size={17} /></View>
                   <View style={styles.settingsFeedbackCopy}>
-                    <Text style={styles.settingsMenuText}>意见反馈</Text>
-                    <Text style={styles.settingsFeedbackDescription}>报告问题或提出功能建议</Text>
+                    <Text style={styles.settingsMenuText}>意見反饋</Text>
+                    <Text style={styles.settingsFeedbackDescription}>報告問題或提出功能建議</Text>
                   </View>
                 </View>
                 <ExternalLink color="#94a3b8" size={17} />
@@ -418,16 +418,16 @@ const SystemInfoCard = ({
   const checking = status === "checking";
   const downloading = status === "downloading";
   const checkLabel = checking
-    ? (english ? "Checking…" : "正在检查…")
-    : (english ? "Check for updates" : "检查更新");
+    ? (english ? "Checking…" : "正在檢查…")
+    : (english ? "Check for updates" : "檢查更新");
   const openUpdateLabel = downloading
-    ? (english ? "Downloading…" : "正在下载…")
+    ? (english ? "Downloading…" : "正在下載…")
     : status === "ready"
-      ? (english ? "Restart to apply" : "重启以应用")
+      ? (english ? "Restart to apply" : "重啟以應用")
       : updateKind === "ota"
-        ? (english ? "Download update" : "下载更新")
+        ? (english ? "Download update" : "下載更新")
         : updateKind === "play"
-          ? (english ? "Update with Google Play" : "通过 Google Play 更新")
+          ? (english ? "Update with Google Play" : "透過 Google Play 更新")
         : copy.openUpdate;
 
   const copySystemInfo = async () => {
@@ -453,7 +453,7 @@ const SystemInfoCard = ({
       </Pressable>
       {expanded ? (
         <View style={styles.settingsAccordionContent}>
-          <SettingsActionButton label={copied ? (english ? "Copied" : "已复制") : (english ? "Copy info" : "复制信息")} onPress={copySystemInfo}>
+          <SettingsActionButton label={copied ? (english ? "Copied" : "已複製") : (english ? "Copy info" : "複製資訊")} onPress={copySystemInfo}>
             {copied ? <ShieldCheck color="#047857" size={16} /> : <Copy color="#0f172a" size={16} />}
           </SettingsActionButton>
           {hasUpdate ? (
@@ -574,54 +574,54 @@ const getMobileSystemInfoText = (localePreference: MobileLocaleMode) =>
         version: "Version",
       }
     : {
-        build: "构建类型",
-        developmentBuild: "开发版",
+        build: "構建型別",
+        developmentBuild: "開發版",
         productionBuild: "正式版",
-        client: "客户端",
-        clientAheadOfInstanceCloudflare: "当前客户端版本高于云端实例。可等待每天自动更新，或手动运行 Update deployed EdgeEver 工作流。",
-        clientAheadOfInstanceDocker: "当前客户端版本高于云端实例。可等待每天自动更新，或在安装目录执行 ./update.sh（默认 ~/edgeever）。",
-        clientAheadOfInstanceUnknown: "当前客户端版本高于云端实例。可等待每天自动更新，也可手动更新实例。",
-        clientDescription: "这台设备上的 EdgeEver 应用与运行环境。",
-        clientSection: "当前客户端",
-        cloudDescription: "当前连接实例的版本与部署环境。",
-        cloudSection: "云端实例",
-        connected: "连接正常",
-        connectionChecking: "正在检查",
-        connectionDescription: "实例连接与本地同步队列状态。",
-        connectionFailed: "连接失败",
-        connectionSection: "连接与同步",
-        containerImageSource: "容器镜像来源",
-        imageBuiltAt: "镜像构建时间",
-        databaseBackend: "数据库后端",
-        databaseVersion: "数据库版本",
-        description: "查看云端实例与当前客户端的诊断信息。",
-        deploymentPlatform: "部署平台",
+        client: "客戶端",
+        clientAheadOfInstanceCloudflare: "當前客戶端版本高於雲端實例。可等待每天自動更新，或手動執行 Update deployed EdgeEver 工作流。",
+        clientAheadOfInstanceDocker: "當前客戶端版本高於雲端實例。可等待每天自動更新，或在安裝目錄執行 ./update.sh（預設 ~/edgeever）。",
+        clientAheadOfInstanceUnknown: "當前客戶端版本高於雲端實例。可等待每天自動更新，也可手動更新實例。",
+        clientDescription: "這臺裝置上的 EdgeEver 應用與執行環境。",
+        clientSection: "當前客戶端",
+        cloudDescription: "當前連線實例的版本與部署環境。",
+        cloudSection: "雲端實例",
+        connected: "連線正常",
+        connectionChecking: "正在檢查",
+        connectionDescription: "實例連線與本機同步佇列狀態。",
+        connectionFailed: "連線失敗",
+        connectionSection: "連線與同步",
+        containerImageSource: "容器映象來源",
+        imageBuiltAt: "映象構建時間",
+        databaseBackend: "資料庫後端",
+        databaseVersion: "資料庫版本",
+        description: "檢視雲端實例與當前客戶端的診斷資訊。",
+        deploymentPlatform: "部署平臺",
         existingAttachments: "已有附件",
-        existingAttachmentsOriginalStorage: "继续从原存储读取",
-        failedSync: "失败或冲突",
-        followSystem: "跟随系统",
-        installMode: "安装形态",
-        instanceBuild: "实例构建",
-        deploymentVersionTime: "实例部署时间",
-        instanceConnection: "实例连接",
-        instanceUrl: "实例地址",
-        instanceVersion: "实例版本",
-        language: "语言",
-        newUploadObjectStorage: "新上传对象存储",
+        existingAttachmentsOriginalStorage: "繼續從原儲存讀取",
+        failedSync: "失敗或衝突",
+        followSystem: "跟隨系統",
+        installMode: "安裝形態",
+        instanceBuild: "實例構建",
+        deploymentVersionTime: "實例部署時間",
+        instanceConnection: "實例連線",
+        instanceUrl: "實例地址",
+        instanceVersion: "實例版本",
+        language: "語言",
+        newUploadObjectStorage: "新上傳物件儲存",
         pendingSync: "待同步",
-        platform: "系统",
-        mobileApp: "移动应用",
-        platformVersion: "系统版本",
-        requestLatency: "健康检查耗时",
-        deviceModel: "设备型号",
-        screenResolution: "屏幕分辨率",
+        platform: "系統",
+        mobileApp: "移動應用",
+        platformVersion: "系統版本",
+        requestLatency: "健康檢查耗時",
+        deviceModel: "裝置型號",
+        screenResolution: "螢幕解析度",
         screenResolutionValue: "{{screen}} @{{dpr}}x",
-        timeZone: "时区",
+        timeZone: "時區",
         openUpdate: "前往更新",
-        title: "系统信息",
+        title: "系統資訊",
         unknown: "未知",
-        updateAvailableDescription: "发现新版本，点按查看详情。",
-        updateAvailableTitle: "发现新版本",
+        updateAvailableDescription: "發現新版本，點按檢視詳情。",
+        updateAvailableTitle: "發現新版本",
         version: "版本",
       };
 
@@ -645,8 +645,8 @@ const getMobileDeploymentPlatform = (runtime: string | null | undefined, english
 const getMobileContainerImageSource = (source: string | null | undefined, english: boolean) => {
   switch (source) {
     case "official-ghcr": return "GitHub Container Registry (GHCR)";
-    case "official-cn-mirror": return english ? "Official mainland China mirror" : "中国大陆官方镜像";
-    case "custom": return english ? "Custom image" : "自定义镜像";
+    case "official-cn-mirror": return english ? "Official mainland China mirror" : "中國大陸官方映象";
+    case "custom": return english ? "Custom image" : "自定義映象";
     default: return english ? "Unknown" : "未知";
   }
 };
@@ -658,12 +658,12 @@ const getMobileDatabaseBackend = (backend: string | null | undefined, unknown: s
 };
 
 const getMobileObjectStorage = (health: InstanceHealth | undefined, english: boolean, unknown: string) => {
-  if (health?.objectStorageProvider === "s3") return english ? "Third-party S3-compatible OSS" : "第三方 S3 兼容 OSS";
+  if (health?.objectStorageProvider === "s3") return english ? "Third-party S3-compatible OSS" : "第三方 S3 相容 OSS";
   if (health?.objectStorageProvider !== "builtin") return unknown;
   switch (health.storage?.resources) {
-    case "r2": return english ? "Built-in R2" : "内置 R2";
-    case "filesystem": return english ? "Local filesystem" : "本地文件系统";
-    case "s3": return english ? "Instance-provided S3-compatible storage" : "实例内置 S3 兼容存储";
+    case "r2": return english ? "Built-in R2" : "內建 R2";
+    case "filesystem": return english ? "Local filesystem" : "本機檔案系統";
+    case "s3": return english ? "Instance-provided S3-compatible storage" : "實例內建 S3 相容儲存";
     default: return unknown;
   }
 };
@@ -768,7 +768,7 @@ const getMobileSystemInfoGroups = (
         {
           label: copy.deploymentVersionTime,
           value: instance?.health.deploymentVersionCreatedAt && Number.isFinite(Date.parse(instance.health.deploymentVersionCreatedAt))
-            ? new Intl.DateTimeFormat(english ? "en-US" : "zh-CN", { dateStyle: "medium", timeStyle: "short" }).format(new Date(instance.health.deploymentVersionCreatedAt))
+            ? new Intl.DateTimeFormat(english ? "en-US" : "zh-TW", { dateStyle: "medium", timeStyle: "short" }).format(new Date(instance.health.deploymentVersionCreatedAt))
             : copy.unknown,
         },
         { fullWidth: true, label: copy.newUploadObjectStorage, value: getMobileObjectStorage(instance?.health, english, copy.unknown) },
@@ -781,7 +781,7 @@ const getMobileSystemInfoGroups = (
               {
                 label: copy.imageBuiltAt,
                 value: instance.health.buildCreatedAt && Number.isFinite(Date.parse(instance.health.buildCreatedAt))
-                  ? new Intl.DateTimeFormat(english ? "en-US" : "zh-CN", { dateStyle: "medium", timeStyle: "short" }).format(new Date(instance.health.buildCreatedAt))
+                  ? new Intl.DateTimeFormat(english ? "en-US" : "zh-TW", { dateStyle: "medium", timeStyle: "short" }).format(new Date(instance.health.buildCreatedAt))
                   : copy.unknown,
               },
             ]
@@ -839,24 +839,24 @@ const buildMobileFeedbackUrl = (
   const infoGroups = getMobileSystemInfoGroups(localePreference, diagnostics);
 
   return buildGitHubFeedbackUrl({
-    contentHeading: english ? "Feedback" : "反馈内容",
+    contentHeading: english ? "Feedback" : "反饋內容",
     contentPrompt: english
       ? "Describe the problem, steps to reproduce it, or the feature you would like to see."
-      : "请描述遇到的问题、复现步骤，或你希望增加的功能。",
+      : "請描述遇到的問題、復現步驟，或你希望增加的功能。",
     privacyNotice: english
       ? "GitHub Issues are public. Do not include passwords, tokens, instance URLs, or private note content."
-      : "GitHub Issue 公开可见，请勿提交密码、Token、实例地址或私人笔记内容。",
+      : "GitHub Issue 公開可見，請勿提交密碼、Token、實例地址或私人筆記內容。",
     systemInfo: infoGroups.flatMap((group) => group.items
       .filter((item) => !item.localOnly)
       .map((item) => ({
         label: `${group.title} / ${item.label}`,
         value: item.value,
       }))),
-    systemInfoHeading: english ? "System information" : "系统信息",
+    systemInfoHeading: english ? "System information" : "系統資訊",
     systemInfoNotice: english
       ? "The following information was generated by EdgeEver to help diagnose the issue."
-      : "以下信息由 EdgeEver 自动生成，可帮助定位问题。",
-    titlePrefix: english ? "[Feedback] " : "[反馈] ",
+      : "以下資訊由 EdgeEver 自動生成，可幫助定位問題。",
+    titlePrefix: english ? "[Feedback] " : "[反饋] ",
     client: "Android",
   });
 };

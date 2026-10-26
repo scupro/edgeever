@@ -18,7 +18,7 @@ export const parseTags = (value: string) =>
   );
 
 const compareNotebooksManual = (left: Notebook, right: Notebook) =>
-  left.sortOrder - right.sortOrder || left.name.localeCompare(right.name, "zh-CN") || left.id.localeCompare(right.id);
+  left.sortOrder - right.sortOrder || left.name.localeCompare(right.name, "zh-TW") || left.id.localeCompare(right.id);
 
 export const flattenNotebooks = (notebooks: Notebook[]) => {
   const byParent = new Map<string | null, Notebook[]>();
@@ -119,7 +119,7 @@ export const getResolvedMobileLocale = (localePreference: MobileLocalePreference
     : localePreference;
 
 export const isEnglishMobileLocale = (localePreference: MobileLocalePreference) =>
-  getResolvedMobileLocale(localePreference) !== "zh-CN";
+  getResolvedMobileLocale(localePreference) !== "zh-TW";
 
 export const formatDate = (value: string, localePreference: MobileLocalePreference = "system") =>
   new Intl.DateTimeFormat(getResolvedMobileLocale(localePreference), {

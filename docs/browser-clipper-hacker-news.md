@@ -12,4 +12,4 @@ Images in the saved body use the existing attachment workflow. If copying fails 
 
 Automated coverage uses a redacted public HN DOM fixture, parser and bundled background/injection tests, and a Chromium extension test against the local API that reopens the saved note. The image-storage case adds a synthetic image to the HN fixture. These checks do not replace live-site acceptance across Chrome, Edge and Firefox or store publication.
 
-[简体中文](browser-clipper-hacker-news.zh-CN.md)
+[繁體中文](browser-clipper-hacker-news.zh-TW.md)

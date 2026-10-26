@@ -33,7 +33,7 @@ final class WebClipperTests: XCTestCase {
                 title: nil,
                 imageFilename: "stored-image.jpg",
                 imageMimeType: "image/jpeg",
-                imageOriginalName: "知乎图片.jpg"
+                imageOriginalName: "知乎圖片.jpg"
             ),
             ShareHandoffStore.SharePayload(
                 text: nil,
@@ -49,7 +49,7 @@ final class WebClipperTests: XCTestCase {
             ShareHandoffStore.sharedImages(from: payloads, directory: directory),
             [ShareHandoffStore.SharedImage(
                 fileURL: imageURL,
-                filename: "知乎图片.jpg",
+                filename: "知乎圖片.jpg",
                 mimeType: "image/jpeg"
             )]
         )
@@ -85,7 +85,7 @@ final class WebClipperTests: XCTestCase {
         XCTAssertTrue(draft.contentMarkdown.contains("Hello **world**."))
         XCTAssertTrue(draft.contentMarkdown.contains("![Cover](https://example.com/cover.png)"))
         XCTAssertTrue(draft.contentMarkdown.contains("[Docs](https://example.com/docs)"))
-        XCTAssertTrue(draft.contentMarkdown.contains("来源：[https://example.com/articles/one]"))
+        XCTAssertTrue(draft.contentMarkdown.contains("來源：[https://example.com/articles/one]"))
     }
 
     func testWeChatRenderedPageUsesWechatTag() throws {
@@ -109,9 +109,9 @@ final class WebClipperTests: XCTestCase {
             page: RenderedWebPage(title: "Known title", contentHTML: "", finalURL: source.absoluteString)
         )
         XCTAssertEqual(draft.title, "Known title")
-        XCTAssertTrue(draft.contentMarkdown.contains("正文暂时无法抓取"))
-        XCTAssertTrue(draft.contentMarkdown.contains("来源："))
-        XCTAssertTrue(draft.contentMarkdown.contains("剪藏时间："))
+        XCTAssertTrue(draft.contentMarkdown.contains("正文暫時無法抓取"))
+        XCTAssertTrue(draft.contentMarkdown.contains("來源："))
+        XCTAssertTrue(draft.contentMarkdown.contains("剪藏時間："))
         XCTAssertTrue(draft.contentMarkdown.contains(source.absoluteString))
     }
 
@@ -139,7 +139,7 @@ final class WebClipperTests: XCTestCase {
         XCTAssertTrue(draft.contentMarkdown.contains("Source: [https://example.com/story](https://example.com/story)"))
         XCTAssertTrue(draft.contentMarkdown.contains("Captured at:"))
         XCTAssertTrue(draft.contentMarkdown.contains("![Image](https://example.com/a.png)"))
-        XCTAssertFalse(draft.contentMarkdown.contains("来源"))
+        XCTAssertFalse(draft.contentMarkdown.contains("來源"))
     }
 
     func testJapaneseFallbackKeepsTheSourceLink() throws {
@@ -147,9 +147,9 @@ final class WebClipperTests: XCTestCase {
         let labels = WebClipLabels(
             sourceLabel: "出典",
             capturedAtLabel: "取り込み日時",
-            unavailableBody: "本文を取り込めませんでした。出典リンクは残してあるので、あとからやり直せます。",
+            unavailableBody: "本文を取り込めませんでした。出典リンクは殘してあるので、あとからやり直せます。",
             fallbackTitle: "ウェブクリップ",
-            imageAlt: "画像",
+            imageAlt: "畫像",
             usesFullwidthColon: false
         )
         let draft = WebClipper.buildRendered(

@@ -64,7 +64,7 @@ const sortMemoSummariesForList = (memos: MemoSummary[], queryKey: readonly unkno
     return sorted.sort((left, right) => {
       const leftTitle = left.title?.trim() || left.excerpt || DEFAULT_MEMO_TITLE;
       const rightTitle = right.title?.trim() || right.excerpt || DEFAULT_MEMO_TITLE;
-      const titleCompare = leftTitle.localeCompare(rightTitle, "zh-CN");
+      const titleCompare = leftTitle.localeCompare(rightTitle, "zh-TW");
       if (titleCompare !== 0) return titleCompare * direction;
       return left.id.localeCompare(right.id);
     });

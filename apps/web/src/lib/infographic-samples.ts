@@ -28,13 +28,13 @@ export const INFOGRAPHIC_SAMPLE_CATEGORIES: Array<{
   labelEn: string;
   labelJa: string;
 }> = [
-  { id: "sequence", key: "sequenceCategory", labelZh: "顺序 / 流程", labelEn: "Sequence", labelJa: "順序・工程" },
-  { id: "compare", key: "comparisonCategory", labelZh: "对比 / SWOT", labelEn: "Comparison", labelJa: "比較・SWOT" },
+  { id: "sequence", key: "sequenceCategory", labelZh: "順序 / 流程", labelEn: "Sequence", labelJa: "順序・工程" },
+  { id: "compare", key: "comparisonCategory", labelZh: "對比 / SWOT", labelEn: "Comparison", labelJa: "比較・SWOT" },
   { id: "list", key: "listCategory", labelZh: "列表 / 金字塔", labelEn: "List", labelJa: "リスト" },
-  { id: "quadrant", key: "quadrantCategory", labelZh: "四象限矩阵", labelEn: "Quadrant", labelJa: "四象限" },
-  { id: "hierarchy", key: "hierarchyCategory", labelZh: "层级 / 脑图", labelEn: "Hierarchy", labelJa: "階層・マインドマップ" },
-  { id: "relation", key: "relationCategory", labelZh: "关系拓扑", labelEn: "Relation", labelJa: "関係ネットワーク" },
-  { id: "chart", key: "chartCategory", labelZh: "统计图表", labelEn: "Chart", labelJa: "チャート" },
+  { id: "quadrant", key: "quadrantCategory", labelZh: "四象限矩陣", labelEn: "Quadrant", labelJa: "四象限" },
+  { id: "hierarchy", key: "hierarchyCategory", labelZh: "層級 / 腦圖", labelEn: "Hierarchy", labelJa: "階層・マインドマップ" },
+  { id: "relation", key: "relationCategory", labelZh: "關係拓撲", labelEn: "Relation", labelJa: "関係ネットワーク" },
+  { id: "chart", key: "chartCategory", labelZh: "統計圖表", labelEn: "Chart", labelJa: "チャート" },
 ];
 
 export const INFOGRAPHIC_SAMPLES: InfographicSample[] = [
@@ -43,27 +43,27 @@ export const INFOGRAPHIC_SAMPLES: InfographicSample[] = [
     id: "sequence-steps",
     category: "sequence",
     template: "sequence-steps-simple",
-    titleZh: "产品研发全周期流程",
+    titleZh: "產品研發全週期流程",
     titleEn: "Product Development Lifecycle",
     titleJa: "製品開発ライフサイクル",
-    descZh: "从需求分析到上线发布的标准敏捷研发流程",
+    descZh: "從需求分析到上線釋出的標準敏捷研發流程",
     descEn: "Standard agile workflow from discovery to deployment",
     descJa: "要件定義からリリースまでの標準アジャイル開発フロー",
     syntaxZh: `infographic sequence-steps-simple
 data
-  title 产品研发全周期流程
-  desc 从需求调研到交付上线的关键阶段
+  title 產品研發全週期流程
+  desc 從需求調研到交付上線的關鍵階段
   sequences
     - label 需求分析
-      desc 收集用户反馈与商业目标规划
-    - label 原型设计
-      desc 交互界面与用户体验方案输出
-    - label 敏捷研发
-      desc 前后端核心功能模块编码实现
-    - label 质量验证
-      desc 自动化测试与全链路回归演练
-    - label 发布上线
-      desc 灰度放量与生产环境监控护航`,
+      desc 收集使用者反饋與商業目標規劃
+    - label 原型設計
+      desc 互動介面與使用者體驗方案輸出
+    - label 敏捷研發
+      desc 前後端核心功能模組編碼實現
+    - label 質量驗證
+      desc 自動化測試與全鏈路迴歸演練
+    - label 釋出上線
+      desc 灰度放量與生產環境監控護航`,
     syntaxEn: `infographic sequence-steps-simple
 data
   title Product Development Lifecycle
@@ -84,25 +84,25 @@ data
     id: "sequence-timeline",
     category: "sequence",
     template: "sequence-timeline-done-list",
-    titleZh: "企业发展关键里程碑",
+    titleZh: "企業發展關鍵里程碑",
     titleEn: "Company Milestones Timeline",
     titleJa: "企業の主要マイルストーン",
-    descZh: "记录团队从创立到规模化的关键跃迁时刻",
+    descZh: "記錄團隊從創立到規模化的關鍵躍遷時刻",
     descEn: "Key turning points from inception to scale",
     descJa: "創業からスケール期までの重要マイルストーン",
     syntaxZh: `infographic sequence-timeline-done-list
 data
-  title 企业发展关键里程碑
-  desc 记录团队从创立到规模化的关键跃迁
+  title 企業發展關鍵里程碑
+  desc 記錄團隊從創立到規模化的關鍵躍遷
   sequences
-    - label 2022 年初创成立
-      desc 核心创始团队组建，完成天使轮融资
-    - label 2023 产品 1.0 发布
-      desc 突破首批 10,000 名种子活跃用户
-    - label 2024 商业化落地
-      desc 上线企业级协同能力，实现自负盈亏
+    - label 2022 年初創成立
+      desc 核心創始團隊組建，完成天使輪融資
+    - label 2023 產品 1.0 釋出
+      desc 突破首批 10,000 名種子活躍使用者
+    - label 2024 商業化落地
+      desc 上線企業級協同能力，實現自負盈虧
     - label 2025 全球化出海
-      desc 布局多语言与跨国合规部署架构`,
+      desc 佈局多語言與跨國合規部署架構`,
     syntaxEn: `infographic sequence-timeline-done-list
 data
   title Company Milestones Timeline
@@ -121,25 +121,25 @@ data
     id: "sequence-roadmap",
     category: "sequence",
     template: "sequence-roadmap-vertical-simple",
-    titleZh: "技术架构演进路线图",
+    titleZh: "技術架構演進路線圖",
     titleEn: "Architecture Evolution Roadmap",
     titleJa: "技術アーキテクチャのロードマップ",
-    descZh: "基础设施升级与云原生转型的演进路径",
+    descZh: "基礎設施升級與雲原生轉型的演進路徑",
     descEn: "Infrastructure modernization and cloud-native journey",
     descJa: "インフラ刷新とクラウドネイティブ化の歩み",
     syntaxZh: `infographic sequence-roadmap-vertical-simple
 data
-  title 技术架构演进路线图
-  desc 基础设施升级与云原生转型的演进路径
+  title 技術架構演進路線圖
+  desc 基礎設施升級與雲原生轉型的演進路徑
   sequences
-    - label 阶段一：单体解耦
-      desc 拆分核心数据模型，建立统一领域服务接口
-    - label 阶段二：容器编排
-      desc 全面接入 Kubernetes，实现声明式部署与调度
-    - label 阶段三：服务网格
-      desc 引入 Istio 网格，实现精细化流量治理与可观测性
-    - label 阶段四：智能运维
-      desc 结合大模型与日志度量，落地自愈式巡检告警`,
+    - label 階段一：單體解耦
+      desc 拆分核心資料模型，建立統一領域服務介面
+    - label 階段二：容器編排
+      desc 全面接入 Kubernetes，實現宣告式部署與排程
+    - label 階段三：服務網格
+      desc 引入 Istio 網格，實現精細化流量治理與可觀測性
+    - label 階段四：智慧運維
+      desc 結合大模型與日誌度量，落地自愈式巡檢告警`,
     syntaxEn: `infographic sequence-roadmap-vertical-simple
 data
   title Architecture Evolution Roadmap
@@ -160,35 +160,35 @@ data
     id: "compare-vs",
     category: "compare",
     template: "compare-binary-horizontal-compact-card-vs",
-    titleZh: "云原生与传统部署对比",
+    titleZh: "雲原生與傳統部署對比",
     titleEn: "Cloud-Native vs Traditional Hosting",
     titleJa: "クラウドネイティブと従来運用の比較",
-    descZh: "架构灵活性与运维成本的深度权衡分析",
+    descZh: "架構靈活性與運維成本的深度權衡分析",
     descEn: "Architectural agility and infrastructure cost trade-offs",
     descJa: "拡張性と運用コストの包括的な比較分析",
     syntaxZh: `infographic compare-binary-horizontal-compact-card-vs
 data
-  title 云原生与传统部署对比
-  desc 架构灵活性与运维成本的全面权衡
+  title 雲原生與傳統部署對比
+  desc 架構靈活性與運維成本的全面權衡
   compares
-    - label 传统物理部署
-      desc 依赖固定机房资产与人工维护
+    - label 傳統物理部署
+      desc 依賴固定機房資產與人工維護
       children
-        - label 弹性扩展
-          desc 扩容周期通常需要数周甚至数月
-        - label 资源利用率
-          desc 峰谷波动大，服务器平均闲置率高
-        - label 运维复杂度
-          desc 人工巡检部署，故障恢复时间较长
-    - label 云原生架构
-      desc 容器化编排与按需弹性扩缩容
+        - label 彈性擴充套件
+          desc 擴容週期通常需要數週甚至數月
+        - label 資源利用率
+          desc 峰谷波動大，伺服器平均閒置率高
+        - label 運維複雜度
+          desc 人工巡檢部署，故障恢復時間較長
+    - label 雲原生架構
+      desc 容器化編排與按需彈性擴縮容
       children
-        - label 弹性扩展
-          desc 秒级自动伸缩，轻松应对突发流量
-        - label 资源利用率
-          desc 多租户动态调度，整体成本优化 40%
-        - label 运维复杂度
-          desc CI/CD 自动化流水线与自愈式监控`,
+        - label 彈性擴充套件
+          desc 秒級自動伸縮，輕鬆應對突發流量
+        - label 資源利用率
+          desc 多租戶動態排程，整體成本最佳化 40%
+        - label 運維複雜度
+          desc CI/CD 自動化流水線與自愈式監控`,
     syntaxEn: `infographic compare-binary-horizontal-compact-card-vs
 data
   title Cloud-Native vs Traditional Hosting
@@ -217,41 +217,41 @@ data
     id: "compare-swot",
     category: "compare",
     template: "compare-swot",
-    titleZh: "产品战略 SWOT 分析",
+    titleZh: "產品戰略 SWOT 分析",
     titleEn: "Strategic SWOT Analysis",
     titleJa: "製品戦略の SWOT 分析",
-    descZh: "全面审视内部优劣势与外部市场机遇威胁",
+    descZh: "全面審視內部優劣勢與外部市場機遇威脅",
     descEn: "Internal strengths/weaknesses and external market opportunities/threats",
     descJa: "内部の強み・弱みと外部の機会・脅威の網羅分析",
     syntaxZh: `infographic compare-swot
 data
-  title 产品战略 SWOT 分析
-  desc 全面审视内部优劣势与外部市场环境
+  title 產品戰略 SWOT 分析
+  desc 全面審視內部優劣勢與外部市場環境
   compares
-    - label 优势 (Strengths)
+    - label 優勢 (Strengths)
       children
-        - label 核心专利技术壁垒
-          desc 拥有业内领先的离线协同与加密算法
-        - label 敏捷响应能力
-          desc 团队扁平，两周一次稳定迭代演进
-    - label 劣势 (Weaknesses)
+        - label 核心專利技術壁壘
+          desc 擁有業內領先的離線協同與加密演算法
+        - label 敏捷響應能力
+          desc 團隊扁平，兩週一次穩定迭代演進
+    - label 劣勢 (Weaknesses)
       children
         - label 品牌知名度有限
-          desc 市场拓展初期，整体认知度仍在积累
-        - label 移动端覆盖刚起步
-          desc 部分跨平台高级交互仍在完善中
-    - label 机会 (Opportunities)
+          desc 市場拓展初期，整體認知度仍在積累
+        - label 移動端覆蓋剛起步
+          desc 部分跨平臺高階互動仍在完善中
+    - label 機會 (Opportunities)
       children
-        - label 远程与混合办公普及
-          desc 全球知识管理协同工具需求持续增长
-        - label AI Agent 生态蓬勃
-          desc 与大模型协同工作流带来全新爆发点
-    - label 威胁 (Threats)
+        - label 遠端與混合辦公普及
+          desc 全球知識管理協同工具需求持續增長
+        - label AI Agent 生態蓬勃
+          desc 與大模型協同工作流帶來全新爆發點
+    - label 威脅 (Threats)
       children
-        - label 头部大厂生态挤压
-          desc 巨头免费捆绑分发带来的竞争压力
-        - label 数据合规监管趋严
-          desc 全球各地区合规成本与审查风险上升`,
+        - label 頭部大廠生態擠壓
+          desc 巨頭免費捆綁分發帶來的競爭壓力
+        - label 資料合規監管趨嚴
+          desc 全球各地區合規成本與審查風險上升`,
     syntaxEn: `infographic compare-swot
 data
   title Strategic SWOT Analysis
@@ -286,31 +286,31 @@ data
     id: "compare-arrow",
     category: "compare",
     template: "compare-binary-horizontal-simple-arrow",
-    titleZh: "工程体系重构演进",
+    titleZh: "工程體系重構演進",
     titleEn: "Engineering Workflow Evolution",
     titleJa: "エンジニアリング体系の進化",
-    descZh: "从传统手工操作升级为现代高度自动化流程",
+    descZh: "從傳統手工操作升級為現代高度自動化流程",
     descEn: "Transition from manual operations to modern automated workflows",
     descJa: "手動オペレーションから自動化パイプラインへの進化",
     syntaxZh: `infographic compare-binary-horizontal-simple-arrow
 data
-  title 工程体系重构演进
-  desc 从传统手工操作升级为现代高度自动化流程
+  title 工程體系重構演進
+  desc 從傳統手工操作升級為現代高度自動化流程
   compares
-    - label 过去：手工碎片化
-      desc 依赖人工执行脚本与零散文档传递
+    - label 過去：手工碎片化
+      desc 依賴人工執行指令碼與零散文件傳遞
       children
-        - label 交付节奏
-          desc 每月一次集中发布，风险积聚
-        - label 质量门槛
-          desc 依赖人工点工测试，漏测率高
-    - label 现在：持续自动化
-      desc 代码提交即触发完整验证流水线
+        - label 交付節奏
+          desc 每月一次集中釋出，風險積聚
+        - label 質量門檻
+          desc 依賴人工點工測試，漏測率高
+    - label 現在：持續自動化
+      desc 程式碼提交即觸發完整驗證流水線
       children
-        - label 交付节奏
-          desc 每日主干集成，随时可发布生产
-        - label 质量门槛
-          desc 90% 自动化测试覆盖与分支保护`,
+        - label 交付節奏
+          desc 每日主幹整合，隨時可釋出生產
+        - label 質量門檻
+          desc 90% 自動化測試覆蓋與分支保護`,
     syntaxEn: `infographic compare-binary-horizontal-simple-arrow
 data
   title Engineering Workflow Evolution
@@ -337,27 +337,27 @@ data
     id: "list-grid",
     category: "list",
     template: "list-grid-simple",
-    titleZh: "团队高效协同五大原则",
+    titleZh: "團隊高效協同五大原則",
     titleEn: "Team Collaboration Principles",
     titleJa: "チーム協調の 5 大原則",
-    descZh: "打造透明、自驱、可预测的高效工程文化",
+    descZh: "打造透明、自驅、可預測的高效工程文化",
     descEn: "Fostering a transparent, autonomous, and predictable culture",
     descJa: "自律的で予測可能な高効率エンジニアリング文化",
     syntaxZh: `infographic list-grid-simple
 data
-  title 团队高效协同五大原则
-  desc 打造透明、自驱、可预测的工程文化
+  title 團隊高效協同五大原則
+  desc 打造透明、自驅、可預測的工程文化
   lists
-    - label 异步优先
-      desc 完整记录决策上下文，减少打断式即时会议
-    - label 文档即代码
-      desc 核心架构与规范以 Markdown 纳管审查
+    - label 非同步優先
+      desc 完整記錄決策上下文，減少打斷式即時會議
+    - label 文件即程式碼
+      desc 核心架構與規範以 Markdown 納管審查
     - label 小步快跑
-      desc 频繁合并短生命周期分支，降低集成风险
-    - label 自动化验证
-      desc 单元测试与端到端回归门禁拦截潜在缺陷
-    - label 结果导向
-      desc 聚焦交付价值与用户体验，避免形式主义`,
+      desc 頻繁合併短生命週期分支，降低整合風險
+    - label 自動化驗證
+      desc 單元測試與端到端迴歸門禁攔截潛在缺陷
+    - label 結果導向
+      desc 聚焦交付價值與使用者體驗，避免形式主義`,
     syntaxEn: `infographic list-grid-simple
 data
   title Team Collaboration Principles
@@ -378,25 +378,25 @@ data
     id: "list-pyramid",
     category: "list",
     template: "list-pyramid-compact-card",
-    titleZh: "DIKW 知识层级金字塔",
+    titleZh: "DIKW 知識層級金字塔",
     titleEn: "DIKW Knowledge Hierarchy",
     titleJa: "DIKW ピラミッドモデル",
-    descZh: "从原始事实到深刻见解的认知跃升模型",
+    descZh: "從原始事實到深刻見解的認知躍升模型",
     descEn: "Cognitive progression from raw facts to actionable wisdom",
     descJa: "データから知恵への認知の階層的ステップ",
     syntaxZh: `infographic list-pyramid-compact-card
 data
-  title DIKW 知识层级金字塔
-  desc 从原始事实到深刻见解的认知跃升模型
+  title DIKW 知識層級金字塔
+  desc 從原始事實到深刻見解的認知躍升模型
   lists
     - label 智慧 (Wisdom)
-      desc 洞察未来趋势与深层本质的决策力
-    - label 知识 (Knowledge)
-      desc 经验积累、思维模型与实践方法论
+      desc 洞察未來趨勢與深層本質的決策力
+    - label 知識 (Knowledge)
+      desc 經驗積累、思維模型與實踐方法論
     - label 信息 (Information)
-      desc 结构化整理、具备上下文的数据集合
-    - label 数据 (Data)
-      desc 未经加工的原始事实与客观记录`,
+      desc 結構化整理、具備上下文的資料集合
+    - label 資料 (Data)
+      desc 未經加工的原始事實與客觀記錄`,
     syntaxEn: `infographic list-pyramid-compact-card
 data
   title DIKW Knowledge Hierarchy
@@ -417,25 +417,25 @@ data
     id: "quadrant-matrix",
     category: "quadrant",
     template: "compare-quadrant-quarter-simple-card",
-    titleZh: "时间管理四象限法则",
+    titleZh: "時間管理四象限法則",
     titleEn: "Eisenhower Priority Matrix",
     titleJa: "時間管理のマトリクス",
-    descZh: "按重要性与紧迫性科学分配精力与优先级",
+    descZh: "按重要性與緊迫性科學分配精力與優先順序",
     descEn: "Allocate focus and bandwidth by importance and urgency",
     descJa: "重要度と緊急度で優先順位を整理する枠組み",
     syntaxZh: `infographic compare-quadrant-quarter-simple-card
 data
-  title 时间管理四象限法则
-  desc 按重要性与紧急性科学规划工作重心
+  title 時間管理四象限法則
+  desc 按重要性與緊急性科學規劃工作重心
   compares
-    - label 第一象限：重要且紧急
-      desc 危机突发事件、紧急生产事故与临近截期的核心交付
-    - label 第二象限：重要不紧急
-      desc 长期战略规划、技术重构、深度学习与身心健康建设
-    - label 第三象限：紧急不重要
-      desc 突发临时打断、次要琐事与非必要的即时沟通
-    - label 第四象限：不重要不紧急
-      desc 无效社交闲聊、过度刷屏消遣与低价值重复劳动`,
+    - label 第一象限：重要且緊急
+      desc 危機突發事件、緊急生產事故與臨近截期的核心交付
+    - label 第二象限：重要不緊急
+      desc 長期戰略規劃、技術重構、深度學習與身心健康建設
+    - label 第三象限：緊急不重要
+      desc 突發臨時打斷、次要瑣事與非必要的即時溝通
+    - label 第四象限：不重要不緊急
+      desc 無效社交閒聊、過度刷屏消遣與低價值重複勞動`,
     syntaxEn: `infographic compare-quadrant-quarter-simple-card
 data
   title Eisenhower Priority Matrix
@@ -456,26 +456,26 @@ data
     id: "hierarchy-mindmap",
     category: "hierarchy",
     template: "hierarchy-mindmap-branch-gradient-lined-palette",
-    titleZh: "现代 Web 全栈技术体系",
+    titleZh: "現代 Web 全棧技術體系",
     titleEn: "Modern Web Architecture",
     titleJa: "モダン Web フルスタック体系",
-    descZh: "现代化 Web 应用各层级核心组件与选型参考",
+    descZh: "現代化 Web 應用各層級核心元件與選型參考",
     descEn: "Core technical components of modern web applications",
     descJa: "モダン Web アプリケーションの要素と技術選定",
     syntaxZh: `infographic hierarchy-mindmap-branch-gradient-lined-palette
 data
-  title 现代 Web 全栈技术体系
-  desc 现代化 Web 应用各层级核心选型
+  title 現代 Web 全棧技術體系
+  desc 現代化 Web 應用各層級核心選型
   root
-    label 全栈技术体系
+    label 全棧技術體系
     children
-      - label 前端运行时
-        desc React / Vite 响应式交互
-      - label 服务端逻辑
+      - label 前端執行時
+        desc React / Vite 響應式互動
+      - label 服務端邏輯
         desc Hono / Cloudflare Workers
-      - label 存储与缓存
-        desc D1 SQLite / R2 对象存储
-      - label 智能体协同
+      - label 儲存與快取
+        desc D1 SQLite / R2 物件儲存
+      - label 智慧體協同
         desc Model Context Protocol`,
     syntaxEn: `infographic hierarchy-mindmap-branch-gradient-lined-palette
 data
@@ -499,29 +499,29 @@ data
     id: "relation-network",
     category: "relation",
     template: "relation-network-simple-circle-node",
-    titleZh: "分布式服务拓扑网络",
+    titleZh: "分散式服務拓撲網路",
     titleEn: "Distributed Microservice Mesh",
     titleJa: "分散サービス・トポロジー",
-    descZh: "微服务间调用关系与数据流动链路可视化",
+    descZh: "微服務間呼叫關係與資料流動鏈路視覺化",
     descEn: "Invocations and data pipelines between core services",
     descJa: "マイクロサービス間の連携とデータフロー",
     syntaxZh: `infographic relation-network-simple-circle-node
 data
-  title 分布式服务拓扑网络
-  desc API 网关与后端核心微服务调用链路
+  title 分散式服務拓撲網路
+  desc API 閘道器與後端核心微服務呼叫鏈路
   nodes
     - id gateway
-      label 统一 API 网关
-      desc 流量调度与鉴权中心
+      label 統一 API 閘道器
+      desc 流量排程與鑑權中心
     - id auth
-      label 统一认证服务
-      desc JWT 校验与权限模型
+      label 統一認證服務
+      desc JWT 校驗與權限模型
     - id note
-      label 笔记核心服务
-      desc 内容版本控制与元数据
+      label 筆記核心服務
+      desc 內容版本控制與後設資料
     - id sync
-      label 同步引擎服务
-      desc 离线游标与协同合并
+      label 同步引擎服務
+      desc 離線遊標與協同合併
   relations
     - from gateway
       to auth
@@ -560,24 +560,24 @@ data
     id: "chart-donut",
     category: "chart",
     template: "chart-pie-donut-plain-text",
-    titleZh: "产品用户来源构成占比",
+    titleZh: "產品使用者來源構成佔比",
     titleEn: "User Acquisition Breakdown",
     titleJa: "ユーザー獲得チャネル比率",
-    descZh: "各渠道活跃新用户的占比构成分布",
+    descZh: "各渠道活躍新使用者的佔比構成分佈",
     descEn: "Share of new active users across primary channels",
     descJa: "新規アクティブユーザーの獲得チャネル内訳",
     syntaxZh: `infographic chart-pie-donut-plain-text
 data
-  title 产品用户来源构成占比
-  desc 季度新增活跃用户的核心来源渠道构成
+  title 產品使用者來源構成佔比
+  desc 季度新增活躍使用者的核心來源渠道構成
   values
-    - label 开源社区口碑
+    - label 開源社群口碑
       value 45
     - label 搜索引擎自然流量
       value 25
-    - label 技术博客与媒体
+    - label 技術部落格與媒體
       value 18
-    - label 线下沙龙与推荐
+    - label 線下沙龍與推薦
       value 12`,
     syntaxEn: `infographic chart-pie-donut-plain-text
 data
@@ -597,16 +597,16 @@ data
     id: "chart-column",
     category: "chart",
     template: "chart-column-simple",
-    titleZh: "季度特性交付速率对比",
+    titleZh: "季度特性交付速率對比",
     titleEn: "Quarterly Feature Delivery",
     titleJa: "四半期ごとの機能リリース速度",
-    descZh: "近四个季度研发团队完成的核心特性数量",
+    descZh: "近四個季度研發團隊完成的核心特性數量",
     descEn: "Number of major customer-facing capabilities shipped",
     descJa: "過去 4 四半期に提供した主要機能の推移",
     syntaxZh: `infographic chart-column-simple
 data
-  title 季度特性交付速率对比
-  desc 近四个季度研发团队交付的核心业务特性统计
+  title 季度特性交付速率對比
+  desc 近四個季度研發團隊交付的核心業務特性統計
   values
     - label Q1 季度
       value 18

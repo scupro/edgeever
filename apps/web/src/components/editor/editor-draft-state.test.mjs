@@ -56,7 +56,7 @@ describe("editor draft source resolution", () => {
   });
 
   test("preserves stored markdown that a JSON roundtrip would collapse", () => {
-    const stored = "时代公馆\n\n\n*提示：表格*";
+    const stored = "時代公館\n\n\n*提示：表格*";
     const state = resolveEditorDraftState({
       memo: {
         ...memo,
@@ -168,7 +168,7 @@ describe("editor draft source resolution", () => {
   });
 
   test("preserves queued markdown that a JSON roundtrip would collapse", () => {
-    const stored = "时代公馆\n\n\n*提示：表格*";
+    const stored = "時代公館\n\n\n*提示：表格*";
     const state = resolveEditorDraftState({
       memo,
       queuedUpdate: {

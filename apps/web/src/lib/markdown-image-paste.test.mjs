@@ -3,15 +3,15 @@ import { findMarkdownImagePasteMatches } from "./markdown-image-paste.ts";
 
 describe("findMarkdownImagePasteMatches", () => {
   test("maps a pasted Markdown image to Tiptap node attributes", () => {
-    const markdown = "![图片](https://example.com/image.webp \"预览图\")";
+    const markdown = "![圖片](https://example.com/image.webp \"預覽圖\")";
 
     expect(findMarkdownImagePasteMatches(markdown, markdown)).toEqual([{
       index: 0,
       text: markdown,
       data: {
         src: "https://example.com/image.webp",
-        alt: "图片",
-        title: "预览图",
+        alt: "圖片",
+        title: "預覽圖",
       },
     }]);
   });

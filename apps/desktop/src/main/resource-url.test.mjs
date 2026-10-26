@@ -18,9 +18,9 @@ test("desktop resource URL parsing accepts safe resource and staged IDs", () => 
 
 test("desktop resource downloads preserve safe UTF-8 filenames", () => {
   expect(downloadContentDispositionFromRequest(
-    "edgeever-resource://resource/resource_123?download=%E8%B5%84%E6%96%99%E5%8C%85.zip",
+    "edgeever-resource://resource/resource_123?download=%E8%B3%87%E6%96%99%E5%8C%85.zip",
   )).toBe(
-    "attachment; filename=\"download.zip\"; filename*=UTF-8''%E8%B5%84%E6%96%99%E5%8C%85.zip",
+    "attachment; filename=\"download.zip\"; filename*=UTF-8''%E8%B3%87%E6%96%99%E5%8C%85.zip",
   );
   expect(downloadContentDispositionFromRequest(
     "edgeever-resource://resource/resource_123?download=reports%2Farchive.zip",

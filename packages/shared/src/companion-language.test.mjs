@@ -23,13 +23,13 @@ describe("companion conversation language", () => {
 
   test("uses diacritics and other scripts regardless of the interface", () => {
     expect(locale("Zrób listę zakupów", [], "en-US")).toEqual({ locale: "pl", source: "current request" });
-    expect(locale("帮我总结这篇笔记", [], "pl")).toEqual({ locale: "zh-CN", source: "current request" });
+    expect(locale("幫我總結這篇筆記", [], "pl")).toEqual({ locale: "zh-TW", source: "current request" });
     expect(locale("このメモを要約して", [], "pl")).toEqual({ locale: "ja", source: "current request" });
   });
 
   test("keeps treating Latin text as English for other interfaces", () => {
     expect(locale("Napisz plan na jutro", [], "en-US")).toEqual({ locale: "en-US", source: "current request" });
-    expect(locale("Kubernetes", [], "zh-CN")).toEqual({ locale: "en-US", source: "current request" });
+    expect(locale("Kubernetes", [], "zh-TW")).toEqual({ locale: "en-US", source: "current request" });
     expect(locale("12345", [], "ja")).toEqual({ locale: "ja", source: "interface" });
   });
 

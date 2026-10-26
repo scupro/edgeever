@@ -118,7 +118,7 @@ struct MemoDetail: Codable, Equatable, Sendable, Identifiable {
 
     var displayTitle: String {
         let t = title?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        return t.isEmpty ? "无标题笔记" : t
+        return t.isEmpty ? "無標題筆記" : t
     }
 
     func asSummary() -> MemoSummary {

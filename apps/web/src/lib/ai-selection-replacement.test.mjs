@@ -13,19 +13,19 @@ import {
 
 describe("getRichTextAiSelectionReplacement", () => {
   test("removes streamed whitespace around selected-text replacements", () => {
-    expect(normalizeAiSelectionReplacement("\n  1. - 校对  \n")).toBe("1. - 校对");
+    expect(normalizeAiSelectionReplacement("\n  1. - 校對  \n")).toBe("1. - 校對");
     expect(normalizeAiSelectionReplacement("第一段\n\n第二段")).toBe("第一段\n\n第二段");
   });
 
   test("keeps list-like single-line output inline inside a paragraph", () => {
-    expect(getRichTextAiSelectionReplacement("1. - 校对", true)).toEqual([
-      { type: "text", text: "1. - 校对" },
+    expect(getRichTextAiSelectionReplacement("1. - 校對", true)).toEqual([
+      { type: "text", text: "1. - 校對" },
     ]);
   });
 
   test("does not split the surrounding paragraph when applying the replacement", () => {
-    const text = "入口放在笔记栏中，1. - 校对先预览结果，再进行写入。";
-    const selectedText = "1. - 校对";
+    const text = "入口放在筆記欄中，1. - 校對先預覽結果，再進行寫入。";
+    const selectedText = "1. - 校對";
     const from = text.indexOf(selectedText) + 1;
     const editor = new Editor({
       extensions: [StarterKit],
@@ -49,11 +49,11 @@ describe("getRichTextAiSelectionReplacement", () => {
 
   test("keeps a selected list item in its existing list instead of nesting another list", () => {
     const originalMarkdown = [
-      "入口放在选中文本菜单和笔记栏中，",
+      "入口放在選中文字選單和筆記欄中，",
       "",
-      "1. - 校对",
+      "1. - 校對",
       "",
-      "先预览结果，再进行写入。",
+      "先預覽結果，再進行寫入。",
     ].join("\n");
     const editor = new Editor({
       extensions: [StarterKit],
@@ -71,7 +71,7 @@ describe("getRichTextAiSelectionReplacement", () => {
       NodeSelection.create(editor.state.doc, listPosition),
     );
     expect(context).toMatchObject({
-      contentMarkdown: "- 校对",
+      contentMarkdown: "- 校對",
       isInline: true,
     });
 
@@ -99,7 +99,7 @@ describe("getRichTextAiSelectionReplacement", () => {
   });
 
   test("keeps block parsing when the original selection spans blocks", () => {
-    expect(getRichTextAiSelectionReplacement("1. - 校对", false)[0]?.type).toBe("orderedList");
+    expect(getRichTextAiSelectionReplacement("1. - 校對", false)[0]?.type).toBe("orderedList");
   });
 
   test("replaces a table node selected at the start of the document", () => {

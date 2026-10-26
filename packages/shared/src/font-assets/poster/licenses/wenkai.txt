@@ -1,4 +1,4 @@
-霞鹜文楷 (LXGW WenKai)
+霞鶩文楷 (LXGW WenKai)
 Source: https://github.com/lxgw/LxgwWenKai
 This copy: subset and converted to WOFF2 by Qiaomu Cover Design
 

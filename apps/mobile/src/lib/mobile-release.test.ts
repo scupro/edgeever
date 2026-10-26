@@ -84,7 +84,7 @@ test("offers Google Play and the latest GitHub Release as manual update destinat
     {
       id: "github",
       labelEn: "Download from GitHub",
-      labelZh: "从 GitHub 下载",
+      labelZh: "從 GitHub 下載",
       url: GITHUB_LATEST_RELEASE_URL,
     },
   ]);

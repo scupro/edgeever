@@ -48,10 +48,10 @@ test("BOSS visible descendants survive inherited visibility and the visible logi
   expect(restricted.read.ok).toBe(false);
   const nested = await page.evaluate(() => {
     const label = document.querySelector('.zp-more-info-layer-text') as HTMLElement;
-    label.style.visibility = 'hidden'; label.innerHTML = '<span style="visibility:visible">登录查看完整内容</span>';
+    label.style.visibility = 'hidden'; label.innerHTML = '<span style="visibility:visible">登入檢視完整內容</span>';
     const visibleWarning = (window as any).clipReaders.bossLoginRequired();
     const read = (window as any).clipReaders.readBoss(document, 'https://www.zhipin.com/job_detail/0d7e760b0a0e7c3a0nF939S0E1NU.html');
-    label.style.visibility = 'visible'; label.innerHTML = '<span hidden>登录查看完整内容</span>';
+    label.style.visibility = 'visible'; label.innerHTML = '<span hidden>登入檢視完整內容</span>';
     return { visibleWarning, read, hiddenWarning: (window as any).clipReaders.bossLoginRequired() };
   });
   expect(nested.visibleWarning).toBe(true); expect(nested.read.ok).toBe(false); expect(nested.hiddenWarning).toBe(false);

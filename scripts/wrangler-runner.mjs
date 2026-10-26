@@ -10,10 +10,8 @@ const REPOSITORY_WRANGLER_VALUES = {
   workers_dev: "true",
   database_name: "edgeever",
   database_id: PLACEHOLDER_D1_ID,
-  bucket_name: "edgeever-resources",
-  preview_bucket_name: "edgeever-resources-preview",
 };
-const REPOSITORY_WRANGLER_SHA256 = "55b5f99e86f4d752c44560a6e392d8b52d782c8cdb0311faec9544e6cb883af7";
+const REPOSITORY_WRANGLER_SHA256 = "2d9487007dd0523956fe12f3943ea6a05ec4c513c13b9acedd6172987e9e0ff3";
 
 const configValue = (config, key) => {
   const match = config.match(new RegExp(`^${key}\\s*=\\s*(?:"([^"]*)"|(true|false))`, "m"));
@@ -186,16 +184,10 @@ export const deployedWorkerSettings = (json) => {
       "Wrangler returned an unexpected response while reading the deployed Worker version.",
     );
   }
-  const resources = bindings.filter((binding) =>
-    binding?.name === "RESOURCES" && binding?.type === "r2_bucket"
-  );
   const usernames = bindings.filter((binding) =>
     binding?.name === "EDGE_EVER_AUTH_USERNAME" && binding?.type === "plain_text"
   );
   return {
-    r2BucketName: resources.length === 1 && typeof resources[0].bucket_name === "string"
-      ? resources[0].bucket_name
-      : undefined,
     authUsername: usernames.length === 1 && typeof usernames[0].text === "string"
       ? usernames[0].text
       : undefined,

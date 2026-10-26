@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-TW">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -111,16 +111,16 @@
   <body>
     <main>
       <h1>IME Test</h1>
-      <p>这是一个不加载 React、不加载编辑器的原生输入测试页。依次点下面三个输入区，用豆包输入法按键，然后点“复制日志”。</p>
+      <p>這是一個不載入 React、不載入編輯器的原生輸入測試頁。依次點下面三個輸入區，用豆包輸入法按鍵，然後點“複製日誌”。</p>
 
       <label>
         Input
-        <input id="plain-input" autocomplete="on" autocorrect="on" inputmode="text" placeholder="点这里输入" />
+        <input id="plain-input" autocomplete="on" autocorrect="on" inputmode="text" placeholder="點這裡輸入" />
       </label>
 
       <label>
         Textarea
-        <textarea id="plain-textarea" autocomplete="on" autocorrect="on" inputmode="text" placeholder="点这里输入"></textarea>
+        <textarea id="plain-textarea" autocomplete="on" autocorrect="on" inputmode="text" placeholder="點這裡輸入"></textarea>
       </label>
 
       <label>
@@ -133,9 +133,9 @@
         <button class="primary" id="focus-textarea" type="button">聚焦 Textarea</button>
         <button class="primary" id="focus-contenteditable" type="button">聚焦 Contenteditable</button>
         <button id="prompt-input" type="button">Prompt</button>
-        <button id="read-clipboard" type="button">读剪贴板</button>
-        <button id="copy-log" type="button">复制日志</button>
-        <button id="clear-log" type="button">清空日志</button>
+        <button id="read-clipboard" type="button">讀剪貼簿</button>
+        <button id="copy-log" type="button">複製日誌</button>
+        <button id="clear-log" type="button">清空日誌</button>
       </div>
 
       <pre id="log"></pre>
@@ -162,7 +162,7 @@
 
       const writeLog = (eventName, event) => {
         const target = event?.target;
-        const time = new Date().toLocaleTimeString("zh-CN", { hour12: false });
+        const time = new Date().toLocaleTimeString("zh-TW", { hour12: false });
         const inputType = event && "inputType" in event ? ` type=${event.inputType}` : "";
         const data = event && "data" in event && event.data ? ` data=${JSON.stringify(event.data)}` : "";
         const key = event && "key" in event ? ` key=${event.key}` : "";

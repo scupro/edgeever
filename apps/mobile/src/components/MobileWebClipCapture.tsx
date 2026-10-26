@@ -68,7 +68,7 @@ const CAPTURE_SCRIPT = `
 
       attempts += 1;
       if (attempts >= 50) {
-        post({ status: "failed", message: "页面加载完成，但没有找到可剪藏的正文。" });
+        post({ status: "failed", message: "頁面載入完成，但沒有找到可剪藏的正文。" });
         return;
       }
       window.setTimeout(capture, 250);
@@ -91,7 +91,7 @@ export default function MobileWebClipCapture({
     const timeout = setTimeout(() => {
       if (!completedRef.current) {
         completedRef.current = true;
-        onFailed("微信文章加载超时。");
+        onFailed("微信文章載入超時。");
       }
     }, 20_000);
     return () => clearTimeout(timeout);
@@ -116,9 +116,9 @@ export default function MobileWebClipCapture({
         });
         return;
       }
-      fail(message.status === "failed" ? message.message : "没有找到可剪藏的正文。");
+      fail(message.status === "failed" ? message.message : "沒有找到可剪藏的正文。");
     } catch {
-      fail("无法解析微信文章正文。");
+      fail("無法解析微信文章正文。");
     }
   };
 
@@ -130,8 +130,8 @@ export default function MobileWebClipCapture({
         injectedJavaScript={CAPTURE_SCRIPT}
         javaScriptEnabled
         mixedContentMode="compatibility"
-        onError={(event) => fail(event.nativeEvent.description || "微信文章加载失败。")}
-        onHttpError={(event) => fail(`微信文章请求失败（HTTP ${event.nativeEvent.statusCode}）。`)}
+        onError={(event) => fail(event.nativeEvent.description || "微信文章載入失敗。")}
+        onHttpError={(event) => fail(`微信文章請求失敗（HTTP ${event.nativeEvent.statusCode}）。`)}
         onMessage={handleMessage}
         originWhitelist={["https://*", "http://*"]}
         setSupportMultipleWindows={false}

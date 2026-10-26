@@ -6,10 +6,10 @@ describe("details HTML helpers", () => {
     if (typeof DOMParser === "undefined") return;
 
     const wrapped = wrapDetailsContentHtml(
-      `<details><summary>图</summary><img src="https://example.com/a.png" alt="pic"></details>`,
+      `<details><summary>圖</summary><img src="https://example.com/a.png" alt="pic"></details>`,
     );
     expect(wrapped).toContain('data-type="detailsContent"');
-    expect(wrapped).toContain("<summary>图</summary>");
+    expect(wrapped).toContain("<summary>圖</summary>");
     expect(wrapped).toContain('src="https://example.com/a.png"');
   });
 

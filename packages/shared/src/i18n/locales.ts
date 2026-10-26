@@ -1,9 +1,9 @@
-export const supportedLocales = ["zh-CN", "en-US", "ja", "pl"] as const;
+export const supportedLocales = ["zh-TW", "en-US", "ja", "pl"] as const;
 
 export type SupportedLocale = (typeof supportedLocales)[number];
 
 /** Used when there is no locale evidence (legacy callers, missing headers). */
-export const defaultLocale: SupportedLocale = "zh-CN";
+export const defaultLocale: SupportedLocale = "zh-TW";
 
 /** Used when locale evidence exists but is not a shipped UI language. */
 export const unmatchedLocale: SupportedLocale = "en-US";
@@ -16,7 +16,7 @@ export const matchSupportedLocale = (locale: string | null | undefined): Support
   const normalized = locale.trim().replaceAll("_", "-").toLowerCase();
 
   if (normalized === "zh" || normalized.startsWith("zh-")) {
-    return "zh-CN";
+    return "zh-TW";
   }
 
   if (normalized === "en" || normalized.startsWith("en-")) {

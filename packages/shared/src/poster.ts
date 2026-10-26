@@ -181,23 +181,23 @@ export type PosterTemplate = (typeof POSTER_TEMPLATES)[number];
 // IDs, but their appearance and rendering path are different.
 export const POSTER_TEMPLATE_DESCRIPTIONS = {
   editorial: {
-    zh: "基础编辑风", en: "Basic editorial",
-    zhUse: "米白底、衬线标题、左对齐，适合读书、观点与文章封面。",
+    zh: "基礎編輯風", en: "Basic editorial",
+    zhUse: "米白底、襯線標題、左對齊，適合讀書、觀點與文章封面。",
     enUse: "Warm off-white background, serif headline and left-aligned text; reading, opinions and article covers.",
   },
   bold: {
-    zh: "基础醒目风", en: "Basic bold",
-    zhUse: "深绿黑底、白色粗标题、亮绿点缀，适合科技、商业与重点公告。",
+    zh: "基礎醒目風", en: "Basic bold",
+    zhUse: "深綠黑底、白色粗標題、亮綠點綴，適合科技、商業與重點公告。",
     enUse: "Dark green-black background, bold white headline and lime accents; technology, business and announcements.",
   },
   quote: {
-    zh: "基础金句风", en: "Basic quote",
-    zhUse: "白底、衬线标题、左对齐，标题位置偏低，适合短引言、感悟与文学金句。",
+    zh: "基礎金句風", en: "Basic quote",
+    zhUse: "白底、襯線標題、左對齊，標題位置偏低，適合短引言、感悟與文學金句。",
     enUse: "White background, left-aligned serif headline placed lower on the canvas; short quotations, reflections and literary statements.",
   },
   minimal: {
-    zh: "基础简约风", en: "Basic minimal",
-    zhUse: "白底、无衬线标题、居中排版，适合简洁封面、短口号与通用主题。",
+    zh: "基礎簡約風", en: "Basic minimal",
+    zhUse: "白底、無襯線標題、居中排版，適合簡潔封面、短口號與通用主題。",
     enUse: "White background, sans-serif headline and centred text; simple covers, short slogans and general topics.",
   },
 } satisfies Record<PosterTemplate, { zh: string; en: string; zhUse: string; enUse: string }>;

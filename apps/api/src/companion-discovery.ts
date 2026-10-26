@@ -228,7 +228,7 @@ export async function startDiscoveryCheck(db: DatabaseAdapter, scope: CompanionS
     if (inputHash === settings.last_input_hash) { await finish("quiet"); return null; }
     const modelId = await options.loadModelId();
     turn = await beginCompanionTurn(db, scope, { id: turnId, threadId: turnId, message: "Quiet discovery", useMemory: settings.recall_enabled === 1,
-      allowNotes: true, locale: options.locale === "zh-CN" ? "zh-CN" : "en-US" }, modelId);
+      allowNotes: true, locale: options.locale === "zh-TW" ? "zh-TW" : "en-US" }, modelId);
     const session: DiscoverySession = {
       generationInput, inputHash, cursor, settingsVersion: settings.version, memoryRevision,
       recallEnabled: settings.recall_enabled === 1, now,

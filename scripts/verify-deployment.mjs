@@ -179,7 +179,7 @@ export const verifyCloudflareWorkerHealth = async ({
         );
       } else if (payload?.error?.code === "object_storage_not_ready") {
         lastFailure = new Error(
-          `Deployed Worker reports object_storage_not_ready at ${healthUrl}. Check that the RESOURCES binding points to the configured R2 bucket.`,
+          `Deployed Worker reports object_storage_not_ready at ${healthUrl}. Check that the EDGE_EVER_S3_* deployment variables point to a reachable S3-compatible object storage service.`,
         );
       } else {
         const diagnostic = payload?.error?.code || `${response.status} ${response.statusText}`.trim();

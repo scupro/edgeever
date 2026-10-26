@@ -454,8 +454,8 @@ export default function PosterEditorPane({
       fontSize: Math.round(size),
       fontFamily: zh
         ? style === "heading"
-          ? "思源黑体 Heavy"
-          : "思源黑体"
+          ? "思源黑體 Heavy"
+          : "思源黑體"
         : "Inter",
       fontWeight: "normal",
       textAlign: "left",

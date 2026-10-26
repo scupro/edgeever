@@ -199,7 +199,7 @@ test("BOSS login preview can still save an explicit text selection without captu
   expect(h.calls.creates).toHaveLength(1);
   expect(h.calls.creates[0].tags).toEqual(['web-clip']);
   expect(h.calls.creates[0].contentMarkdown).toContain('Only selected job text');
-  expect(h.calls.creates[0].contentMarkdown).not.toContain('登录查看完整内容');
+  expect(h.calls.creates[0].contentMarkdown).not.toContain('登入檢視完整內容');
 });
 
 for (const platform of Object.keys(urls)) {
@@ -211,7 +211,7 @@ for (const platform of Object.keys(urls)) {
     expect(menu.calls.creates).toHaveLength(1);
     const normalize = (note) => ({ ...note, contentMarkdown: note.contentMarkdown.replace(/capturedAtLabel: [^\n]+/, "capturedAtLabel: <capture time>") });
     expect(normalize(menu.calls.creates[0])).toEqual(normalize(toolbar.calls.creates[0]));
-    expect(toolbar.calls.creates[0].tags).toEqual(platform === "xueqiu" ? ["web-clip", "xueqiu", "投资", "SH600438", "SH601012", "SH688472"] : ["web-clip", platform]);
+    expect(toolbar.calls.creates[0].tags).toEqual(platform === "xueqiu" ? ["web-clip", "xueqiu", "投資", "SH600438", "SH601012", "SH688472"] : ["web-clip", platform]);
     expect(toolbar.calls.creates[0].notebookId).toBe("nb_inbox");
     expect(toolbar.calls.creates[0].contentMarkdown).toMatch(/capturedAtLabel: \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\b/);
     if (platform === "v2ex") {
@@ -239,8 +239,8 @@ for(const action of ['toolbar','menu']) test(`Douban ${action} keeps paragraphs 
   for(const url of ['https://img2.doubanio.com.evil.test/view/x','https://img2.doubanio.com/not-images','https://example.test/?url=https://img2.doubanio.com/view/x']) expect(match.test(url)).toBe(false);
   expect(rule.action.requestHeaders).toEqual([{header:'Referer',operation:'set',value:'https://www.douban.com/'}]);
   for(const memo of [h.calls.creates[0],h.calls.saves[0]]) {
-    expect(memo.contentMarkdown).toContain('\n\n在路上，我遇到了瓦尔泽');
-    expect(memo.contentMarkdown).toContain('\n\n有人说，他写的是西方的散文');
+    expect(memo.contentMarkdown).toContain('\n\n在路上，我遇到了瓦爾澤');
+    expect(memo.contentMarkdown).toContain('\n\n有人說，他寫的是西方的散文');
   }
   expect(h.calls.saves[0].contentMarkdown.match(/!\[[^\]]*\]\(\/api\/v1\/resources\/res_\d\/blob\)/g)).toHaveLength(6);
 });
@@ -280,7 +280,7 @@ for(const action of ['toolbar','menu']) test(`Juejin ${action} saves the complet
   for(const memo of [h.calls.creates[0],h.calls.saves[0]]) {
     const table=markdownToDoc(memo.contentMarkdown).content.find(node=>node.type==='table');
     expect(table?.content.map(row=>row.content.map(text))).toEqual(expected);
-    expect(memo.contentMarkdown).not.toContain('复制代码');
+    expect(memo.contentMarkdown).not.toContain('複製程式碼');
   }
   expect(h.calls.saves[0].contentMarkdown).toContain('/api/v1/resources/res_2/blob');
 });
@@ -289,25 +289,25 @@ for(const action of ['toolbar','menu']) test(`Sspai ${action} retains article up
   const h=harness({platform:'sspai',prepare:doc=>doc.querySelector('.update-body').insertAdjacentHTML('beforeend','<p><img data-src="https://images.test/update.png"></p>')});
   await h[action]();expect(h.calls.creates).toHaveLength(1);
   const memo=h.calls.creates[0];expect(memo.tags).toEqual(['web-clip','sspai']);
-  expect(memo.contentMarkdown).toContain('> **中国大陆推出睡眠呼吸暂停迹象提示功能**');
-  expect(memo.contentMarkdown).toContain('> 2026 年 10 月 14 日，Apple 在中国大陆正式推出');
-  expect(memo.contentMarkdown).toContain('> 以下内容于 10:00更新');
+  expect(memo.contentMarkdown).toContain('> **中國大陸推出睡眠呼吸暫停跡象提示功能**');
+  expect(memo.contentMarkdown).toContain('> 2026 年 10 月 14 日，Apple 在中國大陸正式推出');
+  expect(memo.contentMarkdown).toContain('> 以下內容於 10:00更新');
   expect(memo.contentMarkdown).toContain('platformPublishedAtLabel: 2024-10-10');
-  expect(memo.contentMarkdown.match(/中国大陆推出睡眠呼吸暂停迹象提示功能/g)).toHaveLength(1);
+  expect(memo.contentMarkdown.match(/中國大陸推出睡眠呼吸暫停跡象提示功能/g)).toHaveLength(1);
   expect(h.calls.uploads).toHaveLength(10);
-  expect(h.calls.saves[0].contentMarkdown).toContain('> **中国大陆推出睡眠呼吸暂停迹象提示功能**');
+  expect(h.calls.saves[0].contentMarkdown).toContain('> **中國大陸推出睡眠呼吸暫停跡象提示功能**');
   expect(h.calls.saves[0].contentMarkdown).toContain('> ![](/api/v1/resources/res_10/blob)');
 });
 
 for(const action of ['toolbar','menu']) test(`WeChat ${action} cleans publisher promotions before archiving body images`,async()=>{
   const h=harness({platform:'wechat'});await h[action]();
   expect(h.calls.creates).toHaveLength(1);const memo=h.calls.creates[0];
-  expect(memo.tags).toEqual(['web-clip','wechat']);expect(memo.contentMarkdown).toContain('大数据架构之道');
-  expect(memo.contentMarkdown).toContain('选择模型进行对话');expect(memo.contentMarkdown.match(/!\[/g)).toHaveLength(21);
-  expect(memo.contentMarkdown).toContain('## 什么是Deepseek V3');
-  expect(memo.contentMarkdown).toMatch(/^###\s+第一步：注册华为云账号$/m);
-  expect(h.calls.saves[0].contentMarkdown).toContain('## 什么是Deepseek V3');
-  for(const noise of ['点击上方蓝字','分割线','现阶段的AI没有推理能力','DRPKCGMAPjK','iaic5Jv7oDhWHr79']) expect(memo.contentMarkdown).not.toContain(noise);
+  expect(memo.tags).toEqual(['web-clip','wechat']);expect(memo.contentMarkdown).toContain('大資料架構之道');
+  expect(memo.contentMarkdown).toContain('選擇模型進行對話');expect(memo.contentMarkdown.match(/!\[/g)).toHaveLength(21);
+  expect(memo.contentMarkdown).toContain('## 什麼是Deepseek V3');
+  expect(memo.contentMarkdown).toMatch(/^###\s+第一步：註冊華為雲賬號$/m);
+  expect(h.calls.saves[0].contentMarkdown).toContain('## 什麼是Deepseek V3');
+  for(const noise of ['點選上方藍字','分割線','現階段的AI沒有推理能力','DRPKCGMAPjK','iaic5Jv7oDhWHr79']) expect(memo.contentMarkdown).not.toContain(noise);
   expect(h.calls.uploads).toHaveLength(21);
   expect(h.calls.saves[0].contentMarkdown.match(/\/api\/v1\/resources\/res_\d+\/blob/g)).toHaveLength(21);
 });
@@ -321,7 +321,7 @@ test("a new platform toolbar still saves a valid selection instead of its full a
   expect((await h.toolbar()).ok).toBe(true);
   expect(h.calls.creates[0].tags).toEqual(["web-clip"]);
   expect(h.calls.creates[0].contentMarkdown).toContain("Only this passage");
-  expect(h.calls.creates[0].contentMarkdown).not.toContain("环境不好");
+  expect(h.calls.creates[0].contentMarkdown).not.toContain("環境不好");
 });
 
 test("Xiaoyuzhou saves the current client route using MAIN-world props while bootstrap JSON stays old", async () => {
@@ -337,7 +337,7 @@ test("Xiaoyuzhou saves the current client route using MAIN-world props while boo
   expect((await h.toolbar()).ok).toBe(true);
   expect(h.calls.creates[0].title).toBe("Current route episode");
   expect(h.calls.creates[0].contentMarkdown).toContain("New route's complete notes");
-  expect(h.calls.creates[0].contentMarkdown).not.toContain("韦礼安");
+  expect(h.calls.creates[0].contentMarkdown).not.toContain("韋禮安");
 });
 
 test("request, extension, tab and frame correlation reject unrelated responses", async () => {
@@ -465,15 +465,15 @@ test("Douban list menu saves only the selected own short comment", async () => {
   expect(await h.mode()).toEqual({kind:"social-feed"});
   await h.menu();
   expect(h.calls.creates).toHaveLength(1);
-  expect(h.calls.creates[0].title).toBe("散步 · 就绪雀");
-  expect(h.calls.creates[0].contentMarkdown).toContain("有很多没必要写的句子");
-  expect(h.calls.creates[0].contentMarkdown).not.toContain("翻译的存在感太明显了");
+  expect(h.calls.creates[0].title).toBe("散步 · 就緒雀");
+  expect(h.calls.creates[0].contentMarkdown).toContain("有很多沒必要寫的句子");
+  expect(h.calls.creates[0].contentMarkdown).not.toContain("翻譯的存在感太明顯了");
   expect(h.calls.creates[0].tags).toEqual(["web-clip","douban"]);
 });
 
 
 test("Jike Web detail login redirects show access guidance and never save the QR page as a post",async()=>{
-  const h=harness({platform:'jike',pageUrl:'https://web.okjike.com/login?redirectURL=%2ForiginalPost%2F66ac89b0314f5cced41012d3',prepare:doc=>{doc.body.innerHTML='<p>可使用即刻App扫码</p>';}});
+  const h=harness({platform:'jike',pageUrl:'https://web.okjike.com/login?redirectURL=%2ForiginalPost%2F66ac89b0314f5cced41012d3',prepare:doc=>{doc.body.innerHTML='<p>可使用即刻App掃碼</p>';}});
   expect(await h.mode()).toEqual({kind:'login-required',platform:'platformJike',access:'login-required'});
   expect(await h.toolbar()).toEqual({ok:false,message:'platformUnreadable'});
   expect(h.calls.creates).toHaveLength(0);
@@ -496,7 +496,7 @@ for (const [platform, pageUrl, fixture, emptyMessage] of [
     expect(await h.toolbar()).toMatchObject({ok:true});
     expect(h.calls.creates).toHaveLength(1);
     expect(h.calls.creates[0].contentMarkdown).toContain('Selected passage');
-    expect(h.calls.creates[0].contentMarkdown).not.toContain('有很多没必要写的句子');
+    expect(h.calls.creates[0].contentMarkdown).not.toContain('有很多沒必要寫的句子');
     expect(h.calls.creates[0].contentMarkdown).not.toContain('AI分析');
   });
 
@@ -510,7 +510,7 @@ for (const [platform, pageUrl, fixture, emptyMessage] of [
     expect(await h.toolbar()).toMatchObject({ok:true});
     expect(h.calls.creates).toHaveLength(1);
     expect(h.calls.creates[0].contentMarkdown).toContain('Selected passage');
-    expect(h.calls.creates[0].contentMarkdown).not.toContain('有很多没必要写的句子');
+    expect(h.calls.creates[0].contentMarkdown).not.toContain('有很多沒必要寫的句子');
     expect(h.calls.creates[0].contentMarkdown).not.toContain('AI分析');
   });
 
@@ -652,7 +652,7 @@ for(const [platform,pageUrl,tag,author,time] of [
 test('Jike topic menu saves precisely the marked card while toolbar asks for a post or selection',async()=>{
  const h=harness({platform:'jike',fixture:'jike-feed',pageUrl:'https://m.okjike.com/topics/63579abb6724cc583b9bba9a',prepare:doc=>doc.querySelectorAll('.post-item-li')[1].setAttribute('data-edgeever-social-target','https://m.okjike.com/originalPosts/6ace942f756bbb66581c3f96')});
  expect(await h.mode()).toEqual({kind:'social-feed'});expect(await h.toolbar()).toEqual({ok:false,message:'socialSelectPost'});expect(h.calls.creates).toHaveLength(0);
- await h.menu();expect(h.calls.creates).toHaveLength(1);expect(h.calls.creates[0].contentMarkdown).toContain('JimHuiHui');expect(h.calls.creates[0].contentMarkdown).toContain('护城河');expect(h.calls.creates[0].contentMarkdown).not.toContain('Ambi');expect(h.calls.creates[0].tags).toEqual(['web-clip','jike']);expect(h.calls.uploads).toHaveLength(1);
+ await h.menu();expect(h.calls.creates).toHaveLength(1);expect(h.calls.creates[0].contentMarkdown).toContain('JimHuiHui');expect(h.calls.creates[0].contentMarkdown).toContain('護城河');expect(h.calls.creates[0].contentMarkdown).not.toContain('Ambi');expect(h.calls.creates[0].tags).toEqual(['web-clip','jike']);expect(h.calls.uploads).toHaveLength(1);
 });
 test('a real Substack paywall warns and refuses a whole-article preview',async()=>{
  const h=harness({platform:'substack-article',fixture:'substack-paywall',pageUrl:'https://www.lennysnewsletter.com/p/how-to-build-ai-product-sense'});
@@ -695,7 +695,7 @@ for(const action of ['toolbar','menu']) test(`LinkedIn ${action} saves professio
  await h[action]();expect(h.calls.creates).toHaveLength(1);
  const note=h.calls.creates[0];
  expect(note.contentMarkdown).toContain('platformAuthorLabel: Mohammad Ahmed · Technical Lead - Backend at Dizzaract');
- expect(note.contentMarkdown).toContain('5 个月前');
+ expect(note.contentMarkdown).toContain('5 個月前');
  expect(note.contentMarkdown).toContain('urn:li:share:7456582751698190336');
  expect(note.contentMarkdown).not.toContain('3 度+');
  expect(note.tags).toEqual(['web-clip','linkedin']);
@@ -711,10 +711,10 @@ test('Xueqiu right-click on a truncated feed saves only the selected full public
   return createWindow(readFileSync(new URL('./fixtures/platforms/xueqiu-feed-detail-second.html',import.meta.url),'utf8'),frame.src).document;
  }});
  await h.menu();expect(h.calls.creates).toHaveLength(1);
- expect(h.calls.creates[0].contentMarkdown).toContain('把自己的真金白银押在别人的嘴上，早晚是要付出代价的。');
+ expect(h.calls.creates[0].contentMarkdown).toContain('把自己的真金白銀押在別人的嘴上，早晚是要付出代價的。');
  expect(h.calls.creates[0].contentMarkdown).toContain(target);
  expect(h.calls.creates[0].contentMarkdown).not.toContain('6114376649/411862401');
- expect(h.calls.creates[0].tags).toEqual(['web-clip','xueqiu','投资','09992','NTES']);
+ expect(h.calls.creates[0].tags).toEqual(['web-clip','xueqiu','投資','09992','NTES']);
  expect(h.calls.uploads).toHaveLength(1);expect(h.calls.saves).toHaveLength(1);
  expect(JSON.stringify(h.calls.saves[0])).toContain('res_1');
  expect(JSON.stringify(h.calls.saves[0])).not.toContain('https://xqimg.imedao.com/');
@@ -807,7 +807,7 @@ test('native Jike Web feed menu resolves current props and expands only the sele
  const h=harness({platform:'jike',fixture:'jike-web-feed',pageUrl:'https://web.okjike.com/following',prepare:prepareWebJike});
  expect((await h.menu()).kind).toBe('success');expect(h.calls.creates).toHaveLength(1);
  const md=h.calls.creates[0].contentMarkdown;expect(md).toContain('https://m.okjike.com/originalPosts/'+webJikePosts[0].id);
- expect(md).toContain('感谢以上即友的创作与分享');expect(md).not.toContain('2026年10月16日');expect(md).not.toContain('收起');
+ expect(md).toContain('感謝以上即友的創作與分享');expect(md).not.toContain('2026年10月16日');expect(md).not.toContain('收起');
  expect(md).toContain('https://web.okjike.com/u/71b51e1e-ece6-4855-b1d9-98703b7c1507');
  expect(h.calls.requests.every(url=>url.startsWith('https://edgeever.test/'))).toBe(true);
 });
@@ -856,9 +856,9 @@ for(const variant of ['normal','images-only','changed-image'])test(`Jike Web gal
 test('Jike Web detail expands its selected card before verifying the full public body',async()=>{
  const h=harness({platform:'jike',fixture:'jike-web-detail',pageUrl:'https://web.okjike.com/u/5e6497e7-a69f-422b-af6e-baf0fc07b512/post/64c9dd9a2edae6abdc610605',prepare:(doc,window)=>{
  const card=prepareJikeWebDetail(doc),body=card.querySelector('[class*="_contentWrapper_"]'),text=body.querySelector('[class^="_content_"]'),full=text.innerHTML;
- text.textContent='我在即刻写东西的核心原则是…';const button=doc.createElement('button');button.textContent='展开全文';body.appendChild(button);
+ text.textContent='我在即刻寫東西的核心原則是…';const button=doc.createElement('button');button.textContent='展開全文';body.appendChild(button);
  let notify=()=>{};window.MutationObserver=class{constructor(fn){notify=fn;}observe(){}disconnect(){}};
  button.addEventListener('click',()=>{text.innerHTML=full;button.remove();notify();});
  }});
- expect((await h.toolbar()).ok).toBe(true);expect(h.calls.creates).toHaveLength(1);expect(h.calls.creates[0].contentMarkdown).toContain('《斯坦福大学人生设计课》');
+ expect((await h.toolbar()).ok).toBe(true);expect(h.calls.creates).toHaveLength(1);expect(h.calls.creates[0].contentMarkdown).toContain('《斯坦福大學人生設計課》');
 });

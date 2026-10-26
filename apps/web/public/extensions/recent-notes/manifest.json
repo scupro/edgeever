@@ -7,9 +7,9 @@
   "settingsUi": "host",
   "description": "Demonstrates note queries, editor selections, commands, notices, and a custom panel.",
   "locales": {
-    "zh-CN": {
-      "name": "最近笔记示例",
-      "description": "演示笔记查询、编辑器选区、命令、通知和自定义面板。"
+    "zh-TW": {
+      "name": "最近筆記示例",
+      "description": "演示筆記查詢、編輯器選區、命令、通知和自定義面板。"
     }
   },
   "author": "EdgeEver",

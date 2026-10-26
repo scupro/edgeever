@@ -16,7 +16,7 @@ WHERE (id = 'nb_inbox' OR id = workspace_id || '_inbox')
   );
 
 INSERT INTO notebooks (id, workspace_id, parent_id, name, slug, icon, color, sort_order)
-SELECT w.id || '_inbox', w.id, NULL, '等待分类', 'inbox', 'notebook', '#0f766e', 10
+SELECT w.id || '_inbox', w.id, NULL, '等待分類', 'inbox', 'notebook', '#0f766e', 10
 FROM workspaces w
 WHERE NOT EXISTS (
   SELECT 1

@@ -15,8 +15,8 @@ describe("resolveMobileAttachmentContent", () => {
             type: "edgeeverPdfAttachment",
             attrs: {
               url: "/api/v1/resources/res_pdf/blob",
-              label: "附件：报告.pdf",
-              filename: "报告.pdf",
+              label: "附件：報告.pdf",
+              filename: "報告.pdf",
               mimeType: "application/pdf",
               byteSize: 12582912,
               displayMode: "compact",
@@ -29,8 +29,8 @@ describe("resolveMobileAttachmentContent", () => {
             type: "edgeeverFileAttachment",
             attrs: {
               url: "/api/v1/resources/res_doc/blob",
-              label: "附件：说明.docx",
-              filename: "说明.docx",
+              label: "附件：說明.docx",
+              filename: "說明.docx",
               mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
               byteSize: 856000,
             },
@@ -44,14 +44,14 @@ describe("resolveMobileAttachmentContent", () => {
           type: "paragraph",
           content: [{
             type: "text",
-            text: "附件：报告.pdf",
+            text: "附件：報告.pdf",
             marks: [{
               type: "link",
               attrs: {
                 href: "/api/v1/resources/res_pdf/blob",
                 target: "_blank",
                 class: "edgeever-attachment-link edgeever-attachment-kind-pdf",
-                attachmentFilename: "报告.pdf",
+                attachmentFilename: "報告.pdf",
                 attachmentMimeType: "application/pdf",
                 attachmentByteSize: 12582912,
               },
@@ -62,14 +62,14 @@ describe("resolveMobileAttachmentContent", () => {
           type: "paragraph",
           content: [{
             type: "text",
-            text: "附件：说明.docx",
+            text: "附件：說明.docx",
             marks: [{
               type: "link",
               attrs: {
                 href: "/api/v1/resources/res_doc/blob",
                 target: "_blank",
                 class: "edgeever-attachment-link edgeever-attachment-kind-document",
-                attachmentFilename: "说明.docx",
+                attachmentFilename: "說明.docx",
                 attachmentMimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
                 attachmentByteSize: 856000,
               },
@@ -87,7 +87,7 @@ describe("resolveMobileAttachmentContent", () => {
         type: "paragraph",
         content: [{
           type: "text",
-          text: "附件：数据.xlsx",
+          text: "附件：資料.xlsx",
           marks: [{
             type: "link",
             attrs: {

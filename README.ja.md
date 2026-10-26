@@ -14,7 +14,7 @@
     <a href="#スポンサーと支援"><img src="https://img.shields.io/badge/Sponsor-EdgeEver-ea4aaa?logo=github-sponsors" alt="スポンサーと支援" /></a>
   </p>
   <p>
-    <a href="README.zh-CN.md">简体中文</a> | <a href="README.zh-TW.md">繁體中文</a> | <a href="README.md">English</a> | <b>日本語</b> | <a href="README.pl-PL.md">Polski</a>
+    <a href="README.zh-TW.md">繁體中文</a> | <a href="README.md">English</a> | <b>日本語</b> | <a href="README.pl-PL.md">Polski</a>
   </p>
   <p>
     <a href="https://t.me/+wwUx1BYLrIdiZjY1"><img src="assets/readme/community/telegram.svg" alt="Telegram" width="16" height="16" align="absmiddle" /> Telegram グループ</a> &nbsp;|&nbsp;
@@ -105,7 +105,7 @@ Cloudflare のオンライン導入は、次のいずれかです。
 ```text
 GitHub と Cloudflare のオンライン操作だけで EdgeEver を導入してください:
 1. Fork https://github.com/tianma-if/edgeever。
-2. Cloudflare で D1 `edgeever` と R2 `edgeever-resources` を作成します。
+2. Cloudflare で D1 `edgeever` を作成し、添付ファイル用に S3 互換のオブジェクトストレージを準備します。
 3. Workers & Pages で Fork の `main` ブランチから `edgeever` という名前の Worker を作成します。
    リポジトリのルートを使い、Cloudflare Workers Builds の既定のデプロイコマンドを維持します。
    その API トークンに D1 の読み取り・編集権限があることを確認して Save and Deploy を選択します。
@@ -129,7 +129,7 @@ GitHub と Cloudflare のオンライン操作だけで EdgeEver を導入して
 ウェブ上の 6 手順で完了します。
 
 1. **リポジトリを Fork**：GitHub 右上の **Fork** で、EdgeEver を自分のアカウントへ Fork します。
-2. **Cloudflare リソースを作成**：D1 `edgeever` と R2 `edgeever-resources` を作ります。
+2. **Cloudflare リソースを作成**：D1 `edgeever` を作り、Backblaze B2・Tencent COS・Alibaba OSS・MinIO・Wasabi など S3 互換のオブジェクトストレージを用意します。
 3. **プロジェクトを取り込み、設定**：Cloudflare **Workers & Pages** で Fork の `main` ブランチから `edgeever` という名前の Worker を作成します。リポジトリのルートと、Cloudflare 上で実行される Workers Builds の既定のデプロイコマンドを使い、API トークンの D1 読み取り・編集権限を確認します。binding はデプロイコマンドが作るため、Fork 内のファイルは編集しないでください。
 4. **管理者パスワードを準備**：管理者ログイン用パスワードを用意します。32 文字以上を推奨します。Worker 作成後、実行時 Secret `EDGE_EVER_AUTH_PASSWORD` に保存します。
 5. **ビルドと確認**：Save and Deploy で Worker が作成され、ビルドが始まります。初回のビルドは Worker インスタンスを初期化するためのものであり、管理者 Secret 未設定によるエラーは想定内の動作です。手順 4 の実行時 Secret `EDGE_EVER_AUTH_PASSWORD` を追加した後に再試行ボタンを押せばビルドが通過します。管理者ユーザー名の既定値は `admin` です。別の名前を使う場合は、再試行前に Workers Builds 変数 `EDGE_EVER_AUTH_USERNAME` を設定します。導入後に `/api/health` が `200` を返すことを確認し、設定した管理者ユーザー名とパスワードでログインします。
@@ -140,11 +140,11 @@ GitHub と Cloudflare のオンライン操作だけで EdgeEver を導入して
 </details>
 
 <details>
-<summary>📌 Cloudflare 導入の注意事項を確認（独自ドメイン紐付けと R2 無料枠）</summary>
+<summary>📌 Cloudflare 導入の注意事項を確認（独自ドメイン紐付けとオブジェクトストレージ）</summary>
 
 > **ドメインとアクセス**：デプロイ完了後は、Cloudflare から自動で割り当てられる `*.workers.dev` ドメインでそのまま利用できるほか、Worker の **Settings → Domains & Routes** で独自のカスタムドメインを紐付けることもできます。
 >
-> **Cloudflare R2 の有効化**：Cloudflare R2 にはノート用途で足りる [無料保存枠](https://developers.cloudflare.com/r2/pricing/#free-tier) がありますが、先に R2 のサブスクリプションを有効にし、支払い方法を登録する必要があります。Cloudflare は [公式に](https://developers.cloudflare.com/billing/get-started/update-billing-info/#supported-payment-methods) UnionPay、Visa、Mastercard などのカードと、PayPal、Apple Pay、Google Pay などを受け付けます。
+> **オブジェクトストレージ**：EdgeEver は添付ファイルと画像を、自分で用意した S3 互換のオブジェクトストレージに保存します。Cloudflare R2 バケットはバインドしません。Backblaze B2 には[無料 10 GB プラン](https://www.backblaze.com/cloud-storage/pricing)があり、Tencent COS、Alibaba OSS、MinIO、Wasabi も利用できます。初回ビルド前に `EDGE_EVER_S3_*` のデプロイ変数を設定してください。
 
 </details>
 
@@ -225,7 +225,7 @@ bun run dev
 - iOS アプリ: `apps/ios` のネイティブ SwiftUI（iOS 17+）。同梱の TipTap EditorBundle、GRDB のローカルミラー / outbox、Android に揃えたシェル。
 - ネイティブデスクトップ: Electron + Rust sidecar。横断プラットフォームの操作感と、速いローカルデータ。SQLite でオフライン編集、復帰後の差分同期、ローカルバックアップ。
 - Web Clipper: Manifest V3、Mozilla Readability、Turndown。Chrome、Microsoft Edge、Firefox。
-- バックエンド: Hono / Zod の業務アプリ 1 式。REST API と Remote MCP。Cloudflare は Workers / D1 / R2、Docker は Bun / SQLite / ローカルファイルまたは S3。
+- バックエンド: Hono / Zod の業務アプリ 1 式。REST API と Remote MCP。Cloudflare は Workers / D1 と外部 S3 互換オブジェクトストレージ、Docker は Bun / SQLite / ローカルファイルまたは S3。
 - 公式サイト: `apps/site` の Astro 静的サイト。Cloudflare Pages に出せます。
 
 #### リポジトリ構成
@@ -249,7 +249,7 @@ scripts           Wrangler ラッパ、パスワード hash、CLI、MCP stdio、
 migrations        D1/SQLite 共用の、追加のみの migration
 docs              アーキテクチャ、移行、導入の文書
 .github/workflows Web、モバイル、iOS、デスクトップ梱包、導入、Release の CI
-wrangler.toml     Cloudflare Workers、Assets、D1、R2 の設定
+wrangler.toml     Cloudflare Workers、Assets、D1 の設定
 ```
 
 </details>

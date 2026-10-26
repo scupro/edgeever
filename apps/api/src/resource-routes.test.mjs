@@ -253,7 +253,7 @@ describe("resource route contracts", () => {
     };
     const response = await createApp(agentAuth, async () => ({
       ...resourceRow,
-      filename: "季度报告.pdf",
+      filename: "季度報告.pdf",
       storage_config_id: null,
     })).request(
       "/api/v1/resources/res_1/blob",
@@ -264,7 +264,7 @@ describe("resource route contracts", () => {
     expect(response.status).toBe(200);
     expect(response.headers.get("Content-Type")).toBe("application/pdf");
     expect(response.headers.get("Content-Disposition")).toBe(
-      "inline; filename=\"download.pdf\"; filename*=UTF-8''%E5%AD%A3%E5%BA%A6%E6%8A%A5%E5%91%8A.pdf",
+      "inline; filename=\"download.pdf\"; filename*=UTF-8''%E5%AD%A3%E5%BA%A6%E5%A0%B1%E5%91%8A.pdf",
     );
     expect(response.headers.get("Accept-Ranges")).toBe("bytes");
   });
@@ -307,7 +307,7 @@ describe("resource route contracts", () => {
     };
     const response = await createApp(agentAuth, async () => ({
       ...resourceRow,
-      filename: "访谈.flac",
+      filename: "訪談.flac",
       mime_type: "application/octet-stream",
       storage_config_id: null,
     })).request(
@@ -319,7 +319,7 @@ describe("resource route contracts", () => {
     expect(response.status).toBe(200);
     expect(response.headers.get("Content-Type")).toBe("audio/flac");
     expect(response.headers.get("Content-Disposition")).toBe(
-      "inline; filename=\"download.flac\"; filename*=UTF-8''%E8%AE%BF%E8%B0%88.flac",
+      "inline; filename=\"download.flac\"; filename*=UTF-8''%E8%A8%AA%E8%AB%87.flac",
     );
     expect(response.headers.get("Accept-Ranges")).toBe("bytes");
   });
@@ -335,7 +335,7 @@ describe("resource route contracts", () => {
     };
     const response = await createApp(agentAuth, async () => ({
       ...resourceRow,
-      filename: "录屏.mp4",
+      filename: "錄屏.mp4",
       mime_type: "application/octet-stream",
       storage_config_id: null,
     })).request(
@@ -347,7 +347,7 @@ describe("resource route contracts", () => {
     expect(response.status).toBe(200);
     expect(response.headers.get("Content-Type")).toBe("video/mp4");
     expect(response.headers.get("Content-Disposition")).toBe(
-      "inline; filename=\"download.mp4\"; filename*=UTF-8''%E5%BD%95%E5%B1%8F.mp4",
+      "inline; filename=\"download.mp4\"; filename*=UTF-8''%E9%8C%84%E5%B1%8F.mp4",
     );
     expect(response.headers.get("Accept-Ranges")).toBe("bytes");
   });

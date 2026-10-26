@@ -7,7 +7,8 @@ Deploy EdgeEver through GitHub and Cloudflare in your browser, without installin
 ## Prerequisites
 
 - **GitHub Account** (for Forking the repository and enabling automated updates)
-- **Cloudflare Account** (for hosting Worker logic, SQLite D1 database, and R2 storage)
+- **Cloudflare Account** (for hosting Worker logic and the SQLite D1 database)
+- **An S3-compatible object storage account** (for note attachments and images; EdgeEver keeps no built-in Cloudflare R2 bucket)
 
 ---
 
@@ -22,14 +23,14 @@ Deploy EdgeEver through GitHub and Cloudflare in your browser, without installin
 
 ### Step 2: Create Storage & Database Resources in Cloudflare
 
-Log into your [Cloudflare Dashboard](https://dash.cloudflare.com/). If an entry moves, see the official [D1](https://developers.cloudflare.com/d1/get-started/) and [R2](https://developers.cloudflare.com/r2/get-started/) guides:
+Log into your [Cloudflare Dashboard](https://dash.cloudflare.com/). If an entry moves, see the official [D1](https://developers.cloudflare.com/d1/get-started/) guide:
 
 1. **Create a D1 Database**:
    - Under **Storage & databases**, open **D1 SQL Database** and click **Create database**.
    - Database name: exactly `edgeever`, then click **Create**.
-2. **Create an R2 Bucket** (for note attachments & images):
-   - Under **Storage & databases**, open **R2** -> **Overview**. If R2 is not yet enabled, complete the subscription flow shown there; then click **Create bucket**.
-   - Bucket name: exactly `edgeever-resources`, then click **Create bucket**.
+2. **Prepare an S3-compatible object storage bucket** (for note attachments & images):
+   - EdgeEver binds no Cloudflare R2 bucket. Any S3-compatible service works; Backblaze B2 (10 GB free), Tencent COS, Alibaba OSS, MinIO and Wasabi are common choices.
+   - Create a bucket, for example `edgeever-resources`, and record its endpoint, region, bucket name, access key ID and secret access key.
 
 ---
 
@@ -44,7 +45,7 @@ Log into your [Cloudflare Dashboard](https://dash.cloudflare.com/). If an entry 
    - Deploy command: npx wrangler deploy (keep Cloudflare's default; Workers Builds runs it online, not on your computer)
    - **API token**: The automatically generated token may lack D1 permissions. Select or create a User API Token scoped to the target account with D1 read and edit permissions; if permissions are insufficient, correct them based on the build log and retry.
 
-The deployment command creates the `DB` and `RESOURCES` bindings and looks up the D1 UUID. Do not edit `wrangler.toml` or add duplicate bindings in the Dashboard.
+The deployment command creates the `DB` binding and looks up the D1 UUID. Do not edit `wrangler.toml` or add duplicate bindings in the Dashboard.
 
 ---
 
@@ -55,6 +56,7 @@ Click **Save and Deploy** to create the Worker. The first build fails verificati
 | Type | Name | Value | Purpose |
 | :--- | :--- | :--- | :--- |
 | **Secret** | `EDGE_EVER_AUTH_PASSWORD` | Preferably at least 32 characters | Administrator login password |
+| **Secret** | `EDGE_EVER_S3_SECRET_ACCESS_KEY` | The secret access key of the object storage account | Object storage credential |
 
 `EDGE_EVER_AUTH_PASSWORD` is the variable name; its value is the administrator login password. It is a Worker runtime Secret, not a Workers Builds variable.
 
@@ -95,20 +97,23 @@ To customize an instance, add non-secret values under the Worker's **Settings �
 | `EDGE_EVER_WORKER_NAME` | Worker name |
 | `EDGE_EVER_D1_DATABASE_NAME` | D1 database name; its UUID is discovered automatically |
 | `EDGE_EVER_D1_DATABASE_ID` | Optional UUID fallback when discovery is unavailable |
-| `EDGE_EVER_R2_BUCKET_NAME` | Optional explicit production R2 bucket override; upgrades otherwise reuse the live binding |
-| `EDGE_EVER_R2_PREVIEW_BUCKET_NAME` | Preview R2 bucket name |
+| `EDGE_EVER_S3_ENDPOINT` | Object storage endpoint, for example `https://s3.us-west-004.backblazeb2.com` |
+| `EDGE_EVER_S3_REGION` | Object storage region; defaults to `us-east-1` |
+| `EDGE_EVER_S3_BUCKET` | Bucket that stores note attachments and images |
+| `EDGE_EVER_S3_ACCESS_KEY_ID` | Object storage access key ID |
+| `EDGE_EVER_S3_FORCE_PATH_STYLE` | Set to `true` for path-style-only services such as MinIO |
 | `EDGE_EVER_WORKERS_DEV` | Enable or disable the `workers.dev` route |
 | `EDGE_EVER_CUSTOM_DOMAIN` / `EDGE_EVER_ROUTE_PATTERN` | Custom routing |
 
 Set a custom administrator username before retrying the initial build; changing the variable after the account exists does not rename it.
 
-Older deployments need not migrate a custom R2 bucket; upgrades reuse the live `RESOURCES` binding unless overridden. Existing explicit build commands remain supported; see [Workers Builds configuration](cloudflare-workers-builds.md).
+Older deployments must add the `EDGE_EVER_S3_*` object storage settings before they can store attachments; the former `RESOURCES` R2 binding is no longer used. Existing explicit build commands remain supported; see [Workers Builds configuration](cloudflare-workers-builds.md).
 
 ---
 
 ## Troubleshooting
 
-- **Initial build failed**: Check the Worker **Deployments** log for “routing it through EdgeEver's validated deployment pipeline”. Verify that the standard resources are named exactly `edgeever` and `edgeever-resources`, and that the Workers Builds API token has D1 read/edit permission. For an intentionally different D1 database, set `EDGE_EVER_D1_DATABASE_NAME`; add `EDGE_EVER_D1_DATABASE_ID` only if automatic UUID discovery is unavailable.
+- **Initial build failed**: Check the Worker **Deployments** log for “routing it through EdgeEver's validated deployment pipeline”. Verify that the D1 database is named exactly `edgeever`, that the Workers Builds API token has D1 read/edit permission, and that the `EDGE_EVER_S3_*` settings point at a reachable bucket. For an intentionally different D1 database, set `EDGE_EVER_D1_DATABASE_NAME`; add `EDGE_EVER_D1_DATABASE_ID` only if automatic UUID discovery is unavailable.
 - **Updates not syncing**:
   1. On the Fork **Actions** tab, enable **Update deployed EdgeEver** (scheduled workflows are off by default on public forks).
   2. Run it once with **Run workflow**. Open the bilingual job **Summary**: it separately reports the upstream target, Git publish result, deployment trigger, and whether the live deployment was verified.

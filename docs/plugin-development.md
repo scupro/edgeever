@@ -1,6 +1,6 @@
 # EdgeEver Plugin Development Guide
 
-[简体中文](plugin-development.zh-CN.md)
+[繁體中文](plugin-development.zh-TW.md)
 
 EdgeEver provides client plugin and no-code theme extension capabilities. Users can install extensions from the official marketplace, public GitHub repositories, or manifest URLs. Installed extensions sync across Web and desktop platforms with the current workspace and run while EdgeEver is open; Android and iOS native apps do not run plugins.
 
@@ -52,9 +52,9 @@ Every plugin must supply a `manifest.json` at its root:
   "settingsUi": "host",
   "description": "Shows recently updated notes.",
   "locales": {
-    "zh-CN": {
-      "name": "最近笔记",
-      "description": "查看最近更新的笔记。"
+    "zh-TW": {
+      "name": "最近筆記",
+      "description": "檢視最近更新的筆記。"
     }
   },
   "entry": "./main.js",
@@ -75,7 +75,7 @@ Every plugin must supply a `manifest.json` at its root:
 | `settingsUi` | `"host"` | Yes | Settings UI renderer; currently `"host"` (rendered by host). |
 | `entry` | `string` | Yes | Entry script path; fixed to `./main.js` for GitHub distribution. |
 | `description` | `string` | No | Default description. |
-| `locales` | `object` | No | Localized metadata keyed by BCP 47 language tags (e.g. `zh-CN`, `en-US`), overriding `name` and `description`. |
+| `locales` | `object` | No | Localized metadata keyed by BCP 47 language tags (e.g. `zh-TW`, `en-US`), overriding `name` and `description`. |
 | `platforms` | `string[]` | No | Supported platforms: `"web"`, `"desktop"`. |
 | `permissions` | `string[]` | No | Declared capabilities disclosed to users during install and update. |
 | `settings` | `object` | No | Declarative settings schema rendered by host (detailed below). |

@@ -20,7 +20,7 @@ test("clipped literal alphabetic list prefixes survive the stored document witho
 });
 
 test("rich table cells retain their grid, line breaks, inline code and archived images",()=>{
-  const doc=createDocument('<table><tr><th>内容</th><th>代码</th></tr><tr><td><p>首段<br>次行</p><ul><li>one</li><li>two<img src="https://example.test/cell.png"></li></ul><blockquote>引用</blockquote></td><td><pre><code class="language-js">  a || b;\n\n\nconst tag = `&lt;br&gt;`;</code></pre></td></tr></table>');
+  const doc=createDocument('<table><tr><th>內容</th><th>程式碼</th></tr><tr><td><p>首段<br>次行</p><ul><li>one</li><li>two<img src="https://example.test/cell.png"></li></ul><blockquote>引用</blockquote></td><td><pre><code class="language-js">  a || b;\n\n\nconst tag = `&lt;br&gt;`;</code></pre></td></tr></table>');
   const markdown=platformHtmlMarkdown(doc.body,'https://example.test');
   expect(markdown).not.toContain('joplin-table-wrapper');expect(markdown).not.toContain('<table');
   expect(pageImageRefs(markdown,'https://example.test')).toEqual([{href:'https://example.test/cell.png',url:'https://example.test/cell.png'}]);
@@ -69,7 +69,7 @@ test("colspan headings form valid GFM and vertical spans stop at their row group
 });
 
 test("table conversion retains repeated pipes in prose and code and escapes literal HTML captions",()=>{
-  const doc=createDocument('<table><caption>&lt;img src=x onerror=alert(1)&gt;</caption><thead><tr><th>表达式</th><th>说明</th></tr></thead><tbody><tr><td>左 || 右，<code>a || b</code></td><td>逻辑或</td></tr></tbody></table>');
+  const doc=createDocument('<table><caption>&lt;img src=x onerror=alert(1)&gt;</caption><thead><tr><th>表示式</th><th>說明</th></tr></thead><tbody><tr><td>左 || 右，<code>a || b</code></td><td>邏輯或</td></tr></tbody></table>');
   const markdown=platformHtmlMarkdown(doc.body,'https://example.test');
   expect(markdown).not.toContain('<img');
   const parsed=markdownToDoc(markdown),table=parsed.content.find(node=>node.type==='table');
@@ -77,7 +77,7 @@ test("table conversion retains repeated pipes in prose and code and escapes lite
   const text=node=>node.text || (node.content || []).map(text).join('');
   expect(text(table.content[1].content[0])).toBe('左 || 右，a || b');
   expect(text(parsed.content[0])).toBe('<img src=x onerror=alert(1)>');
-  expect(text(table.content[1].content[1])).toBe('逻辑或');
+  expect(text(table.content[1].content[1])).toBe('邏輯或');
   expect(platformHtmlMarkdown(createDocument('<p>正文</p><table></table>').body,'https://example.test')).toBe('正文');
 });
 
@@ -172,14 +172,14 @@ test("publication text retains date-only, relative and unknown-zone values", () 
 test("V2EX real DOM keeps both supplements and their times, excluding replies", () => {
   const result = readV2ex(fixture("v2ex"), `${vUrl}?p=2#reply12`, labels);
   expect(result.ok).toBe(true);
-  expect(result.clip).toMatchObject({ title: "程序员如何从公司上班转型", author: "toubi", url: vUrl, publishedAt: { value: "2023-12-13T13:25:31+08:00", precision: "datetime" }, tags: ["web-clip", "v2ex"] });
-  expect(result.clip.markdown).toContain("环境不好");
+  expect(result.clip).toMatchObject({ title: "程式設計師如何從公司上班轉型", author: "toubi", url: vUrl, publishedAt: { value: "2023-12-13T13:25:31+08:00", precision: "datetime" }, tags: ["web-clip", "v2ex"] });
+  expect(result.clip.markdown).toContain("環境不好");
   expect(result.clip.markdown).toContain("Supplement 1");
   expect(result.clip.markdown).toContain(clipDateTimeText("2023-12-13T14:47:02+08:00"));
   expect(result.clip.markdown).toContain("Supplement 2");
   expect(result.clip.markdown).toContain(clipDateTimeText("2023-12-14T15:00:40+08:00"));
-  expect(result.clip.markdown.indexOf("从今天开始转型")).toBeLessThan(result.clip.markdown.indexOf("看看大家多久后能来还愿"));
-  expect(result.clip.markdown).not.toContain("抱歉跑个题");
+  expect(result.clip.markdown.indexOf("從今天開始轉型")).toBeLessThan(result.clip.markdown.indexOf("看看大家多久後能來還願"));
+  expect(result.clip.markdown).not.toContain("抱歉跑個題");
 });
 
 test("V2EX omits invisible article descendants and metadata without requiring optional fields",()=>{
@@ -187,14 +187,14 @@ test("V2EX omits invisible article descendants and metadata without requiring op
   const hidden=doc.createElement('p');hidden.style.display='none';hidden.textContent='HIDDEN BODY SENTINEL';body.appendChild(hidden);
   doc.querySelector('small.gray a').setAttribute('hidden','');doc.querySelector('small.gray span').style.display='none';
   const result=readV2ex(doc,vUrl,labels);expect(result.ok).toBe(true);
-  expect(result.clip.markdown).not.toContain('HIDDEN BODY SENTINEL');expect(result.clip.markdown).toContain('环境不好');expect(result.clip.markdown).toContain('Supplement 2');
+  expect(result.clip.markdown).not.toContain('HIDDEN BODY SENTINEL');expect(result.clip.markdown).toContain('環境不好');expect(result.clip.markdown).toContain('Supplement 2');
   expect(result.clip.author).toBeUndefined();expect(result.clip.publishedAt).toBeUndefined();expect(body.textContent).toBe(original+'HIDDEN BODY SENTINEL');
   doc.querySelector('h1').style.display='none';expect(readV2ex(doc,vUrl,labels)).toEqual({ok:false,reason:'unreadable'});
 });
 
 test("V2EX retains visible descendants restored within an otherwise invisible supplement",()=>{
   const doc=fixture('v2ex'),supplement=doc.querySelector('.subtle');supplement.style.visibility='hidden';supplement.querySelector('.topic_content').style.visibility='visible';
-  const result=readV2ex(doc,vUrl,labels);expect(result.ok).toBe(true);expect(result.clip.markdown).toContain('从今天开始转型');expect(result.clip.markdown).toContain('看看大家多久后能来还愿');
+  const result=readV2ex(doc,vUrl,labels);expect(result.ok).toBe(true);expect(result.clip.markdown).toContain('從今天開始轉型');expect(result.clip.markdown).toContain('看看大家多久後能來還願');
 });
 
 test("V2EX handles body-only and supplement-only topics, and rejects login or stale pages", () => {
@@ -204,7 +204,7 @@ test("V2EX handles body-only and supplement-only topics, and rejects login or st
   const supplements = fixture("v2ex"); supplements.querySelector(".cell .topic_content").remove();
   expect(readV2ex(supplements, vUrl, labels).clip.markdown).toContain("Supplement 2");
   doc.querySelector(".topic_content").remove();
-  doc.querySelector(".header").insertAdjacentHTML("afterend", '<div class="cell"><a href="/signin">请先登录</a></div>');
+  doc.querySelector(".header").insertAdjacentHTML("afterend", '<div class="cell"><a href="/signin">請先登入</a></div>');
   expect(readV2ex(doc, vUrl, labels).ok).toBe(false);
   expect(readV2ex(fixture("v2ex"), vUrl.replace("1000000", "1000001"), labels).ok).toBe(false);
 });
@@ -221,15 +221,15 @@ test("Xiaoyuzhou real DOM already contains full notes before expansion", () => {
   const doc = fixture("xiaoyuzhou"); const result = readXiaoyuzhou(doc, xUrl, labels);
   expect(doc.querySelector(".expand")).not.toBeNull();
   expect(result.ok).toBe(true);
-  expect(result.clip).toMatchObject({ title: "025. 快！抓紧时间拖延！", publishedAt: { value: "2022-06-18T03:47:48.686Z", precision: "datetime" }, completeness: "complete", tags: ["web-clip", "xiaoyuzhou"] });
+  expect(result.clip).toMatchObject({ title: "025. 快！抓緊時間拖延！", publishedAt: { value: "2022-06-18T03:47:48.686Z", precision: "datetime" }, completeness: "complete", tags: ["web-clip", "xiaoyuzhou"] });
   expect(result.clip.author).toBeUndefined();
-  expect(result.clip.markdown).toContain("双城FM");
+  expect(result.clip.markdown).toContain("雙城FM");
   expect(result.clip.markdown).toContain("54:30");
-  expect(result.clip.markdown).toContain("韦礼安");
+  expect(result.clip.markdown).toContain("韋禮安");
   expect(result.clip.markdown).toContain("![025.");
   expect(result.clip.markdown).not.toContain("timestamp=");
   expect(result.clip.markdown).not.toContain("cosmos:");
-  expect(result.clip.markdown).not.toContain("宝子姐生日快乐");
+  expect(result.clip.markdown).not.toContain("寶子姐生日快樂");
   expect(result.clip.markdown).not.toContain("audio");
   doc.querySelector(".expand-wrap").remove();
   expect(readXiaoyuzhou(doc, xUrl, labels)).toEqual(result);
@@ -237,7 +237,7 @@ test("Xiaoyuzhou real DOM already contains full notes before expansion", () => {
 
 test("Xiaoyuzhou distinguishes incomplete/unreadable notes from confirmed empty notes", () => {
   const doc = fixture("xiaoyuzhou");
-  doc.querySelector(".sn-content article").innerHTML = "<p>只有预览</p>";
+  doc.querySelector(".sn-content article").innerHTML = "<p>只有預覽</p>";
   expect(readXiaoyuzhou(doc, xUrl, labels)).toEqual({ ok: false, reason: "incomplete" });
   doc.querySelector(".sn-content article").innerHTML = "";
   expect(readXiaoyuzhou(doc, xUrl, labels).ok).toBe(false);
@@ -252,14 +252,14 @@ test("Xiaoyuzhou distinguishes incomplete/unreadable notes from confirmed empty 
 
 test("Xiaoyuzhou keeps a >1h timeline, valid links, explicit hosts and images without inventing a second TOC", () => {
   const doc = fixture("xiaoyuzhou");
-  const html = '<p>主播：Alice 和 Bob</p><p><a class="timestamp" data-timestamp="3662">01:01:02</a> 章节</p><p><a href="https://example.com/chapter">已验证链接</a></p><img src="https://example.com/body.png">';
+  const html = '<p>主播：Alice 和 Bob</p><p><a class="timestamp" data-timestamp="3662">01:01:02</a> 章節</p><p><a href="https://example.com/chapter">已驗證連結</a></p><img src="https://example.com/body.png">';
   doc.querySelector(".sn-content article").innerHTML = html;
   state(doc, (e) => { e.shownotes = html; });
   const result = readXiaoyuzhou(doc, xUrl, labels);
   expect(result.ok).toBe(true);
   expect(result.clip.markdown.match(/01:01:02/g)).toHaveLength(1);
   expect(result.clip.markdown).toContain("主播：Alice 和 Bob");
-  expect(result.clip.markdown).toContain("[已验证链接](https://example.com/chapter)");
+  expect(result.clip.markdown).toContain("[已驗證連結](https://example.com/chapter)");
   expect(result.clip.markdown).toContain("https://example.com/body.png");
 });
 
@@ -268,21 +268,21 @@ test("Xiaoyuzhou rejects mismatched state, title and navigation identities", () 
   expect(readXiaoyuzhou(doc, xUrl.replace(/02$/, "03"), labels).ok).toBe(false);
   state(doc, (e) => { e.eid = "62ad4ae5f9b62781ea058a03"; });
   expect(readXiaoyuzhou(doc, xUrl, labels).ok).toBe(false);
-  const stale = fixture("xiaoyuzhou"); stale.querySelector("h1").textContent = "新单集";
+  const stale = fixture("xiaoyuzhou"); stale.querySelector("h1").textContent = "新單集";
   expect(readXiaoyuzhou(stale, xUrl, labels).ok).toBe(false);
 });
 
 test("Xiaoyuzhou compares titles with the same whitespace normalization", () => {
   const doc = fixture("xiaoyuzhou");
-  const title = "  播客 EP. 01  为什么工作\u00a0";
+  const title = "  播客 EP. 01  為什麼工作\u00a0";
   doc.querySelector("h1").textContent = title;
   state(doc, (episode) => { episode.title = title; });
-  expect(readXiaoyuzhou(doc, xUrl, labels).clip.title).toBe("播客 EP. 01 为什么工作");
+  expect(readXiaoyuzhou(doc, xUrl, labels).clip.title).toBe("播客 EP. 01 為什麼工作");
 });
 
 test("Xiaoyuzhou uses the current route's bound state after client navigation leaves stale bootstrap JSON", () => {
   const doc = fixture("xiaoyuzhou");
-  const id = "6a8ef24e1352af56ff3c83f3", title = "161. 新单集", shownotes = "<p>当前单集全文</p>";
+  const id = "6a8ef24e1352af56ff3c83f3", title = "161. 新單集", shownotes = "<p>當前單集全文</p>";
   const url = `https://www.xiaoyuzhoufm.com/episode/${id}`;
   doc.querySelector('link[rel="canonical"]').setAttribute("href", url);
   doc.querySelector("h1").textContent = title;
@@ -291,33 +291,33 @@ test("Xiaoyuzhou uses the current route's bound state after client navigation le
   const result = readXiaoyuzhou(doc, url, labels, state);
   expect(result.ok).toBe(true);
   expect(result.clip.id).toBe(id);
-  expect(result.clip.markdown).toContain("当前单集全文");
-  expect(result.clip.markdown).not.toContain("韦礼安");
+  expect(result.clip.markdown).toContain("當前單集全文");
+  expect(result.clip.markdown).not.toContain("韋禮安");
   expect(readXiaoyuzhou(doc, url, labels, { ...state, pageUrl: xUrl }).ok).toBe(false);
   expect(readXiaoyuzhou(doc, url, labels, { ...state, eid: "wrong" }).ok).toBe(false);
 });
 
 test("HTML cleanup preserves semantic content and code language on a copy", () => {
-  const doc = createDocument('<div id="body"><h2>正文</h2><blockquote>引用</blockquote><ul><li>条目</li></ul><pre><code class="language-js">const x = `safe`;\n```</code></pre><a href="/article">链接</a><img data-src="//images.example.com/a.png" onerror="evil()"><script>bad()</script><a href="javascript:evil()">危险链接</a><iframe src="/evil"></iframe><button>分享</button></div>');
+  const doc = createDocument('<div id="body"><h2>正文</h2><blockquote>引用</blockquote><ul><li>條目</li></ul><pre><code class="language-js">const x = `safe`;\n```</code></pre><a href="/article">連結</a><img data-src="//images.example.com/a.png" onerror="evil()"><script>bad()</script><a href="javascript:evil()">危險連結</a><iframe src="/evil"></iframe><button>分享</button></div>');
   const body = doc.querySelector("#body"); const before = body.outerHTML;
   const markdown = platformHtmlMarkdown(body, "https://www.v2ex.com/t/1000000");
   expect(markdown).toContain("## 正文");
   expect(markdown).toContain("> 引用");
-  expect(markdown).toMatch(/-\s+条目/);
+  expect(markdown).toMatch(/-\s+條目/);
   expect(markdown).toContain("````js\nconst x = `safe`;\n```\n````");
-  expect(markdown).toContain("[链接](https://www.v2ex.com/article)");
+  expect(markdown).toContain("[連結](https://www.v2ex.com/article)");
   expect(markdown).toContain("https://images.example.com/a.png");
   for (const unwanted of ["javascript:", "evil()", "bad()", "分享", "onerror", "<iframe"]) expect(markdown).not.toContain(unwanted);
   expect(body.outerHTML).toBe(before);
 });
 
 test('clipped CJK bold ending in punctuation remains bold next to unspaced prose',()=>{
- const source='<p><strong>一定要尊重市场规律，某队没法改变规律！</strong>只是起到稳定市场的功能。</p><p>Literal **words** stay literal.</p><pre><code>**exact！**code</code></pre>';
+ const source='<p><strong>一定要尊重市場規律，某隊沒法改變規律！</strong>只是起到穩定市場的功能。</p><p>Literal **words** stay literal.</p><pre><code>**exact！**code</code></pre>';
  const doc=createDocument(source),before=doc.body.innerHTML;
  const parsed=markdownToDoc(platformHtmlMarkdown(doc.body,'https://example.test'));
  const nodes=[];const walk=n=>{nodes.push(n);(n.content||[]).forEach(walk)};walk(parsed);
- const paragraph=parsed.content[0];expect(paragraph.content.map(n=>n.text||'').join('')).toBe('一定要尊重市场规律，某队没法改变规律！只是起到稳定市场的功能。');
- expect(paragraph.content.some(n=>n.text==='一定要尊重市场规律，某队没法改变规律'&&n.marks?.some(m=>m.type==='bold'))).toBe(true);
+ const paragraph=parsed.content[0];expect(paragraph.content.map(n=>n.text||'').join('')).toBe('一定要尊重市場規律，某隊沒法改變規律！只是起到穩定市場的功能。');
+ expect(paragraph.content.some(n=>n.text==='一定要尊重市場規律，某隊沒法改變規律'&&n.marks?.some(m=>m.type==='bold'))).toBe(true);
  expect(parsed.content[1].content.map(n=>n.text||'').join('')).toBe('Literal **words** stay literal.');
  expect(nodes.find(n=>n.type==='codeBlock').content[0].text).toBe('**exact！**code');expect(doc.body.innerHTML).toBe(before);
 });

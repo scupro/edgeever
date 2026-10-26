@@ -8,7 +8,7 @@ export type DefaultNotebookSeed = {
   names: Record<SupportedLocale, string>;
 };
 
-// zh-CN is the language the installation migrations seed. Keep it first so
+// zh-TW is the language the installation migrations seed. Keep it first so
 // the localization guard can recognise names that nobody has changed yet.
 export const DEFAULT_NOTEBOOK_SEEDS: readonly DefaultNotebookSeed[] = [
   {
@@ -16,35 +16,35 @@ export const DEFAULT_NOTEBOOK_SEEDS: readonly DefaultNotebookSeed[] = [
     slug: "inbox",
     color: "#0f766e",
     sortOrder: 10,
-    names: { "zh-CN": "等待分类", "en-US": "Inbox", ja: "受信トレイ", pl: "Skrzynka" },
+    names: { "zh-TW": "等待分類", "en-US": "Inbox", ja: "受信トレイ", pl: "Skrzynka" },
   },
   {
     key: "projects",
     slug: "work-projects",
     color: "#2563eb",
     sortOrder: 20,
-    names: { "zh-CN": "工作项目", "en-US": "Work Projects", ja: "仕事のプロジェクト", pl: "Projekty zawodowe" },
+    names: { "zh-TW": "工作專案", "en-US": "Work Projects", ja: "仕事のプロジェクト", pl: "Projekty zawodowe" },
   },
   {
     key: "learning",
     slug: "learning-resources",
     color: "#7c3aed",
     sortOrder: 30,
-    names: { "zh-CN": "学习资料", "en-US": "Learning Resources", ja: "学習資料", pl: "Materiały do nauki" },
+    names: { "zh-TW": "學習資料", "en-US": "Learning Resources", ja: "學習資料", pl: "Materiały do nauki" },
   },
   {
     key: "creative",
     slug: "creative-ideas",
     color: "#db2777",
     sortOrder: 40,
-    names: { "zh-CN": "灵感创作", "en-US": "Creative Ideas", ja: "アイデアと創作", pl: "Pomysły i twórczość" },
+    names: { "zh-TW": "靈感創作", "en-US": "Creative Ideas", ja: "アイデアと創作", pl: "Pomysły i twórczość" },
   },
   {
     key: "personal",
     slug: "personal-life",
     color: "#ea580c",
     sortOrder: 50,
-    names: { "zh-CN": "生活个人", "en-US": "Personal Life", ja: "暮らしと個人", pl: "Życie prywatne" },
+    names: { "zh-TW": "生活個人", "en-US": "Personal Life", ja: "暮らしと個人", pl: "Życie prywatne" },
   },
 ];
 
@@ -62,10 +62,10 @@ export const WELCOME_MEMO_ID = "memo_welcome";
  * title-only one, changes the title, the revision, or the actor, so together
  * they identify a welcome note nobody has touched.
  */
-export const WELCOME_MEMO_SEED_TITLE = "欢迎来到 EdgeEver";
-export const WELCOME_MEMO_SEED_CONTENT_HASH = "4edcf7092f86c561210d4eb788e96f28ec5c045f93952c82f5f57e1902f548bd";
+export const WELCOME_MEMO_SEED_TITLE = "歡迎來到 EdgeEver";
+export const WELCOME_MEMO_SEED_CONTENT_HASH = "b456f3d15f168a4e3456f3a5f157ad54a84688e7176d2ee5f277bb305871f2be";
 // Migration 0071 repairs the original seed's literal backslash-n and advances it to revision 1.
-export const WELCOME_MEMO_REPAIRED_CONTENT_HASH = "30fae5a337f8b9709505c5ab00ee921410b78632c14f4b7577c88aea0f9fc390";
+export const WELCOME_MEMO_REPAIRED_CONTENT_HASH = "17d3490cd74684b79199e30a918e23231d29d8363736148987b34179e97c16fe";
 
 export type WelcomeMemoTranslation = {
   title: string;
@@ -73,11 +73,11 @@ export type WelcomeMemoTranslation = {
 };
 
 export const WELCOME_MEMO_TRANSLATIONS: Record<SupportedLocale, WelcomeMemoTranslation> = {
-  "zh-CN": {
-    title: "欢迎来到 EdgeEver",
+  "zh-TW": {
+    title: "歡迎來到 EdgeEver",
     paragraphs: [
-      "这是第一条 EdgeEver 笔记，三栏、边缘、Agent-ready。",
-      "接下来可以创建笔记本、写笔记、搜索内容，并把多条笔记合并成一条新的长期笔记。",
+      "這是第一條 EdgeEver 筆記，三欄、邊緣、Agent-ready。",
+      "接下來可以建立筆記本、寫筆記、搜尋內容，並把多條筆記合併成一條新的長期筆記。",
     ],
   },
   "en-US": {

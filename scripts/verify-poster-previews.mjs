@@ -34,7 +34,7 @@ try {
   await firstReady(page);
   const firstSources = await page.locator('[data-poster-template] img').evaluateAll(images => images.map(image => image.getAttribute('src')));
   assert(firstSources.every(source => source.includes('.zh.webp') && !source.startsWith('blob:')));
-  assert.equal(await page.getByText('载入版式…', { exact: true }).count(), 0);
+  assert.equal(await page.getByText('載入版式…', { exact: true }).count(), 0);
   await page.screenshot({ path: "/tmp/edgeever-static-poster-previews.png" });
   console.log("PASS: visible static previews load with canvas disabled and fonts blocked");
 

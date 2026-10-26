@@ -202,7 +202,7 @@ describe("object storage resolution on a migrated database", () => {
       bucketName: "edgeever-resources",
       store: resources,
     });
-    expect(await resolveObjectStorage({ ...environment, EDGE_EVER_R2_BUCKET_NAME: "  custom-bucket  " }, "builtin"))
+    expect(await resolveObjectStorage({ ...environment, EDGE_EVER_S3_BUCKET: "  custom-bucket  " }, "builtin"))
       .toMatchObject({ configId: "builtin", bucketName: "custom-bucket" });
     sqlite.close();
   });

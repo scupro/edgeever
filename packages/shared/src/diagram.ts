@@ -262,12 +262,12 @@ export const stripDiagramDocumentMarker = (markdown: string | null | undefined) 
   (markdown ?? "").replace(DIAGRAM_COMMENT, "").trimEnd();
 
 export const diagramFallbackMarkdown = (document: DiagramDocument) => {
-  const title = document.kind === "mind-map" ? "思维导图" : document.kind === "architecture" ? "架构图" : "流程图";
+  const title = document.kind === "mind-map" ? "思維導圖" : document.kind === "architecture" ? "架構圖" : "流程圖";
   return [`# ${title}`, "", "```mermaid", diagramDocumentToMermaid(document), "```"].join("\n");
 };
 
 const escapeMermaidLabel = (label: string) =>
-  (label.replace(/\s+/g, " ").trim() || "未命名节点")
+  (label.replace(/\s+/g, " ").trim() || "未命名節點")
     .replace(/&/g, "&amp;")
     .replace(/"/g, "&quot;")
     .replace(/</g, "&lt;")
@@ -416,14 +416,14 @@ export const createDefaultDiagramDocument = (kind: DiagramKind, labels: DiagramS
       kind,
       theme: DIAGRAM_DEFAULT_THEME,
       nodes: [
-        { id: "topic-root", label: labels.mindMapRoot ?? "核心主题", x: 72, y: 168, width: 124, height: 46, shape: "topic" },
-        { id: "topic-1", label: labels.mindMapCapture ?? "采集想法", x: 268, y: 117, width: 96, height: 36, shape: "topic", parentId: "topic-root" },
-        { id: "topic-2", label: labels.mindMapOrganize ?? "整理结构", x: 268, y: 201, width: 96, height: 36, shape: "topic", parentId: "topic-root" },
-        { id: "topic-3", label: labels.mindMapShare ?? "输出分享", x: 268, y: 257, width: 96, height: 36, shape: "topic", parentId: "topic-root" },
-        { id: "topic-1-a", label: labels.mindMapQuickNotes ?? "快速记录", x: 436, y: 89, width: 96, height: 36, shape: "topic", parentId: "topic-1" },
-        { id: "topic-1-b", label: labels.mindMapSync ?? "跨设备同步", x: 436, y: 145, width: 96, height: 36, shape: "topic", parentId: "topic-1" },
-        { id: "topic-2-a", label: labels.mindMapNotebooks ?? "笔记本", x: 436, y: 201, width: 96, height: 36, shape: "topic", parentId: "topic-2" },
-        { id: "topic-3-a", label: labels.mindMapPublicLinks ?? "公开链接", x: 436, y: 257, width: 96, height: 36, shape: "topic", parentId: "topic-3" },
+        { id: "topic-root", label: labels.mindMapRoot ?? "核心主題", x: 72, y: 168, width: 124, height: 46, shape: "topic" },
+        { id: "topic-1", label: labels.mindMapCapture ?? "採集想法", x: 268, y: 117, width: 96, height: 36, shape: "topic", parentId: "topic-root" },
+        { id: "topic-2", label: labels.mindMapOrganize ?? "整理結構", x: 268, y: 201, width: 96, height: 36, shape: "topic", parentId: "topic-root" },
+        { id: "topic-3", label: labels.mindMapShare ?? "輸出分享", x: 268, y: 257, width: 96, height: 36, shape: "topic", parentId: "topic-root" },
+        { id: "topic-1-a", label: labels.mindMapQuickNotes ?? "快速記錄", x: 436, y: 89, width: 96, height: 36, shape: "topic", parentId: "topic-1" },
+        { id: "topic-1-b", label: labels.mindMapSync ?? "跨裝置同步", x: 436, y: 145, width: 96, height: 36, shape: "topic", parentId: "topic-1" },
+        { id: "topic-2-a", label: labels.mindMapNotebooks ?? "筆記本", x: 436, y: 201, width: 96, height: 36, shape: "topic", parentId: "topic-2" },
+        { id: "topic-3-a", label: labels.mindMapPublicLinks ?? "公開連結", x: 436, y: 257, width: 96, height: 36, shape: "topic", parentId: "topic-3" },
       ],
       edges: [
         { id: "branch-1", source: "topic-root", target: "topic-1" },
@@ -441,16 +441,16 @@ export const createDefaultDiagramDocument = (kind: DiagramKind, labels: DiagramS
       schemaVersion: ARCHITECTURE_DIAGRAM_SCHEMA_VERSION,
       kind,
       nodes: [
-        { id: "system", label: labels.architectureSystem ?? "应用系统", x: 220, y: 64, width: 590, height: 330, shape: "boundary" },
-        { id: "client", label: labels.architectureClient ?? "Web 客户端", x: 72, y: 190, width: 150, height: 64, shape: "client" },
-        { id: "api", label: labels.architectureApi ?? "API 服务", x: 280, y: 190, width: 156, height: 68, shape: "service", parentId: "system" },
-        { id: "database", label: labels.architectureDatabase ?? "数据库", x: 540, y: 118, width: 150, height: 64, shape: "database", parentId: "system" },
-        { id: "storage", label: labels.architectureStorage ?? "对象存储", x: 540, y: 268, width: 150, height: 64, shape: "storage", parentId: "system" },
+        { id: "system", label: labels.architectureSystem ?? "應用系統", x: 220, y: 64, width: 590, height: 330, shape: "boundary" },
+        { id: "client", label: labels.architectureClient ?? "Web 客戶端", x: 72, y: 190, width: 150, height: 64, shape: "client" },
+        { id: "api", label: labels.architectureApi ?? "API 服務", x: 280, y: 190, width: 156, height: 68, shape: "service", parentId: "system" },
+        { id: "database", label: labels.architectureDatabase ?? "資料庫", x: 540, y: 118, width: 150, height: 64, shape: "database", parentId: "system" },
+        { id: "storage", label: labels.architectureStorage ?? "物件儲存", x: 540, y: 268, width: 150, height: 64, shape: "storage", parentId: "system" },
       ],
       edges: [
         { id: "request", source: "client", target: "api", label: "HTTPS", kind: "request" },
-        { id: "query", source: "api", target: "database", label: labels.architectureQuery ?? "查询 / 写入", kind: "data" },
-        { id: "objects", source: "api", target: "storage", label: labels.architectureFiles ?? "文件", kind: "data" },
+        { id: "query", source: "api", target: "database", label: labels.architectureQuery ?? "查詢 / 寫入", kind: "data" },
+        { id: "objects", source: "api", target: "storage", label: labels.architectureFiles ?? "檔案", kind: "data" },
       ],
     };
   }
@@ -459,9 +459,9 @@ export const createDefaultDiagramDocument = (kind: DiagramKind, labels: DiagramS
     kind,
     theme: DIAGRAM_DEFAULT_THEME,
     nodes: [
-      { id: "flow-start", label: labels.flowchartStart ?? "开始", x: 98, y: 48, width: 140, height: 44, shape: "terminator" },
-      { id: "flow-process", label: labels.flowchartProcess ?? "处理步骤", x: 80, y: 140, width: 176, height: 56, shape: "process" },
-      { id: "flow-end", label: labels.flowchartEnd ?? "结束", x: 98, y: 244, width: 140, height: 44, shape: "terminator" },
+      { id: "flow-start", label: labels.flowchartStart ?? "開始", x: 98, y: 48, width: 140, height: 44, shape: "terminator" },
+      { id: "flow-process", label: labels.flowchartProcess ?? "處理步驟", x: 80, y: 140, width: 176, height: 56, shape: "process" },
+      { id: "flow-end", label: labels.flowchartEnd ?? "結束", x: 98, y: 244, width: 140, height: 44, shape: "terminator" },
     ],
     edges: [
       { id: "flow-edge-1", source: "flow-start", target: "flow-process" },

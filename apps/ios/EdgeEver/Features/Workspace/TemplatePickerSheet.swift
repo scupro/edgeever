@@ -19,10 +19,10 @@ struct CreateChoiceSheet: View {
 
             HStack(alignment: .center) {
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(env.preferences.t("新建笔记", en: "New note", pl: "Nowa notatka"))
+                    Text(env.preferences.t("新建筆記", en: "New note", pl: "Nowa notatka"))
                         .font(.system(size: 15, weight: .heavy))
                         .foregroundStyle(AppTheme.title)
-                    Text(env.preferences.t("选择创建方式", en: "Choose how to create", pl: "Wybierz sposób tworzenia"))
+                    Text(env.preferences.t("選擇建立方式", en: "Choose how to create", pl: "Wybierz sposób tworzenia"))
                         .font(.system(size: 12))
                         .foregroundStyle(AppTheme.secondary)
                         .lineLimit(1)
@@ -37,7 +37,7 @@ struct CreateChoiceSheet: View {
                         .frame(width: 38, height: 38)
                 }
                 .buttonStyle(.plain)
-                .accessibilityLabel(env.preferences.t("关闭", en: "Close", pl: "Zamknij"))
+                .accessibilityLabel(env.preferences.t("關閉", en: "Close", pl: "Zamknij"))
             }
             .padding(.horizontal, 12)
             .frame(minHeight: 48)
@@ -48,17 +48,17 @@ struct CreateChoiceSheet: View {
             VStack(spacing: 0) {
                 choiceRow(
                     systemImage: "doc.text",
-                    title: env.preferences.t("空白笔记", en: "Blank note", pl: "Pusta notatka"),
-                    description: env.preferences.t("从空白页开始记录", en: "Start with an empty page", pl: "Zacznij od pustej strony")
+                    title: env.preferences.t("空白筆記", en: "Blank note", pl: "Pusta notatka"),
+                    description: env.preferences.t("從空白頁開始記錄", en: "Start with an empty page", pl: "Zacznij od pustej strony")
                 ) {
                     dismiss()
                     onBlank()
                 }
                 choiceRow(
                     systemImage: "square.grid.2x2",
-                    title: env.preferences.t("从模板新建", en: "New from template", pl: "Nowa z szablonu"),
+                    title: env.preferences.t("從模板新建", en: "New from template", pl: "Nowa z szablonu"),
                     description: env.preferences.t(
-                        "使用会议纪要、周报等预设结构",
+                        "使用會議紀要、週報等預設結構",
                         en: "Use meeting notes, weekly reviews, and more",
                         pl: "Użyj notatek ze spotkań, przeglądów tygodniowych i innych"
                     )
@@ -133,11 +133,11 @@ struct TemplatePickerSheet: View {
 
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(env.preferences.t("从模板新建", en: "New from template", pl: "Nowa z szablonu"))
+                    Text(env.preferences.t("從模板新建", en: "New from template", pl: "Nowa z szablonu"))
                         .font(.system(size: 15, weight: .heavy))
                         .foregroundStyle(AppTheme.title)
                     Text(env.preferences.t(
-                        "选择一个模板快速开始。所有模板都可以在网页端修改或删除。",
+                        "選擇一個模板快速開始。所有模板都可以在網頁端修改或刪除。",
                         en: "Choose a template to get started. Every template can be edited or deleted on the web.",
                         pl: "Wybierz szablon, aby zacząć. Każdy szablon możesz edytować lub usunąć w wersji webowej."
                     ))
@@ -155,7 +155,7 @@ struct TemplatePickerSheet: View {
                         .frame(width: 38, height: 38)
                 }
                 .buttonStyle(.plain)
-                .accessibilityLabel(env.preferences.t("关闭", en: "Close", pl: "Zamknij"))
+                .accessibilityLabel(env.preferences.t("關閉", en: "Close", pl: "Zamknij"))
             }
             .padding(.horizontal, 12)
             .padding(.bottom, 10)
@@ -170,7 +170,7 @@ struct TemplatePickerSheet: View {
                     if isLoading {
                         HStack(spacing: 8) {
                             ProgressView().controlSize(.small)
-                            Text(env.preferences.t("正在加载模板", en: "Loading templates", pl: "Wczytywanie szablonów"))
+                            Text(env.preferences.t("正在載入模板", en: "Loading templates", pl: "Wczytywanie szablonów"))
                                 .font(.system(size: 12))
                                 .foregroundStyle(AppTheme.secondary)
                         }
@@ -178,13 +178,13 @@ struct TemplatePickerSheet: View {
                         .padding(.vertical, 10)
                     } else if loadFailed {
                         hint(env.preferences.t(
-                            "模板暂时无法加载，请稍后重试。",
+                            "模板暫時無法載入，請稍後重試。",
                             en: "Templates could not load. Please try again later.",
                             pl: "Nie udało się wczytać szablonów. Spróbuj ponownie później."
                         ))
                     } else if templates.isEmpty {
                         hint(env.preferences.t(
-                            "暂无模板。可在网页端新建模板，或将常用笔记另存为模板。",
+                            "暫無模板。可在網頁端新建模板，或將常用筆記另存為模板。",
                             en: "No templates yet. Create one or save a note as a template on the web.",
                             pl: "Brak szablonów. Utwórz szablon lub zapisz notatkę jako szablon w wersji webowej."
                         ))

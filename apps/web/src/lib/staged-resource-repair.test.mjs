@@ -84,24 +84,24 @@ describe("staged resource repair", () => {
   test("recovers a WeChat image whose uploaded filename changed from jpg to webp", () => {
     const memo = {
       contentJson: { type: "doc", content: [{ type: "image", attrs: {
-        alt: "微信图片_202609231723_1.jpg",
+        alt: "微信圖片_202609231723_1.jpg",
         src: "edgeever-staged://stage_missing",
         width: 35,
       } }] },
-      contentMarkdown: "![微信图片_202609231723_1.jpg](edgeever-staged://stage_missing)",
+      contentMarkdown: "![微信圖片_202609231723_1.jpg](edgeever-staged://stage_missing)",
     };
     const resourceUrl = "/api/v1/resources/res_wechat/blob";
     const repaired = repairMemoStagedResourceUrls(memo, [{
       url: resourceUrl,
-      filename: "微信图片_202609231723_1.webp",
+      filename: "微信圖片_202609231723_1.webp",
       kind: "image",
     }]);
     expect(repaired.contentJson.content[0].attrs).toEqual({
-      alt: "微信图片_202609231723_1.jpg",
+      alt: "微信圖片_202609231723_1.jpg",
       src: resourceUrl,
       width: 35,
     });
-    expect(repaired.contentMarkdown).toBe(`![微信图片_202609231723_1.jpg](${resourceUrl})`);
+    expect(repaired.contentMarkdown).toBe(`![微信圖片_202609231723_1.jpg](${resourceUrl})`);
   });
 
   test("does not guess between resources with the same filename stem", () => {

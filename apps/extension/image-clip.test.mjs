@@ -18,10 +18,10 @@ import {
 const source = {
   pageUrl: "https://x.com/huoshan007/status/1",
   capturedAt: "2026-09-26T00:00:00.000Z",
-  sourceLabel: "来源",
-  capturedAtLabel: "抓取时间",
-  googleSearchLabel: "Google 搜索",
-  keywordLabel: "关键词",
+  sourceLabel: "來源",
+  capturedAtLabel: "抓取時間",
+  googleSearchLabel: "Google 搜尋",
+  keywordLabel: "關鍵詞",
 };
 
 describe("preferred image URLs", () => {
@@ -54,7 +54,7 @@ describe("image note content", () => {
       ...source,
       resourceId: "res_1",
       alt: "Jianying ] Headless",
-      altFallback: "图片",
+      altFallback: "圖片",
     });
     expect(markdown.startsWith("![Jianying Headless](/api/v1/resources/res_1/blob)")).toBe(true);
     expect(markdown).toContain("[https://x.com/huoshan007/status/1](https://x.com/huoshan007/status/1)");
@@ -67,19 +67,19 @@ describe("image note content", () => {
       pageUrl: "https://example.com/a(b)",
       resourceId: "res_2",
       alt: "  ",
-      altFallback: "图片",
+      altFallback: "圖片",
     });
-    expect(markdown).toContain("![图片](/api/v1/resources/res_2/blob)");
+    expect(markdown).toContain("![圖片](/api/v1/resources/res_2/blob)");
     expect(markdown).toContain("(https://example.com/a%28b%29)");
-    expect(imageAltText("]", "图片")).toBe("图片");
+    expect(imageAltText("]", "圖片")).toBe("圖片");
   });
 
   test("names the file from the media id and clips the note title", () => {
     expect(filenameForImage("https://pbs.twimg.com/media/Abc123?format=jpg&name=small", "image/jpeg")).toBe("Abc123.jpg");
     expect(filenameForImage("https://pbs.twimg.com/media/Abc.jpg:large", "image/png")).toBe("Abc.png");
-    expect(noteTitleForImage(` ${"标".repeat(180)} `, "", "图片")).toHaveLength(160);
-    expect(noteTitleForImage("  ", "卡片", "图片")).toBe("卡片");
-    expect(noteTitleForImage(" ", " ", "图片")).toBe("图片");
+    expect(noteTitleForImage(` ${"標".repeat(180)} `, "", "圖片")).toHaveLength(160);
+    expect(noteTitleForImage("  ", "卡片", "圖片")).toBe("卡片");
+    expect(noteTitleForImage(" ", " ", "圖片")).toBe("圖片");
   });
 
   test("reads an http image origin and ignores blob URLs", () => {
@@ -118,9 +118,9 @@ describe("image clip sources", () => {
       pageUrl,
       resourceId: "res_google",
       alt: "cat",
-      altFallback: "图片",
+      altFallback: "圖片",
     });
-    expect(markdown).toContain("来源: Google 搜索\n关键词: cat");
+    expect(markdown).toContain("來源: Google 搜尋\n關鍵詞: cat");
     expect(markdown).not.toContain("google.com");
     expect(markdown).not.toContain("fbs=");
     expect(markdown).not.toContain("sxsrf=");
@@ -128,8 +128,8 @@ describe("image clip sources", () => {
 
   test("decodes the keyword and keeps an image-viewer query without the tracking URL", () => {
     expect(googleSearchKeyword(
-      "https://www.google.com/search?newwindow=1&q=%E7%8C%AB&udm=2&fbs=ABfTracking&biw=1920#sv=viewer",
-    )).toBe("猫");
+      "https://www.google.com/search?newwindow=1&q=%E8%B2%93&udm=2&fbs=ABfTracking&biw=1920#sv=viewer",
+    )).toBe("貓");
     expect(googleSearchKeyword(
       "https://www.google.com/imgres?imgurl=https%3A%2F%2Fexample.com%2Fcat.jpg&q=white+kitten&tbnid=abc",
     )).toBe("white kitten");
@@ -138,10 +138,10 @@ describe("image clip sources", () => {
       pageUrl: "https://www.google.com/search?udm=2",
       resourceId: "res_google",
       alt: "",
-      altFallback: "图片",
+      altFallback: "圖片",
     });
-    expect(markdown).toContain("来源: Google 搜索");
-    expect(markdown).not.toContain("关键词");
+    expect(markdown).toContain("來源: Google 搜尋");
+    expect(markdown).not.toContain("關鍵詞");
     expect(markdown).not.toContain("http");
     expect(googleSearchKeyword("https://example.com/cats#photo")).toBeNull();
   });
@@ -152,9 +152,9 @@ describe("image clip sources", () => {
       pageUrl: "https://www.google.com.hk/search?q=cat%5B1%5D*%60",
       resourceId: "res_google",
       alt: "",
-      altFallback: "图片",
+      altFallback: "圖片",
     });
-    expect(markdown).toContain("关键词: cat\\[1\\]\\*\\`");
+    expect(markdown).toContain("關鍵詞: cat\\[1\\]\\*\\`");
   });
 
   test("reads a right-clicked data URL image", () => {
@@ -173,7 +173,7 @@ describe("saveCapturedImageNote", () => {
     mimeType: "image/jpeg",
     bytes: Uint8Array.of(0xff, 0xd8, 0xff),
     ...source,
-    altFallback: "图片",
+    altFallback: "圖片",
   };
 
   const client = (overrides = {}) => {

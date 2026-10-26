@@ -191,7 +191,7 @@ export const readBluesky = (doc: Document, target: PlatformTarget): PlatformRead
   for (const button of Array.from(copy.querySelectorAll('button[aria-label]'))) {
     if (!button.querySelector('img[src*="/img/feed_"][alt]')) continue;
     const badge = button.nextElementSibling as HTMLElement | null;
-    if (badge?.style.position === "absolute" && /^(?:ALT|替代文本)$/.test(platformText(badge))
+    if (badge?.style.position === "absolute" && /^(?:ALT|替代文字|替代文本)$/.test(platformText(badge))
       && !badge.querySelector('img,a,button')) badge.remove();
   }
   copy.querySelectorAll('button, [data-testid="userAvatarImage"], svg').forEach((node)=> {
@@ -357,7 +357,7 @@ export const readMetaSocial = (doc: Document, target: PlatformTarget): PlatformR
 
 export const facebookExpandButton = (card: Element | null) => card
   ? Array.from(card.querySelectorAll<HTMLElement>('[data-ad-preview="message"] [role="button"], [data-ad-preview="message"] button, [data-ad-comet-preview="message"] [role="button"]'))
-    .find((button) => !platformElementHidden(button) && /^(?:See more|展开|查看更多|もっと見る|Zobacz więcej)$/i.test(platformText(button))) : undefined;
+    .find((button) => !platformElementHidden(button) && /^(?:See more|展开|展開|查看更多|もっと見る|Zobacz więcej)$/i.test(platformText(button))) : undefined;
 
 export const readFacebook = (doc: Document, target: PlatformTarget): PlatformRead => {
   const liveCard = socialPostCard(doc, target);

@@ -41,7 +41,7 @@ describe("iOS document nodes share the web schema", () => {
   });
 
   test("native ImageGallery.extend keeps the shared node name and gallery layout", () => {
-    const iosGallery = createIosImageGallery(() => "zh-CN");
+    const iosGallery = createIosImageGallery(() => "zh-TW");
     expect(iosGallery.name).toBe(IMAGE_GALLERY_NODE_TYPE);
 
     const sharedSchema = getSchema([StarterKit, Image, MergeDivider, ImageGallery]);

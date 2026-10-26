@@ -79,7 +79,7 @@ export const isTweetPhotoUrl = (src: string) => {
 export const cleanTweetText = (value: string) => {
   const lines = value.replace(/\r/g, "").split("\n").map((line) => line.trimEnd());
   while (lines.length > 0 && !lines[lines.length - 1]?.trim()) lines.pop();
-  while (lines.length > 0 && /^(显示更多|Show more|もっと見る|さらに表示)$/i.test(lines[lines.length - 1]?.trim() ?? "")) {
+  while (lines.length > 0 && /^(显示更多|顯示更多|Show more|もっと見る|さらに表示)$/i.test(lines[lines.length - 1]?.trim() ?? "")) {
     lines.pop();
   }
   return lines.join("\n").trim();

@@ -2,7 +2,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { FONT_CATALOG, FONT_IDS } from '../packages/shared/src/font-catalog.ts';
 import { NOTE_IMAGE_TEMPLATE_TYPOGRAPHY } from '../packages/shared/src/note-image-card.ts';
-import { zhCN, enUS, ja, pl } from '../packages/shared/src/i18n/index.ts';
+import { zhTW, enUS, ja, pl } from '../packages/shared/src/i18n/index.ts';
 const file = new URL('../apps/ios/EdgeEver/Data/Preferences/PreferencesStore.swift', import.meta.url);
 const begin = '// BEGIN GENERATED FONT CATALOG — bun scripts/sync-font-catalog.mjs';
 const end = '// END GENERATED FONT CATALOG';
@@ -12,7 +12,7 @@ const rows = FONT_IDS.map(id => {
   return `        (id: ${JSON.stringify(id)}, zh: ${JSON.stringify(font.zh)}, en: ${JSON.stringify(font.en)}),`;
 }).join('\n');
 const templateRows = Object.entries(NOTE_IMAGE_TEMPLATE_TYPOGRAPHY).map(([theme, preset]) => {
-  const labels = [zhCN, enUS, ja, pl].map(locale =>
+  const labels = [zhTW, enUS, ja, pl].map(locale =>
     JSON.stringify(preset.body.map(font => locale.editor.imageShare.templateFonts[font]).join(' / ')));
   return `        ${JSON.stringify(theme)}: (zh: ${labels[0]}, en: ${labels[1]}, ja: ${labels[2]}, pl: ${labels[3]}),`;
 }).join('\n');

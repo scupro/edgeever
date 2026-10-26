@@ -105,7 +105,7 @@ describe("selected Markdown ZIP export", () => {
   });
 
   test("writes only the requested notes and reports skipped local drafts", async () => {
-    const keep = memo({ id: "memo_keep", title: "保留笔记" });
+    const keep = memo({ id: "memo_keep", title: "保留筆記" });
     let requestedIds: string[] | undefined;
     const saved: Blob[] = [];
     const result = await exportSelectedMemosAsMarkdownZip({
@@ -128,8 +128,8 @@ describe("selected Markdown ZIP export", () => {
     expect(result).toEqual({ status: "ok", exported: 1, skippedLocal: 1 });
     expect(saved).toHaveLength(1);
     expect(Object.keys(unzipSync(new Uint8Array(await saved[0].arrayBuffer()))).sort()).toEqual([
-      "工作/保留笔记.assets/photo.png",
-      "工作/保留笔记.md",
+      "工作/保留筆記.assets/photo.png",
+      "工作/保留筆記.md",
     ]);
   });
 

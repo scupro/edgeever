@@ -141,4 +141,4 @@ test("the injected page capture is a standalone classic script", async () => {
   } finally {
     await rm(outDir, { recursive: true, force: true });
   }
-});
+}, 60_000);

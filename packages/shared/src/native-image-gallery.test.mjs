@@ -172,8 +172,8 @@ describe("native gallery editing", () => {
     expect(imageGalleryCopy("pl").columns("3")).toBe("3 kolumny");
     expect(imageGalleryCopy("ja").columns("2")).toBe("2列");
     expect(imageGalleryCopy("en-US").columns("2")).toBe("2 columns");
-    expect(imageGalleryCopy("zh-CN").columns("2")).toBe("2 栏");
+    expect(imageGalleryCopy("zh-TW").columns("2")).toBe("2 欄");
     // Unknown locales keep the previous Chinese copy.
-    expect(imageGalleryCopy("xx").label).toBe("图片画廊布局");
+    expect(imageGalleryCopy("xx").label).toBe("圖片畫廊佈局");
   });
 });

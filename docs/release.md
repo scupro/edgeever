@@ -17,7 +17,7 @@ bun run release -- \
   --issue-title "Improve the release workflow" \
   --label enhancement \
   --change-en "Run required release checks in parallel." \
-  --change-zh "并行执行发布所需检查。" \
+  --change-zh "並行執行釋出所需檢查。" \
   --change-locale "ja:必要なリリースチェックを並列実行します。" \
   --change-commit "abcdef1"
 ```
@@ -52,7 +52,7 @@ native rebuild plan, and Release notes.
 
 Place individual credits in `--change-zh` / `--change-en`. For a consolidated
 list, repeat `--contributor alice`; the script appends
-`贡献者 / Contributors：@alice` after the bilingual notes. This option does not
+`貢獻者 / Contributors：@alice` after the bilingual notes. This option does not
 infer contributors automatically. Resuming an existing Draft preserves its
 notes; edit the Draft directly to adjust credits.
 

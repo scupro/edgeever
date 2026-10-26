@@ -66,9 +66,9 @@ describe("memo route contracts", () => {
     });
     const form = new FormData();
     form.set("notebookId", "nb_1");
-    form.set("title", "猫 - Google 搜索");
+    form.set("title", "貓 - Google 搜尋");
     form.set("tags", JSON.stringify(["web-clip"]));
-    form.set("contentMarkdown", "![图片](/api/v1/resources/EDGEVERRESOURCEID/blob)\n\n来源: https://www.google.com/search?q=%E7%8C%AB&udm=2");
+    form.set("contentMarkdown", "![圖片](/api/v1/resources/EDGEVERRESOURCEID/blob)\n\n來源: https://www.google.com/search?q=%E8%B2%93&udm=2");
     form.set("file", new File([Uint8Array.of(0xff, 0xd8, 0xff)], "cat.jpg", { type: "image/jpeg" }));
     const response = await createApp(dependencies).request("/api/v1/memos/with-image", {
       method: "POST",
@@ -77,7 +77,7 @@ describe("memo route contracts", () => {
     expect(response.status).toBe(201);
     const body = await response.json();
     expect(body.memo.id).toBe("memo_created");
-    expect(calls[0][1]).toBe(`![图片](/api/v1/resources/${body.resourceId}/blob)\n\n来源: https://www.google.com/search?q=%E7%8C%AB&udm=2`);
+    expect(calls[0][1]).toBe(`![圖片](/api/v1/resources/${body.resourceId}/blob)\n\n來源: https://www.google.com/search?q=%E8%B2%93&udm=2`);
     expect(calls[1]).toEqual(["image", "memo_created", body.resourceId, 3]);
   });
 
@@ -94,7 +94,7 @@ describe("memo route contracts", () => {
     });
     const form = new FormData();
     form.set("notebookId", "nb_1");
-    form.set("contentMarkdown", "![图片](/api/v1/resources/EDGEVERRESOURCEID/blob)");
+    form.set("contentMarkdown", "![圖片](/api/v1/resources/EDGEVERRESOURCEID/blob)");
     form.set("file", new File([Uint8Array.of(1)], "cat.jpg", { type: "image/jpeg" }));
     const response = await createApp(dependencies).request("/api/v1/memos/with-image", {
       method: "POST",

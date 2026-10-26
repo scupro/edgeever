@@ -82,7 +82,7 @@ export const screenshotStamp = (date = new Date()) =>
   `${date.getFullYear()}-${pad2(date.getMonth() + 1)}-${pad2(date.getDate())} ${pad2(date.getHours())}:${pad2(date.getMinutes())}`;
 
 export const screenshotNoteTitle = (locale, date = new Date()) =>
-  isChineseDesktopLocale(locale) ? `截图 ${screenshotStamp(date)}` : `Screenshot ${screenshotStamp(date)}`;
+  isChineseDesktopLocale(locale) ? `截圖 ${screenshotStamp(date)}` : `Screenshot ${screenshotStamp(date)}`;
 
 export const screenshotFileName = (date = new Date()) =>
   `screenshot-${date.getFullYear()}${pad2(date.getMonth() + 1)}${pad2(date.getDate())}-${pad2(date.getHours())}${pad2(date.getMinutes())}${pad2(date.getSeconds())}.png`;

@@ -556,9 +556,9 @@ describe("ACP prompt blocks", () => {
   });
 
   test("puts a Codex user's request before context for a useful thread title", () => {
-    const content = buildPromptContent({ prompt: "分析资金往来", contextText: "Current note and earlier turns", historyText: "Earlier turns", promptFirst: true });
+    const content = buildPromptContent({ prompt: "分析資金往來", contextText: "Current note and earlier turns", historyText: "Earlier turns", promptFirst: true });
     expect(content.blocks).toEqual([
-      { type: "text", text: "分析资金往来" },
+      { type: "text", text: "分析資金往來" },
       { type: "text", text: "Current note and earlier turns" },
       { type: "text", text: "Earlier turns" },
     ]);
@@ -1054,10 +1054,10 @@ describe("ACP stdio session", () => {
         startMcpBridge: () => ({ url: "http://127.0.0.1:12345", secret: "temporary-secret", close: async () => {} }),
       });
       const events = collector();
-      await runtime.prompt({ adapterId: "codex", prompt: "分析资金往来", contextText: "Current note and earlier turns" }, events.emit);
+      await runtime.prompt({ adapterId: "codex", prompt: "分析資金往來", contextText: "Current note and earlier turns" }, events.emit);
       await events.waitFor((event) => event.type === "done");
       const report = await readReport(reportPath);
-      expect(report.prompt[0]).toEqual({ type: "text", text: "分析资金往来" });
+      expect(report.prompt[0]).toEqual({ type: "text", text: "分析資金往來" });
       expect(report.prompt[1].text).toContain("edgeever-current-workspace");
       expect(report.prompt[1].text).toContain("[note title](#memo=exact_memo_id_from_tool_result)");
       expect(report.prompt[2]).toEqual({ type: "text", text: "Current note and earlier turns" });
@@ -1086,7 +1086,7 @@ describe("ACP stdio session", () => {
       await runtime.prompt({
         adapterId: "antigravity",
         path: scriptPath,
-        prompt: "换成小米",
+        prompt: "換成小米",
         contextText: "Reply with one json proposal.",
         noteAccess: false,
       }, events.emit);
@@ -1096,7 +1096,7 @@ describe("ACP stdio session", () => {
       expect(JSON.stringify(report.prompt)).not.toContain("edgeever-current-workspace");
       expect(report.prompt).toEqual([
         { type: "text", text: "Reply with one json proposal." },
-        { type: "text", text: "换成小米" },
+        { type: "text", text: "換成小米" },
       ]);
     } finally {
       await rm(directory, { recursive: true, force: true });

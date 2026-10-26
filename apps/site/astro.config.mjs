@@ -17,9 +17,9 @@ export default defineConfig({
     mdx(),
     sitemap({
       i18n: {
-        defaultLocale: "zh-CN",
+        defaultLocale: "zh-TW",
         locales: {
-          "zh-CN": "zh-CN",
+          "zh-TW": "zh-TW",
           en: "en-US",
           ja: "ja",
           pl: "pl",

@@ -147,9 +147,9 @@ describe("note prose", () => {
   });
 
   test("ships a light and dark starter sheet without font size or line height", () => {
-    expect(DEFAULT_NOTE_PROSE_CSS).toContain("/* 正文。text-indent 是首行缩进，margin-bottom 是段距。 */");
+    expect(DEFAULT_NOTE_PROSE_CSS).toContain("/* 正文。text-indent 是首行縮排，margin-bottom 是段距。 */");
     expect(DEFAULT_NOTE_PROSE_CSS).toContain("text-indent: 0;");
-    expect(DEFAULT_NOTE_PROSE_CSS).toContain("/* 深色 · 标题 */");
+    expect(DEFAULT_NOTE_PROSE_CSS).toContain("/* 深色 · 標題 */");
     expect(DEFAULT_NOTE_PROSE_CSS).toContain("color: #212121;");
     expect(DEFAULT_NOTE_PROSE_CSS).toContain("color: #dee3e0;");
     expect(DEFAULT_NOTE_PROSE_CSS).not.toContain("font-size");
@@ -158,9 +158,9 @@ describe("note prose", () => {
     expect(sanitized).toContain(":root.dark p");
     expect(sanitized).toContain("color: #dee3e0");
     expect(DEFAULT_NOTE_PROSE_CSS.indexOf(":root.dark p")).toBeGreaterThan(DEFAULT_NOTE_PROSE_CSS.indexOf("p {"));
-    expect(DEFAULT_NOTE_PROSE_CSS.indexOf(":root.dark p")).toBeLessThan(DEFAULT_NOTE_PROSE_CSS.indexOf("/* 一级标题 */"));
+    expect(DEFAULT_NOTE_PROSE_CSS.indexOf(":root.dark p")).toBeLessThan(DEFAULT_NOTE_PROSE_CSS.indexOf("/* 一級標題 */"));
     expect(DEFAULT_NOTE_PROSE_CSS.indexOf(":root.dark a")).toBeGreaterThan(DEFAULT_NOTE_PROSE_CSS.indexOf("\na {"));
-    expect(DEFAULT_NOTE_PROSE_CSS.indexOf(":root.dark a")).toBeLessThan(DEFAULT_NOTE_PROSE_CSS.indexOf("/* 粗体 */"));
+    expect(DEFAULT_NOTE_PROSE_CSS.indexOf(":root.dark a")).toBeLessThan(DEFAULT_NOTE_PROSE_CSS.indexOf("/* 粗體 */"));
     expect(noteProseCssDropsDeclarations(DEFAULT_NOTE_PROSE_CSS)).toBe(false);
     expect(noteProseCssDropsDeclarations("p { color: red; }")).toBe(false);
     expect(noteProseCssDropsDeclarations("p { font-size: 18px; color: red; }")).toBe(true);

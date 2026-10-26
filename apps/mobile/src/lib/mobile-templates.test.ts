@@ -10,20 +10,20 @@ describe("mobile-templates", () => {
     const selectableSaved = toMobileSelectableTemplate(
       {
         id: "tpl_1",
-        name: "我的周报",
-        description: "团队周报",
-        title: "【周报】",
+        name: "我的週報",
+        description: "團隊週報",
+        title: "【週報】",
         contentJson: { type: "doc", content: [] },
-        contentMarkdown: "## 本周",
+        contentMarkdown: "## 本週",
         tags: ["work", "weekly"],
         createdAt: "2026-01-01T00:00:00.000Z",
         updatedAt: "2026-01-01T00:00:00.000Z",
       },
     );
-    expect(selectableSaved.title).toBe("【周报】");
+    expect(selectableSaved.title).toBe("【週報】");
     expect(mobileTemplateToCreateSeed(selectableSaved)).toEqual({
-      title: "【周报】",
-      contentMarkdown: "## 本周",
+      title: "【週報】",
+      contentMarkdown: "## 本週",
       tagsText: "work, weekly",
     });
   });

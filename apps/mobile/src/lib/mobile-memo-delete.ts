@@ -65,7 +65,7 @@ export const deleteMobileMemos = async ({
   const uniqueRemoteIds = Array.from(new Set(remoteIds));
   if (uniqueRemoteIds.length > 0) {
     if (!client) {
-      throw new Error("当前无法连接实例，请稍后重试");
+      throw new Error("當前無法連線實例，請稍後重試");
     }
     const originalMemos = new Map(
       (await Promise.all(uniqueRemoteIds.map(async (memoId) => [memoId, await resolveLocalMemo(dataScope, memoId)] as const)))

@@ -58,12 +58,12 @@ export type ObjectStorageConfigRow = {
 };
 
 type ObjectStorageEnvironment = {
-  storage: { db: DatabaseAdapter; resources: BlobStoreAdapter };
+  storage: { db: DatabaseAdapter; resources?: BlobStoreAdapter };
   EDGE_EVER_AUTH_PASSWORD?: string;
   EDGE_EVER_AUTH_PASSWORD_HASH?: string;
   EDGE_EVER_AUTH_PASSWORD_FALLBACK?: string;
   EDGE_EVER_STORAGE_ENCRYPTION_KEY?: string;
-  EDGE_EVER_R2_BUCKET_NAME?: string;
+  EDGE_EVER_S3_BUCKET?: string;
 };
 
 const selectConfigSql = `SELECT id, provider, display_name, endpoint, region, bucket, access_key_id,
@@ -161,9 +161,16 @@ export const resolveObjectStorage = async (env: ObjectStorageEnvironment, config
   }
 
   if (!row || row.provider === "builtin") {
+    if (!env.storage.resources) {
+      throw new AppError(
+        "object_storage_unavailable",
+        "Object storage is not configured. Set the EDGE_EVER_S3_* deployment variables and redeploy.",
+        503,
+      );
+    }
     return {
       configId: BUILTIN_STORAGE_CONFIG_ID,
-      bucketName: env.EDGE_EVER_R2_BUCKET_NAME?.trim() || "edgeever-resources",
+      bucketName: env.EDGE_EVER_S3_BUCKET?.trim() || "edgeever-resources",
       store: env.storage.resources,
     };
   }

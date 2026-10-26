@@ -15,14 +15,14 @@ import {
 
 Graph.registerConnector(MIND_MAP_CONNECTOR_NAME, mindMapConnector, true);
 
-const diagramTitle = (diagram: DiagramDocument, locale: "zh-CN" | "en-US" | "ja" | "pl") => {
+const diagramTitle = (diagram: DiagramDocument, locale: "zh-TW" | "en-US" | "ja" | "pl") => {
   if (locale === "en-US") {
     return diagram.kind === "mind-map" ? "Mind map" : diagram.kind === "architecture" ? "Architecture diagram" : "Flowchart";
   }
   if (locale === "pl") {
     return diagram.kind === "mind-map" ? "Mapa myśli" : diagram.kind === "architecture" ? "Diagram architektury" : "Schemat blokowy";
   }
-  return diagram.kind === "mind-map" ? "思维导图" : diagram.kind === "architecture" ? "架构图" : "流程图";
+  return diagram.kind === "mind-map" ? "思維導圖" : diagram.kind === "architecture" ? "架構圖" : "流程圖";
 };
 
 export const ReadOnlyX6Diagram = ({
@@ -32,7 +32,7 @@ export const ReadOnlyX6Diagram = ({
   controls = false,
 }: {
   diagram: DiagramDocument;
-  locale: "zh-CN" | "en-US" | "ja" | "pl";
+  locale: "zh-TW" | "en-US" | "ja" | "pl";
   theme: "light" | "dark";
   controls?: boolean;
 }) => {

@@ -69,35 +69,35 @@ describe("companion turn context", () => {
       focus: { memoId: "memo_1", notebookId: "nb_1", notebookTitle: "功能演示", title: "Pricing", selectionMarkdown: "Q3 cap" },
     }))).toContain("[note:memo_1]");
     expect(companionUserContent(input({
-      message: "学习资料里面有哪些笔记?",
+      message: "學習資料裡面有哪些筆記?",
       focus: { memoId: "memo_1", notebookId: "nb_demo_features", notebookTitle: "功能演示" },
     }))).toContain("功能演示");
     expect(companionUserContent(input({
-      message: "学习资料里面有哪些笔记?",
+      message: "學習資料裡面有哪些筆記?",
       focus: { memoId: "memo_1", notebookId: "nb_demo_features", notebookTitle: "功能演示" },
     }))).toContain("not a search filter");
     expect(companionUserContent(input({
-      message: "帮我新建一个RAG原理的思维导图。",
+      message: "幫我新建一個RAG原理的思維導圖。",
       focus: { memoId: "memo_1", notebookId: "nb_demo_features", notebookTitle: "功能演示" },
-    }))).toContain("saved in the inbox notebook (等待分类)");
+    }))).toContain("saved in the inbox notebook (等待分類)");
     expect(companionUserContent(input({
-      message: "帮我新建一个RAG原理的思维导图。",
+      message: "幫我新建一個RAG原理的思維導圖。",
       focus: { memoId: "memo_1", notebookId: "nb_demo_features", notebookTitle: "功能演示" },
     }))).toContain("Do not ask which notebook");
     expect(companionUserContent(input({
-      message: "根据这篇做思维导图",
+      message: "根據這篇做思維導圖",
       focus: {
         memoId: "memo_1", notebookId: "nb_demo_features", notebookTitle: "功能演示", title: "RAG 原理",
-        contentMarkdown: "检索、增强、生成是 RAG 的三步。",
+        contentMarkdown: "檢索、增強、生成是 RAG 的三步。",
       },
-    }))).toContain("检索、增强、生成是 RAG 的三步。");
+    }))).toContain("檢索、增強、生成是 RAG 的三步。");
     expect(companionUserContent(input({
-      message: "给这张图加一个评估节点",
+      message: "給這張圖加一個評估節點",
       focus: { memoId: "memo_1", notebookId: "nb_demo_features", title: "RAG 原理", diagramKind: "mind-map" },
     }))).toContain("editable mind-map");
     expect(companionUserContent(input({
-      message: "整理这些",
-      mentions: [{ type: "notebook", id: "nb_study", title: "学习资料" }],
+      message: "整理這些",
+      mentions: [{ type: "notebook", id: "nb_study", title: "學習資料" }],
     }))).toContain("[notebook:nb_study]");
     expect(companionUserContent(input({ message: "What did I write?" }))).toBe("What did I write?");
     expect(companionTurnInstructions(input({ allowNotes: true, allowWrites: false }))).toContain("read-only");
@@ -107,18 +107,18 @@ describe("companion turn context", () => {
   });
 
   test("a replacement follow-up retains the latest translation after an older, unrelated translation", () => {
-    const next = input({ allowNotes: true, useMemory: false, message: "用翻译后的内容替换原笔记。",
+    const next = input({ allowNotes: true, useMemory: false, message: "用翻譯後的內容替換原筆記。",
       focus: { memoId: "memo_current", title: "Napoleon quote" } });
     const base = { thread_id: next.threadId, status: "completed", memory_revision: 3, use_memory: 0,
       allow_notes: 1, sources_json: "[]" };
     const history = [
-      { ...base, id: "latest", message: "翻译一下当前笔记。", response: "拿破仑说：当你的敌人正在犯错时，千万不要打断他。" },
-      { ...base, id: "older", message: "请把下面这段翻译成日文：极客知识库", response: "ギーク知識ベース" },
+      { ...base, id: "latest", message: "翻譯一下當前筆記。", response: "拿破崙說：當你的敵人正在犯錯時，千萬不要打斷他。" },
+      { ...base, id: "older", message: "請把下面這段翻譯成日文：極客知識庫", response: "ギーク知識ベース" },
     ];
     const messages = companionMessages(next, history, 3);
     expect(messages.map(message => message.content)).toEqual([
       history[1].message, history[1].response, history[0].message, history[0].response,
-      expect.stringContaining("用翻译后的内容替换原笔记。"),
+      expect.stringContaining("用翻譯後的內容替換原筆記。"),
     ]);
     expect(messages.at(-1).content).toContain("[note:memo_current]");
     expect(COMPANION_INSTRUCTIONS).toContain("An older translation of different text does not override the latest relevant translation.");
@@ -128,18 +128,18 @@ describe("companion turn context", () => {
 
   test("unqualified translations follow conversation language and ask only when source already matches", () => {
     const instructions = (message, locale) => companionAgentInstructions(input({ locale, message, allowNotes: true }), [], []);
-    expect(instructions("翻译一下当前笔记。", "ja")).toContain("Simplified Chinese (current request)");
-    expect(instructions("このノートを翻訳して", "zh-CN")).toContain("Japanese (current request)");
-    expect(instructions("このノートを翻訳して", "zh-CN")).toContain("Reply in Japanese unless the user asks otherwise.");
-    expect(instructions("Translate this note", "zh-CN")).toContain("English (current request)");
-    expect(instructions("Translate this note", "zh-CN")).toContain("source is already mainly in English");
-    expect(instructions("Translate this note", "zh-CN")).toContain("otherwise ask which other language");
-    const next = input({ locale: "zh-CN", message: "🔄", useMemory: false });
+    expect(instructions("翻譯一下當前筆記。", "ja")).toContain("Traditional Chinese (current request)");
+    expect(instructions("このノートを翻訳して", "zh-TW")).toContain("Japanese (current request)");
+    expect(instructions("このノートを翻訳して", "zh-TW")).toContain("Reply in Japanese unless the user asks otherwise.");
+    expect(instructions("Translate this note", "zh-TW")).toContain("English (current request)");
+    expect(instructions("Translate this note", "zh-TW")).toContain("source is already mainly in English");
+    expect(instructions("Translate this note", "zh-TW")).toContain("otherwise ask which other language");
+    const next = input({ locale: "zh-TW", message: "🔄", useMemory: false });
     const prior = { id: "prior", thread_id: next.threadId, status: "completed", memory_revision: 3, use_memory: 0,
       allow_notes: 0, sources_json: "[]", message: "このノートを翻訳して", response: "Translation" };
     expect(companionAgentInstructions(next, [], [], [prior], 3)).toContain("Japanese (recent conversation)");
-    expect(companionAgentInstructions(next, [], [], [{ ...prior, use_memory: 1 }], 3)).toContain("Simplified Chinese (interface)");
-    expect(companionAgentInstructions({ ...next, message: "请翻译我正在看的内容，并把译文作为回复写给我。" }, [], [], [prior], 3))
+    expect(companionAgentInstructions(next, [], [], [{ ...prior, use_memory: 1 }], 3)).toContain("Traditional Chinese (interface)");
+    expect(companionAgentInstructions({ ...next, message: "請翻譯我正在看的內容，並把譯文作為回覆寫給我。" }, [], [], [prior], 3))
       .toContain("Japanese (recent conversation)");
   });
 });
@@ -436,11 +436,11 @@ describe("companion client-direct HTTP contracts", () => {
 
   test("resume clears answered questions so the resumed turn can complete (#637)", async () => {
     const setup = fixture({ loadCredentials: async () => credentials });
-    const payload = input({ message: "翻译这篇笔记", allowNotes: true });
+    const payload = input({ message: "翻譯這篇筆記", allowNotes: true });
     expect((await setup.request("turns/prepare", "POST", payload)).status).toBe(200);
     const asked = await setup.request(`turns/${payload.id}/tools`, "POST", {
       name: "ask_user_question",
-      input: { questions: [{ id: "language", prompt: "翻译成哪种语言？", inputType: "single_select", options: [{ id: "en", label: "English" }] }] },
+      input: { questions: [{ id: "language", prompt: "翻譯成哪種語言？", inputType: "single_select", options: [{ id: "en", label: "English" }] }] },
       response: "", process: "",
     });
     const askedBody = await asked.json();
@@ -479,18 +479,18 @@ describe("actual AI SDK companion runtime", () => {
     expect(COMPANION_INSTRUCTIONS).toContain("after you have already searched");
     expect(COMPANION_INSTRUCTIONS).toContain("create_diagram_memo");
     expect(COMPANION_INSTRUCTIONS).toContain("create_infographic_memo");
-    expect(COMPANION_INSTRUCTIONS).toContain("信息图");
+    expect(COMPANION_INSTRUCTIONS).toContain("資訊圖");
     expect(COMPANION_INSTRUCTIONS).toContain("chart-pie-donut-plain-text");
-    expect(COMPANION_INSTRUCTIONS).toContain("思维导图");
-    expect(COMPANION_INSTRUCTIONS).toContain("架构图/architecture diagram means kind=architecture");
+    expect(COMPANION_INSTRUCTIONS).toContain("思維導圖");
+    expect(COMPANION_INSTRUCTIONS).toContain("架構圖/architecture diagram means kind=architecture");
     expect(COMPANION_INSTRUCTIONS).toContain("update_diagram");
-    expect(COMPANION_INSTRUCTIONS).toContain("这篇");
+    expect(COMPANION_INSTRUCTIONS).toContain("這篇");
     expect(COMPANION_INSTRUCTIONS).not.toContain("You cannot create or edit diagrams");
     expect(COMPANION_INSTRUCTIONS).not.toContain("You cannot edit existing diagrams");
     expect(COMPANION_INSTRUCTIONS).toContain("use_note_template");
     expect(COMPANION_INSTRUCTIONS).toContain("todo_write");
     expect(COMPANION_INSTRUCTIONS).toContain("ask_user_question");
-    expect(COMPANION_INSTRUCTIONS).toContain("Omit notebookId and it is saved in the inbox notebook (等待分类)");
+    expect(COMPANION_INSTRUCTIONS).toContain("Omit notebookId and it is saved in the inbox notebook (等待分類)");
     expect(COMPANION_INSTRUCTIONS).toContain("Do not ask which notebook, and do not use the open notebook unless the user named it");
     expect(COMPANION_INSTRUCTIONS).not.toContain("use the open notebook from Focus DATA");
     expect(COMPANION_INSTRUCTIONS).toContain("Do not narrate");
@@ -622,10 +622,10 @@ describe("actual AI SDK companion runtime", () => {
     expect(companionMessages(next, history, 1)).toHaveLength(13);
   });
   test("Chinese questions recall older relevant memories within the fixed budget", () => {
-    const old = { id: "coffee", content: "咖啡偏好：我喜欢不加糖的咖啡。", updatedAt: "2020-01-01" };
-    const newer = Array.from({ length: 49 }, (_, i) => ({ id: String(i), content: "与问题无关的记录。".repeat(50), updatedAt: "2026-01-01" }));
+    const old = { id: "coffee", content: "咖啡偏好：我喜歡不加糖的咖啡。", updatedAt: "2020-01-01" };
+    const newer = Array.from({ length: 49 }, (_, i) => ({ id: String(i), content: "與問題無關的記錄。".repeat(50), updatedAt: "2026-01-01" }));
     const memories = [...newer, old];
-    const selected = selectCompanionMemories(memories, "我的咖啡偏好是什么？");
+    const selected = selectCompanionMemories(memories, "我的咖啡偏好是什麼？");
     expect(selected[0].id).toBe("coffee");
     expect(selected).toHaveLength(1);
     expect(memories.at(-1)).toBe(old);
@@ -666,13 +666,13 @@ describe("actual AI SDK companion runtime", () => {
     expect(companionMessages(next, [safe], 4)).toHaveLength(1);
   });
   test("note-enabled follow-ups keep prior sourced replies", () => {
-    const next = input({ allowNotes: true, useMemory: false, message: "把第二篇打开" });
+    const next = input({ allowNotes: true, useMemory: false, message: "把第二篇開啟" });
     const prior = { id: "listed", thread_id: next.threadId, status: "completed", memory_revision: 3, use_memory: 0,
-      allow_notes: 1, sources_json: '[{"id":"memo_1","title":"随手记下"}]', message: "学习资料里面有哪些笔记?",
-      response: "[随手记下](#memo=memo_1)" };
+      allow_notes: 1, sources_json: '[{"id":"memo_1","title":"隨手記下"}]', message: "學習資料裡面有哪些筆記?",
+      response: "[隨手記下](#memo=memo_1)" };
     const messages = companionMessages(next, [prior], 3);
     expect(messages).toHaveLength(3);
-    expect(messages[1].content).toContain("随手记下");
+    expect(messages[1].content).toContain("隨手記下");
     expect(companionMessages(input({ allowNotes: false, useMemory: false, threadId: next.threadId }), [prior], 3)).toHaveLength(1);
   });
   test("large histories have a total budget and never split message pairs", () => {

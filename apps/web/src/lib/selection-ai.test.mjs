@@ -52,16 +52,16 @@ describe("translation replacement", () => {
 describe("selection user message", () => {
   test("places the truncation notice before the quote", () => {
     expect(selectionAiUserMessage({
-      instruction: "请解释下面这段文字。",
-      notice: "只发送了选区的前 2000 个字符。",
+      instruction: "請解釋下面這段文字。",
+      notice: "只傳送了選區的前 2000 個字元。",
       quote: "概念",
-    })).toBe("请解释下面这段文字。\n\n只发送了选区的前 2000 个字符。\n\n概念");
+    })).toBe("請解釋下面這段文字。\n\n只傳送了選區的前 2000 個字元。\n\n概念");
   });
 
   test("stays inside the companion message limit for a full clip", () => {
     const message = selectionAiUserMessage({
-      instruction: "请翻译下面这段文字：如果原文是简体中文，译成英文；否则译成简体中文。只输出译文。",
-      notice: "只发送了选区的前 2000 个字符。",
+      instruction: "請翻譯下面這段文字：如果原文是繁體中文，譯成英文；否則譯成繁體中文。只輸出譯文。",
+      notice: "只傳送了選區的前 2000 個字元。",
       quote: "字".repeat(SELECTION_AI_SEND_LIMIT),
     });
     expect(message.length).toBeLessThanOrEqual(4000);

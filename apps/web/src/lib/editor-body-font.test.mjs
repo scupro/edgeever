@@ -51,10 +51,10 @@ describe("editor body font preference", () => {
 
   test("persists a bundled face and a custom family", () => {
     const values = installLocalStorage();
-    writeEditorBodyFontPreference({ choice: "wenkai", customFamily: "霞鹜文楷" });
+    writeEditorBodyFontPreference({ choice: "wenkai", customFamily: "霞鶩文楷" });
     expect(values.get(EDITOR_BODY_FONT_STORAGE_KEY)).toBe("wenkai");
-    expect(values.get(EDITOR_BODY_FONT_CUSTOM_STORAGE_KEY)).toBe("霞鹜文楷");
-    expect(readEditorBodyFontPreference()).toEqual({ choice: "wenkai", customFamily: "霞鹜文楷" });
+    expect(values.get(EDITOR_BODY_FONT_CUSTOM_STORAGE_KEY)).toBe("霞鶩文楷");
+    expect(readEditorBodyFontPreference()).toEqual({ choice: "wenkai", customFamily: "霞鶩文楷" });
   });
 
   test("falls back when local storage is unavailable", () => {
@@ -75,7 +75,7 @@ describe("editor body font preference", () => {
   test("keeps installed font names and rejects style injection", () => {
     expect(sanitizeEditorBodyFontFamily("  LXGW WenKai  ")).toBe("LXGW WenKai");
     expect(sanitizeEditorBodyFontFamily('"Source Han Serif SC", Songti SC')).toBe('"Source Han Serif SC", Songti SC');
-    expect(sanitizeEditorBodyFontFamily("霞鹜文楷")).toBe("霞鹜文楷");
+    expect(sanitizeEditorBodyFontFamily("霞鶩文楷")).toBe("霞鶩文楷");
     expect(sanitizeEditorBodyFontFamily("")).toBe("");
     expect(sanitizeEditorBodyFontFamily("WenKai; color: red")).toBe("");
     expect(sanitizeEditorBodyFontFamily("url(https://evil.example/font.woff2)")).toBe("");

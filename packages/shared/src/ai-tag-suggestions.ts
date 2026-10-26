@@ -11,13 +11,13 @@ export const DEFAULT_AI_TAG_SUGGESTION_PROMPT_EN = [
 ].join(" ");
 
 export const DEFAULT_AI_TAG_SUGGESTION_PROMPT_ZH_CN = [
-  "为给定笔记建议简洁的分类标签。",
-  "每个标签必须仅来自标题或正文明确支持的具体主题。",
-  "相关性是硬性要求：不得臆造主题；宁可不返回标签，也不要给出牵强或宽泛的匹配。",
-  "返回零到三个标签；通常一两个高质量标签比凑满三个更好。",
-  "有合适的已有标签时，优先复用，不要新建标签。",
-  "避免重复、近义重复、过于宽泛的标签、完整句子和开头的井号。",
-  "使用笔记本身的语言。",
+  "為給定筆記建議簡潔的分類標籤。",
+  "每個標籤必須僅來自標題或正文明確支援的具體主題。",
+  "相關性是硬性要求：不得臆造主題；寧可不返回標籤，也不要給出牽強或寬泛的匹配。",
+  "返回零到三個標籤；通常一兩個高品質標籤比湊滿三個更好。",
+  "有合適的已有標籤時，優先複用，不要新建標籤。",
+  "避免重複、近義重複、過於寬泛的標籤、完整句子和開頭的井號。",
+  "使用筆記本身的語言。",
 ].join("");
 
 export const getDefaultAiTagSuggestionPrompt = (locale?: string) =>
@@ -131,7 +131,7 @@ export const parseAiTagSuggestionNames = (text: string) => {
       .filter(Boolean)
       .slice(0, MAX_AI_TAG_SUGGESTIONS);
   }
-  if (/^(?:没有|无)(?:找到)?(?:合适|适合|可用|相关)?(?:的)?(?:新)?标签[。.!！]?$/.test(trimmedText)
+  if (/^(?:沒有|無)(?:找到)?(?:合適|適合|可用|相關)?(?:的)?(?:新)?標籤[。.!！]?$/.test(trimmedText)
     || /^(?:no|none|no suitable|no relevant) tags?[.!]?$/i.test(trimmedText)) {
     return [];
   }
@@ -144,7 +144,7 @@ export const parseAiTagSuggestionNames = (text: string) => {
   const delimitedTags = trimmedText
     .replace(/^```(?:text|markdown)?\s*/i, "")
     .replace(/\s*```$/, "")
-    .replace(/^(?:建议)?标签\s*[:：]\s*/i, "")
+    .replace(/^(?:建議)?標籤\s*[:：]\s*/i, "")
     .split(/[\r\n,，、;；]+/)
     .map((tag) => tag.trim().replace(/^#/, "").trim())
     .filter(Boolean);

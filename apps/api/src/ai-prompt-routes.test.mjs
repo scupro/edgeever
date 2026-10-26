@@ -120,12 +120,12 @@ const createApp = ({ currentAuth = auth, demoMode = false } = {}) => {
 describe("AI prompt template routes", () => {
   test("keeps the starter catalog focused on six common workflows", () => {
     expect(DEFAULT_AI_PROMPT_SEEDS.map((prompt) => [prompt.key, prompt.name])).toEqual([
-      ["summarize", "精简总结"],
-      ["translate", "全文翻译"],
-      ["improve-writing", "润色表达"],
-      ["make-shorter", "精炼表达"],
-      ["extract-todos", "提取待办"],
-      ["continue-writing", "继续写作"],
+      ["summarize", "精簡總結"],
+      ["translate", "全文翻譯"],
+      ["improve-writing", "潤色表達"],
+      ["make-shorter", "精煉表達"],
+      ["extract-todos", "提取待辦"],
+      ["continue-writing", "繼續寫作"],
     ]);
   });
 
@@ -198,8 +198,8 @@ describe("AI prompt template routes", () => {
     ).run(
       "aiprompt_user_custom",
       "ws_migration",
-      "周报提炼",
-      "提炼本周进展与风险。",
+      "週報提煉",
+      "提煉本週進展與風險。",
       "2026-08-12T01:00:00.000Z",
       "2026-08-12T01:00:00.000Z",
     );
@@ -220,16 +220,16 @@ describe("AI prompt template routes", () => {
     expect(rows.find((row) => row.seed_key === "simplify-language")).toBeUndefined();
     expect(rows.find((row) => row.seed_key === "extract-todos")).toMatchObject({
       action: "extract-todos",
-      name: "提取待办",
+      name: "提取待辦",
     });
     expect(rows.find((row) => row.seed_key === "continue-writing")).toMatchObject({
       action: "continue-writing",
-      name: "继续写作",
+      name: "繼續寫作",
     });
-    expect(rows.find((row) => row.name === "周报提炼")).toMatchObject({
+    expect(rows.find((row) => row.name === "週報提煉")).toMatchObject({
       seed_key: null,
       action: "custom",
-      instruction: "提炼本周进展与风险。",
+      instruction: "提煉本週進展與風險。",
     });
   });
 
@@ -261,9 +261,9 @@ describe("AI prompt template routes", () => {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
-          name: "会议待办",
-          description: "提取行动项",
-          instruction: "提取明确待办，输出 Markdown 任务列表。",
+          name: "會議待辦",
+          description: "提取行動項",
+          instruction: "提取明確待辦，輸出 Markdown 任務列表。",
         }),
       },
       environment,
@@ -279,9 +279,9 @@ describe("AI prompt template routes", () => {
       nameCustomized: true,
       descriptionCustomized: true,
       instructionCustomized: true,
-      name: "会议待办",
-      description: "提取行动项",
-      instruction: "提取明确待办，输出 Markdown 任务列表。",
+      name: "會議待辦",
+      description: "提取行動項",
+      instruction: "提取明確待辦，輸出 Markdown 任務列表。",
     });
     expect(createdBody.prompt.id).toMatch(/^aiprompt_/);
 
@@ -296,7 +296,7 @@ describe("AI prompt template routes", () => {
       {
         method: "PATCH",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ instruction: "只提取有负责人的待办。" }),
+        body: JSON.stringify({ instruction: "只提取有負責人的待辦。" }),
       },
       environment,
     );
@@ -304,8 +304,8 @@ describe("AI prompt template routes", () => {
     expect(await updated.json()).toMatchObject({
       prompt: {
         id: createdBody.prompt.id,
-        name: "会议待办",
-        instruction: "只提取有负责人的待办。",
+        name: "會議待辦",
+        instruction: "只提取有負責人的待辦。",
       },
     });
 
@@ -401,7 +401,7 @@ describe("AI prompt template routes", () => {
       {
         method: "PATCH",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ instruction: "用户改过的总结指令" }),
+        body: JSON.stringify({ instruction: "使用者改過的總結指令" }),
       },
       environment,
     );
@@ -420,7 +420,7 @@ describe("AI prompt template routes", () => {
     expect(secondBody.prompts).toHaveLength(DEFAULT_AI_PROMPT_SEEDS.length);
 
     const summarize = secondBody.prompts.find((prompt) => prompt.id === summarizeId);
-    expect(summarize?.instruction).toBe("用户改过的总结指令");
+    expect(summarize?.instruction).toBe("使用者改過的總結指令");
 
     const third = await app.request(
       "/api/v1/ai/prompts/restore-defaults",
@@ -451,13 +451,13 @@ describe("AI prompt template routes", () => {
       instructionCustomized: true,
     });
 
-    const chinese = await app.request("/api/v1/ai/prompts?locale=zh-CN", {}, environment);
+    const chinese = await app.request("/api/v1/ai/prompts?locale=zh-TW", {}, environment);
     const chineseSummary = (await chinese.json()).prompts.find(
       (prompt) => prompt.seedKey === "summarize",
     );
     expect(chineseSummary).toMatchObject({
-      name: "精简总结",
-      description: "压缩全文，提炼主题、结论与可执行结果",
+      name: "精簡總結",
+      description: "壓縮全文，提煉主題、結論與可執行結果",
       instruction: "Only this instruction was customized before the metadata migration.",
     });
 
@@ -558,13 +558,13 @@ describe("AI prompt template routes", () => {
     );
     expect(response.status).toBe(200);
 
-    const chinese = await app.request("/api/v1/ai/prompts?locale=zh-CN", {}, environment);
+    const chinese = await app.request("/api/v1/ai/prompts?locale=zh-TW", {}, environment);
     const chineseSummary = (await chinese.json()).prompts.find(
       (prompt) => prompt.seedKey === "summarize",
     );
     expect(chineseSummary).toMatchObject({
-      name: "精简总结",
-      description: "压缩全文，提炼主题、结论与可执行结果",
+      name: "精簡總結",
+      description: "壓縮全文，提煉主題、結論與可執行結果",
       nameCustomized: false,
       descriptionCustomized: false,
       instructionCustomized: false,

@@ -140,21 +140,21 @@ describe("plugin catalog items", () => {
       id: "org.edgeever.plugins.ai-rss",
       marketplaceEntry: marketplaceEntry({
         locales: {
-          "zh-CN": { name: "EdgeEver AI 订阅", description: "市场中文说明" },
+          "zh-TW": { name: "EdgeEver AI 訂閱", description: "市場中文說明" },
           ja: { description: "マーケット説明" },
         },
       }),
       extension: extension({
         manifest: {
           locales: {
-            zh: { description: "插件中文说明" },
+            zh: { description: "外掛中文說明" },
           },
         },
       }),
     };
 
-    expect(getPluginCatalogName(item, "zh-CN")).toBe("EdgeEver AI 订阅");
-    expect(getPluginCatalogDescription(item, "zh-CN")).toBe("插件中文说明");
+    expect(getPluginCatalogName(item, "zh-TW")).toBe("EdgeEver AI 訂閱");
+    expect(getPluginCatalogDescription(item, "zh-TW")).toBe("外掛中文說明");
     expect(getPluginCatalogDescription(item, "ja-JP")).toBe("マーケット説明");
     expect(getPluginCatalogDescription(item, "fr-FR")).toBe("Installed RSS digest");
   });

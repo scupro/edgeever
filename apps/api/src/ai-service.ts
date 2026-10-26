@@ -478,14 +478,14 @@ export const getDefaultAiDirectTarget = async (
  */
 export const aiActionInstructions: Record<Exclude<AiAction, "translate" | "change-tone" | "custom">, string> = {
   summarize: getDefaultAiPromptSeed("summarize")!.instruction,
-  "extract-key-points": "提取笔记中最重要的要点，用简洁的 Markdown 列表输出。保持原语言，不要添加原文没有的信息。",
+  "extract-key-points": "提取筆記中最重要的要點，用簡潔的 Markdown 列表輸出。保持原語言，不要新增原文沒有的資訊。",
   "extract-todos": getDefaultAiPromptSeed("extract-todos")!.instruction,
-  "rewrite-proofread": "改写并校对完整笔记。修正拼写、语法、标点、清晰度与结构，不改变原意。保持原语言与 Markdown 格式。只返回完整修订稿。",
+  "rewrite-proofread": "改寫並校對完整筆記。修正拼寫、語法、標點、清晰度與結構，不改變原意。保持原語言與 Markdown 格式。只返回完整修訂稿。",
   "improve-writing": getDefaultAiPromptSeed("improve-writing")!.instruction,
-  "fix-spelling-grammar": "只修正拼写、语法与标点。不要改变语气、结构或含义。保持原语言与 Markdown 格式。只返回修正后的内容。",
+  "fix-spelling-grammar": "只修正拼寫、語法與標點。不要改變語氣、結構或含義。保持原語言與 Markdown 格式。只返回修正後的內容。",
   "make-shorter": getDefaultAiPromptSeed("make-shorter")!.instruction,
-  "make-longer": "扩写内容，补充有用的说明与更顺畅的过渡，但不要编造事实。保持原语言与有用的 Markdown 格式。只返回扩写后的内容。",
-  "simplify-language": "用清晰、平实、更好懂的语言改写内容。保持原意、原语言与有用的 Markdown 格式。只返回简化后的内容。",
+  "make-longer": "擴寫內容，補充有用的說明與更順暢的過渡，但不要編造事實。保持原語言與有用的 Markdown 格式。只返回擴寫後的內容。",
+  "simplify-language": "用清晰、平實、更好懂的語言改寫內容。保持原意、原語言與有用的 Markdown 格式。只返回簡化後的內容。",
   "continue-writing": getDefaultAiPromptSeed("continue-writing")!.instruction,
 };
 

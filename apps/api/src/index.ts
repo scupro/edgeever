@@ -146,7 +146,7 @@ type D1PreparedStatement = PreparedStatementAdapter;
 
 const DEMO_RESET_LEASE_MS = 5 * 60 * 1000;
 const DEMO_RESET_COOLDOWN_MS = 60 * 1000;
-const DEFAULT_R2_BUCKET_NAME = "edgeever-resources";
+const DEFAULT_STORAGE_BUCKET_NAME = "edgeever-resources";
 const app = new Hono<AppEnv>();
 
 // Packaged desktop uses edgeever-app://app; the previous file:// renderer sent Origin "null".
@@ -223,7 +223,7 @@ app.get("/api/health", async (c) => {
       {
         error: {
           code: "object_storage_not_ready",
-          message: "Object storage is not configured. Bind RESOURCES and redeploy.",
+          message: "Object storage is not configured. Set the EDGE_EVER_S3_* deployment variables and redeploy.",
         },
       },
       503,
@@ -456,12 +456,12 @@ export const fetchEdgeEverApp = async (
 const worker = {
   async fetch(request: Request, env: WorkerBindings, ctx: ExecutionContext) {
     if (isNotebookSitePagePath(new URL(request.url).pathname)) {
-      return (await renderNotebookSitePage(request, createCloudflareStorageAdapter(env).db,
+      return (await renderNotebookSitePage(request, createCloudflareStorageAdapter(env, env).db,
         () => env.ASSETS.fetch(new Request(new URL("/", request.url), { method: "GET" }))))!;
     }
     return fetchEdgeEverApp(request, {
       ...env,
-      storage: createCloudflareStorageAdapter(env),
+      storage: createCloudflareStorageAdapter(env, env),
       deploymentVersionCreatedAt: env.CF_VERSION_METADATA?.timestamp,
       // workerd's default Internet egress checks resolved addresses against its public-only network policy.
       publicNetworkFetch: (url, init) => fetch(url, init),
@@ -470,7 +470,7 @@ const worker = {
   async scheduled(controller: ScheduledController, env: WorkerBindings, ctx: ExecutionContext) {
     const runtimeEnv = {
       ...env,
-      storage: createCloudflareStorageAdapter(env),
+      storage: createCloudflareStorageAdapter(env, env),
     } as Bindings;
 
     if (!isDemoMode(runtimeEnv)) {
@@ -564,7 +564,15 @@ const ensureDemoSeed = async (
   const db = env.storage.db;
   const now = isoNow();
   const statements: D1PreparedStatement[] = [];
-  const bucketName = env.EDGE_EVER_R2_BUCKET_NAME?.trim() || DEFAULT_R2_BUCKET_NAME;
+  const bucketName = env.EDGE_EVER_S3_BUCKET?.trim() || DEFAULT_STORAGE_BUCKET_NAME;
+  const resourceStore = env.storage.resources;
+  if (!resourceStore) {
+    throw new AppError(
+      "object_storage_unavailable",
+      "Object storage is not configured. Set the EDGE_EVER_S3_* deployment variables and redeploy.",
+      503,
+    );
+  }
   const overwriteExisting = options.overwriteExisting === true;
   const existingNotebookIds = overwriteExisting
     ? new Set<string>()
@@ -818,7 +826,7 @@ const ensureDemoSeed = async (
     const objectKey = `demo/${resource.memoId}/${resource.id}.${extension}`;
 
     if (options.refreshResources || !existingResourceIds.has(resource.id)) {
-      await env.storage.resources.put(objectKey, bytes, {
+      await resourceStore.put(objectKey, bytes, {
         httpMetadata: {
           contentType: resource.mimeType,
           cacheControl: "private, max-age=3600",

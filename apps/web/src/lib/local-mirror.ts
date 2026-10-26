@@ -265,7 +265,7 @@ export const listLocalMemos = async (scope: string, params: LocalMemoListParams)
     if (params.trash) return (right.deletedAt ?? "").localeCompare(left.deletedAt ?? "") || right.id.localeCompare(left.id);
     if (params.sort === "created-desc") return right.createdAt.localeCompare(left.createdAt) || right.id.localeCompare(left.id);
     if (params.sort === "title-asc" || params.sort === "title-desc") {
-      const titleCompare = (left.title || left.excerpt).localeCompare(right.title || right.excerpt, "zh-CN");
+      const titleCompare = (left.title || left.excerpt).localeCompare(right.title || right.excerpt, "zh-TW");
       if (titleCompare !== 0) return params.sort === "title-desc" ? -titleCompare : titleCompare;
       return right.updatedAt.localeCompare(left.updatedAt);
     }

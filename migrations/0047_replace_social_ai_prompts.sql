@@ -14,8 +14,8 @@ INSERT OR IGNORE INTO ai_prompt_templates (
 )
 SELECT
   id || '_aiprompt_extract-todos', id, 'extract-todos', 'extract-todos', 'none', 'append',
-  '提取待办', '识别可执行任务，生成任务清单',
-  '从笔记中提取明确或隐含的可执行任务，用 Markdown 任务列表（- [ ]）输出。保持原语言，不要编造任务。若没有可执行事项，用原文语言简短说明。',
+  '提取待辦', '識別可執行任務，生成任務清單',
+  '從筆記中提取明確或隱含的可執行任務，用 Markdown 任務列表（- [ ]）輸出。保持原語言，不要編造任務。若沒有可執行事項，用原文語言簡短說明。',
   0, 0, 0, strftime('%Y-%m-%dT%H:%M:%fZ', 'now'), strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
 FROM workspaces;
 
@@ -27,7 +27,7 @@ INSERT OR IGNORE INTO ai_prompt_templates (
 )
 SELECT
   id || '_aiprompt_continue-writing', id, 'continue-writing', 'continue-writing', 'none', 'append',
-  '继续写作', '从笔记末尾自然续写',
-  '从笔记结束处自然续写。只返回新增续写内容，不要重复原文。保持原语言与 Markdown 风格。',
+  '繼續寫作', '從筆記末尾自然續寫',
+  '從筆記結束處自然續寫。只返回新增續寫內容，不要重複原文。保持原語言與 Markdown 風格。',
   0, 0, 0, strftime('%Y-%m-%dT%H:%M:%fZ', 'now'), strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
 FROM workspaces;

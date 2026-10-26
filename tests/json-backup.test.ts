@@ -307,7 +307,7 @@ describe("EdgeEver ZIP", () => {
       "[Content_Types].xml": strToU8("<Types></Types>"),
       "xl/workbook.xml": strToU8("<workbook/>"),
     });
-    const officeNotebook = notebook("nb_office", "资料");
+    const officeNotebook = notebook("nb_office", "資料");
     const officeMemo: MemoDetail = {
       ...memo,
       id: "memo_office",
@@ -390,8 +390,8 @@ describe("EdgeEver ZIP", () => {
 
     expect(backup.manifest.counts.resources).toBe(2);
     expect(backup.memos[0].resources.map((item) => item.archivePath)).toEqual([
-      "notes/资料/Office.assets/brief.docx",
-      "notes/资料/Office.assets/sheet.xlsx",
+      "notes/資料/Office.assets/brief.docx",
+      "notes/資料/Office.assets/sheet.xlsx",
     ]);
     expect(restored.get("res_docx")).toEqual(docx);
     expect(restored.get("res_xlsx")).toEqual(xlsx);

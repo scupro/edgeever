@@ -392,7 +392,7 @@ fn parse_field(value: &Value) -> Option<(String, String)> {
     let raw_name = field.get("name").and_then(Value::as_str).unwrap_or("");
     let collapsed = collapse_js_whitespace(raw_name);
     let name = if collapsed.is_empty() {
-        "字段".to_owned()
+        "欄位".to_owned()
     } else {
         collapsed
     };
@@ -612,7 +612,7 @@ mod tests {
     #[test]
     fn diagram_preview_uses_child_topics_and_ignores_a_wrapped_payload() {
         let payload = encode_json(
-            r#"{"schemaVersion":1,"kind":"mind-map","nodes":[{"id":"root","label":"根","x":0,"y":0,"width":1,"height":1,"shape":"topic"},{"id":"child","label":"  分支  主题  ","x":1,"y":1,"width":1,"height":1,"shape":"topic","parentId":"root"}],"edges":[{"id":"edge","source":"root","target":"child"}]}"#,
+            r#"{"schemaVersion":1,"kind":"mind-map","nodes":[{"id":"root","label":"根","x":0,"y":0,"width":1,"height":1,"shape":"topic"},{"id":"child","label":"  分支  主題  ","x":1,"y":1,"width":1,"height":1,"shape":"topic","parentId":"root"}],"edges":[{"id":"edge","source":"root","target":"child"}]}"#,
         );
         let wrapped = format!("<!-- edgeever-diagram-v1:\n{payload}\n-->");
         let metadata = note_list_metadata(&wrapped);
@@ -621,7 +621,7 @@ mod tests {
         assert_eq!(metadata["diagramPreview"]["edgeCount"], 1);
         assert_eq!(
             metadata["diagramPreview"]["labels"],
-            serde_json::json!(["分支 主题"])
+            serde_json::json!(["分支 主題"])
         );
         assert_eq!(metadata["infographic"], false);
     }
@@ -629,7 +629,7 @@ mod tests {
     #[test]
     fn table_preview_counts_fields_and_records() {
         let payload = encode_json(
-            r#"{"schemaVersion":1,"fields":[{"id":"fld_name","name":" 名称 ","type":"text"},{"id":"fld_status","name":"","type":"select"}],"records":[{"id":"rec_1","cells":{}}]}"#,
+            r#"{"schemaVersion":1,"fields":[{"id":"fld_name","name":" 名稱 ","type":"text"},{"id":"fld_status","name":"","type":"select"}],"records":[{"id":"rec_1","cells":{}}]}"#,
         );
         let metadata = note_list_metadata(&wrap("edgeever-table-v1", &payload));
         assert_eq!(metadata["structuredTable"], true);
@@ -637,7 +637,7 @@ mod tests {
         assert_eq!(metadata["tablePreview"]["recordCount"], 1);
         assert_eq!(
             metadata["tablePreview"]["fieldNames"],
-            serde_json::json!(["名称", "字段"])
+            serde_json::json!(["名稱", "欄位"])
         );
         assert!(metadata.get("contentMarkdown").is_none());
     }

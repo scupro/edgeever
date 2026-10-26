@@ -77,14 +77,14 @@ export const groupUploadedImages = (editor: Editor, sources: readonly string[]):
 };
 
 const IMAGE_GALLERY_COPY = {
-  "zh-CN": { label: "图片画廊布局", auto: "自动", single: "单列", columns: (count: string) => `${count} 栏` },
+  "zh-TW": { label: "圖片畫廊佈局", auto: "自動", single: "單列", columns: (count: string) => `${count} 欄` },
   "en-US": { label: "Image gallery layout", auto: "Auto", single: "Single", columns: (count: string) => `${count} columns` },
   ja: { label: "画像ギャラリーのレイアウト", auto: "自動", single: "1列", columns: (count: string) => `${count}列` },
   pl: { label: "Układ galerii obrazów", auto: "Auto", single: "1 kolumna", columns: (count: string) => `${count} kolumny` },
 };
 
 export const imageGalleryCopy = (locale: string) =>
-  IMAGE_GALLERY_COPY[locale as keyof typeof IMAGE_GALLERY_COPY] ?? IMAGE_GALLERY_COPY["zh-CN"];
+  IMAGE_GALLERY_COPY[locale as keyof typeof IMAGE_GALLERY_COPY] ?? IMAGE_GALLERY_COPY["zh-TW"];
 
 /** A shared touch-sized, in-flow toolbar for Android and iOS WebView editors. */
 export const createNativeImageGalleryView = (getLocale: () => string): NodeViewRenderer => (

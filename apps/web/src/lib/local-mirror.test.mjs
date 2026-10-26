@@ -361,10 +361,10 @@ describe("local mirror", () => {
       createdAt: "2026-01-01T00:00:00.000Z",
       updatedAt: "2026-01-01T00:00:00.000Z",
     });
-    await notebook("exam", null, "注册考试");
-    await notebook("law", "exam", "法律法规");
-    await notebook("history", "exam", "建筑史");
-    await notebook("games", null, "游戏");
+    await notebook("exam", null, "註冊考試");
+    await notebook("law", "exam", "法律法規");
+    await notebook("history", "exam", "建築史");
+    await notebook("games", null, "遊戲");
 
     const deletedIds = await deleteLocalNotebookTree(scope, "exam");
     expect(new Set(deletedIds)).toEqual(new Set(["law", "history", "exam"]));
@@ -374,9 +374,9 @@ describe("local mirror", () => {
     expect(await getLocalNotebook(scope, "history")).toBeNull();
     expect(await getLocalNotebook(scope, "games")).not.toBeNull();
 
-    await notebook("blocked", null, "仍有笔记");
-    await notebook("blocked-child", "blocked", "子笔记本");
-    await createLocalMemo(scope, { notebookId: "blocked-child", title: "还在", tags: [] });
+    await notebook("blocked", null, "仍有筆記");
+    await notebook("blocked-child", "blocked", "子筆記本");
+    await createLocalMemo(scope, { notebookId: "blocked-child", title: "還在", tags: [] });
     await expect(deleteLocalNotebookTree(scope, "blocked")).rejects.toBeInstanceOf(NotebookNotEmptyError);
     expect(await getLocalNotebook(scope, "blocked")).not.toBeNull();
     expect(await getLocalNotebook(scope, "blocked-child")).not.toBeNull();
@@ -397,13 +397,13 @@ describe("local mirror", () => {
       createdAt: "2026-01-01T00:00:00.000Z",
       updatedAt: "2026-01-01T00:00:00.000Z",
     });
-    await putLocalNotebook(scope, notebook("exam", null, "注册考试"));
-    await putLocalNotebook(scope, notebook("law", "exam", "法律法规"));
+    await putLocalNotebook(scope, notebook("exam", null, "註冊考試"));
+    await putLocalNotebook(scope, notebook("law", "exam", "法律法規"));
     await putLocalNotebook(scope, notebook("local_new", null, "未同步"));
 
     await reconcileLocalNotebooks(
       scope,
-      [notebook("exam", null, "注册考试"), notebook("law", "exam", "法律法规"), notebook("games", null, "游戏")],
+      [notebook("exam", null, "註冊考試"), notebook("law", "exam", "法律法規"), notebook("games", null, "遊戲")],
       new Set(["exam", "law"]),
       new Set(["local_new"]),
     );
@@ -411,7 +411,7 @@ describe("local mirror", () => {
     expect(await getLocalNotebook(scope, "exam")).toBeNull();
     expect(await getLocalNotebook(scope, "law")).toBeNull();
     expect(await getLocalNotebook(scope, "local_new")).not.toBeNull();
-    expect((await getLocalNotebook(scope, "games"))?.name).toBe("游戏");
+    expect((await getLocalNotebook(scope, "games"))?.name).toBe("遊戲");
   });
 
   test("merges memos locally and marks source notes as deleted", async () => {
@@ -431,30 +431,30 @@ describe("local mirror", () => {
 
   test("uses a custom source title when the first merged memo is untitled", async () => {
     const scope = createLocalDataScope("https://demo.edgeever.org", "user-1");
-    const untitled = await createLocalMemo(scope, { notebookId: "inbox", title: "无标题笔记", contentMarkdown: "one" });
-    const titled = await createLocalMemo(scope, { notebookId: "inbox", title: "手动设置的标题", contentMarkdown: "two" });
+    const untitled = await createLocalMemo(scope, { notebookId: "inbox", title: "無標題筆記", contentMarkdown: "one" });
+    const titled = await createLocalMemo(scope, { notebookId: "inbox", title: "手動設定的標題", contentMarkdown: "two" });
 
     const merged = await mergeLocalMemos(scope, { memoIds: [untitled.id, titled.id] });
 
-    expect(merged?.title).toBe("手动设置的标题");
+    expect(merged?.title).toBe("手動設定的標題");
   });
 
   test("recovers rich content when source Markdown copies are empty", async () => {
     const scope = createLocalDataScope("https://demo.edgeever.org", "user-1");
     const first = await createLocalMemo(scope, { notebookId: "inbox", title: "First" });
     const second = await createLocalMemo(scope, { notebookId: "inbox", title: "Second" });
-    first.contentJson = { type: "doc", content: [{ type: "paragraph", content: [{ type: "text", text: "第一篇真实正文" }] }] };
-    first.contentText = "第一篇真实正文";
-    second.contentJson = { type: "doc", content: [{ type: "paragraph", content: [{ type: "text", text: "第二篇真实正文" }] }] };
-    second.contentText = "第二篇真实正文";
+    first.contentJson = { type: "doc", content: [{ type: "paragraph", content: [{ type: "text", text: "第一篇真實正文" }] }] };
+    first.contentText = "第一篇真實正文";
+    second.contentJson = { type: "doc", content: [{ type: "paragraph", content: [{ type: "text", text: "第二篇真實正文" }] }] };
+    second.contentText = "第二篇真實正文";
     await putLocalMemo(scope, first);
     await putLocalMemo(scope, second);
 
     const merged = await mergeLocalMemos(scope, { memoIds: [first.id, second.id] });
 
-    expect(merged?.contentMarkdown).toContain("第一篇真实正文");
-    expect(merged?.contentMarkdown).toContain("第二篇真实正文");
-    expect(merged?.contentText).toContain("第一篇真实正文");
+    expect(merged?.contentMarkdown).toContain("第一篇真實正文");
+    expect(merged?.contentMarkdown).toContain("第二篇真實正文");
+    expect(merged?.contentText).toContain("第一篇真實正文");
     expect((await getLocalMemo(scope, first.id))?.isDeleted).toBe(true);
   });
 
@@ -462,7 +462,7 @@ describe("local mirror", () => {
     const scope = createLocalDataScope("https://demo.edgeever.org", "user-1");
     const unsafe = await createLocalMemo(scope, { notebookId: "inbox", title: "Unsafe" });
     const second = await createLocalMemo(scope, { notebookId: "inbox", title: "Second", contentMarkdown: "正常正文" });
-    unsafe.contentText = "缓存声称这里有正文";
+    unsafe.contentText = "快取聲稱這裡有正文";
     await putLocalMemo(scope, unsafe);
 
     await expect(mergeLocalMemos(scope, { memoIds: [unsafe.id, second.id] }))

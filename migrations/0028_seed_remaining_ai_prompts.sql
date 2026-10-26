@@ -9,9 +9,9 @@ INSERT OR IGNORE INTO ai_prompt_templates (
 SELECT
   id || '_aiprompt_translate',
   id,
-  '翻译',
-  '翻译为指定目标语言，保留结构与格式',
-  '将完整笔记翻译成用户指定的目标语言。保留原意、Markdown 结构、链接与代码块。只返回译文，不要评论。',
+  '翻譯',
+  '翻譯為指定目標語言，保留結構與格式',
+  '將完整筆記翻譯成使用者指定的目標語言。保留原意、Markdown 結構、連結與程式碼塊。只返回譯文，不要評論。',
   strftime('%Y-%m-%dT%H:%M:%fZ', 'now'),
   strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
 FROM workspaces;
@@ -22,9 +22,9 @@ INSERT OR IGNORE INTO ai_prompt_templates (
 SELECT
   id || '_aiprompt_fix-spelling-grammar',
   id,
-  '修正错别字与语法',
-  '只修正错别字、语法与标点',
-  '只修正拼写、语法与标点。不要改变语气、结构或含义。保持原语言与 Markdown 格式。只返回修正后的内容。',
+  '修正錯別字與語法',
+  '只修正錯別字、語法與標點',
+  '只修正拼寫、語法與標點。不要改變語氣、結構或含義。保持原語言與 Markdown 格式。只返回修正後的內容。',
   strftime('%Y-%m-%dT%H:%M:%fZ', 'now'),
   strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
 FROM workspaces;
@@ -35,9 +35,9 @@ INSERT OR IGNORE INTO ai_prompt_templates (
 SELECT
   id || '_aiprompt_change-tone',
   id,
-  '改变语气',
-  '按指定语气重写，不改变含义',
-  '按用户指定的语气重写内容，不改变原意。保持原语言与有用的 Markdown 格式。只返回改写后的内容。',
+  '改變語氣',
+  '按指定語氣重寫，不改變含義',
+  '按使用者指定的語氣重寫內容，不改變原意。保持原語言與有用的 Markdown 格式。只返回改寫後的內容。',
   strftime('%Y-%m-%dT%H:%M:%fZ', 'now'),
   strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
 FROM workspaces;

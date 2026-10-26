@@ -1,4 +1,4 @@
-未来荧黑 (Glow Sans SC Heavy)
+未來熒黑 (Glow Sans SC Heavy)
 Source: https://github.com/welai/glow-sans
 This copy: subset and converted to WOFF2 by Qiaomu Cover Design
 

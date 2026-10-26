@@ -13,10 +13,10 @@ import { complexBodyHtml, complexDocument } from './note-image-content';
 import '../../../apps/web/src/i18n';
 import '../../../apps/web/src/styles/globals.css';
 
-const paragraph = '记录思想，也保留文字的细节。清晰的图片应该完整呈现每一行中文、标点和 English text，不因主题切换而丢失原来的颜色。';
+const paragraph = '記錄思想，也保留文字的細節。清晰的圖片應該完整呈現每一行中文、標點和 English text，不因主題切換而丟失原來的顏色。';
 const chart = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="600" height="180"><rect width="600" height="180" fill="#eee"/><path d="M20 140H580M20 20V140M40 120L160 80L280 100L400 40L560 20" fill="none" stroke="#07130b" stroke-width="3"/></svg>');
-const rich = `<h2>文字、表格与图片</h2><p><strong>加粗文字</strong> 与 <em>斜体 text</em>，日本語，Zażółć gęślą jaźń。</p><table><tbody><tr><th>项目</th><th>内容</th></tr><tr><td>排版</td><td>清晰的文字与完整的表格</td></tr></tbody></table><pre><code>const note = { title: "Keep writing", ready: true };</code></pre><img src="${chart}"><ul><li>条目一</li><li>条目二</li></ul>`;
-const base = { title: '清晰的文字，真实的颜色', notebook: '质量检查', tags: ['quality'], updatedAt: '2026/10/16', author: '天马', showAuthor: true, showTitle: true, branding: true, styles: '', fallbackTitle: 'Note' };
+const rich = `<h2>文字、表格與圖片</h2><p><strong>加粗文字</strong> 與 <em>斜體 text</em>，日本語，Zażółć gęślą jaźń。</p><table><tbody><tr><th>專案</th><th>內容</th></tr><tr><td>排版</td><td>清晰的文字與完整的表格</td></tr></tbody></table><pre><code>const note = { title: "Keep writing", ready: true };</code></pre><img src="${chart}"><ul><li>條目一</li><li>條目二</li></ul>`;
+const base = { title: '清晰的文字，真實的顏色', notebook: '品質檢查', tags: ['quality'], updatedAt: '2026/10/16', author: '天馬', showAuthor: true, showTitle: true, branding: true, styles: '', fallbackTitle: 'Note' };
 const sources = {
   short: { ...base, bodyHtml: `<p>${paragraph}</p>${rich}` },
   long: { ...base, bodyHtml: `<p>${paragraph}</p>`.repeat(85) + rich },

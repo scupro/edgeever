@@ -56,7 +56,7 @@ describe("screenshot note content", () => {
       id: "memo_local",
       revision: 0,
       contentHash: "empty",
-      title: "截图 2026-09-15 09:28",
+      title: "截圖 2026-09-15 09:28",
       tags: [],
       contentMarkdown: "",
     };
@@ -99,14 +99,14 @@ describe("screenshot note content", () => {
     });
     await expect(createScreenshotMemo({
       notebookId: "nb_inbox",
-      title: "截图",
+      title: "截圖",
       file,
       createMemo: async () => ({
         memo: {
           id: "memo_failed",
           revision: 0,
           contentHash: "empty",
-          title: "截图",
+          title: "截圖",
           tags: [],
           contentMarkdown: "",
         },
@@ -128,12 +128,12 @@ describe("screenshot import gate", () => {
     expect(screenshotImportDedupeKey({
       captureId: "shot-1",
       name: "screenshot-20260915-222604.png",
-      title: "截图 2026-09-15 22:26",
+      title: "截圖 2026-09-15 22:26",
     })).toBe("shot-1");
     expect(screenshotImportDedupeKey({
       name: "screenshot-20260915-222604.png",
-      title: "截图 2026-09-15 22:26",
-    })).toBe(["截图 2026-09-15 22:26", "screenshot-20260915-222604.png"].join("\u0000"));
+      title: "截圖 2026-09-15 22:26",
+    })).toBe(["截圖 2026-09-15 22:26", "screenshot-20260915-222604.png"].join("\u0000"));
   });
 
   test("drops a second import while the first screenshot is still being saved", () => {

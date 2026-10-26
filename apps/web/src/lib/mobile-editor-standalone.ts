@@ -4,7 +4,7 @@ import { ApiRequestError, api } from "@/lib/api";
 export const MOBILE_EDITOR_LEAVE_SAVE_TIMEOUT_MS = 1600;
 export const MOBILE_EDITOR_INITIAL_FOCUS_DELAY_MS = 160;
 export const MOBILE_EDITOR_DRAFT_STORAGE_PREFIX = "edgeever-mobile-tiptap-draft:";
-export const DEFAULT_MOBILE_EDITOR_MEMO_TITLE = "无标题笔记";
+export const DEFAULT_MOBILE_EDITOR_MEMO_TITLE = "無標題筆記";
 
 export type MobileEditorMemoResponse = {
   memo: MemoDetail;
@@ -36,24 +36,24 @@ export type MobileEditorSaveState =
 
 export const getMobileEditorSaveLabel = (saveState: MobileEditorSaveState) =>
   saveState === "loading"
-    ? "加载中"
+    ? "載入中"
     : saveState === "saving"
-      ? "保存中"
+      ? "儲存中"
       : saveState === "compressing"
-        ? "压缩中"
+        ? "壓縮中"
         : saveState === "uploading"
-          ? "上传中"
+          ? "上傳中"
           : saveState === "dirty"
-            ? "未保存"
+            ? "未儲存"
             : saveState === "saved"
-              ? "已保存"
+              ? "已儲存"
               : saveState === "local-draft"
-                ? "本地草稿"
+                ? "本機草稿"
                 : saveState === "leaving"
                   ? "返回中"
                   : saveState === "error"
-                    ? "保存失败"
-                    : "已保存";
+                    ? "儲存失敗"
+                    : "已儲存";
 
 export const getMobileEditorStatusClassName = (saveState: MobileEditorSaveState) =>
   saveState === "error"

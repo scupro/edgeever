@@ -11,14 +11,14 @@ import {
 describe("single-note HTML export", () => {
   test("creates a UTF-8 HTML file with the current content", async () => {
     const file = createHtmlFile(
-      "<!DOCTYPE html><html><body><p>当前未保存内容</p></body></html>",
-      "项目 / 计划",
+      "<!DOCTYPE html><html><body><p>當前未儲存內容</p></body></html>",
+      "專案 / 計劃",
       "Untitled note",
     );
 
-    expect(file.filename).toBe("项目 - 计划.html");
+    expect(file.filename).toBe("專案 - 計劃.html");
     expect(file.blob.type).toBe("text/html;charset=utf-8");
-    expect(await file.blob.text()).toContain("当前未保存内容");
+    expect(await file.blob.text()).toContain("當前未儲存內容");
   });
 
   test("sanitizes unsafe and reserved filenames", () => {
@@ -41,13 +41,13 @@ describe("single-note HTML export", () => {
       notebook: "Product",
       tags: ["ship", "html"],
       updatedAt: "2026-08-11 12:00",
-      language: "zh-CN",
+      language: "zh-TW",
       bodyHtml: "<p>Hello <strong>world</strong></p>",
       styles: "body { color: #111; }",
     });
 
     expect(html).toContain("<!DOCTYPE html>");
-    expect(html).toContain('lang="zh-CN"');
+    expect(html).toContain('lang="zh-TW"');
     expect(html).toContain("<title>Release &lt;notes&gt; &amp; &quot;docs&quot;</title>");
     expect(html).toContain('<h1 class="edgeever-html-title">Release &lt;notes&gt; &amp; &quot;docs&quot;</h1>');
     expect(html).toContain("Product · 2026-08-11 12:00 · #ship · #html");

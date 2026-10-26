@@ -171,7 +171,7 @@ const parseField = (value: unknown): TableField | null => {
   if (!isRecord(value) || typeof value.id !== "string" || !value.id || value.id.length > 80) return null;
   if (!TABLE_FIELD_TYPES.includes(value.type as TableFieldType)) return null;
   const type = value.type as TableFieldType;
-  const field: TableField = { id: value.id, name: cleanName(value.name, "字段"), type };
+  const field: TableField = { id: value.id, name: cleanName(value.name, "欄位"), type };
   if (type === "select") field.options = cleanOptions(value.options);
   return field;
 };
@@ -249,7 +249,7 @@ const markdownCell = (field: TableField, value: TableCellValue) => {
 };
 
 export const tableFallbackMarkdown = (document: TableDocument) => {
-  const header = document.fields.map((field) => markdownCell({ ...field, type: "text" }, field.name) || "字段");
+  const header = document.fields.map((field) => markdownCell({ ...field, type: "text" }, field.name) || "欄位");
   const divider = header.map(() => "---");
   const rows = document.records.map((record) => document.fields.map((field) => markdownCell(field, record.cells[field.id] ?? null)));
   return [header, divider, ...rows].map((row) => `| ${row.join(" | ")} |`).join("\n");
@@ -262,20 +262,20 @@ export const createDefaultTableDocument = (labels: TableSeedLabels = {}): TableD
   const nameId = "fld_name";
   const statusId = "fld_status";
   const dateId = "fld_date";
-  const notStarted = labels.notStarted ?? "未开始";
-  const inProgress = labels.inProgress ?? "进行中";
+  const notStarted = labels.notStarted ?? "未開始";
+  const inProgress = labels.inProgress ?? "進行中";
   const done = labels.done ?? "完成";
   return {
     schemaVersion: TABLE_SCHEMA_VERSION,
     fields: [
-      { id: nameId, name: labels.name ?? "名称", type: "text" },
-      { id: statusId, name: labels.status ?? "状态", type: "select", options: [notStarted, inProgress, done] },
+      { id: nameId, name: labels.name ?? "名稱", type: "text" },
+      { id: statusId, name: labels.status ?? "狀態", type: "select", options: [notStarted, inProgress, done] },
       { id: dateId, name: labels.date ?? "日期", type: "date" },
     ],
     records: [{
       id: "rec_sample",
       cells: {
-        [nameId]: labels.sample ?? "示例记录",
+        [nameId]: labels.sample ?? "示例記錄",
         [statusId]: notStarted,
         [dateId]: "",
       },

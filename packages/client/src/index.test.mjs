@@ -345,7 +345,7 @@ describe("EdgeEver client HTTP contract", () => {
         return jsonResponse({ resource: { id: "image_1" } }, { status: 201 });
       },
     });
-    const file = new File(["webp bytes"], "截图.webp", { type: "image/webp" });
+    const file = new File(["webp bytes"], "截圖.webp", { type: "image/webp" });
     expect((await client.uploadMemoResource("memo/1", file)).resource.id).toBe("image_1");
     expect(calls).toHaveLength(1);
     expect(calls[0].path).toBe("/api/v1/memos/memo%2F1/resources");
@@ -433,9 +433,9 @@ describe("EdgeEver client HTTP contract", () => {
       },
     });
 
-    await client.listMemos({ tag: "产品 和 交互" });
+    await client.listMemos({ tag: "產品 和 互動" });
 
-    expect(requestUrl).toBe("/api/v1/memos?tag=%E4%BA%A7%E5%93%81+%E5%92%8C+%E4%BA%A4%E4%BA%92");
+    expect(requestUrl).toBe("/api/v1/memos?tag=%E7%94%A2%E5%93%81+%E5%92%8C+%E4%BA%92%E5%8B%95");
   });
 
   test("preserves API error codes and invokes unauthorized handling", async () => {

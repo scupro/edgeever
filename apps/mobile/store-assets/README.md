@@ -14,7 +14,7 @@ The root-level artwork is used by Google Play:
 - `phone-*-1080x1920.jpg`: Play-ready portrait screenshots used for phone and tablet listing slots.
 
 The `app-store/` directory contains the App Store metadata source of truth and
-Apple-ready iPhone screenshots. Keep English, Simplified Chinese, and Japanese
+Apple-ready iPhone screenshots. Keep English, Traditional Chinese, and Japanese
 metadata files aligned when changing listing content.
 
 The `play/` directory contains Google Play listing copy for English, Simplified

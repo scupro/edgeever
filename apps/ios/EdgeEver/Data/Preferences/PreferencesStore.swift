@@ -4,23 +4,23 @@ import Foundation
 enum NoteImageFontCatalog {
     static let choices: [(id: String, zh: String, en: String)] = [
         (id: "smiley", zh: "得意黑", en: "Smiley Sans"),
-        (id: "wenkai", zh: "霞鹜文楷", en: "LXGW WenKai"),
+        (id: "wenkai", zh: "霞鶩文楷", en: "LXGW WenKai"),
         (id: "zhuque", zh: "朱雀仿宋", en: "Zhuque Fangsong"),
-        (id: "heavy", zh: "思源黑体 Heavy", en: "Noto Sans SC Heavy"),
-        (id: "puhui", zh: "普惠体", en: "PuHuiTi"),
-        (id: "puhui-heavy", zh: "普惠体 Heavy", en: "PuHuiTi Heavy"),
-        (id: "youshe", zh: "优设标题黑", en: "YouShe Title"),
-        (id: "shuhei", zh: "阿里妈妈数黑体", en: "Alimama ShuHei"),
-        (id: "source-han-serif", zh: "思源宋体", en: "Noto Serif SC"),
+        (id: "heavy", zh: "思源黑體 Heavy", en: "Noto Sans SC Heavy"),
+        (id: "puhui", zh: "普惠體", en: "PuHuiTi"),
+        (id: "puhui-heavy", zh: "普惠體 Heavy", en: "PuHuiTi Heavy"),
+        (id: "youshe", zh: "優設標題黑", en: "YouShe Title"),
+        (id: "shuhei", zh: "阿里媽媽數黑體", en: "Alimama ShuHei"),
+        (id: "source-han-serif", zh: "思源宋體", en: "Noto Serif SC"),
         (id: "anton", zh: "Anton", en: "Anton"),
-        (id: "douyin", zh: "抖音美好体", en: "Douyin Sans"),
-        (id: "mashan", zh: "马善政楷书", en: "Ma Shan Zheng"),
-        (id: "jiangcheng", zh: "江城圆体", en: "Jiangcheng Rounded"),
-        (id: "huangyou", zh: "站酷庆科黄油体", en: "ZCOOL QingKe HuangYou"),
-        (id: "glow", zh: "未来荧黑", en: "Glow Sans"),
-        (id: "kuaile", zh: "站酷快乐体", en: "ZCOOL KuaiLe"),
-        (id: "source-han-sans", zh: "思源黑体", en: "Noto Sans SC"),
-        (id: "source-han-serif-heavy", zh: "思源宋体 Heavy", en: "Noto Serif SC Heavy"),
+        (id: "douyin", zh: "抖音美好體", en: "Douyin Sans"),
+        (id: "mashan", zh: "馬善政楷書", en: "Ma Shan Zheng"),
+        (id: "jiangcheng", zh: "江城圓體", en: "Jiangcheng Rounded"),
+        (id: "huangyou", zh: "站酷慶科黃油體", en: "ZCOOL QingKe HuangYou"),
+        (id: "glow", zh: "未來熒黑", en: "Glow Sans"),
+        (id: "kuaile", zh: "站酷快樂體", en: "ZCOOL KuaiLe"),
+        (id: "source-han-sans", zh: "思源黑體", en: "Noto Sans SC"),
+        (id: "source-han-serif-heavy", zh: "思源宋體 Heavy", en: "Noto Serif SC Heavy"),
         (id: "inter", zh: "Inter", en: "Inter"),
         (id: "dmserif", zh: "DM Serif Display", en: "DM Serif Display"),
         (id: "bebas", zh: "Bebas Neue", en: "Bebas Neue"),
@@ -29,13 +29,13 @@ enum NoteImageFontCatalog {
     ]
     static let templateLabels: [String: (zh: String, en: String, ja: String, pl: String)] = [
         "glass": (zh: "MiSans", en: "MiSans", ja: "MiSans", pl: "MiSans"),
-        "quote": (zh: "汇文明朝体", en: "Huiwen Mincho", ja: "匯文明朝体", pl: "Huiwen Mincho"),
-        "book": (zh: "思源宋体", en: "Source Han Serif", ja: "源ノ明朝", pl: "Source Han Serif"),
+        "quote": (zh: "匯文明朝體", en: "Huiwen Mincho", ja: "匯文明朝體", pl: "Huiwen Mincho"),
+        "book": (zh: "思源宋體", en: "Source Han Serif", ja: "源ノ明朝", pl: "Source Han Serif"),
         "memo": (zh: "MiSans", en: "MiSans", ja: "MiSans", pl: "MiSans"),
         "bento": (zh: "MiSans", en: "MiSans", ja: "MiSans", pl: "MiSans"),
         "black-sun": (zh: "Geist Mono / MiSans", en: "Geist Mono / MiSans", ja: "Geist Mono / MiSans", pl: "Geist Mono / MiSans"),
-        "frame": (zh: "思源宋体", en: "Source Han Serif", ja: "源ノ明朝", pl: "Source Han Serif"),
-        "handwritten": (zh: "龙藏体", en: "Long Cang", ja: "Long Cang", pl: "Long Cang"),
+        "frame": (zh: "思源宋體", en: "Source Han Serif", ja: "源ノ明朝", pl: "Source Han Serif"),
+        "handwritten": (zh: "龍藏體", en: "Long Cang", ja: "Long Cang", pl: "Long Cang"),
         "code": (zh: "Geist Mono", en: "Geist Mono", ja: "Geist Mono", pl: "Geist Mono"),
     ]
 }
@@ -51,11 +51,11 @@ enum AppUILanguage: String {
 }
 
 enum AppUILocale {
-    /// Unmatched system languages use English, not Simplified Chinese.
+    /// Unmatched system languages use English, not Traditional Chinese.
     static func language(preferenceCode: String, systemLanguageCode: String?) -> AppUILanguage {
         switch preferenceCode {
         case "en-US": return .english
-        case "zh-CN": return .chinese
+        case "zh-TW": return .chinese
         case "ja": return .japanese
         case "pl": return .polish
         default:
@@ -127,7 +127,7 @@ struct NoteImageSharePreferences: Codable, Equatable {
 final class PreferencesStore {
     private let defaults: UserDefaults
 
-    /// system | zh-CN | en-US | ja | pl — matches Android locale preference.
+    /// system | zh-TW | en-US | ja | pl — matches Android locale preference.
     var localeCode: String {
         didSet { defaults.set(localeCode, forKey: Keys.locale) }
     }
@@ -186,7 +186,7 @@ final class PreferencesStore {
 
     var resolvedLocale: Locale {
         switch localeCode {
-        case "zh-CN": return Locale(identifier: "zh-Hans")
+        case "zh-TW": return Locale(identifier: "zh-Hant")
         case "en-US": return Locale(identifier: "en-US")
         case "ja": return Locale(identifier: "ja-JP")
         case "pl": return Locale(identifier: "pl-PL")
@@ -209,7 +209,7 @@ final class PreferencesStore {
         case .english: return "en-US"
         case .japanese: return "ja"
         case .polish: return "pl"
-        case .chinese: return "zh-CN"
+        case .chinese: return "zh-TW"
         }
     }
 

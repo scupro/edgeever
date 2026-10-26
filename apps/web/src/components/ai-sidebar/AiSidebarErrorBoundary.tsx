@@ -29,9 +29,9 @@ export class AiSidebarErrorBoundary extends React.Component<Props, State> {
         role="alert"
       >
         <div className="flex h-full flex-col items-start justify-center gap-3 p-6 text-slate-900">
-          <h2 className="text-base font-semibold">{zh ? "AI 侧栏暂时无法打开" : "The AI sidebar cannot open"}</h2>
+          <h2 className="text-base font-semibold">{zh ? "AI 側欄暫時無法開啟" : "The AI sidebar cannot open"}</h2>
           <p className="text-sm text-slate-600">
-            {zh ? "笔记仍可查看和编辑。你可以重试侧栏，或关闭后继续使用笔记。" : "You can still view and edit your note. Retry the sidebar or close it to continue."}
+            {zh ? "筆記仍可檢視和編輯。你可以重試側欄，或關閉後繼續使用筆記。" : "You can still view and edit your note. Retry the sidebar or close it to continue."}
           </p>
           <div className="flex gap-2">
             <button
@@ -39,14 +39,14 @@ export class AiSidebarErrorBoundary extends React.Component<Props, State> {
               className="rounded-lg bg-slate-900 px-3 py-2 text-sm font-medium text-white hover:bg-slate-800"
               onClick={() => this.setState({ failed: false })}
             >
-              {zh ? "重试侧栏" : "Retry sidebar"}
+              {zh ? "重試側欄" : "Retry sidebar"}
             </button>
             <button
               type="button"
               className="rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium hover:bg-slate-50"
               onClick={() => this.props.onOpenChange(false)}
             >
-              {zh ? "关闭" : "Close"}
+              {zh ? "關閉" : "Close"}
             </button>
           </div>
         </div>

@@ -27,19 +27,19 @@ describe("stable memo links", () => {
   });
 
   test("preserves memo links in Markdown", () => {
-    const markdown = "查看 [项目笔记](#memo=memo_project)。";
+    const markdown = "檢視 [專案筆記](#memo=memo_project)。";
     const doc = markdownToDoc(markdown);
 
     expect(doc.content[0]?.content?.[1]).toMatchObject({
       type: "text",
-      text: "项目笔记",
+      text: "專案筆記",
       marks: [{ type: "link", attrs: { href: "#memo=memo_project" } }],
     });
     expect(docToMarkdown(doc)).toBe(markdown);
   });
 
   test("collects unique referenced memo ids from link marks", () => {
-    const doc = markdownToDoc("[项目](#memo=memo_project) 和 [项目副本](#memo=memo_project) 及 [待办](#memo=memo_todo)");
+    const doc = markdownToDoc("[專案](#memo=memo_project) 和 [專案副本](#memo=memo_project) 及 [待辦](#memo=memo_todo)");
 
     expect(collectMemoLinkIds(doc)).toEqual(["memo_project", "memo_todo"]);
   });

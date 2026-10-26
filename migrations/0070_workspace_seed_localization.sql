@@ -21,7 +21,7 @@ WHERE EXISTS (SELECT 1 FROM workspaces WHERE id = 'ws_default')
   AND NOT EXISTS (
     SELECT 1 FROM memo_contents
     WHERE memo_id = 'memo_welcome'
-      AND content_hash <> '4edcf7092f86c561210d4eb788e96f28ec5c045f93952c82f5f57e1902f548bd'
+      AND content_hash <> 'b456f3d15f168a4e3456f3a5f157ad54a84688e7176d2ee5f277bb305871f2be'
   )
   AND NOT EXISTS (SELECT 1 FROM memo_revisions)
   AND NOT EXISTS (SELECT 1 FROM resources)

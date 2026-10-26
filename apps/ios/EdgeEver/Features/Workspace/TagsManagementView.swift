@@ -30,26 +30,26 @@ struct TagsManagementView: View {
                         if index > 0 { Rectangle().fill(AppTheme.cardBorder).frame(height: 1) }
                     }
                     .contextMenu {
-                        Button(env.preferences.t("重命名", en: "Rename", pl: "Zmień nazwę")) {
+                        Button(env.preferences.t("重新命名", en: "Rename", pl: "Zmień nazwę")) {
                             renameFrom = tag.name
                             renameTo = tag.name
                         }
                         Button(role: .destructive) {
                             Task { await deleteTag(tag.name) }
                         } label: {
-                            Text(env.preferences.t("删除", en: "Delete", pl: "Usuń"))
+                            Text(env.preferences.t("刪除", en: "Delete", pl: "Usuń"))
                         }
                     }
                 }
             }
         }
         .task { await load() }
-        .alert(env.preferences.t("重命名标签", en: "Rename tag", pl: "Zmień nazwę tagu"), isPresented: Binding(
+        .alert(env.preferences.t("重新命名標籤", en: "Rename tag", pl: "Zmień nazwę tagu"), isPresented: Binding(
             get: { !renameFrom.isEmpty },
             set: { if !$0 { renameFrom = "" } }
         )) {
-            TextField(env.preferences.t("新名称", en: "New name", pl: "Nowa nazwa"), text: $renameTo)
-            Button(env.preferences.t("保存", en: "Save", pl: "Zapisz")) { Task { await rename() } }
+            TextField(env.preferences.t("新名稱", en: "New name", pl: "Nowa nazwa"), text: $renameTo)
+            Button(env.preferences.t("儲存", en: "Save", pl: "Zapisz")) { Task { await rename() } }
             Button(env.preferences.t("取消", en: "Cancel", pl: "Anuluj"), role: .cancel) { renameFrom = "" }
         }
     }

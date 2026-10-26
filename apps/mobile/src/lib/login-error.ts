@@ -1,9 +1,9 @@
 import { ApiRequestError } from "@edgeever/client";
 import { translateMobileText } from "./mobile-locale";
 
-export type MobileLoginLocale = "zh-CN" | "en-US" | "ja" | "pl";
+export type MobileLoginLocale = "zh-TW" | "en-US" | "ja" | "pl";
 
-export const MISSING_MOBILE_SESSION_MESSAGE = "登录成功但服务端没有返回移动端会话。请确认服务端已更新到支持 App 登录的版本。";
+export const MISSING_MOBILE_SESSION_MESSAGE = "登入成功但服務端沒有返回移動端會話。請確認服務端已更新到支援 App 登入的版本。";
 
 const appendDiagnostics = (
   message: string,
@@ -12,7 +12,7 @@ const appendDiagnostics = (
 ) => `${message}\n${diagnosticCode}${rayId ? ` · Ray ID: ${rayId}` : ""}`;
 
 export const formatMobileLoginError = (error: unknown, locale: MobileLoginLocale) => {
-  const english = locale !== "zh-CN";
+  const english = locale !== "zh-TW";
 
   if (error instanceof ApiRequestError) {
     const rayId = error.responseDiagnostics?.rayId;
@@ -21,42 +21,42 @@ export const formatMobileLoginError = (error: unknown, locale: MobileLoginLocale
       return appendDiagnostics(
         english
           ? "A Cloudflare browser challenge intercepted the login API. Ask the instance administrator to adjust the WAF Challenge rule for the API."
-          : "Cloudflare 人机验证拦截了登录接口。请实例管理员调整针对 API 的 WAF Challenge 规则。",
+          : "Cloudflare 人機驗證攔截了登入介面。請實例管理員調整針對 API 的 WAF Challenge 規則。",
         "cloudflare_challenge",
         rayId,
       );
     }
     if (error.code === "auth_not_configured") {
       return appendDiagnostics(
-        english ? "Sign-in is not configured for this instance." : "这个实例还没有配置登录功能。",
+        english ? "Sign-in is not configured for this instance." : "這個實例還沒有配置登入功能。",
         "auth_not_configured",
         rayId,
       );
     }
     if (error.code === "database_not_ready") {
       return appendDiagnostics(
-        english ? "The instance database is not ready." : "实例数据库尚未就绪。",
+        english ? "The instance database is not ready." : "實例資料庫尚未就緒。",
         "database_not_ready",
         rayId,
       );
     }
     if (error.code === "password_hash_invalid") {
       return appendDiagnostics(
-        english ? "The instance password configuration is invalid." : "实例的密码配置无效。",
+        english ? "The instance password configuration is invalid." : "實例的密碼配置無效。",
         "password_hash_invalid",
         rayId,
       );
     }
     if (error.code === "login_rate_limited" || error.status === 429) {
       return appendDiagnostics(
-        english ? "Too many sign-in attempts. Try again later." : "登录尝试次数过多，请稍后再试。",
+        english ? "Too many sign-in attempts. Try again later." : "登入嘗試次數過多，請稍後再試。",
         "login_rate_limited",
         rayId,
       );
     }
     if (error.code === "unauthorized" || error.status === 401) {
       return appendDiagnostics(
-        english ? "The username or password is incorrect." : "用户名或密码不正确。",
+        english ? "The username or password is incorrect." : "使用者名稱或密碼不正確。",
         "invalid_credentials",
         rayId,
       );
@@ -65,7 +65,7 @@ export const formatMobileLoginError = (error: unknown, locale: MobileLoginLocale
       return appendDiagnostics(
         english
           ? "No EdgeEver API was found at this instance address."
-          : "该实例地址没有找到 EdgeEver API，请检查地址。",
+          : "該實例地址沒有找到 EdgeEver API，請檢查地址。",
         "edgeever_api_not_found",
         rayId,
       );
@@ -74,10 +74,10 @@ export const formatMobileLoginError = (error: unknown, locale: MobileLoginLocale
       const isEdgeEverApiError = error.responseDiagnostics?.isEdgeEverApiError;
       return appendDiagnostics(
         isEdgeEverApiError
-          ? (english ? "The instance rejected the login request." : "实例拒绝了登录请求。")
+          ? (english ? "The instance rejected the login request." : "實例拒絕了登入請求。")
           : (english
             ? "A security policy blocked the request before it reached EdgeEver. Check Cloudflare Security Events, Access, WAF, or reverse-proxy rules."
-            : "登录请求在到达 EdgeEver 前被安全策略拦截。请检查 Cloudflare Security Events、Access、WAF 或反向代理规则。"),
+            : "登入請求在到達 EdgeEver 前被安全策略攔截。請檢查 Cloudflare Security Events、Access、WAF 或反向代理規則。"),
         isEdgeEverApiError ? error.code || "http_403" : "security_policy_blocked",
         rayId,
       );
@@ -86,7 +86,7 @@ export const formatMobileLoginError = (error: unknown, locale: MobileLoginLocale
       return appendDiagnostics(
         english
           ? `The instance returned a server error (HTTP ${error.status}).`
-          : `实例服务异常（HTTP ${error.status}）。`,
+          : `實例服務異常（HTTP ${error.status}）。`,
         `http_${error.status}`,
         rayId,
       );
@@ -94,7 +94,7 @@ export const formatMobileLoginError = (error: unknown, locale: MobileLoginLocale
     return appendDiagnostics(
       english
         ? `The instance rejected the request (HTTP ${error.status}).`
-        : `实例拒绝了请求（HTTP ${error.status}）。`,
+        : `實例拒絕了請求（HTTP ${error.status}）。`,
       error.code || `http_${error.status}`,
       rayId,
     );
@@ -108,7 +108,7 @@ export const formatMobileLoginError = (error: unknown, locale: MobileLoginLocale
     return appendDiagnostics(
       english
         ? "Unable to reach the instance. Check its address and your network connection."
-        : "无法连接实例，请检查实例地址和网络连接。",
+        : "無法連線實例，請檢查實例地址和網路連線。",
       "network_unreachable",
     );
   }
@@ -117,13 +117,13 @@ export const formatMobileLoginError = (error: unknown, locale: MobileLoginLocale
     return appendDiagnostics(
       english
         ? "The server response is not a valid EdgeEver response."
-        : "服务端返回的内容不是有效的 EdgeEver 响应。",
+        : "服務端返回的內容不是有效的 EdgeEver 響應。",
       "invalid_instance_response",
     );
   }
 
   return appendDiagnostics(
-    english ? "Sign-in failed. Try again later." : "登录失败，请稍后再试。",
+    english ? "Sign-in failed. Try again later." : "登入失敗，請稍後再試。",
     "unexpected_login_error",
   );
 };

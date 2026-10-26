@@ -76,10 +76,10 @@ import {
 } from "../ThemeProvider";
 
 const CUSTOM_FONT_SUGGESTIONS = [
-  { label: "苹方 (PingFang SC)", family: "PingFang SC" },
-  { label: "微软雅黑 (Microsoft YaHei)", family: "Microsoft YaHei" },
-  { label: "鸿蒙黑体 (HarmonyOS)", family: "HarmonyOS Sans SC" },
-  { label: "冬青黑体 (Hiragino)", family: "Hiragino Sans GB" },
+  { label: "蘋方 (PingFang SC)", family: "PingFang SC" },
+  { label: "微軟雅黑 (Microsoft YaHei)", family: "Microsoft YaHei" },
+  { label: "鴻蒙黑體 (HarmonyOS)", family: "HarmonyOS Sans SC" },
+  { label: "冬青黑體 (Hiragino)", family: "Hiragino Sans GB" },
 ] as const;
 
 const FontChoiceFields = ({

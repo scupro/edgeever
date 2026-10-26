@@ -80,7 +80,7 @@ export const registerCompanionRoutes = (parent: Hono<AppEnv>, dependencies: {
     const stop = new AbortController();
     const timeout = setTimeout(() => stop.abort(), 60_000);
     try {
-      const locale = c.req.query("locale") === "zh-CN" ? "zh-CN" : "en-US";
+      const locale = c.req.query("locale") === "zh-TW" ? "zh-TW" : "en-US";
       const db = c.env.storage.db;
       const scope = scopeFor(c);
       let credentials: Awaited<ReturnType<typeof loadDefaultAiModelCredentials>> | undefined;

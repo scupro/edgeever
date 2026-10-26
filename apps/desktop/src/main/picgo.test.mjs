@@ -8,7 +8,7 @@ const serve = (handler) => {
   servers.push(server);
   return `http://127.0.0.1:${server.port}/upload`;
 };
-const image = (endpoint) => ({ endpoint, filename: "截图.png", mimeType: "image/png", bytes: new Uint8Array([137, 80, 78, 71]) });
+const image = (endpoint) => ({ endpoint, filename: "截圖.png", mimeType: "image/png", bytes: new Uint8Array([137, 80, 78, 71]) });
 
 test("connection check uses heartbeat and never uploads or reads the clipboard", async () => {
   const requests = [];
@@ -25,7 +25,7 @@ test("sends captured image bytes using PicGo multipart protocol and preserves re
     expect(new URL(request.url).pathname).toBe("/upload");
     const form = await request.formData();
     const file = form.get("files");
-    expect(file.name).toBe("截图.png");
+    expect(file.name).toBe("截圖.png");
     expect(file.type).toBe("image/png");
     expect(new Uint8Array(await file.arrayBuffer())).toEqual(image("").bytes);
     return Response.json({ success: true, result: ["https://images.example.com/picture.png?q=a%20b"] });

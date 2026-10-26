@@ -149,7 +149,7 @@ type LocalTiptapEditorSharedProps = {
   onReaderScroll?: (collapsed: boolean) => Promise<void>;
   onImageExportEvent?: (payloadJson: string) => Promise<void>;
   ref: Ref<LocalTiptapEditorRef>;
-  locale: "zh-CN" | "en-US" | "ja" | "pl";
+  locale: "zh-TW" | "en-US" | "ja" | "pl";
   theme: "light" | "dark";
   /** Live-switchable. The same DomWebView stays mounted across viewer → editor. */
   mode?: "editor" | "viewer";
@@ -452,7 +452,7 @@ const ReadOnlyX6Diagram = ({
   theme,
 }: {
   diagram: DiagramDocument;
-  locale: "zh-CN" | "en-US" | "ja" | "pl";
+  locale: "zh-TW" | "en-US" | "ja" | "pl";
   theme: "light" | "dark";
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -500,9 +500,9 @@ const ReadOnlyX6Diagram = ({
     };
   }, [diagram, theme, locale]);
 
-  const title = locale !== "zh-CN"
+  const title = locale !== "zh-TW"
     ? diagram.kind === "mind-map" ? "Mind map" : diagram.kind === "architecture" ? "Architecture diagram" : "Flowchart"
-    : diagram.kind === "mind-map" ? "思维导图" : diagram.kind === "architecture" ? "架构图" : "流程图";
+    : diagram.kind === "mind-map" ? "思維導圖" : diagram.kind === "architecture" ? "架構圖" : "流程圖";
   return (
     <section className="edgeever-x6-document">
       <div aria-label={title} className="edgeever-x6-diagram" key={diagram.kind} ref={containerRef} role="img" />
@@ -697,9 +697,9 @@ function LocalTiptapEditorImpl(props: LocalTiptapEditorProps) {
             parameterKind: "none",
             resultMode: "both",
             output: "",
-            error: props.locale !== "zh-CN"
+            error: props.locale !== "zh-TW"
               ? "The selected prompt no longer exists. Choose another prompt."
-              : "所选指令已不存在，请重新选择。",
+              : "所選指令已不存在，請重新選擇。",
           };
         }
         return {
@@ -937,7 +937,7 @@ function LocalTiptapEditorImpl(props: LocalTiptapEditorProps) {
     insertImageUploadPlaceholder(
       editor,
       createMobileImageUploadPlaceholderSource(uploadIdValue),
-      props.locale !== "zh-CN" ? "Uploading image…" : "图片上传中…",
+      props.locale !== "zh-TW" ? "Uploading image…" : "圖片上傳中…",
       previewDataUrlValue,
       pendingImageSelectionRef.current
     );
@@ -987,7 +987,7 @@ function LocalTiptapEditorImpl(props: LocalTiptapEditorProps) {
       type: "paragraph",
       content: [{
         type: "text",
-        text: `${props.locale !== "zh-CN" ? "Attachment: " : "附件："}${filenameValue}`,
+        text: `${props.locale !== "zh-TW" ? "Attachment: " : "附件："}${filenameValue}`,
         marks: [{
           type: "link",
           attrs: {
@@ -1029,7 +1029,7 @@ function LocalTiptapEditorImpl(props: LocalTiptapEditorProps) {
     editor.view.dispatch(editor.state.tr.replaceWith(
       range.from,
       range.to,
-      editor.schema.text(`${props.locale !== "zh-CN" ? "Attachment: " : "附件："}${filenameValue}`, [linkMark])
+      editor.schema.text(`${props.locale !== "zh-TW" ? "Attachment: " : "附件："}${filenameValue}`, [linkMark])
     ));
   }, [editor, props.locale]);
 
@@ -1155,7 +1155,7 @@ function LocalTiptapEditorImpl(props: LocalTiptapEditorProps) {
         ...current,
         generating: false,
         requestId: null,
-        error: requestError instanceof Error ? requestError.message : (props.locale !== "zh-CN" ? "AI generation failed." : "AI 生成失败。"),
+        error: requestError instanceof Error ? requestError.message : (props.locale !== "zh-TW" ? "AI generation failed." : "AI 生成失敗。"),
       } : current);
     });
   }, [aiPanel, props.locale]);
@@ -1195,9 +1195,9 @@ function LocalTiptapEditorImpl(props: LocalTiptapEditorProps) {
     if (!isAiSelectionSnapshotCurrent(aiPanel.selection, currentDocument, editor.state.doc.content.size)) {
       setAiPanel((current) => current ? {
         ...current,
-        error: props.locale !== "zh-CN"
+        error: props.locale !== "zh-TW"
           ? "The selection expired because the note changed. Select the text again."
-          : "笔记内容已变化，选区已失效，请重新选择文本。",
+          : "筆記內容已變化，選區已失效，請重新選擇文字。",
       } : current);
       return;
     }
@@ -1739,7 +1739,7 @@ function LocalTiptapEditorImpl(props: LocalTiptapEditorProps) {
             ))}
           {onAiRequestRef.current ? (
             <button
-              aria-label={props.locale !== "zh-CN" ? "Use AI on the note or selected text" : "用 AI 处理正文或选中内容"}
+              aria-label={props.locale !== "zh-TW" ? "Use AI on the note or selected text" : "用 AI 處理正文或選中內容"}
               className="edgeever-ai-toolbar-button"
               onClick={requestOpenAiForSelection}
               onMouseDown={(event) => event.preventDefault()}
@@ -1760,7 +1760,7 @@ function LocalTiptapEditorImpl(props: LocalTiptapEditorProps) {
       )}
       {aiSelectionTrigger && !aiPanel ? (
         <button
-          aria-label={props.locale !== "zh-CN" ? "Use AI on selected text" : "用 AI 处理选中内容"}
+          aria-label={props.locale !== "zh-TW" ? "Use AI on selected text" : "用 AI 處理選中內容"}
           className="edgeever-ai-selection-trigger"
           onClick={requestOpenAiForSelection}
           onMouseDown={(event) => event.preventDefault()}
@@ -1774,14 +1774,14 @@ function LocalTiptapEditorImpl(props: LocalTiptapEditorProps) {
       ) : null}
       {aiSelectionHint ? (
         <div aria-live="polite" className="edgeever-ai-selection-hint" role="status">
-          {props.locale !== "zh-CN" ? "Add some note content first." : "请先输入正文内容。"}
+          {props.locale !== "zh-TW" ? "Add some note content first." : "請先輸入正文內容。"}
         </div>
       ) : null}
       {aiUndoFingerprint && !aiPanel ? (
         <div aria-live="polite" className="edgeever-ai-undo" role="status">
-          <span>{props.locale !== "zh-CN" ? "AI updated the selection." : "AI 已更新选中内容。"}</span>
+          <span>{props.locale !== "zh-TW" ? "AI updated the selection." : "AI 已更新選中內容。"}</span>
           <button onClick={undoAiSelectionDraft} onMouseDown={(event) => event.preventDefault()} type="button">
-            {props.locale !== "zh-CN" ? "Undo" : "撤销"}
+            {props.locale !== "zh-TW" ? "Undo" : "撤銷"}
           </button>
         </div>
       ) : null}
@@ -1827,7 +1827,7 @@ const MobileSelectionAiPanel = ({
   panel,
   prompts,
 }: {
-  locale: "zh-CN" | "en-US" | "ja" | "pl";
+  locale: "zh-TW" | "en-US" | "ja" | "pl";
   onApply: (mode: "append" | "replace") => void;
   onChange: Dispatch<SetStateAction<MobileAiPanelState | null>>;
   onClose: () => void;
@@ -1837,39 +1837,39 @@ const MobileSelectionAiPanel = ({
   panel: MobileAiPanelState;
   prompts: AiPromptTemplate[];
 }) => {
-  const english = locale !== "zh-CN";
+  const english = locale !== "zh-TW";
   const [picker, setPicker] = useState<MobileAiPickerKind | null>(null);
   const actionLabels: Record<AiAction, string> = {
-    summarize: english ? "Summarize" : "精简总结",
-    "extract-key-points": english ? "Key points" : "提炼要点",
-    "extract-todos": english ? "Extract tasks" : "提取待办",
-    "rewrite-proofread": english ? "Rewrite & proofread" : "改写与校对",
-    translate: english ? "Translate" : "全文翻译",
-    "improve-writing": english ? "Polish" : "润色表达",
-    "fix-spelling-grammar": english ? "Fix spelling & grammar" : "修正拼写与语法",
-    "make-shorter": english ? "Make concise" : "精炼表达",
-    "make-longer": english ? "Make longer" : "扩写内容",
-    "simplify-language": english ? "Simplify language" : "简化表达",
-    "change-tone": english ? "Change tone" : "调整语气",
-    "continue-writing": english ? "Continue writing" : "继续写作",
-    custom: english ? "Custom prompt" : "自定义指令",
+    summarize: english ? "Summarize" : "精簡總結",
+    "extract-key-points": english ? "Key points" : "提煉要點",
+    "extract-todos": english ? "Extract tasks" : "提取待辦",
+    "rewrite-proofread": english ? "Rewrite & proofread" : "改寫與校對",
+    translate: english ? "Translate" : "全文翻譯",
+    "improve-writing": english ? "Polish" : "潤色表達",
+    "fix-spelling-grammar": english ? "Fix spelling & grammar" : "修正拼寫與語法",
+    "make-shorter": english ? "Make concise" : "精煉表達",
+    "make-longer": english ? "Make longer" : "擴寫內容",
+    "simplify-language": english ? "Simplify language" : "簡化表達",
+    "change-tone": english ? "Change tone" : "調整語氣",
+    "continue-writing": english ? "Continue writing" : "繼續寫作",
+    custom: english ? "Custom prompt" : "自定義指令",
   };
   const languageLabels: Record<AiTargetLanguage, string> = {
-    en: english ? "English" : "英语",
-    "zh-CN": english ? "Simplified Chinese" : "简体中文",
-    "zh-TW": english ? "Traditional Chinese" : "繁体中文",
-    ja: english ? "Japanese" : "日语",
-    ko: english ? "Korean" : "韩语",
-    es: english ? "Spanish" : "西班牙语",
-    fr: english ? "French" : "法语",
-    de: english ? "German" : "德语",
-    pt: english ? "Portuguese" : "葡萄牙语",
-    pl: english ? "Polish" : "波兰语",
+    en: english ? "English" : "英語",
+    "zh-TW": english ? "Traditional Chinese" : "繁體中文",
+    "zh-TW": english ? "Traditional Chinese" : "繁體中文",
+    ja: english ? "Japanese" : "日語",
+    ko: english ? "Korean" : "韓語",
+    es: english ? "Spanish" : "西班牙語",
+    fr: english ? "French" : "法語",
+    de: english ? "German" : "德語",
+    pt: english ? "Portuguese" : "葡萄牙語",
+    pl: english ? "Polish" : "波蘭語",
   };
   const toneLabels: Record<AiTone, string> = {
-    professional: english ? "Professional" : "专业",
+    professional: english ? "Professional" : "專業",
     friendly: english ? "Friendly" : "友好",
-    casual: english ? "Casual" : "轻松",
+    casual: english ? "Casual" : "輕鬆",
     direct: english ? "Direct" : "直接",
   };
   const update = (next: Partial<MobileAiPanelState>) => onChange((current) => current ? { ...current, ...next } : current);
@@ -1955,10 +1955,10 @@ const MobileSelectionAiPanel = ({
         : [];
 
   const pickerTitle = picker === "action"
-    ? (english ? "Choose an action" : "选择处理方式")
+    ? (english ? "Choose an action" : "選擇處理方式")
     : picker === "language"
-      ? (english ? "Choose target language" : "选择目标语言")
-      : (english ? "Choose tone" : "选择语气");
+      ? (english ? "Choose target language" : "選擇目標語言")
+      : (english ? "Choose tone" : "選擇語氣");
 
   const choosePickerOption = (value: string) => {
     if (picker === "action") selectPromptOrAction(value);
@@ -1988,7 +1988,7 @@ const MobileSelectionAiPanel = ({
     <section
       aria-label={panel.selection.wholeNote
         ? (english ? "AI whole-note assistant" : "AI 全文助手")
-        : (english ? "AI selection assistant" : "AI 选区助手")}
+        : (english ? "AI selection assistant" : "AI 選區助手")}
       aria-modal="true"
       className="edgeever-ai-panel"
       role="dialog"
@@ -1997,18 +1997,18 @@ const MobileSelectionAiPanel = ({
         <div>
           <strong>{panel.selection.wholeNote
             ? (english ? "AI whole-note assistant" : "AI 全文助手")
-            : (english ? "AI selection assistant" : "AI 选区助手")}</strong>
+            : (english ? "AI selection assistant" : "AI 選區助手")}</strong>
           <small>{panel.selection.wholeNote
-            ? (english ? "No text selected; the whole note will be processed." : "未选择文字，将处理整篇正文。")
-            : (english ? "Only the selected text will be processed." : "只处理当前选中的正文。")}</small>
+            ? (english ? "No text selected; the whole note will be processed." : "未選擇文字，將處理整篇正文。")
+            : (english ? "Only the selected text will be processed." : "只處理當前選中的正文。")}</small>
         </div>
-        <button aria-label={english ? "Close" : "关闭"} onClick={onClose} type="button">×</button>
+        <button aria-label={english ? "Close" : "關閉"} onClick={onClose} type="button">×</button>
       </header>
       <div className="edgeever-ai-panel-body">
         <MobileAiPickerField
           disabled={panel.generating}
           expanded={picker === "action"}
-          label={english ? "Action" : "处理方式"}
+          label={english ? "Action" : "處理方式"}
           onOpen={() => setPicker("action")}
           value={selectedPrompt?.name ?? actionLabels[panel.action]}
         />
@@ -2016,7 +2016,7 @@ const MobileSelectionAiPanel = ({
           <MobileAiPickerField
             disabled={panel.generating}
             expanded={picker === "language"}
-            label={english ? "Target language" : "目标语言"}
+            label={english ? "Target language" : "目標語言"}
             onOpen={() => setPicker("language")}
             value={languageLabels[panel.targetLanguage]}
           />
@@ -2025,19 +2025,19 @@ const MobileSelectionAiPanel = ({
           <MobileAiPickerField
             disabled={panel.generating}
             expanded={picker === "tone"}
-            label={english ? "Tone" : "语气"}
+            label={english ? "Tone" : "語氣"}
             onOpen={() => setPicker("tone")}
             value={toneLabels[panel.tone]}
           />
         ) : null}
         {!panel.promptId && panel.action === "custom" ? (
           <label>
-            <span>{english ? "Tell AI what to do" : "告诉 AI 你想怎么处理"}</span>
+            <span>{english ? "Tell AI what to do" : "告訴 AI 你想怎麼處理"}</span>
             <textarea
               disabled={panel.generating}
               maxLength={2000}
               onChange={(event) => update({ customInstruction: event.target.value })}
-              placeholder={english ? "For example: Rewrite this as a concise email." : "例如：改写成一封简洁的邮件。"}
+              placeholder={english ? "For example: Rewrite this as a concise email." : "例如：改寫成一封簡潔的郵件。"}
               rows={3}
               value={panel.customInstruction}
             />
@@ -2048,11 +2048,11 @@ const MobileSelectionAiPanel = ({
           {panel.generating ? <small>{english ? "Generating…" : "生成中…"}</small> : null}
         </div>
         <div aria-live="polite" className="edgeever-ai-result">
-          {panel.output || <span>{english ? "The generated draft will appear here." : "生成的草稿会显示在这里。"}</span>}
+          {panel.output || <span>{english ? "The generated draft will appear here." : "生成的草稿會顯示在這裡。"}</span>}
         </div>
         {panel.output && !panel.generating ? (
           <label>
-            <span>{english ? "Refine result" : "继续调整"}</span>
+            <span>{english ? "Refine result" : "繼續調整"}</span>
             <div className="edgeever-ai-refine-row">
               <input
                 maxLength={2000}
@@ -2063,11 +2063,11 @@ const MobileSelectionAiPanel = ({
                     onRefine(panel.refineInstruction);
                   }
                 }}
-                placeholder={english ? "Make it more concise" : "例如：再简洁一点"}
+                placeholder={english ? "Make it more concise" : "例如：再簡潔一點"}
                 value={panel.refineInstruction}
               />
               <button disabled={!panel.refineInstruction.trim()} onClick={() => onRefine(panel.refineInstruction)} type="button">
-                {english ? "Refine" : "调整"}
+                {english ? "Refine" : "調整"}
               </button>
             </div>
           </label>
@@ -2077,10 +2077,10 @@ const MobileSelectionAiPanel = ({
       <footer className="edgeever-ai-panel-footer">
         <div>
           <button disabled={appendDisabled} onClick={() => onApply("append")} type="button">
-            {english ? "Insert after" : "插入到选区后"}
+            {english ? "Insert after" : "插入到選區後"}
           </button>
           <button disabled={replaceDisabled} onClick={() => onApply("replace")} type="button">
-            {english ? "Replace selection" : "替换选中内容"}
+            {english ? "Replace selection" : "替換選中內容"}
           </button>
         </div>
         {panel.generating ? (
@@ -2103,7 +2103,7 @@ const MobileSelectionAiPanel = ({
             <div aria-hidden="true" className="edgeever-ai-picker-handle" />
             <header className="edgeever-ai-picker-header">
               <strong>{pickerTitle}</strong>
-              <button aria-label={english ? "Close" : "关闭"} onClick={() => setPicker(null)} type="button">×</button>
+              <button aria-label={english ? "Close" : "關閉"} onClick={() => setPicker(null)} type="button">×</button>
             </header>
             <div aria-label={pickerTitle} className="edgeever-ai-picker-options" role="radiogroup">
               {pickerOptions.map((option) => (
@@ -2339,7 +2339,7 @@ const loadMermaid = () => {
 };
 
 const createMobileCodeBlockExtension = (
-  locale: "zh-CN" | "en-US" | "ja" | "pl",
+  locale: "zh-TW" | "en-US" | "ja" | "pl",
   theme: "light" | "dark",
   hideCopyForVisualDiagram = false,
 ) => CodeBlock.extend({
@@ -2367,12 +2367,12 @@ const createMobileCodeBlockExtension = (
       message.className = "edgeever-mermaid-message";
       svgContainer.className = "edgeever-mermaid-svg";
       svgContainer.setAttribute("role", "img");
-      svgContainer.setAttribute("aria-label", locale !== "zh-CN" ? "Mermaid diagram preview" : "Mermaid 图表预览");
+      svgContainer.setAttribute("aria-label", locale !== "zh-TW" ? "Mermaid diagram preview" : "Mermaid 圖表預覽");
       copyButton.type = "button";
       copyButton.className = "edgeever-code-copy-button";
       copyButton.contentEditable = "false";
-      copyButton.setAttribute("aria-label", locale !== "zh-CN" ? "Copy code" : "复制代码");
-      copyButton.textContent = locale !== "zh-CN" ? "Copy code" : "复制代码";
+      copyButton.setAttribute("aria-label", locale !== "zh-TW" ? "Copy code" : "複製程式碼");
+      copyButton.textContent = locale !== "zh-TW" ? "Copy code" : "複製程式碼";
       copyButton.addEventListener("pointerdown", (event) => {
         event.preventDefault();
         event.stopPropagation();
@@ -2381,21 +2381,21 @@ const createMobileCodeBlockExtension = (
         event.preventDefault();
         event.stopPropagation();
         void Clipboard.setStringAsync(currentNode.textContent).then(() => {
-          copyButton.textContent = locale !== "zh-CN" ? "Copied" : "已复制";
-          copyButton.setAttribute("aria-label", locale !== "zh-CN" ? "Copied" : "已复制");
+          copyButton.textContent = locale !== "zh-TW" ? "Copied" : "已複製";
+          copyButton.setAttribute("aria-label", locale !== "zh-TW" ? "Copied" : "已複製");
           if (copyResetTimer !== null) window.clearTimeout(copyResetTimer);
           copyResetTimer = window.setTimeout(() => {
-            copyButton.textContent = locale !== "zh-CN" ? "Copy code" : "复制代码";
-            copyButton.setAttribute("aria-label", locale !== "zh-CN" ? "Copy code" : "复制代码");
+            copyButton.textContent = locale !== "zh-TW" ? "Copy code" : "複製程式碼";
+            copyButton.setAttribute("aria-label", locale !== "zh-TW" ? "Copy code" : "複製程式碼");
             copyResetTimer = null;
           }, 1800);
         }).catch(() => {
-          copyButton.textContent = locale !== "zh-CN" ? "Copy failed" : "复制失败";
-          copyButton.setAttribute("aria-label", locale !== "zh-CN" ? "Copy failed" : "复制失败");
+          copyButton.textContent = locale !== "zh-TW" ? "Copy failed" : "複製失敗";
+          copyButton.setAttribute("aria-label", locale !== "zh-TW" ? "Copy failed" : "複製失敗");
           if (copyResetTimer !== null) window.clearTimeout(copyResetTimer);
           copyResetTimer = window.setTimeout(() => {
-            copyButton.textContent = locale !== "zh-CN" ? "Copy code" : "复制代码";
-            copyButton.setAttribute("aria-label", locale !== "zh-CN" ? "Copy code" : "复制代码");
+            copyButton.textContent = locale !== "zh-TW" ? "Copy code" : "複製程式碼";
+            copyButton.setAttribute("aria-label", locale !== "zh-TW" ? "Copy code" : "複製程式碼");
             copyResetTimer = null;
           }, 1800);
         });
@@ -2425,8 +2425,8 @@ const createMobileCodeBlockExtension = (
         wrapper.dataset.language = language;
         preview.hidden = !isMermaid;
         code.setAttribute("aria-label", isMermaid
-          ? (locale !== "zh-CN" ? "Mermaid source" : "Mermaid 源码")
-          : (locale !== "zh-CN" ? "Code source" : "代码源码"));
+          ? (locale !== "zh-TW" ? "Mermaid source" : "Mermaid 原始碼")
+          : (locale !== "zh-TW" ? "Code source" : "程式碼原始碼"));
         if (!isMermaid) {
           preview.replaceChildren();
           return;
@@ -2435,7 +2435,7 @@ const createMobileCodeBlockExtension = (
         const source = currentNode.textContent.trim();
         if (!source) {
           message.className = "edgeever-mermaid-message";
-          message.textContent = locale !== "zh-CN" ? "Enter Mermaid source below." : "请在下方输入 Mermaid 源码。";
+          message.textContent = locale !== "zh-TW" ? "Enter Mermaid source below." : "請在下方輸入 Mermaid 原始碼。";
           preview.replaceChildren(message);
           return;
         }
@@ -2443,7 +2443,7 @@ const createMobileCodeBlockExtension = (
         const activeRequest = renderRequest;
         renderTimer = window.setTimeout(() => {
           message.className = "edgeever-mermaid-message";
-          message.textContent = locale !== "zh-CN" ? "Rendering diagram…" : "正在渲染图表…";
+          message.textContent = locale !== "zh-TW" ? "Rendering diagram…" : "正在渲染圖表…";
           preview.replaceChildren(message);
           void loadMermaid()
             .then(async (mermaid) => {
@@ -2485,9 +2485,9 @@ const createMobileCodeBlockExtension = (
                 return;
               }
               message.className = "edgeever-mermaid-error";
-              message.textContent = locale !== "zh-CN"
+              message.textContent = locale !== "zh-TW"
                 ? "Unable to render this diagram. Check its syntax."
-                : "无法渲染此图表，请检查语法。";
+                : "無法渲染此圖表，請檢查語法。";
               preview.replaceChildren(message);
             });
         }, 300);
@@ -2515,7 +2515,7 @@ const createMobileCodeBlockExtension = (
 });
 
 const createMobileImageSizeControls = (
-  locale: "zh-CN" | "en-US" | "ja" | "pl",
+  locale: "zh-TW" | "en-US" | "ja" | "pl",
   updateWidth: (width: number) => void
 ) => {
   const controls = document.createElement("div");
@@ -2567,7 +2567,7 @@ const createMobileImageSizeControls = (
 
 const createProtectedImageExtension = (
   baseUrl: string,
-  locale: "zh-CN" | "en-US" | "ja" | "pl",
+  locale: "zh-TW" | "en-US" | "ja" | "pl",
   loadResource: (source: string) => Promise<string | null>,
   options?: {
     readOnly?: boolean | (() => boolean);
@@ -2672,7 +2672,7 @@ const createProtectedImageExtension = (
         const spinner = document.createElement("span");
         spinner.className = "edgeever-image-upload-spinner";
         spinner.setAttribute("aria-hidden", "true");
-        overlay.append(spinner, locale !== "zh-CN" ? "Uploading image…" : "图片上传中…");
+        overlay.append(spinner, locale !== "zh-TW" ? "Uploading image…" : "圖片上傳中…");
         if (previewSource) {
           placeholder.append(preview);
         }
@@ -2727,7 +2727,7 @@ const createProtectedImageExtension = (
             if (activeRequestId !== requestId) {
               return;
             }
-            overlay.textContent = locale !== "zh-CN" ? "Image failed to load" : "图片加载失败";
+            overlay.textContent = locale !== "zh-TW" ? "Image failed to load" : "圖片載入失敗";
           };
           preload.src = displaySource;
         };
@@ -2752,11 +2752,11 @@ const createProtectedImageExtension = (
                 revealLoadedImage(dataUrl, attributes, activeRequestId);
                 return;
               }
-              overlay.textContent = locale !== "zh-CN" ? "Image failed to load" : "图片加载失败";
+              overlay.textContent = locale !== "zh-TW" ? "Image failed to load" : "圖片載入失敗";
             })
             .catch(() => {
               if (activeRequestId === requestId) {
-                overlay.textContent = locale !== "zh-CN" ? "Image failed to load" : "图片加载失败";
+                overlay.textContent = locale !== "zh-TW" ? "Image failed to load" : "圖片載入失敗";
               }
             });
         };
@@ -2820,7 +2820,7 @@ const createProtectedImageExtension = (
       actionButton.className = "edgeever-image-actions";
       actionButton.contentEditable = "false";
       actionButton.hidden = true;
-      actionButton.setAttribute("aria-label", locale !== "zh-CN" ? "Image actions" : "图片操作");
+      actionButton.setAttribute("aria-label", locale !== "zh-TW" ? "Image actions" : "圖片操作");
       actionButton.textContent = "⋯";
       bindImageActionButton(wrapper, actionButton);
       image.addEventListener("click", (event) => {
@@ -2856,7 +2856,7 @@ const createProtectedImageExtension = (
           loading.replaceChildren();
           const label = document.createElement("span");
           label.className = "edgeever-image-loading-label";
-          label.textContent = locale !== "zh-CN" ? "Image failed to load" : "图片加载失败";
+          label.textContent = locale !== "zh-TW" ? "Image failed to load" : "圖片載入失敗";
           loading.append(label);
           loading.hidden = false;
         } else if (phase === "loading") {

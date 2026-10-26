@@ -17,8 +17,8 @@ const copy = siteCopy[locale].nav;
         target="_blank"
         rel="noopener noreferrer"
         aria-label={
-          locale === "zh-CN"
-            ? "感谢独立博主缙哥哥在项目成长中提出的宝贵建议与教程分享"
+          locale === "zh-TW"
+            ? "感謝獨立博主縉哥哥在專案成長中提出的寶貴建議與教程分享"
             : locale === "ja"
               ? "独立ブロガー Dujin さんへの謝辞。製品への助言とチュートリアルに感謝します"
               : locale === "pl"
@@ -27,7 +27,7 @@ const copy = siteCopy[locale].nav;
         }
         class="inline-flex min-h-11 sm:min-h-0 items-center hover:text-emerald-700 transition-colors"
       >
-        {locale === "zh-CN" ? "特别致谢" : locale === "ja" ? "謝辞" : locale === "pl" ? "Podziękowania" : "Thanks"}
+        {locale === "zh-TW" ? "特別緻謝" : locale === "ja" ? "謝辭" : locale === "pl" ? "Podziękowania" : "Thanks"}
       </a>
       <span class="text-slate-300">•</span>
       <a href={getLocalizedPath(locale, "/self-hosted-evernote-alternative")} class="inline-flex min-h-11 sm:min-h-0 items-center hover:text-emerald-700 transition-colors">

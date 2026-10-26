@@ -1,7 +1,7 @@
 export const deploymentPrompts = {
   "en-US": `Deploy EdgeEver entirely through GitHub and Cloudflare:
 1. Fork https://github.com/tianma-if/edgeever.
-2. Create D1 \`edgeever\` and R2 \`edgeever-resources\` in Cloudflare.
+2. Create D1 \`edgeever\` in Cloudflare and prepare an S3-compatible object storage bucket for attachments.
 3. In Workers & Pages, create a Worker named \`edgeever\` from the Fork's \`main\` branch.
    Use the repository root, keep Cloudflare's default Workers Builds deploy command,
    and ensure its API token can read and edit D1. Select Save and Deploy.
@@ -14,20 +14,20 @@ export const deploymentPrompts = {
    with that administrator username and password.
 6. Enable and manually run the GitHub Actions workflow named \`Update deployed EdgeEver\`
    once so the Fork can automatically receive future stable releases and fixes.`,
-  "zh-CN": `请全程通过 GitHub 和 Cloudflare 在线部署 EdgeEver：
+  "zh-TW": `請全程透過 GitHub 和 Cloudflare 線上部署 EdgeEver：
 1. Fork https://github.com/tianma-if/edgeever。
-2. 在 Cloudflare 中创建 D1 \`edgeever\` 与 R2 \`edgeever-resources\`。
-3. 在 Workers & Pages 中从 Fork 的 \`main\` 分支创建名为 \`edgeever\` 的 Worker。
-   使用仓库根目录，保留 Cloudflare Workers Builds 的默认部署命令，确认其 API Token
-   具备 D1 读取和编辑权限，然后保存并部署。
-4. Worker 创建后，设置运行时 Secret \`EDGE_EVER_AUTH_PASSWORD\`，值为用户指定的密码
-   （建议至少 32 个字符）。管理员用户名默认为 \`admin\`；如需自定义，请在再次构建前
-   设置 Workers Builds 构建变量 \`EDGE_EVER_AUTH_USERNAME\`。
-5. 再次构建，验证 \`/api/health\` 和 \`/api/openapi.json\`，再用该管理员
-   用户名和密码验证登录。
-6. 启用并手动运行一次名为 \`Update deployed EdgeEver\` 的 GitHub Actions 工作流，
-   以便后续自动同步正式版本，持续获得 EdgeEver 的功能更新和问题修复。`,
-} as const;
+2. 在 Cloudflare 中建立 D1 \`edgeever\`，並準備一個存放附件的 S3 相容物件儲存桶。
+3. 在 Workers & Pages 中從 Fork 的 \`main\` 分支建立名為 \`edgeever\` 的 Worker。
+   使用儲存庫根目錄，保留 Cloudflare Workers Builds 的預設部署指令，確認其 API Token
+   具備 D1 讀取及編輯權限，然後儲存並部署。
+4. Worker 建立後，設定執行時 Secret \`EDGE_EVER_AUTH_PASSWORD\`，值為使用者指定的密碼
+   （建議至少 32 個字元）。管理員使用者名稱預設為 \`admin\`；如需自訂，請在再次建置前
+   設定 Workers Builds 建置變數 \`EDGE_EVER_AUTH_USERNAME\`。
+5. 再次建置，驗證 \`/api/health\` 和 \`/api/openapi.json\`，再用該管理員
+   使用者名稱和密碼驗證登入。
+6. 啟用並手動執行一次名為 \`Update deployed EdgeEver\` 的 GitHub Actions 工作流程，
+   以便後續自動同步正式版本，持續獲得 EdgeEver 的功能更新與問題修復。`,
+};
 
 export const manualDeploymentCopy = {
   "en-US": {
@@ -39,7 +39,7 @@ export const manualDeploymentCopy = {
       },
       {
         title: "Create Cloudflare Resources",
-        body: "Create D1 edgeever and R2 edgeever-resources.",
+        body: "Create D1 edgeever and prepare an S3-compatible object storage bucket (Backblaze B2, Tencent COS, Alibaba OSS, MinIO or Wasabi).",
       },
       {
         title: "Import & Configure the Project",
@@ -59,33 +59,33 @@ export const manualDeploymentCopy = {
       },
     ],
   },
-  "zh-CN": {
-    intro: "仅需在网页端完成 6 步配置：",
+  "zh-TW": {
+    intro: "只需在網頁端完成 6 步設定：",
     steps: [
       {
-        title: "Fork 仓库",
-        body: "在 GitHub 点击右上角 Fork，将项目 Fork 到您的个人账户下。",
+        title: "Fork 儲存庫",
+        body: "在 GitHub 點選右上角 Fork，將專案 Fork 到您的個人帳戶下。",
       },
       {
-        title: "创建 Cloudflare 资源",
-        body: "创建 D1 edgeever 与 R2 edgeever-resources。",
+        title: "建立 Cloudflare 資源",
+        body: "建立 D1 edgeever，並準備 S3 相容的物件儲存（例如 Backblaze B2、騰訊雲 COS、阿里雲 OSS、MinIO 或 Wasabi）。",
       },
       {
-        title: "导入并配置项目",
-        body: "在 Cloudflare Workers & Pages 中从 Fork 的 main 分支创建名为 edgeever 的 Worker。使用仓库根目录，保留由 Cloudflare 在线执行的 Workers Builds 默认部署命令，并确认其 API Token 具备 D1 读取和编辑权限。binding 由部署命令生成，不要修改 Fork 中的文件。",
+        title: "匯入並設定專案",
+        body: "在 Cloudflare Workers & Pages 中從 Fork 的 main 分支建立名為 edgeever 的 Worker。使用儲存庫根目錄，保留由 Cloudflare 線上執行的 Workers Builds 預設部署指令，並確認其 API Token 具備 D1 讀取及編輯權限。binding 由部署指令產生，不要修改 Fork 中的檔案。",
       },
       {
-        title: "准备管理员密码",
-        body: "准备管理员登录密码，建议至少 32 个字符。Worker 创建后，将它保存为运行时 Secret EDGE_EVER_AUTH_PASSWORD。",
+        title: "準備管理員密碼",
+        body: "準備管理員登入密碼，建議至少 32 個字元。Worker 建立後，將它儲存為執行時 Secret EDGE_EVER_AUTH_PASSWORD。",
       },
       {
-        title: "首次构建与验证",
-        body: "保存并部署会创建 Worker 并启动构建。首次构建主要用于初始化 Worker 实例，若因尚未配置管理员 Secret 而报错属于预期行为，只需在第 4 步添加运行时 Secret EDGE_EVER_AUTH_PASSWORD 后点击重试构建即可通过。管理员用户名默认为 admin；如需使用其他用户名，请在重试构建前设置 Workers Builds 构建变量 EDGE_EVER_AUTH_USERNAME。部署完成后访问 /api/health，确认返回 200，再用配置的管理员用户名和密码登录。",
+        title: "首次建置與驗證",
+        body: "儲存並部署會建立 Worker 並啟動建置。首次建置主要用於初始化實例，若因尚未配置管理員 Secret 而報錯屬於預期行為，只需在第 4 步新增執行時 Secret EDGE_EVER_AUTH_PASSWORD 後點選重試建置即可透過。管理員使用者名稱預設為 admin；如需使用其他名稱，請在重試建置前設定 Workers Builds 建置變數 EDGE_EVER_AUTH_USERNAME。部署完成後造訪 /api/health，確認回傳 200，再用設定的管理員使用者名稱和密碼登入。",
       },
       {
-        title: "启用自动更新",
-        body: "进入 Fork 的 Actions 标签页，点击 I understand my workflows, go ahead and enable them，然后手动运行一次 Update deployed EdgeEver，确保后续能够自动获得正式版本的功能更新与修复。",
+        title: "啟用自動更新",
+        body: "進入 Fork 的 Actions 分頁，點選 I understand my workflows, go ahead and enable them，然後手動執行一次 Update deployed EdgeEver，確保後續能夠自動獲得正式版本的功能更新與修復。",
       },
     ],
   },
-} as const;
+};

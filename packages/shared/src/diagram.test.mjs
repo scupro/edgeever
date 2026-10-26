@@ -7,7 +7,7 @@ import { markdownToDoc } from "./content.ts";
 describe("diagram document", () => {
   test("round-trips unicode labels through the Markdown compatibility envelope", () => {
     const document = createDefaultDiagramDocument("mind-map");
-    document.nodes[0].label = "产品路线图 🚀";
+    document.nodes[0].label = "產品路線圖 🚀";
     document.theme = "ocean";
     document.structure = "box";
     expect(parseDiagramDocument(serializeDiagramDocument(document))).toEqual(document);
@@ -42,7 +42,7 @@ describe("diagram document", () => {
       globalThis.TextDecoder = undefined;
       globalThis.TextEncoder = undefined;
       const document = createDefaultDiagramDocument("mind-map");
-      document.nodes[0].label = "核心主题";
+      document.nodes[0].label = "核心主題";
       expect(parseDiagramDocument(serializeDiagramDocument(document))).toEqual(document);
     } finally {
       globalThis.atob = originalAtob;
@@ -69,9 +69,9 @@ describe("diagram document", () => {
 
   test("persists a Mermaid fallback in the portable Markdown envelope", () => {
     const markdown = serializeDiagramDocument(createDefaultDiagramDocument("flowchart"));
-    expect(markdown).toContain("# 流程图");
+    expect(markdown).toContain("# 流程圖");
     expect(markdown).toContain("```mermaid\nflowchart TD");
-    expect(markdown).toContain('n1["处理步骤"]');
+    expect(markdown).toContain('n1["處理步驟"]');
     expect(markdown).toContain("classDef flowProcess fill:#FFFFFF,stroke:#D4D4D4,color:#212121");
     expect(markdown).toContain("classDef flowTerminator fill:#707070,stroke:#707070,color:#FFFFFF");
     expect(markdown).toContain("class n1 flowProcess");
@@ -154,10 +154,10 @@ describe("diagram document", () => {
 
   test("escapes labels and emits the mind-map hierarchy as a portable flowchart", () => {
     const document = createDefaultDiagramDocument("mind-map");
-    document.nodes[0].label = '核心 <主题> "A&B"';
+    document.nodes[0].label = '核心 <主題> "A&B"';
     const source = diagramDocumentToMermaid(document);
     expect(source).toContain("flowchart LR");
-    expect(source).toContain("核心 &lt;主题&gt; &quot;A&amp;B&quot;");
+    expect(source).toContain("核心 &lt;主題&gt; &quot;A&amp;B&quot;");
     expect(source).toContain("n0 --- n1");
     expect(source).toContain("class n0 mindRoot");
     expect(source).toContain("classDef mindRoot fill:#707070,stroke:#707070,color:#FFFFFF");
@@ -171,13 +171,13 @@ describe("diagram document", () => {
     expect(parsed.schemaVersion).toBe(2);
     expect(parsed.nodes.find((node) => node.id === "api").parentId).toBe("system");
     expect(parsed.edges.find((edge) => edge.id === "request").kind).toBe("request");
-    expect(diagramFallbackMarkdown(document)).toContain("# 架构图");
+    expect(diagramFallbackMarkdown(document)).toContain("# 架構圖");
     const fallback = diagramDocumentToMermaid(document);
-    expect(fallback).toContain('subgraph n0["应用系统"]');
-    expect(fallback).toContain('shape: display, label: "Web 客户端"');
-    expect(fallback).toContain('shape: st-rect, label: "API 服务"');
-    expect(fallback).toContain('shape: cyl, label: "数据库"');
-    expect(fallback).toContain('shape: disk, label: "对象存储"');
+    expect(fallback).toContain('subgraph n0["應用系統"]');
+    expect(fallback).toContain('shape: display, label: "Web 客戶端"');
+    expect(fallback).toContain('shape: st-rect, label: "API 服務"');
+    expect(fallback).toContain('shape: cyl, label: "資料庫"');
+    expect(fallback).toContain('shape: disk, label: "物件儲存"');
     expect(fallback).toContain("classDef archDatabase");
   });
 
@@ -202,7 +202,7 @@ describe("diagram document", () => {
     expect(withoutLabels(localized)).toEqual(withoutLabels(fallback));
 
     expect(createDefaultDiagramDocument("mind-map", { mindMapRoot: "Main topic" }).nodes[0].label).toBe("Main topic");
-    expect(createDefaultDiagramDocument("mind-map").nodes[0].label).toBe("核心主题");
+    expect(createDefaultDiagramDocument("mind-map").nodes[0].label).toBe("核心主題");
     expect(createDefaultDiagramDocument("flowchart", { flowchartStart: "Start", flowchartProcess: "Process step", flowchartEnd: "End" })
       .nodes.map((node) => node.label)).toEqual(["Start", "Process step", "End"]);
   });
@@ -246,7 +246,7 @@ describe("diagram document", () => {
 
   test("projects mind map edge labels below topic typography", () => {
     const document = createDefaultDiagramDocument("mind-map");
-    document.edges[0].label = "补充说明";
+    document.edges[0].label = "補充說明";
     const projectedLabel = diagramDocumentToX6Cells(document, "light").edges[0].labels[0].attrs.label;
     expect(projectedLabel.fontSize).toBe(10);
     expect(projectedLabel.lineHeight).toBe(14);
@@ -322,7 +322,7 @@ describe("diagram document", () => {
 
 test('native flowchart projection shares label sizing and obstacle routing without mutating content', () => {
   const document = createDefaultDiagramDocument('flowchart');
-  document.nodes[1].label = 'Transformer 前向计算\n因果注意力以及前馈网络'.repeat(4);
+  document.nodes[1].label = 'Transformer 前向計算\n因果注意力以及前饋網路'.repeat(4);
   document.edges[0].label = '是';
   const original = structuredClone(document);
   const projection = diagramDocumentToX6Cells(document, 'dark');

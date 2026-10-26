@@ -12,9 +12,9 @@ Authorization:
 
 Set `EDGE_EVER_AUTH_PASSWORD` as a runtime Secret under the Worker's **Settings → Variables and Secrets**, not as a Builds variable.
 
-Ordinary deployments use D1 `edgeever`, R2 `edgeever-resources`, and username `admin`. Put optional non-secret instance settings under **Settings → Build → Build variables and secrets**. These variables are available only during the build; the deploy command uses them to generate a temporary Wrangler configuration. Keep the tracked `wrangler.toml` unchanged.
+Ordinary deployments use D1 `edgeever`, an S3-compatible object storage bucket, and username `admin`. Put optional non-secret instance settings under **Settings → Build → Build variables and secrets**. These variables are available only during the build; the deploy command uses them to generate a temporary Wrangler configuration. Keep the tracked `wrangler.toml` unchanged.
 
-Without an explicit override, existing deployments keep their current R2 bucket and administrator username.
+Without an explicit override, existing deployments keep their current administrator username.
 
 ## Updates and troubleshooting
 

@@ -17,7 +17,7 @@ export function bossLoginRequired(doc: Document = document): boolean {
       }
       if (!hidden && visibility !== "hidden" && visibility !== "collapse") visibleText += text.textContent || "";
     }
-    return visibleText.replace(/\s+/g, "").includes("登录查看完整内容");
+    return visibleText.replace(/\s+/g, "").includes("登入檢視完整內容");
   });
 }
 

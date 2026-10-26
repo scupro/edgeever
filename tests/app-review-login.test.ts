@@ -12,7 +12,7 @@ const loginSurfaces = [
 
 const reviewNotes = [
   "apps/mobile/store-assets/app-store/metadata.en-US.md",
-  "apps/mobile/store-assets/app-store/metadata.zh-CN.md",
+  "apps/mobile/store-assets/app-store/metadata.zh-TW.md",
   "apps/mobile/store-assets/app-store/metadata.ja.md",
 ];
 
@@ -30,7 +30,7 @@ describe("App Review login", () => {
     expect(read("apps/mobile/src/screens/LoginScreen.tsx")).toContain("PUBLIC_DEMO_INSTANCE_URL");
     expect(read("apps/mobile/src/screens/LoginScreen.tsx")).toContain("placeholder={PUBLIC_DEMO_INSTANCE_URL}");
     expect(read("packages/shared/src/i18n/en-US.ts")).toContain('instanceUrlPlaceholder: "https://demo.edgeever.org"');
-    expect(read("packages/shared/src/i18n/zh-CN.ts")).toContain('instanceUrlPlaceholder: "https://demo.edgeever.org"');
+    expect(read("packages/shared/src/i18n/zh-TW.ts")).toContain('instanceUrlPlaceholder: "https://demo.edgeever.org"');
     expect(read("apps/web/src/components/LoginScreen.tsx")).toContain('placeholder={t("login.instanceUrlPlaceholder")}');
   });
 
@@ -39,7 +39,7 @@ describe("App Review login", () => {
       expect(read(path), path).toContain("https://demo.edgeever.org");
     }
     expect(read("apps/mobile/store-assets/app-store/metadata.en-US.md")).toContain("Username: ee-demo");
-    expect(read("apps/mobile/store-assets/app-store/metadata.zh-CN.md")).toContain("用户名：ee-demo");
+    expect(read("apps/mobile/store-assets/app-store/metadata.zh-TW.md")).toContain("使用者名稱：ee-demo");
     expect(read("apps/mobile/store-assets/app-store/metadata.ja.md")).toContain("Username: ee-demo");
   });
 });

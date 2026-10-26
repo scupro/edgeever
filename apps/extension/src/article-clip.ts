@@ -36,7 +36,7 @@ const cleanWechatContent = (body: Element, pageUrl: string) => {
     pre.textContent="";pre.appendChild(code);
   }
   const followPrompt = (node: Element) => !node.closest("pre,code,blockquote") && !node.querySelector("pre,code,blockquote")
-    && /^(?:请)?(?:点击|轻点)(?:上方|下方)?的?(?:蓝字|蓝色文字)(?:(?:关注|关于|订阅)(?:我们|公众号|本公众号|本号))?$/.test(platformText(node).replace(/[\s，,:：。！!~～]+/g,""));
+    && /^(?:請)?(?:點選|輕點)(?:上方|下方)?的?(?:藍字|藍色文字)(?:(?:關注|關於|訂閱)(?:我們|公眾號|本公眾號|本號))?$/.test(platformText(node).replace(/[\s，,:：。！!~～]+/g,""));
   for(const node of Array.from(body.querySelectorAll("p,section,div"))) {
     if(!followPrompt(node)) continue;
     let banner=node;
@@ -45,7 +45,7 @@ const cleanWechatContent = (body: Element, pageUrl: string) => {
     banner.remove();
   }
   for(const image of Array.from(body.querySelectorAll("img.__bg_gif[alt]"))) {
-    if(!image.closest("pre,code,blockquote") && /^(?:分割线|分隔线|divider|separator)$/i.test(image.getAttribute("alt")?.trim() || "")) image.remove();
+    if(!image.closest("pre,code,blockquote") && /^(?:分割線|分隔線|divider|separator)$/i.test(image.getAttribute("alt")?.trim() || "")) image.remove();
   }
   // Only trailing standalone native article cards are recommendations. Keep
   // inline citations, linked illustrations and cards followed by more prose.

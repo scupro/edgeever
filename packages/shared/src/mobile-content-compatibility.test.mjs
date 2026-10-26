@@ -16,7 +16,7 @@ const futureDocument = {
       attrs: { kind: "warning", futureOption: true },
       content: [{
         type: "paragraph",
-        content: [{ type: "text", text: "保留主题块正文" }],
+        content: [{ type: "text", text: "保留主題塊正文" }],
       }],
     },
     {
@@ -24,7 +24,7 @@ const futureDocument = {
       content: [
         {
           type: "text",
-          text: "带格式文本",
+          text: "帶格式文字",
           marks: [
             { type: "futureComment", attrs: { threadId: "thread-1" } },
             { type: "bold" },
@@ -41,13 +41,13 @@ const futureDocument = {
 
 describe("native editor unknown-content compatibility", () => {
   test("replaces unknown block, inline node, and mark with schema-safe placeholders", () => {
-    const prepared = prepareNativeEditorContent(futureDocument, "zh-CN");
+    const prepared = prepareNativeEditorContent(futureDocument, "zh-TW");
 
     expect(prepared.content[0]).toMatchObject({
       type: UNSUPPORTED_BLOCK_NODE_TYPE,
       attrs: {
         originalType: "edgeeverThemeBlock",
-        displayLabel: "暂不支持的内容：edgeeverThemeBlock",
+        displayLabel: "暫不支援的內容：edgeeverThemeBlock",
       },
     });
     expect(prepared.content[1]?.content?.[0]).toMatchObject({
@@ -100,8 +100,8 @@ describe("native editor unknown-content compatibility", () => {
 
   test("keeps Markdown generation alive by projecting unknown content to text", () => {
     const markdown = docToMarkdown(futureDocument);
-    expect(markdown).toContain("保留主题块正文");
-    expect(markdown).toContain("带格式文本");
+    expect(markdown).toContain("保留主題塊正文");
+    expect(markdown).toContain("帶格式文字");
     expect(markdown).toContain("Unsupported content: futureMention");
   });
 });

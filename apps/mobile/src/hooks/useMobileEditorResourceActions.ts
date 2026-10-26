@@ -39,7 +39,7 @@ export const useMobileEditorResourceActions = ({
   token,
 }: Options) => {
   const unavailable = useCallback((english: string, chinese: string) =>
-    new Error(resolvedLocale !== "zh-CN" ? english : chinese), [resolvedLocale]);
+    new Error(resolvedLocale !== "zh-TW" ? english : chinese), [resolvedLocale]);
 
   const loadEditorResource = useCallback((source: string) => {
     if (!client) return Promise.resolve(null);
@@ -53,24 +53,24 @@ export const useMobileEditorResourceActions = ({
   }, [baseUrl, client, onLoadFailure, resourceCacheRef, sessionBaseUrl, token]);
 
   const downloadResource = useCallback(async (target: MobileResourceTarget) => {
-    if (!client) throw unavailable("The attachment client is unavailable.", "当前无法读取附件。");
+    if (!client) throw unavailable("The attachment client is unavailable.", "當前無法讀取附件。");
     await openMobileResource(client, target, { baseUrl: sessionBaseUrl ?? baseUrl, token });
   }, [baseUrl, client, sessionBaseUrl, token, unavailable]);
 
   const saveResourceAs = useCallback(async (target: MobileResourceTarget) => {
-    if (!client) throw unavailable("The resource client is unavailable.", "当前无法读取资源。");
+    if (!client) throw unavailable("The resource client is unavailable.", "當前無法讀取資源。");
     const result = await saveMobileResourceAs(client, target, { baseUrl: sessionBaseUrl ?? baseUrl, token });
     if (result.kind === "saf") {
       Alert.alert(
-        resolvedLocale !== "zh-CN" ? "Downloaded" : "下载成功",
-        resolvedLocale !== "zh-CN" ? `Saved ${result.filename}` : `已保存：${result.filename}`,
+        resolvedLocale !== "zh-TW" ? "Downloaded" : "下載成功",
+        resolvedLocale !== "zh-TW" ? `Saved ${result.filename}` : `已儲存：${result.filename}`,
       );
     }
   }, [baseUrl, client, resolvedLocale, sessionBaseUrl, token, unavailable]);
 
   const requireMutableClient = useCallback(() => {
     if (!client || !canMutate()) {
-      throw unavailable("Wait for this note to sync first.", "请等待笔记同步完成。");
+      throw unavailable("Wait for this note to sync first.", "請等待筆記同步完成。");
     }
     return client;
   }, [canMutate, client, unavailable]);

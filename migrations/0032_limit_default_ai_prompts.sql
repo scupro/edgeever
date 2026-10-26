@@ -18,8 +18,8 @@ INSERT OR IGNORE INTO ai_prompt_templates (
 )
 SELECT
   id || '_aiprompt_make-shorter', id, 'make-shorter', 'make-shorter', 'none', 'both',
-  '精炼表达', '删去重复与冗余，让表达更简洁有力',
-  '精炼内容，删除重复、空话和不必要的修饰，合并可以合并的句子，使表达简洁、清晰、有力。保留所有关键事实、观点与原意，不要添加新信息。保持原语言与有用的 Markdown 格式。只返回精炼后的内容。',
+  '精煉表達', '刪去重複與冗餘，讓表達更簡潔有力',
+  '精煉內容，刪除重複、空話和不必要的修飾，合並可以合併的句子，使表達簡潔、清晰、有力。保留所有關鍵事實、觀點與原意，不要新增新資訊。保持原語言與有用的 Markdown 格式。只返回精煉後的內容。',
   0, 0, 0, strftime('%Y-%m-%dT%H:%M:%fZ', 'now'), strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
 FROM workspaces;
 
@@ -31,8 +31,8 @@ INSERT OR IGNORE INTO ai_prompt_templates (
 )
 SELECT
   id || '_aiprompt_rewrite-proofread', id, 'rewrite-proofread', 'rewrite-proofread', 'none', 'both',
-  '转为小红书风格', '改写成自然、有吸引力的小红书笔记',
-  '将内容改写成适合小红书发布的笔记：生成吸引人的标题，使用自然、有亲和力的口吻、短段落和清晰层次，可适量加入贴合语义的 Emoji，并在结尾给出 3–8 个相关话题标签。保留原文的关键事实与观点，不夸大效果，不编造经历、数据或结论。只返回可直接发布的内容。',
+  '轉為小紅書風格', '改寫成自然、有吸引力的小紅書筆記',
+  '將內容改寫成適合小紅書釋出的筆記：生成吸引人的標題，使用自然、有親和力的口吻、短段落和清晰層次，可適量加入貼合語義的 Emoji，並在結尾給出 3–8 個相關話題標籤。保留原文的關鍵事實與觀點，不誇大效果，不編造經歷、資料或結論。只返回可直接釋出的內容。',
   0, 0, 0, strftime('%Y-%m-%dT%H:%M:%fZ', 'now'), strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
 FROM workspaces;
 
@@ -44,7 +44,7 @@ INSERT OR IGNORE INTO ai_prompt_templates (
 )
 SELECT
   id || '_aiprompt_simplify-language', id, 'simplify-language', 'simplify-language', 'none', 'both',
-  '转为推特风格', '改写成简洁、有观点的推文或推文串',
-  '将内容改写成适合推特发布的文本：开头直接抓住重点，表达简洁、有观点、易读。内容较短时输出一条推文；无法在一条内保留关键信息时，输出带序号的精简推文串。只在确有帮助时使用少量标签。保留原文事实与立场，不制造噱头或编造信息。只返回可直接发布的内容。',
+  '轉為推特風格', '改寫成簡潔、有觀點的推文或推文串',
+  '將內容改寫成適合推特釋出的文字：開頭直接抓住重點，表達簡潔、有觀點、易讀。內容較短時輸出一條推文；無法在一條內保留關鍵資訊時，輸出帶序號的精簡推文串。只在確有幫助時使用少量標籤。保留原文事實與立場，不製造噱頭或編造資訊。只返回可直接釋出的內容。',
   0, 0, 0, strftime('%Y-%m-%dT%H:%M:%fZ', 'now'), strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
 FROM workspaces;

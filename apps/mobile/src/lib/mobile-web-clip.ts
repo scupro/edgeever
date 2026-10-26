@@ -27,7 +27,7 @@ export type MobileRenderedWebPage = {
   title?: string;
 };
 
-export type MobileWebClipLocale = "zh-CN" | "en-US" | "ja" | "pl";
+export type MobileWebClipLocale = "zh-TW" | "en-US" | "ja" | "pl";
 
 const webClipCopy: Record<MobileWebClipLocale, {
   capturedAtLabel: string;
@@ -37,12 +37,12 @@ const webClipCopy: Record<MobileWebClipLocale, {
   sourceLabel: string;
   unavailableBody: string;
 }> = {
-  "zh-CN": {
-    sourceLabel: "来源",
-    capturedAtLabel: "剪藏时间",
-    unavailableBody: "正文暂时无法抓取，来源链接已保留，可稍后重试。",
-    fallbackTitle: "网页剪藏",
-    imageAlt: "图片",
+  "zh-TW": {
+    sourceLabel: "來源",
+    capturedAtLabel: "剪藏時間",
+    unavailableBody: "正文暫時無法抓取，來源連結已保留，可稍後重試。",
+    fallbackTitle: "網頁剪藏",
+    imageAlt: "圖片",
     separator: "：",
   },
   "en-US": {
@@ -58,7 +58,7 @@ const webClipCopy: Record<MobileWebClipLocale, {
     capturedAtLabel: "取り込み日時",
     unavailableBody: "本文を取り込めませんでした。出典リンクは残してあるので、あとからやり直せます。",
     fallbackTitle: "ウェブクリップ",
-    imageAlt: "画像",
+    imageAlt: "畫像",
     separator: ": ",
   },
   pl: {
@@ -163,7 +163,7 @@ export const buildMobileWebClipDraft = async (
 ): Promise<MobileWebClipDraft> => {
   const fetcher = options.fetcher ?? fetch;
   const capturedAt = options.capturedAt ?? new Date();
-  const locale = options.locale ?? "zh-CN";
+  const locale = options.locale ?? "zh-TW";
   let html = "";
   let finalUrl = sourceUrl;
 
@@ -206,7 +206,7 @@ export const buildMobileWebClipDraftFromRenderedPage = (
   } = {},
 ): MobileWebClipDraft => {
   const capturedAt = options.capturedAt ?? new Date();
-  const locale = options.locale ?? "zh-CN";
+  const locale = options.locale ?? "zh-TW";
   const copy = webClipCopy[locale];
   const title = normalizeInlineText(page.title ?? "") || hostnameTitle(sourceUrl, locale);
   const body = htmlToMarkdown(page.contentHtml, page.finalUrl || sourceUrl, copy.imageAlt);
@@ -245,7 +245,7 @@ export const extractPageTitle = (html: string) => {
   return titleMatch ? normalizeInlineText(stripTags(titleMatch[1])) : "";
 };
 
-export const htmlToMarkdown = (html: string, baseUrl?: string, imageAlt = "图片") => {
+export const htmlToMarkdown = (html: string, baseUrl?: string, imageAlt = "圖片") => {
   if (!html.trim()) {
     return "";
   }
@@ -327,7 +327,7 @@ const buildFallbackDraft = (
   };
 };
 
-const hostnameTitle = (value: string, locale: MobileWebClipLocale = "zh-CN") => {
+const hostnameTitle = (value: string, locale: MobileWebClipLocale = "zh-TW") => {
   try {
     return new URL(value).hostname;
   } catch {

@@ -4,7 +4,7 @@ import { formatProviderOrdinal, isLegacyProviderDisplayName, trimAiText } from "
 
 describe("AI provider display names", () => {
   test("formats sequential Chinese provider names", () => {
-    expect([1, 2, 10, 11, 20, 21].map((position) => formatProviderOrdinal(position, "zh-CN")))
+    expect([1, 2, 10, 11, 20, 21].map((position) => formatProviderOrdinal(position, "zh-TW")))
       .toEqual(["一", "二", "十", "十一", "二十", "二十一"]);
     expect(formatProviderOrdinal(2, "en-US")).toBe("2");
   });

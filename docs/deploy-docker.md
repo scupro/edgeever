@@ -4,7 +4,7 @@ EdgeEver uses the same web application, Hono routes, services, authentication,
 MCP implementation, and append-only migrations on Cloudflare
 and Docker. Only the thin runtime and infrastructure adapters differ: Docker
 uses Bun with SQLite and local files (or S3-compatible object storage), while
-Cloudflare uses Workers with D1 and R2.
+Cloudflare uses Workers with D1 and external S3-compatible object storage.
 
 ## Requirements
 
@@ -108,7 +108,7 @@ only. Do not expose an unauthenticated instance to a network.
 ## S3-compatible attachment storage
 
 SQLite remains in `/data`, while new attachments can be stored in MinIO, AWS
-S3, Alibaba Cloud OSS, Tencent COS, R2, or another compatible service:
+S3, Alibaba Cloud OSS, Tencent COS, Backblaze B2, or another compatible service:
 
 ```yaml
 environment:

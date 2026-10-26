@@ -13,7 +13,7 @@ const memo = {
 
 describe("shared file note", () => {
   test("uses the filename without its extension as the title", () => {
-    expect(sharedFileTitle("云晰科技爆单键盘项目功能梳理表.xlsx")).toBe("云晰科技爆单键盘项目功能梳理表");
+    expect(sharedFileTitle("雲晰科技爆單鍵盤專案功能梳理表.xlsx")).toBe("雲晰科技爆單鍵盤專案功能梳理表");
     expect(sharedFileTitle("notes.md")).toBe("notes");
     expect(sharedFileTitle("README")).toBe("README");
   });
@@ -23,8 +23,8 @@ describe("shared file note", () => {
     let updated = null;
     const result = await createSharedFileMemo({
       notebookId: "nb_inbox",
-      filename: "云晰科技爆单键盘项目功能梳理表.xlsx",
-      file: new File(["sheet"], "云晰科技爆单键盘项目功能梳理表.xlsx", {
+      filename: "雲晰科技爆單鍵盤專案功能梳理表.xlsx",
+      file: new File(["sheet"], "雲晰科技爆單鍵盤專案功能梳理表.xlsx", {
         type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       }),
       createMemo: async (input) => {
@@ -37,7 +37,7 @@ describe("shared file note", () => {
         return { memo: { ...created, contentMarkdown: content.contentMarkdown } };
       },
     });
-    expect(createdTitle).toBe("云晰科技爆单键盘项目功能梳理表");
+    expect(createdTitle).toBe("雲晰科技爆單鍵盤專案功能梳理表");
     expect(result.contentMarkdown).toContain("edgeever-staged://sheet");
     expect(JSON.stringify(updated.contentJson)).toContain(FILE_ATTACHMENT_NODE_TYPE);
   });

@@ -49,7 +49,7 @@ const createLargeBackup = async () => {
   const marker = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
   const notebookId = `nb_e2e_large_zip_${marker}`;
   const memoId = `memo_e2e_large_zip_${marker}`;
-  const title = `E2E 超大 ZIP 恢复 ${marker}`;
+  const title = `E2E 超大 ZIP 恢復 ${marker}`;
   const timestamp = "2026-08-31T00:00:00.000Z";
   const resources = RESOURCE_SPECS.map((spec) => ({
     id: `res_e2e_large_zip_${spec.suffix}_${marker}`,
@@ -170,21 +170,21 @@ test("imports a 600 MiB attachment from an EdgeEver ZIP through streaming multip
     });
 
     await page.goto("/");
-    await page.getByRole("button", { name: "个人中心", exact: true }).click();
+    await page.getByRole("button", { name: "個人中心", exact: true }).click();
     await expect(page.getByRole("heading", { name: "我的", exact: true })).toBeVisible();
-    await page.getByRole("button", { name: "导入导出", exact: true }).click();
-    await expect(page.getByText("导入与导出", { exact: true })).toBeVisible();
+    await page.getByRole("button", { name: "匯入匯出", exact: true }).click();
+    await expect(page.getByText("匯入與匯出", { exact: true })).toBeVisible();
 
     const chooserPromise = page.waitForEvent("filechooser");
-    await page.getByRole("button", { name: "导入 EdgeEver ZIP", exact: true }).click();
+    await page.getByRole("button", { name: "匯入 EdgeEver ZIP", exact: true }).click();
     const chooser = await chooserPromise;
     await chooser.setFiles(fixture.archivePath);
 
-    const confirmation = page.getByRole("dialog", { name: "导入 EdgeEver ZIP" });
+    const confirmation = page.getByRole("dialog", { name: "匯入 EdgeEver ZIP" });
     await expect(confirmation).toBeVisible({ timeout: 120_000 });
-    await expect(confirmation).toContainText("1 篇笔记和 1 个资源");
-    await confirmation.getByRole("button", { name: "确认导入", exact: true }).click();
-    await expect(page.getByText("EdgeEver ZIP 导入完成。", { exact: true })).toBeVisible({ timeout: 180_000 });
+    await expect(confirmation).toContainText("1 篇筆記和 1 個資源");
+    await confirmation.getByRole("button", { name: "確認匯入", exact: true }).click();
+    await expect(page.getByText("EdgeEver ZIP 匯入完成。", { exact: true })).toBeVisible({ timeout: 180_000 });
 
     expect(restoredPartNumbers).toHaveLength(76);
     expect(restoredPartNumbers.filter((part) => part === 1)).toHaveLength(1);

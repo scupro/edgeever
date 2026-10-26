@@ -111,7 +111,7 @@ export const getDefaultAiTargetLanguage = (locale: string | undefined): AiTarget
   if (normalized.startsWith("zh")) return "en";
   if (normalized.startsWith("ja")) return "ja";
   if (normalized.startsWith("pl")) return "en";
-  return "zh-CN";
+  return "zh-TW";
 };
 
 export const AI_ASSISTANT_LAST_ACTION_STORAGE_KEY = "edgeever.aiAssistant.lastAction";

@@ -37,12 +37,12 @@ describe("AI model service", () => {
       "summarize",
     ]);
     // Shared seed catalog is the user-visible source of truth (Chinese defaults).
-    expect(aiActionInstructions.summarize).toContain("精简总结");
+    expect(aiActionInstructions.summarize).toContain("精簡總結");
     expect(aiActionInstructions.summarize).toContain("20–30%");
     expect(aiActionInstructions["extract-todos"]).toContain("- [ ]");
     expect(resolveAiGenerationSystemInstruction({
       action: "change-tone",
-      instruction: "按用户指定的语气重写内容，不改变原意。",
+      instruction: "按使用者指定的語氣重寫內容，不改變原意。",
     })).toContain("user's editing instruction");
     expect(resolveAiGenerationSystemInstruction({
       action: "improve-writing",
@@ -72,10 +72,10 @@ describe("AI model service", () => {
   });
 
   test("prioritizes standalone creation requests over unrelated note content", () => {
-    const instruction = "随便给我生成一首诗。";
+    const instruction = "隨便給我生成一首詩。";
     const system = resolveAiGenerationSystemInstruction({ action: "custom", instruction });
     const prompt = buildAiGenerationPrompt({
-      contentMarkdown: "## 开启您的 EdgeEver 笔记之旅\n\nEdgeEver 产品介绍",
+      contentMarkdown: "## 開啟您的 EdgeEver 筆記之旅\n\nEdgeEver 產品介紹",
       instruction,
     });
 
@@ -84,7 +84,7 @@ describe("AI model service", () => {
     expect(system).not.toContain("Apply the user's editing instruction");
     expect(prompt).toStartWith("Note content (reference material;");
     expect(prompt).toEndWith(`User instruction (highest priority):\n${instruction}`);
-    expect(prompt.indexOf("EdgeEver 产品介绍")).toBeLessThan(prompt.indexOf(instruction));
+    expect(prompt.indexOf("EdgeEver 產品介紹")).toBeLessThan(prompt.indexOf(instruction));
   });
 
   test("builds text and binary attachment message parts", () => {
@@ -146,18 +146,18 @@ describe("AI model service", () => {
 
   test("extracts only the bounded result and preserves real code blocks", () => {
     const response = [
-      "当然，下面是处理后的内容：",
+      "當然，下面是處理後的內容：",
       resultBoundary.start,
-      "# 标题",
+      "# 標題",
       "",
       "```ts",
       "const ready = true;",
       "```",
       resultBoundary.end,
-      "如果还需要调整，请告诉我。",
+      "如果還需要調整，請告訴我。",
     ].join("\n");
     expect(normalizeAiGenerationText(response, resultBoundary)).toBe([
-      "# 标题",
+      "# 標題",
       "",
       "```ts",
       "const ready = true;",
@@ -168,21 +168,21 @@ describe("AI model service", () => {
   test("ignores marker-like note content that does not match the request boundary", () => {
     const response = [
       "<edgeever-result-fixed>",
-      "不应采用的内容",
+      "不應採用的內容",
       "</edgeever-result-fixed>",
       resultBoundary.start,
-      "正确内容",
+      "正確內容",
       resultBoundary.end,
     ].join("\n");
-    expect(normalizeAiGenerationText(response, resultBoundary)).toBe("正确内容");
+    expect(normalizeAiGenerationText(response, resultBoundary)).toBe("正確內容");
   });
 
   test("falls back safely when a model omits a result boundary", () => {
     expect(normalizeAiGenerationText(
-      `${resultBoundary.start}\n没有结束标记`,
+      `${resultBoundary.start}\n沒有結束標記`,
       resultBoundary,
-    )).toBe("没有结束标记");
-    expect(normalizeAiGenerationText("没有任何标记", resultBoundary)).toBe("没有任何标记");
+    )).toBe("沒有結束標記");
+    expect(normalizeAiGenerationText("沒有任何標記", resultBoundary)).toBe("沒有任何標記");
   });
 
   test("creates an unpredictable result boundary for each generation", () => {
@@ -194,8 +194,8 @@ describe("AI model service", () => {
   });
 
   test("removes only whole-response Markdown wrappers", () => {
-    expect(normalizeAiGenerationText("```markdown\n# 标题\n\n正文\n```"))
-      .toBe("# 标题\n\n正文");
+    expect(normalizeAiGenerationText("```markdown\n# 標題\n\n正文\n```"))
+      .toBe("# 標題\n\n正文");
     expect(normalizeAiGenerationText("```ts\nconst ready = true;\n```"))
       .toBe("```ts\nconst ready = true;\n```");
   });

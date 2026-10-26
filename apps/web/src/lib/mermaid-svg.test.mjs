@@ -12,7 +12,7 @@ import {
 describe("Mermaid SVG presentation", () => {
   test("scales drawn node text to 12px without changing the viewBox", () => {
     const scaled = scaleMermaidSvg(
-      '<svg width="1894.44" height="787.4px" viewBox="0 0 1894.44 787.4" style="--bg:#f8fafb"><text font-size="13">节点</text></svg>',
+      '<svg width="1894.44" height="787.4px" viewBox="0 0 1894.44 787.4" style="--bg:#f8fafb"><text font-size="13">節點</text></svg>',
     );
 
     expect(MERMAID_NODE_TEXT_PX).toBe(12);

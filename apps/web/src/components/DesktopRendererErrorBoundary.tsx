@@ -65,14 +65,14 @@ export class DesktopRendererErrorBoundary extends React.Component<{ children: Re
       <main className="flex min-h-screen items-center justify-center bg-slate-50 p-6 text-slate-900">
         <section className="w-full max-w-lg rounded-2xl border border-slate-200 bg-card p-6 shadow-sm" role="alert">
           <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-rose-50 text-xl text-rose-700">!</div>
-          <h1 className="text-lg font-semibold">{zh ? "EdgeEver 页面出现异常" : "EdgeEver encountered a page error"}</h1>
+          <h1 className="text-lg font-semibold">{zh ? "EdgeEver 頁面出現異常" : "EdgeEver encountered a page error"}</h1>
           <p className="mt-2 text-sm leading-6 text-slate-600">
             {desktop
               ? (zh
-                  ? "问题已经记录到这台设备。重新加载后会进入安全启动模式，不再自动打开刚才的笔记。"
+                  ? "問題已經記錄到這臺裝置。重新載入後會進入安全啟動模式，不再自動開啟剛才的筆記。"
                   : "The problem was recorded on this device. Reloading will enter safe startup mode instead of reopening the previous note.")
               : (zh
-                  ? "安全重新加载后不会自动打开刚才的笔记。如果问题仍然出现，请检查浏览器控制台。"
+                  ? "安全重新載入後不會自動開啟剛才的筆記。如果問題仍然出現，請檢查瀏覽器控制檯。"
                   : "A safe reload will avoid reopening the previous note. If the problem persists, check the browser console.")}
           </p>
           <div className="mt-5 flex flex-wrap gap-3">
@@ -81,7 +81,7 @@ export class DesktopRendererErrorBoundary extends React.Component<{ children: Re
               type="button"
               onClick={() => window.location.reload()}
             >
-              {zh ? "安全重新加载" : "Reload safely"}
+              {zh ? "安全重新載入" : "Reload safely"}
             </button>
             {desktop ? (
               <button
@@ -91,8 +91,8 @@ export class DesktopRendererErrorBoundary extends React.Component<{ children: Re
                 onClick={() => void this.report()}
               >
                 {this.state.reporting
-                  ? (zh ? "正在打开…" : "Opening…")
-                  : (zh ? "报告到 GitHub" : "Report to GitHub")}
+                  ? (zh ? "正在開啟…" : "Opening…")
+                  : (zh ? "報告到 GitHub" : "Report to GitHub")}
               </button>
             ) : null}
           </div>

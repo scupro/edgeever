@@ -1,4 +1,4 @@
-思源黑体 Heavy (Noto Sans SC Black)
+思源黑體 Heavy (Noto Sans SC Black)
 Source: https://fonts.google.com/noto/specimen/Noto+Sans+SC
 This copy: subset and converted to WOFF2 by Qiaomu Cover Design
 

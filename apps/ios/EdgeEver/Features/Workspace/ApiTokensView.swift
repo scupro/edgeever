@@ -30,7 +30,7 @@ struct ApiTokensView: View {
                                 await load()
                             }
                         } label: {
-                            Text(env.preferences.t("吊销", en: "Revoke", pl: "Unieważnij"))
+                            Text(env.preferences.t("吊銷", en: "Revoke", pl: "Unieważnij"))
                                 .font(.system(size: 13, weight: .bold))
                         }
                     }
@@ -47,7 +47,7 @@ struct ApiTokensView: View {
             VStack(alignment: .leading, spacing: 10) {
                 Text(env.preferences.t("新建", en: "Create", pl: "Utwórz"))
                     .font(.system(size: 14, weight: .heavy))
-                TextField(env.preferences.t("名称", en: "Name", pl: "Nazwa"), text: $newName)
+                TextField(env.preferences.t("名稱", en: "Name", pl: "Nazwa"), text: $newName)
                     .padding(.horizontal, 12)
                     .frame(height: 44)
                     .background(AppTheme.card)
@@ -56,7 +56,7 @@ struct ApiTokensView: View {
                 Button {
                     Task { await create() }
                 } label: {
-                    Text(env.preferences.t("创建 Token", en: "Create token", pl: "Utwórz token"))
+                    Text(env.preferences.t("建立 Token", en: "Create token", pl: "Utwórz token"))
                         .font(.system(size: 14, weight: .heavy))
                         .foregroundStyle(.white)
                         .frame(maxWidth: .infinity)

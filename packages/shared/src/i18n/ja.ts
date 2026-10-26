@@ -1335,8 +1335,8 @@ export const ja = {
     title: "OSS オブジェクトストレージ",
     description: "この EdgeEver インスタンス全体で、新しい画像と添付に使うオブジェクトストレージを設定します。変更できるのはインスタンスオーナーだけです。",
     providers: {
-      builtin: { title: "組み込みストレージ", description: "Cloudflare R2 バインディング、または現在のランタイムのデフォルトオブジェクトストアを使います。" },
-      s3: { title: "サードパーティ OSS", description: "S3 互換の OSS、COS、S3、MinIO、R2 サービスに接続します。" },
+      builtin: { title: "組み込みストレージ", description: "このデプロイメントに設定された S3 互換オブジェクトストレージ、または現在のランタイムのデフォルトオブジェクトストアを使います。" },
+      s3: { title: "サードパーティ OSS", description: "S3 互換の OSS、COS、S3、MinIO サービスに接続します。" },
     },
     displayName: "設定名",
     endpoint: "Endpoint",
@@ -1561,7 +1561,6 @@ export const ja = {
     targetLanguage: "対象言語",
     targetLanguages: {
       en: "英語",
-      "zh-CN": "簡体字中国語",
       "zh-TW": "繁体字中国語",
       ja: "日本語",
       ko: "韓国語",
@@ -1659,13 +1658,13 @@ export const ja = {
         replace: "選択した文字を置き換える",
         stale: "ノートが変わったため、今回は書き込んでいません。",
         chips: {
-          "zh-CN": "中文",
+          "zh-TW": "中文",
           en: "English",
           ja: "日本語",
           pl: "Polski",
         },
         languageNames: {
-          "zh-CN": "簡体字中国語",
+          "zh-TW": "繁体字中国語",
           en: "英語",
           ja: "日本語",
           pl: "ポーランド語",
@@ -1843,7 +1842,6 @@ export const ja = {
     },
     newUploadObjectStorage: "新規アップロードのオブジェクトストレージ",
     objectStorageBackends: {
-      builtin_r2: "組み込み R2",
       builtin_filesystem: "ローカルファイルシステム",
       builtin_s3: "インスタンス提供の S3 互換ストレージ",
       external_s3: "サードパーティの S3 互換 OSS",

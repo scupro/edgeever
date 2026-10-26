@@ -24,8 +24,8 @@ const mindMap = {
 const flowchart = {
   kind: "flowchart",
   nodes: [
-    { id: "start", label: "开始", x: 80, y: 0, width: 100, height: 40, shape: "terminator" },
-    { id: "end", label: "结束", x: 80, y: 1600, width: 100, height: 40, shape: "terminator" },
+    { id: "start", label: "開始", x: 80, y: 0, width: 100, height: 40, shape: "terminator" },
+    { id: "end", label: "結束", x: 80, y: 1600, width: 100, height: 40, shape: "terminator" },
   ],
   edges: [{ id: "e", source: "start", target: "end" }],
 };
@@ -33,7 +33,7 @@ const flowchart = {
 const architecture = {
   kind: "architecture",
   nodes: [
-    { id: "system", label: "系统", x: 0, y: 0, width: 500, height: 300, shape: "boundary" },
+    { id: "system", label: "系統", x: 0, y: 0, width: 500, height: 300, shape: "boundary" },
     { id: "api", label: "API", x: 240, y: 40, width: 156, height: 64, shape: "service" },
     { id: "web", label: "Web", x: 40, y: 40, width: 156, height: 64, shape: "frontend" },
   ],
@@ -78,8 +78,8 @@ describe("diagram reader opening view", () => {
     expect(source).toContain("if (diagramReaderOpeningMode(graph.scale().sx) === \"read\") read()");
     expect(source).toContain("graph.on(\"node:click\", onNodeFocus)");
     expect(source).not.toContain("edgeever-diagram-reader-controls");
-    expect(source).not.toContain("适应画布");
-    expect(source).not.toContain("从中心阅读");
+    expect(source).not.toContain("適應畫布");
+    expect(source).not.toContain("從中心閱讀");
     expect(source).not.toContain("if (diagram.kind === 'flowchart' && graph.scale().sx < FLOWCHART_READABLE_MIN_SCALE) read()");
   });
 });

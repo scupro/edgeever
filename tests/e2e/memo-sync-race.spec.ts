@@ -102,9 +102,9 @@ test("keeps the caret and rebases edits made while autosave sync is in flight", 
   try {
     await page.goto("/");
     await page.getByRole("button", { name: new RegExp(notebookName!) }).click();
-    await page.getByPlaceholder("搜索笔记").fill(marker);
+    await page.getByPlaceholder("搜尋筆記").fill(marker);
     await page.locator(`[data-memo-id="${memoId}"]`).locator("button").first().click();
-    await page.getByRole("button", { name: "清空搜索", exact: true }).click();
+    await page.getByRole("button", { name: "清空搜尋", exact: true }).click();
 
     const editor = page.locator(".ProseMirror[contenteditable='true']");
     const firstParagraph = editor.locator("p").first();

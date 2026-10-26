@@ -23,7 +23,7 @@ export default function MobileNoteImageFontPicker({ selected, theme, chinese, on
   const listRef = useRef<HTMLDivElement>(null);
   const selectingRef = useRef(false);
   const [previews, setPreviews] = useState<Record<string, "ready" | "error">>({});
-  const sampleFor = (id: string) => chinese && !LATIN_FONTS.has(id) ? "记录此刻的灵感" : "Capture a little inspiration";
+  const sampleFor = (id: string) => chinese && !LATIN_FONTS.has(id) ? "記錄此刻的靈感" : "Capture a little inspiration";
 
   useEffect(() => {
     const list = listRef.current;
@@ -36,7 +36,7 @@ export default function MobileNoteImageFontPicker({ selected, theme, chinese, on
         if (!entry.isIntersecting) continue;
         observer.unobserve(entry.target);
         const id = entry.target.getAttribute("data-font") as NoteImageFontStyle;
-        const text = chinese && !LATIN_FONTS.has(id) ? "记录此刻的灵感" : "Capture a little inspiration";
+        const text = chinese && !LATIN_FONTS.has(id) ? "記錄此刻的靈感" : "Capture a little inspiration";
         void prepareNoteImageAssets({ theme, fontStyle: id, text, urls: noteImageAssetUrls, embed: false })
           .then(() => { if (active) setPreviews(previous => ({ ...previous, [id]: "ready" })); })
           .catch(() => { if (active) setPreviews(previous => ({ ...previous, [id]: "error" })); });
@@ -62,7 +62,7 @@ export default function MobileNoteImageFontPicker({ selected, theme, chinese, on
         .font-status { display: block; margin-top: 6px; color: #64748b; font: 13px/1.5 system-ui, sans-serif; }
         .font-check { flex: 0 0 24px; color: #16a06e; font: 700 24px/1 system-ui, sans-serif; }
       `}</style>
-      <div className="font-list" role="radiogroup" aria-label={chinese ? "字体风格" : "Typography"} ref={listRef}>
+      <div className="font-list" role="radiogroup" aria-label={chinese ? "字型風格" : "Typography"} ref={listRef}>
         {MOBILE_FONT_OPTIONS.map(item => {
           const label = getMobileNoteImageFontLabel(item.id, theme, chinese, true);
           const loaded = previews[item.id] === "ready";
@@ -89,8 +89,8 @@ export default function MobileNoteImageFontPicker({ selected, theme, chinese, on
                   <span className="font-sample" style={{ fontFamily: resolveNoteImageTypography(theme, item.id).bodyFamily }}>{sampleFor(item.id)}</span>
                 ) : (
                   <span className="font-status">{failed
-                    ? (chinese ? "示例暂不可用，仍可选择" : "Preview unavailable; you can still select this font")
-                    : (chinese ? "正在加载示例…" : "Loading preview…")}</span>
+                    ? (chinese ? "示例暫不可用，仍可選擇" : "Preview unavailable; you can still select this font")
+                    : (chinese ? "正在載入示例…" : "Loading preview…")}</span>
                 )}
               </span>
               <span className="font-check" aria-hidden="true">{selected === item.id ? "✓" : ""}</span>

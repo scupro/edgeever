@@ -111,10 +111,10 @@ export const RevisionHistoryModal = ({
   });
 
   const requestRestoreRevision = (revision: MemoRevision) => {
-    Alert.alert("恢复到这个历史版本", "当前内容会被这个历史版本替换，恢复后仍会产生新的历史记录。", [
+    Alert.alert("恢復到這個歷史版本", "當前內容會被這個歷史版本替換，恢復後仍會產生新的歷史記錄。", [
       { text: "取消", style: "cancel" },
       {
-        text: "恢复",
+        text: "恢復",
         onPress: () => restoreRevisionMutation.mutate(revision),
       },
     ]);
@@ -127,11 +127,11 @@ export const RevisionHistoryModal = ({
           <View style={styles.managementHeaderText}>
             <View style={styles.managementTitleRow}>
               <History color="#059669" size={19} />
-              <Text style={styles.managementTitle}>版本历史</Text>
+              <Text style={styles.managementTitle}>版本歷史</Text>
             </View>
             <Text numberOfLines={1} style={styles.managementSubtitle}>{memo?.title?.trim() || DEFAULT_MEMO_TITLE}</Text>
           </View>
-          <IconButton accessibilityLabel="关闭" onPress={onClose}>
+          <IconButton accessibilityLabel="關閉" onPress={onClose}>
             <X color="#0f172a" size={20} />
           </IconButton>
         </View>
@@ -139,34 +139,34 @@ export const RevisionHistoryModal = ({
         <ScrollView contentContainerStyle={styles.revisionHistoryContent}>
           <View style={styles.revisionSummaryRow}>
             <View style={styles.revisionSummaryText}>
-              <Text style={styles.settingsRowTitle}>{selectedRevision ? `版本 ${selectedRevision.revision}` : "未选择历史版本"}</Text>
-              <Text style={styles.settingsRowDescription}>选择历史记录后可预览并恢复。</Text>
+              <Text style={styles.settingsRowTitle}>{selectedRevision ? `版本 ${selectedRevision.revision}` : "未選擇歷史版本"}</Text>
+              <Text style={styles.settingsRowDescription}>選擇歷史記錄後可預覽並恢復。</Text>
             </View>
             {selectedRevision ? (
-              <ActionButton disabled={restoreRevisionMutation.isPending || Boolean(memo?.isDeleted)} label={restoreRevisionMutation.isPending ? "恢复中" : "恢复该版本"} onPress={() => requestRestoreRevision(selectedRevision)}>
+              <ActionButton disabled={restoreRevisionMutation.isPending || Boolean(memo?.isDeleted)} label={restoreRevisionMutation.isPending ? "恢復中" : "恢復該版本"} onPress={() => requestRestoreRevision(selectedRevision)}>
                 <RotateCcw color="#0f172a" size={16} />
               </ActionButton>
             ) : null}
           </View>
 
-          <Text style={styles.revisionTimelineLabel}>历史记录</Text>
+          <Text style={styles.revisionTimelineLabel}>歷史記錄</Text>
           {revisionsQuery.isLoading ? (
             <View style={styles.revisionTimelineState}>
-              <Text style={styles.mutedText}>加载中</Text>
+              <Text style={styles.mutedText}>載入中</Text>
             </View>
           ) : revisionsQuery.isError ? (
             <View style={styles.revisionTimelineState}>
-              <Text style={styles.errorText}>加载失败</Text>
+              <Text style={styles.errorText}>載入失敗</Text>
               <Text style={styles.revisionTimelineError}>
-                {revisionsQuery.error instanceof Error ? revisionsQuery.error.message : "请稍后重试"}
+                {revisionsQuery.error instanceof Error ? revisionsQuery.error.message : "請稍後重試"}
               </Text>
-              <ActionButton label="重试" onPress={() => void revisionsQuery.refetch()}>
+              <ActionButton label="重試" onPress={() => void revisionsQuery.refetch()}>
                 <RotateCcw color="#0f172a" size={16} />
               </ActionButton>
             </View>
           ) : revisions.length === 0 ? (
             <View style={styles.revisionTimelineState}>
-              <Text style={styles.mutedText}>暂无历史版本</Text>
+              <Text style={styles.mutedText}>暫無歷史版本</Text>
             </View>
           ) : (
             <View style={styles.revisionTimeline}>
@@ -178,7 +178,7 @@ export const RevisionHistoryModal = ({
                 >
                   <Text style={[styles.revisionPillTitle, selectedRevision?.id === revision.id && styles.revisionPillTitleActive]}>{`版本 ${revision.revision}`}</Text>
                   <Text style={[styles.revisionPillMeta, selectedRevision?.id === revision.id && styles.revisionPillTitleActive]}>
-                    {formatDate(revision.createdAt, localePreference)} · {revision.createdBy === "table-form" ? "表单提交" : formatRevisionActor(revision.createdBy)}
+                    {formatDate(revision.createdAt, localePreference)} · {revision.createdBy === "table-form" ? "表單提交" : formatRevisionActor(revision.createdBy)}
                   </Text>
                 </Pressable>
               ))}
@@ -187,11 +187,11 @@ export const RevisionHistoryModal = ({
 
           {selectedRevision ? (
             <View style={styles.revisionPreviewCard}>
-              <Text selectable style={styles.revisionPreviewText}>{selectedRevision.contentMarkdown || "空笔记"}</Text>
+              <Text selectable style={styles.revisionPreviewText}>{selectedRevision.contentMarkdown || "空筆記"}</Text>
             </View>
           ) : null}
           {restoreRevisionMutation.error ? (
-            <Text style={styles.errorText}>{restoreRevisionMutation.error instanceof Error ? restoreRevisionMutation.error.message : "恢复失败"}</Text>
+            <Text style={styles.errorText}>{restoreRevisionMutation.error instanceof Error ? restoreRevisionMutation.error.message : "恢復失敗"}</Text>
           ) : null}
         </ScrollView>
       </SafeAreaView>

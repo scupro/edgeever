@@ -40,7 +40,7 @@ const localeAlternateUrls = Object.fromEntries(
     new URL(getLocalizedPath(item, Astro.url.pathname), Astro.site).toString(),
   ]),
 ) as Record<(typeof siteLocales)[number], string>;
-const zhAlternateURL = localeAlternateUrls["zh-CN"];
+const zhAlternateURL = localeAlternateUrls["zh-TW"];
 const enAlternateURL = localeAlternateUrls["en-US"];
 const jaAlternateURL = localeAlternateUrls.ja;
 const plAlternateURL = localeAlternateUrls.pl;
@@ -80,7 +80,7 @@ const localeRedirectScript = `(() => {
     if (!locale) return null;
     const normalized = String(locale).trim().replaceAll("_", "-").toLowerCase();
 
-    if (normalized === "zh" || normalized.startsWith("zh-")) return "zh-CN";
+    if (normalized === "zh" || normalized.startsWith("zh-")) return "zh-TW";
     if (normalized === "en" || normalized.startsWith("en-")) return "en-US";
     if (normalized === "ja" || normalized.startsWith("ja-")) return "ja";
     if (normalized === "pl" || normalized.startsWith("pl-")) return "pl";
@@ -118,7 +118,7 @@ const localeRedirectScript = `(() => {
     if (pathname === "/en" || pathname.startsWith("/en/")) return "en-US";
     if (pathname === "/ja" || pathname.startsWith("/ja/")) return "ja";
     if (pathname === "/pl" || pathname.startsWith("/pl/")) return "pl";
-    return "zh-CN";
+    return "zh-TW";
   };
   const isExplicitLocalePath = (pathname) => prefixPattern.test(pathname);
   const stripPrefix = (pathname) => {
@@ -137,8 +137,8 @@ const localeRedirectScript = `(() => {
     const browserLocale = getBrowserLocale();
     const storedLocale = getStoredLocale();
 
-    if (browserLocale === "zh-CN" || storedLocale === "zh-CN") {
-      return "zh-CN";
+    if (browserLocale === "zh-TW" || storedLocale === "zh-TW") {
+      return "zh-TW";
     }
 
     return storedLocale ?? browserLocale;
@@ -170,7 +170,7 @@ const localeRedirectScript = `(() => {
     <link rel="icon" type="image/svg+xml" href={`/favicon.svg?v=${faviconVersion}`} />
     <link rel="icon" type="image/png" sizes="192x192" href={`/icon-192.png?v=${faviconVersion}`} />
     <link rel="apple-touch-icon" href={`/apple-touch-icon.png?v=${faviconVersion}`} />
-    <link rel="alternate" hreflang="zh-CN" href={zhAlternateURL} />
+    <link rel="alternate" hreflang="zh-TW" href={zhAlternateURL} />
     <link rel="alternate" hreflang="en-US" href={enAlternateURL} />
     <link rel="alternate" hreflang="ja" href={jaAlternateURL} />
     <link rel="alternate" hreflang="pl" href={plAlternateURL} />

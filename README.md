@@ -14,7 +14,7 @@
     <a href="#sponsor--support"><img src="https://img.shields.io/badge/Sponsor-EdgeEver-ea4aaa?logo=github-sponsors" alt="Sponsor & Support" /></a>
   </p>
   <p>
-    <a href="README.zh-CN.md">简体中文</a> | <a href="README.zh-TW.md">繁體中文</a> | <b>English</b> | <a href="README.ja.md">日本語</a> | <a href="README.pl-PL.md">Polski</a>
+    <a href="README.zh-TW.md">繁體中文</a> | <b>English</b> | <a href="README.ja.md">日本語</a> | <a href="README.pl-PL.md">Polski</a>
   </p>
   <p>
     <a href="https://t.me/+wwUx1BYLrIdiZjY1"><img src="assets/readme/community/telegram.svg" alt="Telegram" width="16" height="16" align="absmiddle" /> Telegram Group</a> &nbsp;|&nbsp;
@@ -105,7 +105,7 @@ Copy the prompt below directly into an AI Agent (such as Codex, Claude, Cursor, 
 ```text
 Deploy EdgeEver entirely through GitHub and Cloudflare:
 1. Fork https://github.com/tianma-if/edgeever.
-2. Create D1 `edgeever` and R2 `edgeever-resources` in Cloudflare.
+2. Create D1 `edgeever` in Cloudflare and prepare an S3-compatible object storage bucket for attachments.
 3. In Workers & Pages, create a Worker named `edgeever` from the Fork's `main` branch.
    Use the repository root, keep Cloudflare's default Workers Builds deploy command,
    and ensure its API token can read and edit D1. Select Save and Deploy.
@@ -130,7 +130,7 @@ Deploy EdgeEver entirely through GitHub and Cloudflare:
 Complete setup in 6 web steps:
 
 1. **Fork the Repository**: Click **Fork** at the top right of GitHub to fork EdgeEver into your personal account.
-2. **Create Cloudflare Resources**: Create D1 `edgeever` and R2 `edgeever-resources`.
+2. **Create Cloudflare Resources**: Create D1 `edgeever` and prepare an S3-compatible object storage bucket (Backblaze B2, Tencent COS, Alibaba OSS, MinIO or Wasabi).
 3. **Import & Configure the Project**: Create a Worker named `edgeever` from the Fork's `main` branch in Cloudflare **Workers & Pages**. Use the repository root and keep Cloudflare's default Workers Builds deploy command, which runs in Cloudflare. Ensure its API token can read and edit D1. The deploy command creates the bindings; do not edit Fork files.
 4. **Choose the Administrator Password**: Choose an administrator password, preferably at least 32 characters. Once the Worker is created, save it as the runtime Secret `EDGE_EVER_AUTH_PASSWORD`.
 5. **Build & Verify**: Save and Deploy creates the Worker and starts a build. The initial build primarily initializes the Worker instance; if it fails due to missing administrator Secret, this is expected behavior. Simply add the runtime Secret `EDGE_EVER_AUTH_PASSWORD` from Step 4 and click retry. The username defaults to `admin`; to use another, set `EDGE_EVER_AUTH_USERNAME` as a Workers Builds variable before retrying. Once deployed, confirm `/api/health` returns `200`, then log in with the configured username and password.
@@ -141,11 +141,11 @@ Complete setup in 6 web steps:
 </details>
 
 <details>
-<summary>📌 View Cloudflare Deployment Notes (Custom Domain & Free R2 Allowance)</summary>
+<summary>📌 View Cloudflare Deployment Notes (Custom Domain & Object Storage)</summary>
 
 > **Custom Domain & Access**: After deployment, you can directly use the default `*.workers.dev` domain assigned by Cloudflare, or attach your own custom domain in the Worker settings under **Settings → Domains & Routes**.
 >
-> **Cloudflare R2 Activation**: Although Cloudflare R2 offers a generous [free storage allowance](https://developers.cloudflare.com/r2/pricing/#free-tier) that note-taking workloads remain completely within, you must first activate an R2 subscription and add a payment method. Cloudflare [officially supports](https://developers.cloudflare.com/billing/get-started/update-billing-info/#supported-payment-methods) UnionPay, Visa, Mastercard, and other cards, as well as PayPal, Apple Pay, Google Pay, and other payment methods.
+> **Object Storage**: EdgeEver keeps attachments and images in an S3-compatible object storage service that you provide; it binds no Cloudflare R2 bucket. Backblaze B2 offers a [free 10 GB tier](https://www.backblaze.com/cloud-storage/pricing), and Tencent COS, Alibaba OSS, MinIO and Wasabi work as well. Set the `EDGE_EVER_S3_*` deployment variables before the first build.
 
 </details>
 
@@ -226,7 +226,7 @@ Local development signs in automatically; fresh databases use `owner` / `edgeeve
 - iOS app: Native SwiftUI in `apps/ios` (iOS 17+), with a packaged TipTap EditorBundle, GRDB local mirror/outbox, and Android-aligned shell chrome.
 - Native desktop app: Electron + Rust sidecar combines a consistent cross-platform experience with high-performance local data services; SQLite enables offline editing, incremental sync when back online, and local backups.
 - Web clipper: Manifest V3, Mozilla Readability, and Turndown for Chrome, Microsoft Edge, and Firefox.
-- Backend: one Hono/Zod business application with REST API and Remote MCP; Cloudflare uses Workers/D1/R2, while Docker uses Bun/SQLite/local files or S3.
+- Backend: one Hono/Zod business application with REST API and Remote MCP; Cloudflare uses Workers/D1 plus external S3-compatible object storage, while Docker uses Bun/SQLite/local files or S3.
 - Official site: Astro static site in `apps/site`, deployable to Cloudflare Pages.
 
 #### Project Structure
@@ -250,7 +250,7 @@ scripts           Wrangler wrapper, password hash, CLI, MCP stdio bridge, Everno
 migrations        Shared append-only D1/SQLite database migrations
 docs              Architecture, migration, and deployment docs
 .github/workflows CI for web, mobile, iOS, desktop packaging, deployment, and releases
-wrangler.toml     Cloudflare Workers, Assets, D1, R2 configuration
+wrangler.toml     Cloudflare Workers, Assets, D1 configuration
 ```
 
 </details>
@@ -304,7 +304,7 @@ EdgeEver is a free and open-source project. Sustaining cross-platform client dev
 
 - EdgeEver's note-taking product design was also informed by the publicly available product experiences of mature note-taking tools such as [Evernote](https://evernote.com/) and [Notion](https://www.notion.com/). The related features were independently designed and implemented by EdgeEver.
 - The product design of mind-map and visual-diagram notes was informed by the publicly available product experiences of [XMind](https://xmind.com/) and [ProcessOn](https://www.processon.com/). These features were independently designed and implemented by EdgeEver.
-- EdgeEver's poster design workspace draws inspiration from [Qiaomu Design](https://github.com/joeseesun/qiaomu-cover-design) by 向阳乔木 (joeseesun), and adapts its templates and typography engine under the MIT license.
+- EdgeEver's poster design workspace draws inspiration from [Qiaomu Design](https://github.com/joeseesun/qiaomu-cover-design) by 向陽喬木 (joeseesun), and adapts its templates and typography engine under the MIT license.
 - The visual themes and typography of EdgeEver's image-sharing cards were inspired by [Firefly Card (流光卡片)](https://fireflycard.shushiai.com/). Thank you for the design inspiration.
 
 ## Trademark and Brand Use

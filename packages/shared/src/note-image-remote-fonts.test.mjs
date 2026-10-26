@@ -142,13 +142,13 @@ test('offline first use exports readable defaults, preserves the choice, and kee
   const urls = { 'offline-sans.woff2': 'file:///offline-sans.woff2', 'geist/GeistMono.ttf': 'file:///offline-mono.ttf' };
   await withFontBrowser(async installed => {
     await withNetwork(url => url === urls['offline-sans.woff2'] ? { status: 0, data: sans } : url === urls['geist/GeistMono.ttf'] ? { status: 0, data: mono } : undefined, async requests => {
-      const result = await prepareNoteImageAssets({ theme: 'memo', fontStyle: 'youshe', text: '离线笔记 Offline', urls });
+      const result = await prepareNoteImageAssets({ theme: 'memo', fontStyle: 'youshe', text: '離線筆記 Offline', urls });
       expect(result.fontFallback).toBe(true);
       expect(result.fontCss).toContain('EdgeEver Offline Sans');
       expect(result.fontCss).toContain('data:font/woff2;base64,');
       expect(installed).toContain('Geist Mono Variable');
       expect(requests.every(url => url.startsWith('file:'))).toBe(true);
-      await expect(prepareNoteImageAssets({ theme: 'memo', fontStyle: 'youshe', text: '字体预览', urls, embed: false })).rejects.toThrow('NOTE_IMAGE_FONT_UNAVAILABLE');
+      await expect(prepareNoteImageAssets({ theme: 'memo', fontStyle: 'youshe', text: '字型預覽', urls, embed: false })).rejects.toThrow('NOTE_IMAGE_FONT_UNAVAILABLE');
       expect(resolveNoteImagePreferences({ fontStyle: 'youshe' }).fontStyle).toBe('youshe');
     });
   });

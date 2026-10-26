@@ -7,12 +7,12 @@ import {
 describe("parseMarkdownImagePaste", () => {
   test("parses the Markdown image syntax from Issue #229", () => {
     expect(parseMarkdownImagePaste(
-      "![图片](https://picui.ogmua.cn/s1/2026/08/12/6a7c64323d0a8.webp)",
+      "![圖片](https://picui.ogmua.cn/s1/2026/08/12/6a7c64323d0a8.webp)",
     )).toEqual([{
-      markdown: "![图片](https://picui.ogmua.cn/s1/2026/08/12/6a7c64323d0a8.webp)",
+      markdown: "![圖片](https://picui.ogmua.cn/s1/2026/08/12/6a7c64323d0a8.webp)",
       attributes: {
         src: "https://picui.ogmua.cn/s1/2026/08/12/6a7c64323d0a8.webp",
-        alt: "图片",
+        alt: "圖片",
         title: null,
       },
     }]);

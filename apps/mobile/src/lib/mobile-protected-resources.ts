@@ -65,13 +65,13 @@ export const toProtectedResourceLoadPath = (source: string, baseUrl = ""): strin
 export const blobToDataUrl = (blob: Blob) =>
   new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
-    reader.onerror = () => reject(reader.error ?? new Error("资源读取失败"));
+    reader.onerror = () => reject(reader.error ?? new Error("資源讀取失敗"));
     reader.onloadend = () => {
       if (typeof reader.result === "string") {
         resolve(reader.result);
         return;
       }
-      reject(new Error("资源读取失败"));
+      reject(new Error("資源讀取失敗"));
     };
     reader.readAsDataURL(blob);
   });

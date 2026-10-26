@@ -49,7 +49,7 @@ describe("platform release version checks", () => {
       "en-US": ["English"],
       "ja-JP": ["日本語"],
       "pt-BR": ["Português"],
-      "zh-CN": ["中文"],
+      "zh-TW": ["中文"],
     };
 
     expect(resolveLocalizedReleaseChanges(changes, "ja-JP")).toEqual(["日本語"]);

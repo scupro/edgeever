@@ -969,12 +969,12 @@ export const NotebookPane = ({
               <button
                 className="flex h-9 w-full items-center gap-3 rounded-md px-3 text-left text-xs font-medium leading-5 text-slate-700 transition-colors duration-200 hover:bg-workspace-hover hover:text-slate-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900/20 data-[state=open]:bg-workspace-hover data-[state=open]:text-slate-950"
                 type="button"
-                aria-label={t("pwa.sidebarDownloadsTitle") || "下载 EdgeEver 客户端与浏览器插件"}
+                aria-label={t("pwa.sidebarDownloadsTitle") || "下載 EdgeEver 客戶端與瀏覽器外掛"}
               >
                 <span className="flex h-4 w-4 shrink-0 items-center justify-center">
                   <Download className="h-4 w-4" />
                 </span>
-                <span className="min-w-0 flex-1 truncate">{t("pwa.sidebarDownloads") || "下载客户端"}</span>
+                <span className="min-w-0 flex-1 truncate">{t("pwa.sidebarDownloads") || "下載客戶端"}</span>
               </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent
@@ -986,7 +986,7 @@ export const NotebookPane = ({
               <TooltipProvider delayDuration={0} skipDelayDuration={0}>
               <DropdownMenuGroup>
                 <DropdownMenuLabel className="px-2 py-1 text-xs font-medium uppercase tracking-wider text-slate-400 ">
-                  {t("pwa.sidebarGroupApps") || "客户端应用"}
+                  {t("pwa.sidebarGroupApps") || "客戶端應用"}
                 </DropdownMenuLabel>
                 <DropdownMenuItem asChild>
                   <a
@@ -1066,7 +1066,7 @@ export const NotebookPane = ({
                     href={ANDROID_PLAY_URL}
                     target="_blank"
                     rel="noreferrer"
-                    aria-label={t("pwa.sidebarAndroidTitle") || "在 Google Play 下载 EdgeEver 安卓端"}
+                    aria-label={t("pwa.sidebarAndroidTitle") || "在 Google Play 下載 EdgeEver 安卓端"}
                     className="group flex cursor-pointer items-center justify-between gap-2.5 rounded-md px-2 py-1.5 text-sm text-slate-700 outline-none transition-colors hover:bg-slate-100 hover:text-slate-900 focus:bg-slate-100 focus:text-slate-900   "
                   >
                     <div className="flex min-w-0 items-center gap-2.5">
@@ -1092,7 +1092,7 @@ export const NotebookPane = ({
                       <BrandIconContainer>
                         <Download className="h-3.5 w-3.5 text-slate-700" />
                       </BrandIconContainer>
-                      <span className="truncate font-medium">{t("pwa.sidebarAndroidApk") || "APK 下载"}</span>
+                      <span className="truncate font-medium">{t("pwa.sidebarAndroidApk") || "APK 下載"}</span>
                     </div>
                     <div className="flex shrink-0 items-center gap-1 text-slate-400 group-hover:text-slate-600 ">
                       <span className="text-xs">Releases</span>
@@ -1105,7 +1105,7 @@ export const NotebookPane = ({
                     href={IOS_DOWNLOAD_URL}
                     target="_blank"
                     rel="noreferrer"
-                    aria-label={t("pwa.sidebarIosTitle") || "在 App Store 下载 EdgeEver iOS 端（仅支持非大陆区 Apple ID）"}
+                    aria-label={t("pwa.sidebarIosTitle") || "在 App Store 下載 EdgeEver iOS 端（僅支援非大陸區 Apple ID）"}
                     className="group flex cursor-pointer items-center justify-between gap-2.5 rounded-md px-2 py-1.5 text-sm text-slate-700 outline-none transition-colors hover:bg-slate-100 hover:text-slate-900 focus:bg-slate-100 focus:text-slate-900   "
                   >
                     <div className="flex min-w-0 items-center gap-2">
@@ -1127,7 +1127,7 @@ export const NotebookPane = ({
               <DropdownMenuSeparator className="my-1 bg-slate-100 " />
               <DropdownMenuGroup>
                 <DropdownMenuLabel className="px-2 py-1 text-xs font-medium uppercase tracking-wider text-slate-400 ">
-                  {t("pwa.sidebarGroupClippers") || "浏览器剪藏插件"}
+                  {t("pwa.sidebarGroupClippers") || "瀏覽器剪藏外掛"}
                 </DropdownMenuLabel>
                 <DropdownMenuItem asChild>
                   <a
@@ -1143,7 +1143,7 @@ export const NotebookPane = ({
                       <span className="truncate font-medium">{t("pwa.sidebarChromeEdge") || "Chrome / Edge"}</span>
                     </div>
                     <div className="flex shrink-0 items-center gap-1 text-slate-400 group-hover:text-slate-600 ">
-                      <span className="text-xs">{t("pwa.sidebarWebStoreBadge") || "扩展商店"}</span>
+                      <span className="text-xs">{t("pwa.sidebarWebStoreBadge") || "擴充套件商店"}</span>
                       <ExternalLink className="h-3.5 w-3.5" />
                     </div>
                   </a>
@@ -1162,7 +1162,7 @@ export const NotebookPane = ({
                       <span className="truncate font-medium">{t("pwa.sidebarFirefox") || "Firefox"}</span>
                     </div>
                     <div className="flex shrink-0 items-center gap-1 text-slate-400 group-hover:text-slate-600 ">
-                      <span className="text-xs">{t("pwa.sidebarAddonsBadge") || "附加组件"}</span>
+                      <span className="text-xs">{t("pwa.sidebarAddonsBadge") || "附加元件"}</span>
                       <ExternalLink className="h-3.5 w-3.5" />
                     </div>
                   </a>

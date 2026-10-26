@@ -1,95 +1,95 @@
 export const alternativePageCopy = {
-  "zh-CN": {
-    eyebrow: "自托管笔记",
-    title: "自托管印象笔记替代方案：Cloudflare 或 Docker",
+  "zh-TW": {
+    eyebrow: "自託管筆記",
+    title: "自託管印象筆記替代方案：Cloudflare 或 Docker",
     description:
-      "EdgeEver 是开源、原生支持 AI 的自托管笔记工作区。保留印象笔记式三栏布局，可在 Cloudflare 免费额度内运行，或用同一套应用在 VPS、NAS、家庭服务器上 Docker 部署。",
+      "EdgeEver 是開源、原生支援 AI 的自託管筆記工作區。保留印象筆記式三欄佈局，可在 Cloudflare 免費額度內執行，或用同一套應用在 VPS、NAS、家庭伺服器上 Docker 部署。",
     lead: [
-      "EdgeEver 面向长期使用印象笔记、只想要一个可靠、开放、可自己部署的个人知识库的人。整栈开源，数据在你控制的 SQLite 里，并提供 REST API、MCP 与 ENEX 迁移路径。",
-      "它不是又一个时间流动的碎片笔记，也不是本地 Markdown 仓库。交互上接近经典三栏：笔记本树、笔记列表、编辑区。",
+      "EdgeEver 面向長期使用印象筆記、只想要一個可靠、開放、可自己部署的個人知識庫的人。整棧開源，資料在你控制的 SQLite 裡，並提供 REST API、MCP 與 ENEX 遷移路徑。",
+      "它不是又一個時間流動的碎片筆記，也不是本地 Markdown 倉庫。互動上接近經典三欄：筆記本樹、筆記列表、編輯區。",
     ],
-    fitTitle: "适合谁",
+    fitTitle: "適合誰",
     fit: [
-      "习惯印象笔记三栏，而不是时间流动或纯文件仓库。",
-      "希望自托管，不想再为笔记 SaaS 和设备数量付费。",
-      "希望用 Cloudflare 免费额度，或一行命令在 VPS / NAS 上跑 Docker。",
-      "希望把笔记交给 Claude Code、Codex、WorkBuddy 等 Agent，通过原生 MCP 与桌面端 ACP 协同读写。",
+      "習慣印象筆記三欄，而不是時間流動或純檔案倉庫。",
+      "希望自託管，不想再為筆記 SaaS 和裝置數量付費。",
+      "希望用 Cloudflare 免費額度，或一行命令在 VPS / NAS 上跑 Docker。",
+      "希望把筆記交給 Claude Code、Codex、WorkBuddy 等 Agent，透過原生 MCP 與桌面端 ACP 協同讀寫。",
     ],
-    notFitTitle: "不适合谁",
+    notFitTitle: "不適合誰",
     notFit: [
-      "如果默认需要 Joplin 那种端到端加密，EdgeEver 并不以 E2EE 为卖点；安全边界是「实例由你托管」。",
-      "如果需要 Notion 式数据库和块工作区，请继续用 Notion 或同类工具。EdgeEver 是笔记工作区。",
-      "如果只要本地文件夹、完全不要服务端，Obsidian 或纯 Markdown 目录可能更合适。",
+      "如果預設需要 Joplin 那種端到端加密，EdgeEver 並不以 E2EE 為賣點；安全邊界是「實例由你託管」。",
+      "如果需要 Notion 式資料庫和塊工作區，請繼續用 Notion 或同類工具。EdgeEver 是筆記工作區。",
+      "如果只要本地資料夾、完全不要服務端，Obsidian 或純 Markdown 目錄可能更合適。",
     ],
-    compareTitle: "和常见方案差在哪",
+    compareTitle: "和常見方案差在哪",
     compareIntro:
-      "Joplin 是英文社区最常见的自托管印象笔记替代。EdgeEver 更接近经典三栏，并同时提供 Cloudflare 免费额度和 Docker。下表只写仓库和公开文档里能核对的事实，不比较「谁全面更好」。",
-    compareHeaders: ["", "托管", "布局", "客户端", "印象笔记导入"],
+      "Joplin 是英文社群最常見的自託管印象筆記替代。EdgeEver 更接近經典三欄，並同時提供 Cloudflare 免費額度和 Docker。下表只寫倉庫和公開文件裡能核對的事實，不比較「誰全面更好」。",
+    compareHeaders: ["", "託管", "佈局", "客戶端", "印象筆記匯入"],
     compareRows: [
-      ["EdgeEver", "Cloudflare 免费额度或 Docker", "三栏笔记本", "macOS / Windows / Linux / iOS / Android / 剪藏", "已文档化的 ENEX + MCP 流程"],
-      ["印象笔记", "厂商云，不可自托管", "三栏笔记本", "全平台", "—"],
-      ["Joplin", "Joplin Server 或自选同步", "笔记本", "官方多端", "支持 ENEX"],
-      ["Obsidian", "本地文件；官方同步收费", "文件仓库", "全平台", "社区方案"],
-      ["Memos", "可自托管", "时间流动卡片", "偏 Web", "不是同一条迁移路径"],
+      ["EdgeEver", "Cloudflare 免費額度或 Docker", "三欄筆記本", "macOS / Windows / Linux / iOS / Android / 剪藏", "已文件化的 ENEX + MCP 流程"],
+      ["印象筆記", "廠商雲，不可自託管", "三欄筆記本", "全平臺", "—"],
+      ["Joplin", "Joplin Server 或自選同步", "筆記本", "官方多端", "支援 ENEX"],
+      ["Obsidian", "本地檔案；官方同步收費", "檔案倉庫", "全平臺", "社群方案"],
+      ["Memos", "可自託管", "時間流動卡片", "偏 Web", "不是同一條遷移路徑"],
     ],
-    pathsTitle: "接下来怎么做",
+    pathsTitle: "接下來怎麼做",
     paths: [
       {
-        title: "Cloudflare 自托管",
-        summary: "推荐给不想维护服务器的个人用户。个人规模大约可放 15 万条短笔记和 5 万张图片。",
+        title: "Cloudflare 自託管",
+        summary: "推薦給不想維護伺服器的個人使用者。個人規模大約可放 15 萬條短筆記和 5 萬張圖片。",
         href: "/blog/ai-agent-deploy-cloudflare",
         cta: "查看 Cloudflare 部署",
       },
       {
-        title: "Docker 自托管",
-        summary: "同一套应用，用一行命令装到 VPS、NAS 或家庭服务器，存储可按需扩展。",
+        title: "Docker 自託管",
+        summary: "同一套應用，用一行命令裝到 VPS、NAS 或家庭伺服器，儲存可按需擴充套件。",
         href: "/docker-deploy",
         cta: "查看 Docker 部署",
       },
       {
-        title: "从印象笔记迁移",
-        summary: "用 ENEX、evernote-backup 和 EdgeEver MCP 迁移笔记本树、附件与时间戳。",
+        title: "從印象筆記遷移",
+        summary: "用 ENEX、evernote-backup 和 EdgeEver MCP 遷移筆記本樹、附件與時間戳。",
         href: "/blog/evernote-migration-guide",
-        cta: "查看迁移指南",
+        cta: "檢視遷移指南",
       },
       {
-        title: "从 Notion 迁移",
-        summary: "通过 Notion MCP 与 EdgeEver MCP，让 AI 助手做云对云导入。",
+        title: "從 Notion 遷移",
+        summary: "透過 Notion MCP 與 EdgeEver MCP，讓 AI 助手做雲對雲匯入。",
         href: "/blog/notion-migration-guide",
-        cta: "查看 Notion 迁移",
+        cta: "檢視 Notion 遷移",
       },
     ],
-    faqTitle: "常见问题",
+    faqTitle: "常見問題",
     faqs: [
       {
-        question: "什么是自托管印象笔记替代方案？",
+        question: "什麼是自託管印象筆記替代方案？",
         answer:
-          "指你可以自己部署、数据留在自己账号或硬件上的笔记应用，交互上接近印象笔记的笔记本和三栏工作区。EdgeEver 按这个目标来做，并补上开源、MCP 与 Cloudflare / Docker 部署。",
+          "指你可以自己部署、資料留在自己賬號或硬體上的筆記應用，互動上接近印象筆記的筆記本和三欄工作區。EdgeEver 按這個目標來做，並補上開源、MCP 與 Cloudflare / Docker 部署。",
       },
       {
-        question: "可以用 Docker 跑吗？",
+        question: "可以用 Docker 跑嗎？",
         answer:
-          "可以。官方提供一行安装脚本和完整 Docker 指南，支持 amd64 / arm64，以及本地存储或 S3 兼容对象存储。Cloudflare 与 Docker 跑的是同一套应用。",
+          "可以。官方提供一行安裝指令碼和完整 Docker 指南，支援 amd64 / arm64，以及本地儲存或 S3 相容物件儲存。Cloudflare 與 Docker 跑的是同一套應用。",
       },
       {
-        question: "能导入印象笔记吗？",
+        question: "能匯入印象筆記嗎？",
         answer:
-          "可以。文档化的流程使用 ENEX、evernote-backup 和 MCP 导入脚本，保留创建/修改时间与嵌套笔记本。导入后请抽查带图片的笔记。",
+          "可以。文件化的流程使用 ENEX、evernote-backup 和 MCP 匯入指令碼，保留建立/修改時間與巢狀筆記本。匯入後請抽查帶圖片的筆記。",
       },
       {
-        question: "Cloudflare 个人使用真的免费吗？",
+        question: "Cloudflare 個人使用真的免費嗎？",
         answer:
-          "可以运行在 Cloudflare 免费额度内，无需另买服务器。额度会随 Cloudflare 政策变化；超出后再升级或改用 Docker。",
+          "可以執行在 Cloudflare 免費額度內，無需另買伺服器。額度會隨 Cloudflare 政策變化；超出後再升級或改用 Docker。",
       },
       {
-        question: "有 iOS 和 Android 客户端吗？",
+        question: "有 iOS 和 Android 客戶端嗎？",
         answer:
-          "有。Android 在 Google Play，iOS 在 App Store。iOS 目前需要非中国大陆 Apple ID。另有 Chrome / Edge / Firefox 剪藏扩展。",
+          "有。Android 在 Google Play，iOS 在 App Store。iOS 目前需要非中國大陸 Apple ID。另有 Chrome / Edge / Firefox 剪藏擴充套件。",
       },
       {
-        question: "EdgeEver 和印象笔记是什么关系？",
+        question: "EdgeEver 和印象筆記是什麼關係？",
         answer:
-          "没有关联、没有赞助。EdgeEver 只是开源替代方案，迁移指南只处理用户自己拥有的数据。印象笔记和 Evernote 是其权利人的商标。",
+          "沒有關聯、沒有贊助。EdgeEver 只是開源替代方案，遷移指南只處理使用者自己擁有的資料。印象筆記和 Evernote 是其權利人的商標。",
       },
     ],
   },

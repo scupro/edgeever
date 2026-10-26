@@ -236,12 +236,10 @@ if (isRemoteCommand && config.includes(`database_id = "${PLACEHOLDER_D1_ID}"`)) 
   }
 }
 
-const explicitR2BucketName = envValue("R2_BUCKET_NAME");
 const explicitAuthUsername = envValue("AUTH_USERNAME");
-let inheritedR2BucketName;
 let inheritedAuthUsername;
 
-if (isDeployCommand && (!explicitR2BucketName || !explicitAuthUsername)) {
+if (isDeployCommand && !explicitAuthUsername) {
   const deployedWorkerName = config.match(/^name\s*=\s*"([^"]+)"/m)?.[1] ?? "edgeever";
   const statusResult = runWranglerSync(
     [
@@ -293,33 +291,20 @@ if (isDeployCommand && (!explicitR2BucketName || !explicitAuthUsername)) {
     const uniqueValue = (key) => [
       ...new Set(deployedSettings.map((settings) => settings[key]).filter(Boolean)),
     ];
-    const r2BucketNames = uniqueValue("r2BucketName");
     const authUsernames = uniqueValue("authUsername");
-    if (r2BucketNames.length > 1 || authUsernames.length > 1) {
+    if (authUsernames.length > 1) {
       throw new Error(
         "Active Worker versions use conflicting instance settings. Complete the rollout or set explicit EDGE_EVER_* Builds variables before deploying.",
       );
     }
-    inheritedR2BucketName = r2BucketNames[0];
     inheritedAuthUsername = authUsernames[0];
-    if (!explicitR2BucketName && inheritedR2BucketName) {
-      writeWranglerNotice("ok", `reusing existing R2 bucket ${inheritedR2BucketName}`);
-    }
     if (!explicitAuthUsername && inheritedAuthUsername) {
       writeWranglerNotice("ok", `reusing existing administrator username ${inheritedAuthUsername}`);
     }
   }
 }
 
-const resolvedR2BucketName = explicitR2BucketName || inheritedR2BucketName;
 const resolvedAuthUsername = explicitAuthUsername || inheritedAuthUsername || "admin";
-
-config = replaceTomlValue(config, "bucket_name", resolvedR2BucketName);
-config = replaceTomlValue(
-  config,
-  "preview_bucket_name",
-  envValue("R2_PREVIEW_BUCKET_NAME"),
-);
 
 const runtimeVars = {
   // Keep the login identifier explicit in generated online deployments so
@@ -331,7 +316,12 @@ const runtimeVars = {
   EDGE_EVER_AUTH_LOGIN_USERNAME_COOLDOWN_SECONDS: envValue("AUTH_LOGIN_USERNAME_COOLDOWN_SECONDS"),
   EDGE_EVER_AUTH_LOGIN_IP_MAX_ATTEMPTS: envValue("AUTH_LOGIN_IP_MAX_ATTEMPTS"),
   EDGE_EVER_AUTH_LOGIN_IP_COOLDOWN_SECONDS: envValue("AUTH_LOGIN_IP_COOLDOWN_SECONDS"),
-  EDGE_EVER_R2_BUCKET_NAME: resolvedR2BucketName,
+  EDGE_EVER_S3_ENDPOINT: envValue("S3_ENDPOINT"),
+  EDGE_EVER_S3_REGION: envValue("S3_REGION"),
+  EDGE_EVER_S3_BUCKET: envValue("S3_BUCKET"),
+  EDGE_EVER_S3_ACCESS_KEY_ID: envValue("S3_ACCESS_KEY_ID"),
+  EDGE_EVER_S3_FORCE_PATH_STYLE: envValue("S3_FORCE_PATH_STYLE"),
+  EDGE_EVER_S3_OBJECT_PREFIX: envValue("S3_OBJECT_PREFIX"),
   EDGE_EVER_DEMO_MODE: envValue("DEMO_MODE"),
   EDGE_EVER_LOCAL_DEMO_SEED: envValue("LOCAL_DEMO_SEED"),
   // Persistent local development uses real sessions. Only the isolated local
@@ -431,6 +421,12 @@ const authSecrets = {
   ...(authPassword ? { EDGE_EVER_AUTH_PASSWORD: authPassword } : {}),
   ...(authPasswordHash ? { EDGE_EVER_AUTH_PASSWORD_HASH: authPasswordHash } : {}),
 };
+// The object storage secret never belongs in a plain [vars] entry.
+const objectStorageSecret = envValue("S3_SECRET_ACCESS_KEY");
+const workerSecrets = {
+  ...authSecrets,
+  ...(objectStorageSecret ? { EDGE_EVER_S3_SECRET_ACCESS_KEY: objectStorageSecret } : {}),
+};
 const finalWranglerArgs = [...wranglerArgs];
 const useExistingAuthSecret = process.env.EDGE_EVER_USE_EXISTING_AUTH_SECRET?.trim().toLowerCase() === "true";
 
@@ -456,8 +452,8 @@ if (isLocalDevCommand && !hasEnvFileArg) {
   finalWranglerArgs.push("--env-file", generatedLocalDevEnvPath);
 }
 
-if (isDeployCommand && Object.keys(authSecrets).length > 0 && !hasSecretsFileArg) {
-  writeFileSync(generatedSecretsPath, `${JSON.stringify(authSecrets, null, 2)}\n`);
+if (isDeployCommand && Object.keys(workerSecrets).length > 0 && !hasSecretsFileArg) {
+  writeFileSync(generatedSecretsPath, `${JSON.stringify(workerSecrets, null, 2)}\n`);
   finalWranglerArgs.push("--secrets-file", generatedSecretsPath);
 }
 
@@ -484,7 +480,7 @@ if (captureDeploymentTargets) {
 }
 
 if (result.status === 0 && isDeployCommand) {
-  for (const [secretName, secretValue] of Object.entries(authSecrets)) {
+  for (const [secretName, secretValue] of Object.entries(workerSecrets)) {
     const secretResult = runWranglerSync(["--config", configPath, "secret", "put", secretName], {
       cwd: resolve("."),
       env: process.env,

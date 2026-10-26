@@ -11,7 +11,7 @@ test("keeps a saved notebook that still exists", () => {
   expect(clipNotebookId("nb_video", notebooks)).toBe("nb_video");
 });
 
-test("uses 等待分类 when the saved id is empty or damaged", () => {
+test("uses 等待分類 when the saved id is empty or damaged", () => {
   expect(clipNotebookId("", notebooks)).toBe("ws_1_inbox");
   expect(clipNotebookId("   ", notebooks)).toBe("ws_1_inbox");
   expect(clipNotebookId("nb_deleted", notebooks)).toBe("ws_1_inbox");
@@ -20,7 +20,7 @@ test("uses 等待分类 when the saved id is empty or damaged", () => {
   expect(clipNotebookId("", [{ id: "nb_later" }, { id: "ws_inbox" }])).toBe("ws_inbox");
 });
 
-test("reports no notebook when 等待分类 is missing", () => {
+test("reports no notebook when 等待分類 is missing", () => {
   expect(clipNotebookId("nb_video", [])).toBe("");
   expect(clipNotebookId("", [{ id: "nb_video" }])).toBe("");
   expect(clipNotebookId("nb_video", [{ id: "  " }])).toBe("");

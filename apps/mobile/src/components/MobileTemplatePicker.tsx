@@ -92,12 +92,12 @@ export const MobileTemplatePickerModal = ({
         <View style={styles.actionSheetHandle} />
         <View style={styles.listActionSheetHeader}>
           <View style={styles.listActionSheetHeaderText}>
-            <Text numberOfLines={1} style={styles.actionSheetTitle}>{translate("从模板新建")}</Text>
+            <Text numberOfLines={1} style={styles.actionSheetTitle}>{translate("從模板新建")}</Text>
             <Text numberOfLines={2} style={styles.actionSheetSubtitle}>
-              {translate("选择一个模板快速开始。所有模板都可以在网页端修改或删除。")}
+              {translate("選擇一個模板快速開始。所有模板都可以在網頁端修改或刪除。")}
             </Text>
           </View>
-          <Pressable accessibilityLabel={translate("关闭")} accessibilityRole="button" onPress={onClose} style={styles.sheetCloseButton}>
+          <Pressable accessibilityLabel={translate("關閉")} accessibilityRole="button" onPress={onClose} style={styles.sheetCloseButton}>
             <X color="#0f172a" size={18} />
           </Pressable>
         </View>
@@ -107,13 +107,13 @@ export const MobileTemplatePickerModal = ({
           {isLoadingSaved ? (
             <View style={styles.templatePickerLoading}>
               <ActivityIndicator color="#0f172a" size="small" />
-              <Text style={styles.mutedText}>{translate("正在加载模板")}</Text>
+              <Text style={styles.mutedText}>{translate("正在載入模板")}</Text>
             </View>
           ) : null}
           {!isLoadingSaved && savedTemplatesQuery.isError ? (
             <View style={styles.templatePickerErrorBlock}>
               <Text style={styles.templatePickerHint}>
-                {translate("模板暂时无法加载，请稍后重试。")}
+                {translate("模板暫時無法載入，請稍後重試。")}
               </Text>
               {savedLoadErrorMessage ? (
                 <Text style={styles.templatePickerErrorDetail} numberOfLines={3}>
@@ -125,13 +125,13 @@ export const MobileTemplatePickerModal = ({
                 onPress={() => void savedTemplatesQuery.refetch()}
                 style={styles.templatePickerRetryButton}
               >
-                <Text style={styles.templatePickerRetryText}>{translate("重试")}</Text>
+                <Text style={styles.templatePickerRetryText}>{translate("重試")}</Text>
               </Pressable>
             </View>
           ) : null}
           {!isLoadingSaved && !savedTemplatesQuery.isError && savedTemplates.length === 0 ? (
             <Text style={styles.templatePickerHint}>
-              {translate("暂无模板。可在网页端新建模板，或将常用笔记另存为模板。")}
+              {translate("暫無模板。可在網頁端新建模板，或將常用筆記另存為模板。")}
             </Text>
           ) : null}
           {savedTemplates.map((template) => (
@@ -176,10 +176,10 @@ export const MobileCreateChoiceModal = ({
           <View style={styles.actionSheetHandle} />
           <View style={styles.listActionSheetHeader}>
             <View style={styles.listActionSheetHeaderText}>
-              <Text numberOfLines={1} style={styles.actionSheetTitle}>{translate("新建笔记")}</Text>
-              <Text numberOfLines={1} style={styles.actionSheetSubtitle}>{translate("选择创建方式")}</Text>
+              <Text numberOfLines={1} style={styles.actionSheetTitle}>{translate("新建筆記")}</Text>
+              <Text numberOfLines={1} style={styles.actionSheetSubtitle}>{translate("選擇建立方式")}</Text>
             </View>
-            <Pressable accessibilityLabel={translate("关闭")} accessibilityRole="button" onPress={onClose} style={styles.sheetCloseButton}>
+            <Pressable accessibilityLabel={translate("關閉")} accessibilityRole="button" onPress={onClose} style={styles.sheetCloseButton}>
               <X color="#0f172a" size={18} />
             </Pressable>
           </View>
@@ -197,8 +197,8 @@ export const MobileCreateChoiceModal = ({
                 <FileText color="#0f172a" size={18} />
               </View>
               <View style={styles.templateChoiceText}>
-                <Text style={styles.templateChoiceTitle}>{translate("空白笔记")}</Text>
-                <Text style={styles.templateChoiceDescription}>{translate("从空白页开始记录")}</Text>
+                <Text style={styles.templateChoiceTitle}>{translate("空白筆記")}</Text>
+                <Text style={styles.templateChoiceDescription}>{translate("從空白頁開始記錄")}</Text>
               </View>
             </Pressable>
             <Pressable
@@ -214,8 +214,8 @@ export const MobileCreateChoiceModal = ({
                 <LayoutTemplate color="#0f172a" size={18} />
               </View>
               <View style={styles.templateChoiceText}>
-                <Text style={styles.templateChoiceTitle}>{translate("从模板新建")}</Text>
-                <Text style={styles.templateChoiceDescription}>{translate("使用会议纪要、周报等预设结构")}</Text>
+                <Text style={styles.templateChoiceTitle}>{translate("從模板新建")}</Text>
+                <Text style={styles.templateChoiceDescription}>{translate("使用會議紀要、週報等預設結構")}</Text>
               </View>
             </Pressable>
           </View>

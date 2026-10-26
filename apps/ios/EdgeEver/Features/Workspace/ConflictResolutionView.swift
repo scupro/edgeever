@@ -11,9 +11,9 @@ struct ConflictResolutionView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text(env.preferences.t("同步冲突", en: "Sync conflict", pl: "Konflikt synchronizacji")).font(.headline)
+            Text(env.preferences.t("同步衝突", en: "Sync conflict", pl: "Konflikt synchronizacji")).font(.headline)
             Text(env.preferences.t(
-                "本地草稿与服务器版本不一致。你可以丢弃本地更改并采用云端内容，或稍后再处理。",
+                "本機草稿與伺服器版本不一致。你可以丟棄本機更改並採用雲端內容，或稍後再處理。",
                 en: "The local draft differs from the server version. Discard local changes and use the cloud version, or resolve it later.",
                 pl: "Lokalny szkic różni się od wersji na serwerze. Odrzuć lokalne zmiany i użyj wersji z chmury lub rozwiąż to później."
             ))
@@ -26,13 +26,13 @@ struct ConflictResolutionView: View {
                 Text(error).font(.caption).foregroundStyle(.red)
             }
             HStack {
-                Button(env.preferences.t("丢弃本地", en: "Discard local", pl: "Odrzuć lokalne")) {
+                Button(env.preferences.t("丟棄本機", en: "Discard local", pl: "Odrzuć lokalne")) {
                     Task { await discardLocal() }
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(.red)
                 .disabled(busy)
-                Button(env.preferences.t("稍后", en: "Later", pl: "Później")) { onResolved() }
+                Button(env.preferences.t("稍後", en: "Later", pl: "Później")) { onResolved() }
                     .disabled(busy)
             }
         }

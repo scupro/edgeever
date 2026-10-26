@@ -3,7 +3,7 @@ import { findInlineFields, formatInlineFieldChip, languageFromLocale, rangesOver
 
 describe("inline fields", () => {
   test("finds Dataview bracket fields in a task line", () => {
-    const text = "审阅面板 [priority:: highest] [scheduled:: 2026-09-10] [due:: 2026-09-10]";
+    const text = "審閱面板 [priority:: highest] [scheduled:: 2026-09-10] [due:: 2026-09-10]";
     const fields = findInlineFields(text);
     expect(fields.map((field) => field.key)).toEqual(["priority", "scheduled", "due"]);
     expect(fields.map((field) => field.value)).toEqual(["highest", "2026-09-10", "2026-09-10"]);
@@ -12,9 +12,9 @@ describe("inline fields", () => {
 
   test("formats quiet chips instead of raw syntax", () => {
     expect(formatInlineFieldChip("due", "2026-09-10", "zh")).toBe("截止 2026-09-10");
-    expect(formatInlineFieldChip("priority", "highest", "zh")).toBe("优先级 最高");
+    expect(formatInlineFieldChip("priority", "highest", "zh")).toBe("優先順序 最高");
     expect(formatInlineFieldChip("due", "2026-09-10", "en")).toBe("Due 2026-09-10");
-    expect(languageFromLocale("zh-CN")).toBe("zh");
+    expect(languageFromLocale("zh-TW")).toBe("zh");
   });
 
   test("keeps the raw field editable when the caret is inside it", () => {

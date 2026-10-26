@@ -97,8 +97,13 @@ const buildVariables = () => {
     "WORKERS_DEV",
     "D1_DATABASE_NAME",
     "D1_DATABASE_ID",
-    "R2_BUCKET_NAME",
-    "R2_PREVIEW_BUCKET_NAME",
+    "S3_ENDPOINT",
+    "S3_REGION",
+    "S3_BUCKET",
+    "S3_ACCESS_KEY_ID",
+    "S3_SECRET_ACCESS_KEY",
+    "S3_FORCE_PATH_STYLE",
+    "S3_OBJECT_PREFIX",
     "AUTH_USERNAME",
     "SESSION_TTL_DAYS",
     "AUTH_LOGIN_WINDOW_SECONDS",
@@ -111,6 +116,7 @@ const buildVariables = () => {
     "CUSTOM_DOMAIN",
     "ROUTE_PATTERN",
   ];
+  const secretDeploymentNames = new Set(["S3_SECRET_ACCESS_KEY"]);
   const entries = [];
 
   if (instanceKey) entries.push(["EDGE_EVER_INSTANCE", instanceKey]);
@@ -118,12 +124,12 @@ const buildVariables = () => {
     const scoped = instanceKey ? `EDGE_EVER_${instanceKey}_${name}` : "";
     const key = scoped && merged.get(scoped)?.trim() ? scoped : `EDGE_EVER_${name}`;
     const current = merged.get(key)?.trim() || "";
-    if (current) entries.push([key, current]);
+    if (current) entries.push([key, current, secretDeploymentNames.has(name)]);
   }
 
-  return Object.fromEntries(entries.map(([key, current]) => [key, {
+  return Object.fromEntries(entries.map(([key, current, isSecret]) => [key, {
     value: current.replace(/\\\$/g, "$"),
-    is_secret: false,
+    is_secret: isSecret,
   }]));
 };
 

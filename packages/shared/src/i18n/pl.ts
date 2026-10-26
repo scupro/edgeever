@@ -1335,8 +1335,8 @@ export const pl = {
     title: "Magazyn obiektów OSS",
     description: "Skonfiguruj magazyn obiektów używany dla nowych obrazów i załączników w całej instancji EdgeEver. Zmiany może wprowadzać tylko właściciel instancji.",
     providers: {
-      builtin: { title: "Wbudowany magazyn", description: "Użyj powiązania Cloudflare R2 lub domyślnego magazynu obiektów bieżącego środowiska uruchomieniowego." },
-      s3: { title: "Zewnętrzny OSS", description: "Połącz usługę zgodną z S3: OSS, COS, S3, MinIO lub R2." },
+      builtin: { title: "Wbudowany magazyn", description: "Użyj magazynu obiektów zgodnego z S3 skonfigurowanego dla tego wdrożenia lub domyślnego magazynu obiektów bieżącego środowiska uruchomieniowego." },
+      s3: { title: "Zewnętrzny OSS", description: "Połącz usługę zgodną z S3: OSS, COS, S3 lub MinIO." },
     },
     displayName: "Nazwa konfiguracji",
     endpoint: "Punkt końcowy",
@@ -1561,7 +1561,6 @@ export const pl = {
     targetLanguage: "Język docelowy",
     targetLanguages: {
       en: "Angielski",
-      "zh-CN": "Chiński uproszczony",
       "zh-TW": "Chiński tradycyjny",
       ja: "Japoński",
       ko: "Koreański",
@@ -1659,13 +1658,13 @@ export const pl = {
         replace: "Zastąp zaznaczony tekst",
         stale: "Notatka się zmieniła, więc nic nie zostało zapisane.",
         chips: {
-          "zh-CN": "中文",
+          "zh-TW": "中文",
           en: "English",
           ja: "日本語",
           pl: "Polski",
         },
         languageNames: {
-          "zh-CN": "chiński uproszczony",
+          "zh-TW": "chiński tradycyjny",
           en: "angielski",
           ja: "japoński",
           pl: "polski",
@@ -1843,7 +1842,6 @@ export const pl = {
     },
     newUploadObjectStorage: "Magazyn obiektów dla nowych przesyłanych plików",
     objectStorageBackends: {
-      builtin_r2: "Wbudowany R2",
       builtin_filesystem: "Lokalny system plików",
       builtin_s3: "Magazyn zgodny z S3 zapewniany przez instancję",
       external_s3: "Zewnętrzny magazyn OSS zgodny z S3",

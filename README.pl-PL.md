@@ -14,7 +14,7 @@
     <a href="#wsparcie-projektu"><img src="https://img.shields.io/badge/Sponsor-EdgeEver-ea4aaa?logo=github-sponsors" alt="Wsparcie projektu" /></a>
   </p>
   <p>
-    <a href="README.zh-CN.md">简体中文</a> | <a href="README.zh-TW.md">繁體中文</a> | <a href="README.md">English</a> | <a href="README.ja.md">日本語</a> | <b>Polski</b>
+    <a href="README.zh-TW.md">繁體中文</a> | <a href="README.md">English</a> | <a href="README.ja.md">日本語</a> | <b>Polski</b>
   </p>
   <p>
     <a href="https://t.me/+wwUx1BYLrIdiZjY1"><img src="assets/readme/community/telegram.svg" alt="Telegram" width="16" height="16" align="absmiddle" /> Grupa na Telegramie</a> &nbsp;|&nbsp;
@@ -105,7 +105,7 @@ Skopiuj poniższe polecenie do agenta AI, na przykład Codex, Claude, Cursor, Wo
 ```text
 Wdróż EdgeEver przez GitHub i Cloudflare:
 1. Utwórz Fork repozytorium https://github.com/tianma-if/edgeever.
-2. Utwórz bazę D1 `edgeever` i zasobnik R2 `edgeever-resources` w Cloudflare.
+2. Utwórz bazę D1 `edgeever` w Cloudflare i przygotuj zasobnik obiektów zgodny z S3 na załączniki.
 3. W Workers & Pages utwórz Worker o nazwie `edgeever` z gałęzi `main` Forka.
    Użyj katalogu głównego repozytorium, zachowaj domyślne polecenie wdrożenia
    Workers Builds i upewnij się, że token API może odczytywać i modyfikować D1.
@@ -130,7 +130,7 @@ Wdróż EdgeEver przez GitHub i Cloudflare:
 Konfiguracja obejmuje sześć kroków w interfejsie przeglądarkowym:
 
 1. **Utwórz Fork repozytorium**: Kliknij **Fork** w prawym górnym rogu strony GitHub, aby utworzyć kopię EdgeEver na swoim koncie.
-2. **Utwórz zasoby Cloudflare**: Utwórz bazę D1 `edgeever` i zasobnik R2 `edgeever-resources`.
+2. **Utwórz zasoby Cloudflare**: Utwórz bazę D1 `edgeever` i przygotuj zasobnik zgodny z S3 (np. Backblaze B2, Tencent COS, Alibaba OSS, MinIO lub Wasabi).
 3. **Zaimportuj i skonfiguruj projekt**: W Cloudflare **Workers & Pages** utwórz Worker `edgeever` z gałęzi `main` swojego Forka. Użyj katalogu głównego repozytorium i zachowaj domyślne polecenie wdrożenia Workers Builds. Token API musi mieć prawo do odczytu i modyfikacji D1. Polecenie wdrożenia utworzy powiązania zasobów; nie edytuj plików Forka.
 4. **Wybierz hasło administratora**: Ustaw hasło, najlepiej o długości co najmniej 32 znaków. Po utworzeniu Workera zapisz je jako sekret środowiska uruchomieniowego `EDGE_EVER_AUTH_PASSWORD`.
 5. **Zbuduj i sprawdź aplikację**: Kliknij **Save and Deploy**, aby utworzyć Workera i uruchomić build (niepowodzenie pierwszego buildu z powodu braku sekretu administratora jest zjawiskiem normalnym; dodaj sekret z kroku 4 i ponów próbę). Domyślna nazwa użytkownika to `admin`; aby ją zmienić, ustaw zmienną Workers Builds `EDGE_EVER_AUTH_USERNAME` przed ponownym buildem. Po wdrożeniu sprawdź, czy `/api/health` zwraca `200`, i zaloguj się.
@@ -141,11 +141,11 @@ Konfiguracja obejmuje sześć kroków w interfejsie przeglądarkowym:
 </details>
 
 <details>
-<summary>📌 Uwagi dotyczące wdrożenia na Cloudflare (własna domena i darmowy limit R2)</summary>
+<summary>📌 Uwagi dotyczące wdrożenia na Cloudflare (własna domena i obiektowe przechowywanie)</summary>
 
 > **Domena i dostęp**: Możesz użyć domyślnej domeny `*.workers.dev` lub podłączyć własną w ustawieniach Workera: **Settings → Domains & Routes**.
 >
-> **Aktywacja Cloudflare R2**: Choć [darmowy limit przestrzeni R2](https://developers.cloudflare.com/r2/pricing/#free-tier) wystarcza na typowe notatki, najpierw trzeba aktywować subskrypcję R2 i dodać metodę płatności. Cloudflare [obsługuje](https://developers.cloudflare.com/billing/get-started/update-billing-info/#supported-payment-methods) karty UnionPay, Visa i Mastercard oraz PayPal, Apple Pay i Google Pay.
+> **Magazyn obiektów**: EdgeEver przechowuje załączniki i obrazy w dostarczonym przez Ciebie magazynie obiektów zgodnym z S3; nie wiąże zasobnika Cloudflare R2. Backblaze B2 oferuje [darmowy limit 10 GB](https://www.backblaze.com/cloud-storage/pricing), a Tencent COS, Alibaba OSS, MinIO i Wasabi również działają. Ustaw zmienne wdrożenia `EDGE_EVER_S3_*` przed pierwszym buildem.
 
 </details>
 
@@ -226,7 +226,7 @@ W lokalnym środowisku deweloperskim logowanie następuje automatycznie. Nowa ba
 - iOS: natywny SwiftUI w `apps/ios` (iOS 17+), dołączony EditorBundle TipTap, lokalna kopia i kolejka zmian GRDB.
 - Desktop: Electron + proces pomocniczy Rust, SQLite do edycji offline, synchronizacji przyrostowej i lokalnych kopii zapasowych.
 - Web Clipper: Manifest V3, Mozilla Readability i Turndown dla Chrome, Edge i Firefox.
-- Backend: jedna aplikacja biznesowa Hono/Zod z REST API i Remote MCP. Cloudflare używa Workers/D1/R2, a Docker używa Bun/SQLite oraz plików lokalnych lub S3.
+- Backend: jedna aplikacja biznesowa Hono/Zod z REST API i Remote MCP. Cloudflare używa Workers/D1 i zewnętrznego magazynu obiektów zgodnego z S3, a Docker używa Bun/SQLite oraz plików lokalnych lub S3.
 - Oficjalna strona: statyczna witryna Astro w `apps/site`, wdrażana niezależnie na Cloudflare Pages.
 
 #### Struktura projektu
@@ -250,7 +250,7 @@ scripts           Wrapper Wrangler, haszowanie haseł, CLI, most MCP stdio, impo
 migrations        Wspólne migracje D1/SQLite dopisywane bez zmiany wcześniejszych plików
 docs              Dokumentacja architektury, migracji i wdrażania
 .github/workflows CI dla Web, mobile, iOS, pakietów desktopowych, wdrożeń i wydań
-wrangler.toml     Konfiguracja Cloudflare Workers, Assets, D1 i R2
+wrangler.toml     Konfiguracja Cloudflare Workers, Assets i D1
 ```
 
 </details>
@@ -304,7 +304,7 @@ EdgeEver jest darmowym projektem o otwartym kodzie. Rozwijanie aplikacji na ró�
 
 - Przy projektowaniu EdgeEver wzorowano się na publicznie dostępnych rozwiązaniach dojrzałych aplikacji do notatek, takich jak [Evernote](https://evernote.com/) i [Notion](https://www.notion.com/). Powiązane funkcje zostały zaprojektowane i zaimplementowane niezależnie przez EdgeEver.
 - Inspiracją dla notatek z mapami myśli i diagramami były publicznie dostępne funkcje [XMind](https://xmind.com/) i [ProcessOn](https://www.processon.com/). Funkcje te zostały zaprojektowane i zaimplementowane niezależnie przez EdgeEver.
-- Narzędzie do projektowania plakatów w EdgeEver czerpie inspirację z [Qiaomu Design](https://github.com/joeseesun/qiaomu-cover-design) autorstwa 向阳乔木 (joeseesun) i wykorzystuje dostosowane szablony oraz silnik typograficzny udostępnione na licencji MIT.
+- Narzędzie do projektowania plakatów w EdgeEver czerpie inspirację z [Qiaomu Design](https://github.com/joeseesun/qiaomu-cover-design) autorstwa 向陽喬木 (joeseesun) i wykorzystuje dostosowane szablony oraz silnik typograficzny udostępnione na licencji MIT.
 - Motywy wizualne i typografia kart do udostępniania notatek jako obrazów w EdgeEver były inspirowane [Firefly Card (流光卡片)](https://fireflycard.shushiai.com/). Dziękujemy za inspirację projektową.
 
 ## Znak towarowy i użycie marki

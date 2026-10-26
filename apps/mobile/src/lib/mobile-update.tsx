@@ -62,13 +62,13 @@ export const MobileUpdateProvider = ({ children }: { children: ReactNode }) => {
     setStatus(state.status);
   }), []);
   const isSupported = !__DEV__ && (Platform.OS === "android" || Updates.isEnabled);
-  const english = resolvedLocale !== "zh-CN";
+  const english = resolvedLocale !== "zh-TW";
   const installedVersion = Updates.runtimeVersion ?? Constants.expoConfig?.version ?? null;
 
   const showLinkError = useCallback(() => {
     Alert.alert(
-      english ? "Could not open link" : "无法打开链接",
-      english ? "Check your browser settings and try again." : "请检查浏览器设置后重试。"
+      english ? "Could not open link" : "無法開啟連結",
+      english ? "Check your browser settings and try again." : "請檢查瀏覽器設定後重試。"
     );
   }, [english]);
 
@@ -82,10 +82,10 @@ export const MobileUpdateProvider = ({ children }: { children: ReactNode }) => {
       }
       if (result.reason === "not-installed") {
         Alert.alert(
-          english ? "Google Play is not installed" : "未安装 Google Play",
+          english ? "Google Play is not installed" : "未安裝 Google Play",
           english
             ? "Google Play Store is not installed on this device, so this update channel is unavailable."
-            : "这台设备未安装 Google Play 商店，无法通过该渠道更新。"
+            : "這臺裝置未安裝 Google Play 商店，無法透過該渠道更新。"
         );
         return;
       }
@@ -94,14 +94,14 @@ export const MobileUpdateProvider = ({ children }: { children: ReactNode }) => {
         ? {
           message: english
             ? "Google Play Store is disabled. Enable it in system settings, or open the web listing instead."
-            : "Google Play 商店已被停用，请先在系统设置中启用，或改用网页版。",
+            : "Google Play 商店已被停用，請先在系統設定中啟用，或改用網頁版。",
           title: english ? "Google Play is disabled" : "Google Play 已停用",
         }
         : {
           message: english
             ? "Google Play Store could not handle this update link. Try again later, or open the web listing instead."
-            : "Google Play 商店无法处理这个更新链接，请稍后重试，或改用网页版。",
-          title: english ? "Could not open Google Play" : "无法打开 Google Play",
+            : "Google Play 商店無法處理這個更新連結，請稍後重試，或改用網頁版。",
+          title: english ? "Could not open Google Play" : "無法開啟 Google Play",
         };
       Alert.alert(copy.title, copy.message, [
         {
@@ -109,7 +109,7 @@ export const MobileUpdateProvider = ({ children }: { children: ReactNode }) => {
           style: "cancel",
         },
         {
-          text: english ? "Open web listing" : "打开网页版",
+          text: english ? "Open web listing" : "開啟網頁版",
           onPress: () => {
             void Linking.openURL(fallbackUrl).catch(showLinkError);
           },
@@ -127,15 +127,15 @@ export const MobileUpdateProvider = ({ children }: { children: ReactNode }) => {
       return;
     }
     Alert.alert(
-      english ? "Update available" : "发现新版本",
+      english ? "Update available" : "發現新版本",
       !release
-        ? (english ? "Choose where to check for an app update." : "请选择检查应用更新的渠道。")
+        ? (english ? "Choose where to check for an app update." : "請選擇檢查應用更新的渠道。")
         : (english
           ? `EdgeEver ${release.version} is available. Choose where to update.`
-          : `EdgeEver ${release.version} 已发布，请选择更新渠道。`),
+          : `EdgeEver ${release.version} 已釋出，請選擇更新渠道。`),
       [
         {
-          text: english ? "Later" : "稍后",
+          text: english ? "Later" : "稍後",
           style: "cancel",
         },
         {
@@ -160,10 +160,10 @@ export const MobileUpdateProvider = ({ children }: { children: ReactNode }) => {
     if (!isSupported) {
       if (userInitiated) {
         Alert.alert(
-          english ? "Updates unavailable" : "暂无法检查更新",
+          english ? "Updates unavailable" : "暫無法檢查更新",
           english
             ? "Update checks are available in installed release builds, not Expo Go or development builds."
-            : "检查更新仅适用于已安装的正式版，Expo Go 和开发版暂不支持。"
+            : "檢查更新僅適用於已安裝的正式版，Expo Go 和開發版暫不支援。"
         );
       }
       return Promise.resolve();
@@ -229,11 +229,11 @@ export const MobileUpdateProvider = ({ children }: { children: ReactNode }) => {
   const completePlayUpdate = useCallback(async () => {
     if (await googlePlayUpdates.complete()) return;
     Alert.alert(
-      english ? "Could not install update" : "无法安装更新",
-      english ? "Try again, or use an existing update channel." : "请重试，或使用现有更新渠道。",
+      english ? "Could not install update" : "無法安裝更新",
+      english ? "Try again, or use an existing update channel." : "請重試，或使用現有更新渠道。",
       [
-        { text: english ? "Later" : "稍后", style: "cancel" },
-        { text: english ? "Choose update source" : "选择更新渠道", onPress: () => openInstallUpdateOptions(installRelease) },
+        { text: english ? "Later" : "稍後", style: "cancel" },
+        { text: english ? "Choose update source" : "選擇更新渠道", onPress: () => openInstallUpdateOptions(installRelease) },
       ]
     );
   }, [english, installRelease, openInstallUpdateOptions]);
@@ -249,11 +249,11 @@ export const MobileUpdateProvider = ({ children }: { children: ReactNode }) => {
     if (updateKind !== "play" || status !== "ready" || readyPromptVersionRef.current === playUpdate.state.versionCode) return;
     readyPromptVersionRef.current = playUpdate.state.versionCode;
     Alert.alert(
-      english ? "Update ready" : "更新已就绪",
-      english ? "Restart now to install the Google Play update, or continue using the app." : "重启即可安装 Google Play 更新，也可以稍后继续使用。",
+      english ? "Update ready" : "更新已就緒",
+      english ? "Restart now to install the Google Play update, or continue using the app." : "重啟即可安裝 Google Play 更新，也可以稍後繼續使用。",
       [
-        { text: english ? "Later" : "稍后", style: "cancel" },
-        { text: english ? "Restart" : "立即重启", onPress: () => { void completePlayUpdate(); } },
+        { text: english ? "Later" : "稍後", style: "cancel" },
+        { text: english ? "Restart" : "立即重啟", onPress: () => { void completePlayUpdate(); } },
       ]
     );
   }, [completePlayUpdate, english, playUpdate, status, updateKind]);
@@ -322,22 +322,22 @@ export const MobileUpdateProvider = ({ children }: { children: ReactNode }) => {
         if (english) {
           Alert.alert("No update", "No downloadable in-app update was found.");
         } else {
-          Alert.alert("暂无更新", "没有可下载的应用内更新。");
+          Alert.alert("暫無更新", "沒有可下載的應用內更新。");
         }
         return;
       }
 
       setStatus("ready");
       Alert.alert(
-        english ? "Update ready" : "更新已就绪",
-        english ? "Restart now to apply the update." : "重启后即可应用更新。",
+        english ? "Update ready" : "更新已就緒",
+        english ? "Restart now to apply the update." : "重啟後即可應用更新。",
         [
           {
-            text: english ? "Later" : "稍后",
+            text: english ? "Later" : "稍後",
             style: "cancel",
           },
           {
-            text: english ? "Restart" : "立即重启",
+            text: english ? "Restart" : "立即重啟",
             onPress: () => {
               void Updates.reloadAsync();
             },
@@ -347,10 +347,10 @@ export const MobileUpdateProvider = ({ children }: { children: ReactNode }) => {
     } catch {
       setStatus("available");
       Alert.alert(
-        english ? "Update failed" : "更新失败",
+        english ? "Update failed" : "更新失敗",
         english
           ? "Could not download the in-app update. Try again later."
-          : "无法下载应用内更新，请稍后再试。"
+          : "無法下載應用內更新，請稍後再試。"
       );
     }
   }, [completePlayUpdate, english, installRelease, isSupported, openInstallUpdateOptions, playUpdate, status, updateKind]);

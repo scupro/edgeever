@@ -138,7 +138,7 @@
     if (!desc) return;
     const control = [...desc.querySelectorAll("button, span, div")].find((node) => {
       const text = (node.textContent || "").replace(/\s+/g, "");
-      return text === "展开" || text === "展开全文";
+      return text === "展開" || text === "展開全文";
     });
     if (!control) return;
     (control as HTMLElement).click();

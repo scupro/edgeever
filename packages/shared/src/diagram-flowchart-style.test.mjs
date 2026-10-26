@@ -108,13 +108,13 @@ describe("flowchart semantic paint", () => {
 
 describe("flowchart node presentation", () => {
   test("keeps short decision questions on one line", () => {
-    const presentation = flowchartNodePresentation("decision", "是结束标记EOS？");
-    expect(presentation.text.split("\n")).toEqual(["是结束标记EOS？"]);
+    const presentation = flowchartNodePresentation("decision", "是結束標記EOS？");
+    expect(presentation.text.split("\n")).toEqual(["是結束標記EOS？"]);
     expect(presentation.height).toBeLessThanOrEqual(80);
   });
 
   test("preserves every character while wrapping long process labels", () => {
-    const label = "Transformer 前向计算\n因果注意力＋前馈网络以及更长的说明文字";
+    const label = "Transformer 前向計算\n因果注意力＋前饋網路以及更長的說明文字";
     const presentation = flowchartNodePresentation("process", label);
     expect(presentation.text.replaceAll("\n", "")).toBe(label.replaceAll("\n", ""));
     expect(presentation.width).toBe(176);
@@ -122,7 +122,7 @@ describe("flowchart node presentation", () => {
 
   test("keeps every process node the same width regardless of label length", () => {
     const short = flowchartNodePresentation("process", "短");
-    const long = flowchartNodePresentation("process", "Transformer 前向计算\n因果注意力＋前馈网络");
+    const long = flowchartNodePresentation("process", "Transformer 前向計算\n因果注意力＋前饋網路");
     expect(short.width).toBe(long.width);
     expect(short.width).toBe(176);
   });

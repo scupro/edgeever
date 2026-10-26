@@ -29,7 +29,7 @@ enum MemoCreateCommit {
         expectedContentHash: String?,
         notebookId: String,
         title: String,
-        untitledTitle: String = "无标题笔记",
+        untitledTitle: String = "無標題筆記",
         contentMarkdown: String,
         contentJSON: String?,
         tags: [String],
@@ -39,7 +39,7 @@ enum MemoCreateCommit {
         now: String = EdgeEverDate.nowString()
     ) throws -> Outcome {
         guard !notebookId.isEmpty else {
-            throw APIError(status: 400, code: nil, message: "请选择笔记本")
+            throw APIError(status: 400, code: nil, message: "請選擇筆記本")
         }
         let displayTitle = title.isEmpty ? untitledTitle : title
 

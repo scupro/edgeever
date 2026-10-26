@@ -20,7 +20,7 @@ test("all 23 catalog fonts are available to sharing, body settings and posters w
     expect(POSTER_FONTS.filter(entry => entry.family === font.posterFamily)).toHaveLength(1);
     expect(findCatalogFont(font.posterFamily)).toBe(id);
     expect(findCatalogFont(font.family)).toBe(id);
-    const document = createPosterDocument("字体目录");
+    const document = createPosterDocument("字型目錄");
     const text = document.elements.find(element => element.type === "text");
     text.fontFamily = font.posterFamily;
     expect(parsePosterDocument(serializePosterDocument(document))).toEqual(document);

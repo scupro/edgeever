@@ -7,7 +7,7 @@ const imageNodeSource = readSource("../apps/web/src/components/editor/ResizableI
 const imageViewerSource = readSource("../apps/web/src/components/editor/ImageViewer.tsx");
 const editorSource = readSource("../apps/web/src/components/EditorPane.tsx");
 const englishSource = readSource("../packages/shared/src/i18n/en-US.ts");
-const chineseSource = readSource("../packages/shared/src/i18n/zh-CN.ts");
+const chineseSource = readSource("../packages/shared/src/i18n/zh-TW.ts");
 
 describe("web note image preview", () => {
   test("opens the same preview flow from double-click and an accessible button", () => {

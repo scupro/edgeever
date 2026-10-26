@@ -104,9 +104,9 @@ struct ResourceActionSheet: View {
     @State private var pending = false
     @State private var error: String?
     @State private var showDeleteConfirm = false
-    /// Share sheet (系统分享)
+    /// Share sheet (系統分享)
     @State private var shareFile: ExportFile?
-    /// Files export picker (下载 / 存储到「文件」)
+    /// Files export picker (下載 / 儲存到「檔案」)
     @State private var exportFile: ExportFile?
     @State private var feedback: ActionFeedback?
 
@@ -128,31 +128,31 @@ struct ResourceActionSheet: View {
 
     private var actionsTitle: String {
         target.kind == .image
-            ? env.preferences.t("图片操作", en: "Image actions", pl: "Działania na obrazie")
+            ? env.preferences.t("圖片操作", en: "Image actions", pl: "Działania na obrazie")
             : env.preferences.t("附件操作", en: "Attachment actions", pl: "Działania na załączniku")
     }
 
     private var renameTitle: String {
         target.kind == .image
-            ? env.preferences.t("重命名图片", en: "Rename image", pl: "Zmień nazwę obrazu")
-            : env.preferences.t("重命名附件", en: "Rename attachment", pl: "Zmień nazwę załącznika")
+            ? env.preferences.t("重新命名圖片", en: "Rename image", pl: "Zmień nazwę obrazu")
+            : env.preferences.t("重新命名附件", en: "Rename attachment", pl: "Zmień nazwę załącznika")
     }
 
     private var deleteTitle: String {
         target.kind == .image
-            ? env.preferences.t("删除图片", en: "Delete image", pl: "Usuń obraz")
-            : env.preferences.t("删除附件", en: "Delete attachment", pl: "Usuń załącznik")
+            ? env.preferences.t("刪除圖片", en: "Delete image", pl: "Usuń obraz")
+            : env.preferences.t("刪除附件", en: "Delete attachment", pl: "Usuń załącznik")
     }
 
     private var deleteConfirm: String {
         target.kind == .image
             ? env.preferences.t(
-                "图片会从存储空间和当前笔记中永久删除，此操作无法撤销。",
+                "圖片會從儲存空間和當前筆記中永久刪除，此操作無法撤銷。",
                 en: "The image will be permanently removed from storage and this note. This cannot be undone.",
                 pl: "Obraz zostanie trwale usunięty z magazynu i z tej notatki. Tej operacji nie można cofnąć."
             )
             : env.preferences.t(
-                "附件会从存储空间和当前笔记中永久删除，此操作无法撤销。",
+                "附件會從儲存空間和當前筆記中永久刪除，此操作無法撤銷。",
                 en: "The attachment will be permanently removed from storage and this note. This cannot be undone.",
                 pl: "Załącznik zostanie trwale usunięty z magazynu i z tej notatki. Tej operacji nie można cofnąć."
             )
@@ -202,7 +202,7 @@ struct ResourceActionSheet: View {
                 HStack(spacing: 8) {
                     ProgressView()
                         .controlSize(.small)
-                    Text(env.preferences.t("正在准备文件…", en: "Preparing file…", pl: "Przygotowywanie pliku…"))
+                    Text(env.preferences.t("正在準備檔案…", en: "Preparing file…", pl: "Przygotowywanie pliku…"))
                         .font(.system(size: 13))
                         .foregroundStyle(AppTheme.secondary)
                     Spacer()
@@ -223,7 +223,7 @@ struct ResourceActionSheet: View {
         .background(AppTheme.card)
         .onAppear { filename = target.filename }
         .confirmationDialog(deleteTitle, isPresented: $showDeleteConfirm, titleVisibility: .visible) {
-            Button(env.preferences.t("删除", en: "Delete", pl: "Usuń"), role: .destructive) {
+            Button(env.preferences.t("刪除", en: "Delete", pl: "Usuń"), role: .destructive) {
                 Task { await runDelete() }
             }
             Button(env.preferences.t("取消", en: "Cancel", pl: "Anuluj"), role: .cancel) {}
@@ -235,7 +235,7 @@ struct ResourceActionSheet: View {
                 shareFile = nil
                 if let activityError {
                     feedback = ActionFeedback(
-                        title: env.preferences.t("分享失败", en: "Share failed", pl: "Nie udało się udostępnić"),
+                        title: env.preferences.t("分享失敗", en: "Share failed", pl: "Nie udało się udostępnić"),
                         message: activityError.localizedDescription
                     )
                     return
@@ -245,7 +245,7 @@ struct ResourceActionSheet: View {
                     feedback = ActionFeedback(
                         title: env.preferences.t("已完成", en: "Done", pl: "Gotowe"),
                         message: env.preferences.t(
-                            "已通过系统分享面板处理：\(target.filename)",
+                            "已透過系統分享面板處理：\(target.filename)",
                             en: "Shared via system sheet: \(target.filename)",
                             pl: "Udostępniono przez arkusz systemowy: \(target.filename)"
                         )
@@ -261,9 +261,9 @@ struct ResourceActionSheet: View {
                 case .success(let saved):
                     if saved {
                         feedback = ActionFeedback(
-                            title: env.preferences.t("下载成功", en: "Downloaded", pl: "Pobrano"),
+                            title: env.preferences.t("下載成功", en: "Downloaded", pl: "Pobrano"),
                             message: env.preferences.t(
-                                "已保存：\(target.filename)",
+                                "已儲存：\(target.filename)",
                                 en: "Saved \(target.filename)",
                                 pl: "Zapisano \(target.filename)"
                             )
@@ -272,7 +272,7 @@ struct ResourceActionSheet: View {
                     // cancelled → no toast (matches Android SAF cancel)
                 case .failure(let err):
                     feedback = ActionFeedback(
-                        title: env.preferences.t("无法下载", en: "Unable to download", pl: "Nie można pobrać"),
+                        title: env.preferences.t("無法下載", en: "Unable to download", pl: "Nie można pobrać"),
                         message: err.localizedDescription
                     )
                 }
@@ -301,7 +301,7 @@ struct ResourceActionSheet: View {
             }
             actionRow(
                 systemImage: "arrow.down.circle",
-                label: env.preferences.t("下载", en: "Download", pl: "Pobierz"),
+                label: env.preferences.t("下載", en: "Download", pl: "Pobierz"),
                 danger: false,
                 disabled: false
             ) {
@@ -309,7 +309,7 @@ struct ResourceActionSheet: View {
             }
             actionRow(
                 systemImage: "pencil",
-                label: env.preferences.t("重命名", en: "Rename", pl: "Zmień nazwę"),
+                label: env.preferences.t("重新命名", en: "Rename", pl: "Zmień nazwę"),
                 danger: false,
                 disabled: !canMutate
             ) {
@@ -321,7 +321,7 @@ struct ResourceActionSheet: View {
                 .padding(.vertical, 4)
             actionRow(
                 systemImage: "trash",
-                label: env.preferences.t("删除", en: "Delete", pl: "Usuń"),
+                label: env.preferences.t("刪除", en: "Delete", pl: "Usuń"),
                 danger: true,
                 disabled: !canMutate
             ) {
@@ -329,7 +329,7 @@ struct ResourceActionSheet: View {
             }
             if !canMutate {
                 Text(env.preferences.t(
-                    "资源同步完成后才能重命名或删除。",
+                    "資源同步完成後才能重新命名或刪除。",
                     en: "Rename and delete are available after the resource has synced.",
                     pl: "Zmiana nazwy i usuwanie będą dostępne po zsynchronizowaniu zasobu."
                 ))
@@ -344,7 +344,7 @@ struct ResourceActionSheet: View {
 
     private var renameBody: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text(env.preferences.t("文件名", en: "Filename", pl: "Nazwa pliku"))
+            Text(env.preferences.t("檔名", en: "Filename", pl: "Nazwa pliku"))
                 .font(.system(size: 13, weight: .semibold))
                 .foregroundStyle(AppTheme.slate)
             TextField("", text: $filename)
@@ -382,7 +382,7 @@ struct ResourceActionSheet: View {
                         if pending {
                             ProgressView().tint(.white)
                         } else {
-                            Text(env.preferences.t("保存", en: "Save", pl: "Zapisz"))
+                            Text(env.preferences.t("儲存", en: "Save", pl: "Zapisz"))
                                 .font(.system(size: 14, weight: .bold))
                                 .foregroundStyle(.white)
                         }
@@ -441,7 +441,7 @@ struct ResourceActionSheet: View {
             // Keep menu open and surface the error (network / 401 / missing session).
             self.error = error.localizedDescription
             feedback = ActionFeedback(
-                title: env.preferences.t("分享失败", en: "Share failed", pl: "Nie udało się udostępnić"),
+                title: env.preferences.t("分享失敗", en: "Share failed", pl: "Nie udało się udostępnić"),
                 message: error.localizedDescription
             )
         }
@@ -458,7 +458,7 @@ struct ResourceActionSheet: View {
         } catch {
             self.error = error.localizedDescription
             feedback = ActionFeedback(
-                title: env.preferences.t("无法下载", en: "Unable to download", pl: "Nie można pobrać"),
+                title: env.preferences.t("無法下載", en: "Unable to download", pl: "Nie można pobrać"),
                 message: error.localizedDescription
             )
         }
@@ -580,7 +580,7 @@ struct ResourceImagePreviewHost: View {
                         Image(systemName: "photo")
                             .font(.system(size: 36, weight: .light))
                             .foregroundStyle(.white.opacity(0.45))
-                        Text(failedMessage ?? (alt.isEmpty ? "无法加载图片" : alt))
+                        Text(failedMessage ?? (alt.isEmpty ? "無法載入圖片" : alt))
                             .font(.system(size: 14, weight: .medium))
                             .foregroundStyle(.white.opacity(0.75))
                             .multilineTextAlignment(.center)
@@ -635,7 +635,7 @@ struct ResourceImagePreviewHost: View {
         let trimmed = source.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else {
             failed = true
-            failedMessage = "无效图片"
+            failedMessage = "無效圖片"
             return
         }
 
@@ -681,7 +681,7 @@ struct ResourceImagePreviewHost: View {
         }
 
         failed = true
-        failedMessage = "无法加载图片"
+        failedMessage = "無法載入圖片"
     }
 
     private func applyResolvedDisplay(_ display: String) {
@@ -699,7 +699,7 @@ struct ResourceImagePreviewHost: View {
             return
         }
         failed = true
-        failedMessage = "无法显示图片"
+        failedMessage = "無法顯示圖片"
     }
 
     private func applyImageBytes(_ data: Data, mime: String) {
@@ -752,8 +752,8 @@ private enum ResourceActionError: LocalizedError {
     case emptyFile
     var errorDescription: String? {
         switch self {
-        case .noSession: return "当前无法读取资源，请检查是否已登录实例。"
-        case .emptyFile: return "资源内容为空。"
+        case .noSession: return "當前無法讀取資源，請檢查是否已登入實例。"
+        case .emptyFile: return "資源內容為空。"
         }
     }
 }

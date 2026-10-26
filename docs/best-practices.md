@@ -53,7 +53,7 @@ EdgeEver features a classic three-pane structure (Notebook Tree · Note Stream �
 
 ### 2. WeChat Chat History Archiving
 
-Select messages in WeChat, tap "Combine and Forward" (合并转发), and choose **EdgeEver** under "Forward to Other Apps" to convert conversations into structured notes.
+Select messages in WeChat, tap "Combine and Forward" (合併轉發), and choose **EdgeEver** under "Forward to Other Apps" to convert conversations into structured notes.
 
 - **Format Parsing**: Parses senders, timestamps, emojis, and links into clean layouts.
 - **Media Preservation**: Images are embedded inline; documents and media files (`.xlsx`, `.pdf`, `.mp4`) are saved as attachments with full-text search support.
@@ -66,7 +66,7 @@ Select messages in WeChat, tap "Combine and Forward" (合并转发), and choose 
 
 ### 3. WeChat Article Clipping on Mobile
 
-When reading WeChat Official Account articles on mobile, select **"Open in EdgeEver"** (用 EdgeEver 打开) from the top-right menu.
+When reading WeChat Official Account articles on mobile, select **"Open in EdgeEver"** (用 EdgeEver 開啟) from the top-right menu.
 
 - Automatically extracts the title, body structure, and embedded images into clean Markdown.
 
@@ -244,7 +244,7 @@ Click **"Create Poster"** in any note's action menu (or via "New → Poster") to
 
 ### 17. Copying Notes to WeChat Official Account & Blogs
 
-Select **"Copy to Official Account / Blog"** (复制到公众号 / 博客) from the note menu to convert notes into rich text with inline CSS.
+Select **"Copy to Official Account / Blog"** (複製到公眾號 / 部落格) from the note menu to convert notes into rich text with inline CSS.
 
 - Paste directly into the WeChat Official Account editor while preserving tables, callouts, code blocks, lists, and typography styles.
 

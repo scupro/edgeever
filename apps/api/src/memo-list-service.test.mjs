@@ -92,7 +92,7 @@ describe("memo list service", () => {
   });
 
   test("paginates title Z-A by reverse title and keeps the update-time tie break", async () => {
-    const titleExpression = "LOWER(COALESCE(NULLIF(m.title, ''), '无标题笔记'))";
+    const titleExpression = "LOWER(COALESCE(NULLIF(m.title, ''), '無標題筆記'))";
     const firstDatabase = createDatabase({
       rows: [memoRow("memo_1", { title: "Zulu" }), memoRow("memo_2", { title: "Alpha" })],
       totalCount: 2,

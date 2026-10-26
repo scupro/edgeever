@@ -2,7 +2,7 @@
 
 Paste into App Store Connect → App Information / version localization → Japanese (`ja`).
 Do not submit this locale through `bun run publish:stores`. Fastlane only uploads
-English and Simplified Chinese "What's New" during binary review.
+English and Traditional Chinese "What's New" during binary review.
 
 ## App information
 

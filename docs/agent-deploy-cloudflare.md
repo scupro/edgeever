@@ -13,7 +13,7 @@ This document defines the standard operating specifications and conventions for 
 
 2. **Create Cloudflare Resources**
    - Create a D1 database named exactly `edgeever`.
-   - Create an R2 bucket named exactly `edgeever-resources`.
+   - Prepare an S3-compatible object storage bucket (Backblaze B2, Tencent COS, Alibaba OSS, MinIO, Wasabi, ...) and record its endpoint, region, bucket name and credentials.
 
 3. **Cloudflare Project Import**
    - In Cloudflare **Workers & Pages**, create a Worker named `edgeever` by importing the Fork repository. Select the repository root and production branch `main`.
@@ -23,8 +23,8 @@ This document defines the standard operating specifications and conventions for 
 4. **Configure Login Credentials & Instance Settings**
    - **Worker Secret**: After the Worker exists, add the runtime Secret `EDGE_EVER_AUTH_PASSWORD` for the initial administrator password. Prefer a strong password of at least 32 characters.
    - Keep this password only as a Worker runtime Secret; do not copy it into Workers Builds variables. The standard deploy entrypoint reuses and verifies the existing Secret.
-   - Do not edit `wrangler.toml` or add duplicate bindings in the Dashboard. The deployment command generates the `DB` and `RESOURCES` bindings from these standard resource names.
-   - For an existing Worker deployed from older instructions, do not ask the user to rename or reconfigure a custom R2 bucket. With no explicit override, deployment automatically preserves the live `RESOURCES` binding and administrator username.
+   - Do not edit `wrangler.toml` or add duplicate bindings in the Dashboard. The deployment command generates the `DB` binding from these standard resource names.
+   - For an existing Worker deployed from older instructions, do not ask the user to rename the administrator account. With no explicit override, deployment automatically preserves the live administrator username; object storage is always configured through the `EDGE_EVER_S3_*` deployment variables.
 
 5. **Check Workers Builds Settings**
    - Keep the repository root, `main` branch, and default Deploy command `npx wrangler deploy` in Cloudflare's build settings. Existing deployments that already use the explicit `bun run build:cloudflare` and `bun run deploy:cloudflare-builds` commands there may keep them.

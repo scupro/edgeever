@@ -21,6 +21,13 @@ const createDatabase = (options: { userId?: string; error?: Error } = {}) =>
     },
   }) as unknown as D1Database;
 
+const objectStorageEnvironment = {
+  EDGE_EVER_S3_ENDPOINT: "https://s3.example.invalid",
+  EDGE_EVER_S3_BUCKET: "edgeever-resources",
+  EDGE_EVER_S3_ACCESS_KEY_ID: "test-key",
+  EDGE_EVER_S3_SECRET_ACCESS_KEY: "test-secret",
+};
+
 const fetchApi = (path: string, env: Record<string, unknown>) =>
   worker.fetch(
     new Request(`https://edgeever.test${path}`),
@@ -53,7 +60,7 @@ describe("production authentication guard", () => {
     });
   });
 
-  test("reports a missing R2 binding as object_storage_not_ready", async () => {
+  test("reports missing object storage as object_storage_not_ready", async () => {
     const response = await fetchApi("/api/health", {
       DB: createDatabase({ userId: "owner" }),
       EDGE_EVER_AUTH_PASSWORD: "configured-secret",
@@ -63,7 +70,7 @@ describe("production authentication guard", () => {
     expect(await response.json()).toEqual({
       error: {
         code: "object_storage_not_ready",
-        message: "Object storage is not configured. Bind RESOURCES and redeploy.",
+        message: "Object storage is not configured. Set the EDGE_EVER_S3_* deployment variables and redeploy.",
       },
     });
   });
@@ -71,7 +78,7 @@ describe("production authentication guard", () => {
   test("reports healthy only when D1, authentication, and object storage are ready", async () => {
     const response = await fetchApi("/api/health", {
       DB: createDatabase({ userId: "owner" }),
-      RESOURCES: {},
+      ...objectStorageEnvironment,
       EDGE_EVER_AUTH_PASSWORD: "configured-secret",
     });
 
@@ -81,7 +88,7 @@ describe("production authentication guard", () => {
       build: expect.any(String),
       deployment: { trigger: "unknown", method: "unknown" },
       migration: "0035",
-      storage: { database: "d1", resources: "r2" },
+      storage: { database: "d1", resources: "s3" },
       objectStorageProvider: "s3",
     });
   });
@@ -89,7 +96,7 @@ describe("production authentication guard", () => {
   test("reports deployment metadata supplied by the running instance", async () => {
     const response = await fetchApi("/api/health", {
       DB: createDatabase({ userId: "owner" }),
-      RESOURCES: {},
+      ...objectStorageEnvironment,
       EDGE_EVER_AUTH_PASSWORD: "configured-secret",
       EDGE_EVER_DEPLOYMENT_TRIGGER: "github_release",
       EDGE_EVER_DEPLOYMENT_METHOD: "github_actions",
@@ -104,7 +111,7 @@ describe("production authentication guard", () => {
   test("keeps Cloudflare health free of image build metadata", async () => {
     const response = await fetchApi("/api/health", {
       DB: createDatabase({ userId: "owner" }),
-      RESOURCES: {},
+      ...objectStorageEnvironment,
       EDGE_EVER_AUTH_PASSWORD: "configured-secret",
       EDGE_EVER_BUILD_CREATED_AT: "2026-01-02T03:04:05Z",
       EDGE_EVER_BUILD_TRIGGER: "main_push",
@@ -122,7 +129,7 @@ describe("production authentication guard", () => {
   test("reports self-hosted image build metadata separately from deployment metadata", async () => {
     const response = await fetchApi("/api/health", {
       DB: createDatabase({ userId: "owner" }),
-      RESOURCES: {},
+      ...objectStorageEnvironment,
       EDGE_EVER_AUTH_PASSWORD: "configured-secret",
       EDGE_EVER_RUNTIME: "self-hosted-bun",
       EDGE_EVER_BUILD_CREATED_AT: "2026-01-02T03:04:05Z",
@@ -147,7 +154,7 @@ describe("production authentication guard", () => {
     for (const path of ["/api/public/shares/not-a-token", "/api/public/notebook-shares/not-a-token", "/api/public/forms/not-a-token"]) {
       const response = await fetchApi(path, {
         DB: createDatabase({ userId: "owner" }),
-        RESOURCES: {},
+        ...objectStorageEnvironment,
         EDGE_EVER_AUTH_PASSWORD: "configured-secret",
       });
 

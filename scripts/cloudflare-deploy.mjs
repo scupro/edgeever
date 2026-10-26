@@ -208,21 +208,31 @@ const ensureD1 = (values) => {
   return true;
 };
 
-const ensureR2 = (values, name) => {
-  const bucketName = envValue(name, values);
-  if (!bucketName) {
-    return name === "R2_PREVIEW_BUCKET_NAME" || check(`${name}`, false, "missing bucket name");
+const ensureObjectStorage = (values) => {
+  const endpoint = envValue("S3_ENDPOINT", values);
+  const bucket = envValue("S3_BUCKET", values);
+  const accessKeyId = envValue("S3_ACCESS_KEY_ID", values);
+  const secretAccessKey = envValue("S3_SECRET_ACCESS_KEY", values);
+
+  const missing = [
+    ["EDGE_EVER_S3_ENDPOINT", endpoint],
+    ["EDGE_EVER_S3_BUCKET", bucket],
+    ["EDGE_EVER_S3_ACCESS_KEY_ID", accessKeyId],
+    ["EDGE_EVER_S3_SECRET_ACCESS_KEY", secretAccessKey],
+  ]
+    .filter(([, value]) => !value)
+    .map(([name]) => name);
+
+  if (missing.length > 0) {
+    return check(
+      "object storage",
+      false,
+      `missing ${missing.join(", ")} (any S3-compatible service works: Backblaze B2, Tencent COS, Alibaba OSS, MinIO, ...)`,
+    );
   }
 
-  const result = runWrangler(["r2", "bucket", "create", bucketName]);
-  const output = `${result.stdout}\n${result.stderr}`.trim();
-  if (result.status === 0 || /already exists|binding already exists|bucket.+exists/i.test(output)) {
-    console.log(`[ok] R2 bucket ${bucketName}`);
-    return true;
-  }
-
-  console.error(output);
-  return check(`create R2 bucket ${bucketName}`, false);
+  console.log(`[ok] object storage ${bucket} at ${endpoint}`);
+  return true;
 };
 
 const ensureAuthPassword = (values) => {
@@ -277,7 +287,18 @@ const doctor = () => {
     ) && passed;
 
   passed =
-    check("R2 bucket name", Boolean(envValue("R2_BUCKET_NAME", values)), envValue("R2_BUCKET_NAME", values) || "missing") &&
+    check(
+      "object storage",
+      Boolean(
+        envValue("S3_ENDPOINT", values)
+        && envValue("S3_BUCKET", values)
+        && envValue("S3_ACCESS_KEY_ID", values)
+        && envValue("S3_SECRET_ACCESS_KEY", values),
+      ),
+      envValue("S3_BUCKET", values)
+        ? `${envValue("S3_ENDPOINT", values) || "missing endpoint"}/${envValue("S3_BUCKET", values)}`
+        : "missing EDGE_EVER_S3_* object storage settings",
+    ) &&
     passed;
 
   const demoMode = envValue("DEMO_MODE", values).toLowerCase();
@@ -339,8 +360,7 @@ const setup = () => {
   }
 
   passed = ensureD1(values) && passed;
-  passed = ensureR2(values, "R2_BUCKET_NAME") && passed;
-  passed = ensureR2(values, "R2_PREVIEW_BUCKET_NAME") && passed;
+  passed = ensureObjectStorage(values) && passed;
   passed = ensureAuthPassword(values) && passed;
 
   process.exit(passed ? 0 : 1);

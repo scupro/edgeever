@@ -1,8 +1,8 @@
 import { expect, test, type Page } from "@playwright/test";
 
 const openMemo = async (page: Page, memoId: string, title: string) => {
-  await page.getByRole("button", { name: "全部笔记", exact: true }).click();
-  await page.getByPlaceholder("搜索笔记").fill(title);
+  await page.getByRole("button", { name: "全部筆記", exact: true }).click();
+  await page.getByPlaceholder("搜尋筆記").fill(title);
   await page.locator(`[data-memo-id="${memoId}"]`).locator("button").first().click();
 };
 
@@ -45,12 +45,12 @@ test("preserves the current draft and recovers after IndexedDB is interrupted", 
 
     await deleteLocalDatabase(page);
 
-    const storageAlert = page.getByRole("alert").filter({ hasText: "浏览器本地存储无响应" });
+    const storageAlert = page.getByRole("alert").filter({ hasText: "瀏覽器本機儲存無響應" });
     await expect(storageAlert).toBeVisible();
-    await expect(page.getByText("保存中", { exact: true })).toHaveCount(0);
+    await expect(page.getByText("儲存中", { exact: true })).toHaveCount(0);
     await expect.poll(() => readEmergencyDraft(page, memoId)).toContain(marker);
 
-    await storageAlert.getByRole("button", { name: "重试保存", exact: true }).click();
+    await storageAlert.getByRole("button", { name: "重試儲存", exact: true }).click();
     await expect(storageAlert).toHaveCount(0);
     await expect.poll(() => readEmergencyDraft(page, memoId)).toBeNull();
 

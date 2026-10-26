@@ -14,8 +14,8 @@ const exePath = "C:\\Users\\Example\\AppData\\Local\\Programs\\EdgeEver\\EdgeEve
 
 describe("Windows share menu", () => {
   test("names the verb in the desktop locale", () => {
-    expect(windowsShareMenuLabel("zh-CN")).toBe("发送到 EdgeEver");
-    expect(windowsShareMenuLabel("zh-TW")).toBe("发送到 EdgeEver");
+    expect(windowsShareMenuLabel("zh-TW")).toBe("傳送到 EdgeEver");
+    expect(windowsShareMenuLabel("zh-TW")).toBe("傳送到 EdgeEver");
     expect(windowsShareMenuLabel("ja-JP")).toBe("EdgeEver に送る");
     expect(windowsShareMenuLabel("en-US")).toBe("Send to EdgeEver");
   });
@@ -37,7 +37,7 @@ describe("Windows share menu", () => {
       platform: "win32",
       packaged: true,
       exePath,
-      locale: "zh-CN",
+      locale: "zh-TW",
       regPath: "C:\\Windows\\System32\\reg.exe",
       execFile: (command, args, _options, callback) => {
         calls.push({ command, args });
@@ -46,7 +46,7 @@ describe("Windows share menu", () => {
     });
     expect(result).toEqual({ registered: true });
     expect(calls.map((call) => call.command)).toEqual(Array(4).fill("C:\\Windows\\System32\\reg.exe"));
-    expect(calls.map((call) => call.args)).toEqual(windowsShareMenuCommands(exePath, "zh-CN"));
+    expect(calls.map((call) => call.args)).toEqual(windowsShareMenuCommands(exePath, "zh-TW"));
     expect(calls[2].args).toContain("Document");
     expect(calls[3].args.at(-2)).toBe(`"${exePath}" --share-file "%1"`);
   });
@@ -57,14 +57,14 @@ describe("Windows share menu", () => {
       platform: "darwin",
       packaged: true,
       exePath,
-      locale: "zh-CN",
+      locale: "zh-TW",
       execFile,
     })).toEqual({ registered: false });
     expect(await registerWindowsShareMenu({
       platform: "win32",
       packaged: false,
       exePath,
-      locale: "zh-CN",
+      locale: "zh-TW",
       execFile,
     })).toEqual({ registered: false });
   });

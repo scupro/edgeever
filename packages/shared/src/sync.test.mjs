@@ -101,8 +101,8 @@ describe("shared sync queue contract", () => {
       remoteProducedLocally: false,
     })).toBe("ack");
     expect(memoUpdatePayloadMatchesRemote(
-      { title: "", tags: [], contentMarkdown: "我们和客户签合同包含了几期。", contentJson: { type: "doc" } },
-      { title: "无标题笔记", tags: [], contentMarkdown: "我们和客户签合同包含了几期。", contentJson: { type: "doc" } },
+      { title: "", tags: [], contentMarkdown: "我們和客戶籤合同包含了幾期。", contentJson: { type: "doc" } },
+      { title: "無標題筆記", tags: [], contentMarkdown: "我們和客戶籤合同包含了幾期。", contentJson: { type: "doc" } },
     )).toBe(true);
   });
 
@@ -126,8 +126,8 @@ describe("shared sync queue contract", () => {
       remoteProducedLocally: false,
     })).toBe("conflict");
     expect(memoUpdatePayloadMatchesRemote(
-      { title: "无标题笔记", tags: [], contentMarkdown: "本地草稿", contentJson: { type: "doc", content: [] } },
-      { title: "无标题笔记", tags: [], contentMarkdown: "别人改过", contentJson: { type: "doc", content: [] } },
+      { title: "無標題筆記", tags: [], contentMarkdown: "本機草稿", contentJson: { type: "doc", content: [] } },
+      { title: "無標題筆記", tags: [], contentMarkdown: "別人改過", contentJson: { type: "doc", content: [] } },
     )).toBe(false);
   });
 

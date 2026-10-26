@@ -106,7 +106,7 @@ describe("bundled plugin marketplace", () => {
       settingsUi: "host",
       description: "Live release description",
       locales: {
-        "zh-CN": { description: "实时发行版中文说明" },
+        "zh-TW": { description: "實時發行版中文說明" },
         ja: { description: "ライブリリースの日本語説明" },
       },
       entry: "./main.js",
@@ -150,7 +150,7 @@ describe("bundled plugin marketplace", () => {
     expect(resolved.entries[0]).toMatchObject({
       description: "Live release description",
       locales: {
-        "zh-CN": { description: "实时发行版中文说明" },
+        "zh-TW": { description: "實時發行版中文說明" },
         ja: { description: "ライブリリースの日本語説明" },
       },
     });

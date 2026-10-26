@@ -58,14 +58,14 @@ describe("mobile workspace utilities", () => {
 
   test("formats historical memo details with a year and handles invalid timestamps", () => {
     expect(formatMemoDetailDate("2010-08-30T12:34:00.000Z", "en-US")).toContain("2010");
-    expect(formatMemoDetailDate("not-a-date", "zh-CN")).toBe("");
+    expect(formatMemoDetailDate("not-a-date", "zh-TW")).toBe("");
   });
 
   test("treats explicit locale preferences as the resolved UI locale", () => {
-    expect(getResolvedMobileLocale("zh-CN")).toBe("zh-CN");
+    expect(getResolvedMobileLocale("zh-TW")).toBe("zh-TW");
     expect(getResolvedMobileLocale("en-US")).toBe("en-US");
     expect(getResolvedMobileLocale("pl")).toBe("pl");
-    expect(isEnglishMobileLocale("zh-CN")).toBe(false);
+    expect(isEnglishMobileLocale("zh-TW")).toBe(false);
     expect(isEnglishMobileLocale("en-US")).toBe(true);
   });
 

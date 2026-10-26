@@ -96,7 +96,7 @@ describe("desktop edit context menu", () => {
   });
 
   test("context menu labels are localized for Chinese and Polish", () => {
-    expect(desktopMenuCopy("zh-CN").pasteAsPlainText).toBe("粘贴为纯文本");
+    expect(desktopMenuCopy("zh-TW").pasteAsPlainText).toBe("貼上為純文字");
     expect(desktopMenuCopy("en").pasteAsPlainText).toBe("Paste as Plain Text");
     const pl = desktopMenuCopy("pl-PL");
     expect([pl.cut, pl.copy, pl.paste, pl.pasteAsPlainText, pl.selectAll, pl.addToDictionary, pl.copyLinkAddress]).toEqual([

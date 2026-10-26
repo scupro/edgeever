@@ -7,7 +7,7 @@ const memo = {
   id: "memo_1",
   revision: 1,
   contentHash: "hash",
-  title: "聊天记录_20260922_223222",
+  title: "聊天記錄_20260922_223222",
   tags: [],
   contentMarkdown: "",
 };
@@ -19,17 +19,17 @@ describe("WeChat chat note", () => {
       notebookId: "nb_inbox",
       title: memo.title,
       markdown: [
-        "**鱼** · 2026年9月22日 22:15",
+        "**魚** · 2026年9月22日 22:15",
         "",
-        "![微信图片_1.jpg](edgeever-wechat-media://m1)",
+        "![微信圖片_1.jpg](edgeever-wechat-media://m1)",
         "",
-        "**鱼** · 2026年9月22日 22:20",
+        "**魚** · 2026年9月22日 22:20",
         "",
-        "[附件：微信视频_1.mp4](edgeever-wechat-media://m2)",
+        "[附件：微信影片_1.mp4](edgeever-wechat-media://m2)",
       ].join("\n"),
       media: [
-        { id: "m1", filename: "微信图片_1.jpg", mimeType: "image/jpeg", byteSize: 4 },
-        { id: "m2", filename: "微信视频_1.mp4", mimeType: "video/mp4", byteSize: 4 },
+        { id: "m1", filename: "微信圖片_1.jpg", mimeType: "image/jpeg", byteSize: 4 },
+        { id: "m2", filename: "微信影片_1.mp4", mimeType: "video/mp4", byteSize: 4 },
       ],
       createMemo: async () => ({ memo }),
       readMedia: async (item) => new File([item.id], item.filename, { type: item.mimeType }),
@@ -39,11 +39,11 @@ describe("WeChat chat note", () => {
         return { memo: { ...memo, contentMarkdown: content.contentMarkdown } };
       },
     });
-    expect(result.contentMarkdown).toContain("edgeever-staged://微信图片_1.jpg");
-    expect(result.contentMarkdown).toContain("edgeever-staged://微信视频_1.mp4");
+    expect(result.contentMarkdown).toContain("edgeever-staged://微信圖片_1.jpg");
+    expect(result.contentMarkdown).toContain("edgeever-staged://微信影片_1.mp4");
     expect(result.contentMarkdown).not.toContain("edgeever-wechat-media://");
     const saved = JSON.stringify(updated.contentJson);
-    expect(saved).toContain("edgeever-staged://微信图片_1.jpg");
+    expect(saved).toContain("edgeever-staged://微信圖片_1.jpg");
     expect(saved).toContain(FILE_ATTACHMENT_NODE_TYPE);
     expect(updated.contentJson.content.find((node) => node.type === "image")?.attrs?.width).toBe(
       IMAGE_WIDTH_PRESETS.find((preset) => preset.id === "small").width,
@@ -57,11 +57,11 @@ describe("WeChat chat note", () => {
     const deleted = [];
     await expect(createWeChatChatMemo({
       notebookId: "nb_inbox",
-      title: "聊天记录",
-      markdown: "![图.jpg](edgeever-wechat-media://m1)",
-      media: [{ id: "m1", filename: "图.jpg", mimeType: "image/jpeg", byteSize: 1 }],
+      title: "聊天記錄",
+      markdown: "![圖.jpg](edgeever-wechat-media://m1)",
+      media: [{ id: "m1", filename: "圖.jpg", mimeType: "image/jpeg", byteSize: 1 }],
       createMemo: async () => ({ memo }),
-      readMedia: async () => new File(["x"], "图.jpg", { type: "image/jpeg" }),
+      readMedia: async () => new File(["x"], "圖.jpg", { type: "image/jpeg" }),
       uploadResource: async () => { throw new Error("offline"); },
       updateMemo: async () => { throw new Error("should not update"); },
       deleteMemo: async (id) => { deleted.push(id); },
@@ -73,15 +73,15 @@ describe("WeChat chat note", () => {
     let updated = null;
     await createWeChatChatMemo({
       notebookId: "nb_inbox",
-      title: "多图聊天记录",
+      title: "多圖聊天記錄",
       markdown: [
-        "![图1.jpg](edgeever-wechat-media://m1)",
+        "![圖1.jpg](edgeever-wechat-media://m1)",
         "",
-        "![图2.jpg](edgeever-wechat-media://m2)",
+        "![圖2.jpg](edgeever-wechat-media://m2)",
       ].join("\n"),
       media: [
-        { id: "m1", filename: "图1.jpg", mimeType: "image/jpeg", byteSize: 2 },
-        { id: "m2", filename: "图2.jpg", mimeType: "image/jpeg", byteSize: 2 },
+        { id: "m1", filename: "圖1.jpg", mimeType: "image/jpeg", byteSize: 2 },
+        { id: "m2", filename: "圖2.jpg", mimeType: "image/jpeg", byteSize: 2 },
       ],
       createMemo: async () => ({ memo }),
       readMedia: async (item) => new File(["a"], item.filename, { type: item.mimeType }),

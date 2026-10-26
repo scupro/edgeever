@@ -13,30 +13,30 @@ declare const chrome: any;
 const repositoryRoot = resolve(fileURLToPath(new URL("../..", import.meta.url)));
 const png = Buffer.from("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=", "base64");
 const platforms = [
-  { name: "xueqiu-feed", url: "https://www.xueqiu.com/", title: "$泡泡玛特(09992)$之前我一直在说，投资一定要祛魅，不要神化任何一个所谓的投资大佬。雪球上有个网友跟段永平开了个玩笑，说能不能借他一个亿去买纳指ETF。段永平直接回了一句：你当我弱智啊。就这一句回复，其实就能看出来一个人的格局和胸怀。", text: "把自己的真金白银押在别人的嘴上，早晚是要付出代价的。", excluded: "DETAIL HIDDEN SENTINEL", imageCount: 1, targetUrl: "https://xueqiu.com/2754211668/411841572" },
+  { name: "xueqiu-feed", url: "https://www.xueqiu.com/", title: "$泡泡瑪特(09992)$之前我一直在說，投資一定要祛魅，不要神化任何一個所謂的投資大佬。雪球上有個網友跟段永平開了個玩笑，說能不能借他一個億去買納指ETF。段永平直接回了一句：你當我弱智啊。就這一句回覆，其實就能看出來一個人的格局和胸懷。", text: "把自己的真金白銀押在別人的嘴上，早晚是要付出代價的。", excluded: "DETAIL HIDDEN SENTINEL", imageCount: 1, targetUrl: "https://xueqiu.com/2754211668/411841572" },
   { name: "linkedin-person", url: "https://www.linkedin.com/posts/maddyahmad_softwareengineering-artificialintelligence-share-7456582751698190336-6NVK/", title: "AI isn't coming for software engineers, but it is definitely reshaping what great engineers look like.".slice(0,100), text: "What technology are you focusing on in 2026", excluded: "3 度+", imageCount: 0 },
-  { name: "jike-feed", url: "https://m.okjike.com/topics/63579abb6724cc583b9bba9a", title: "今天和朋友聊了很久，关于 AI 对游戏、影视以及整个内容行业的影响。越聊越觉得，我们现在正站在一个很有意思的历史节点上。聊天内容过长，我已经重新整理，补充部分论证例子，讨论如下：01｜我们正在经历一场被压缩到 1–2 年的“雅达利大崩溃”。", text: "护城河", excluded: "Ambi", imageCount: 1, targetUrl: "https://m.okjike.com/originalPosts/6ace942f756bbb66581c3f96", realCdn: true },
-  { name: "wechat", url: "https://mp.weixin.qq.com/s/TC-ONpL3PGklsD0yhtcuBQ", title: "华为云DeepSeek-R1&V3满血版体验：10分钟让你轻松掌握AI大模型应用技巧！", text: "选择模型进行对话", excluded: "点击上方蓝字", imageCount: 21 },
-  { name: "jike", url: "https://m.okjike.com/originalPosts/66ac89b0314f5cced41012d3", title: "AI 分析了我的即刻动态，给出了这个结论。绝了。@评论尸 提供的 Prompt。", text: "提供的 Prompt", excluded: "热门评论", imageCount: 1 },
-  { name: "jike-grid", url: "https://m.okjike.com/originalPosts/6715e824d9dc81724c2ec74d", title: "又凑了九张赤坎游客照📷", text: "九张赤坎游客照", excluded: "热门评论", imageCount: 9 },
-  { name: "jike-long", url: "https://m.okjike.com/originalPosts/64c9dd9a2edae6abdc610605", title: "我在即刻写东西的核心原则是，怕什么真理无穷，进一步有一步的欢喜。当我每次取得一点点微小的进步，我都会快速地将自己的方法、启发和心得分享出来。这才是即刻涨粉的正道，既有利于你的成长，又有利于平台的发展，互利共赢。希望能激励到更多人分享自己的所", text: "《世界尽头的咖啡馆》和《斯坦福大学人生设计课》", excluded: "热门评论", imageCount: 1 },
-  { name: "sspai", url: "https://sspai.com/post/92653", title: "已经能测夜间体征的 Apple Watch，为什么要再做一个睡眠呼吸暂停提醒", text: "手腕上的「心率检测」靠谱吗", excluded: "作者提示", imageCount: 9 },
-  { name: "juejin", url: "https://juejin.cn/post/6972051526416072717", title: "JavaScript异步发展历史", text: "let readFile", excluded: "复制代码", imageCount: 2 },
-  { name: "douban-book", url: "https://book.douban.com/review/16093028/", title: "行走在文字间，是我与这个世界达成的和解", text: "直到精疲力尽", excluded: "有关键情节透露", imageCount: 6 },
-  { name: "douban-movie", url: "https://movie.douban.com/review/17798662/", title: "假如没有越狱成功，安迪也仍是自由的", text: "To be honest", excluded: "有关键情节透露", imageCount: 2 },
-  { name: "douban-music", url: "https://music.douban.com/review/17855287/", title: "回来击穿他的肚脐眼", text: "Ink乐评", excluded: "有关键情节透露", imageCount: 3 },
-  { name: "douban-note", url: "https://www.douban.com/note/814698224/", title: "雨中小镇", text: "我和我身边的人", excluded: "赞赏", imageCount: 6 },
-  { name: "xiaoyuzhou-hosts", url: "https://www.xiaoyuzhoufm.com/episode/612375e57f89405077cbeb3b", title: "第0期｜教培行业凉了，为什么我们选择开始做教育？", text: "阿丁、毛毛", excluded: "登录/注册", imageCount: 1 },
-  { name: "boss", url: "https://www.zhipin.com/job_detail/0d7e760b0a0e7c3a0nF939S0E1NU.html", title: "AI平台开发工程师", text: "5、熟悉OCR技术", excluded: "立即沟通", imageCount: 0 },
-  { name: "xueqiu", url: "https://xueqiu.com/5636485254/253443400", title: "通威太阳能（组件）盐城基地首车组件顺利发运", text: "及时高效响应全球客户和市场", excluded: "用的陕汽的重卡送货", imageCount: 3 },
+  { name: "jike-feed", url: "https://m.okjike.com/topics/63579abb6724cc583b9bba9a", title: "今天和朋友聊了很久，關於 AI 對遊戲、影視以及整個內容行業的影響。越聊越覺得，我們現在正站在一個很有意思的歷史節點上。聊天內容過長，我已經重新整理，補充部分論證例子，討論如下：01｜我們正在經歷一場被壓縮到 1–2 年的“雅達利大崩潰”。", text: "護城河", excluded: "Ambi", imageCount: 1, targetUrl: "https://m.okjike.com/originalPosts/6ace942f756bbb66581c3f96", realCdn: true },
+  { name: "wechat", url: "https://mp.weixin.qq.com/s/TC-ONpL3PGklsD0yhtcuBQ", title: "華為雲DeepSeek-R1&V3滿血版體驗：10分鐘讓你輕鬆掌握AI大模型應用技巧！", text: "選擇模型進行對話", excluded: "點選上方藍字", imageCount: 21 },
+  { name: "jike", url: "https://m.okjike.com/originalPosts/66ac89b0314f5cced41012d3", title: "AI 分析了我的即刻動態，給出了這個結論。絕了。@評論屍 提供的 Prompt。", text: "提供的 Prompt", excluded: "熱門評論", imageCount: 1 },
+  { name: "jike-grid", url: "https://m.okjike.com/originalPosts/6715e824d9dc81724c2ec74d", title: "又湊了九張赤坎遊客照📷", text: "九張赤坎遊客照", excluded: "熱門評論", imageCount: 9 },
+  { name: "jike-long", url: "https://m.okjike.com/originalPosts/64c9dd9a2edae6abdc610605", title: "我在即刻寫東西的核心原則是，怕什麼真理無窮，進一步有一步的歡喜。當我每次取得一點點微小的進步，我都會快速地將自己的方法、啟發和心得分享出來。這才是即刻漲粉的正道，既有利於你的成長，又有利於平臺的發展，互利共贏。希望能激勵到更多人分享自己的所", text: "《世界盡頭的咖啡館》和《斯坦福大學人生設計課》", excluded: "熱門評論", imageCount: 1 },
+  { name: "sspai", url: "https://sspai.com/post/92653", title: "已經能測夜間體徵的 Apple Watch，為什麼要再做一個睡眠呼吸暫停提醒", text: "手腕上的「心率檢測」靠譜嗎", excluded: "作者提示", imageCount: 9 },
+  { name: "juejin", url: "https://juejin.cn/post/6972051526416072717", title: "JavaScript非同步發展歷史", text: "let readFile", excluded: "複製程式碼", imageCount: 2 },
+  { name: "douban-book", url: "https://book.douban.com/review/16093028/", title: "行走在文字間，是我與這個世界達成的和解", text: "直到精疲力盡", excluded: "有關鍵情節透露", imageCount: 6 },
+  { name: "douban-movie", url: "https://movie.douban.com/review/17798662/", title: "假如沒有越獄成功，安迪也仍是自由的", text: "To be honest", excluded: "有關鍵情節透露", imageCount: 2 },
+  { name: "douban-music", url: "https://music.douban.com/review/17855287/", title: "回來擊穿他的肚臍眼", text: "Ink樂評", excluded: "有關鍵情節透露", imageCount: 3 },
+  { name: "douban-note", url: "https://www.douban.com/note/814698224/", title: "雨中小鎮", text: "我和我身邊的人", excluded: "讚賞", imageCount: 6 },
+  { name: "xiaoyuzhou-hosts", url: "https://www.xiaoyuzhoufm.com/episode/612375e57f89405077cbeb3b", title: "第0期｜教培行業涼了，為什麼我們選擇開始做教育？", text: "阿丁、毛毛", excluded: "登入/註冊", imageCount: 1 },
+  { name: "boss", url: "https://www.zhipin.com/job_detail/0d7e760b0a0e7c3a0nF939S0E1NU.html", title: "AI平臺開發工程師", text: "5、熟悉OCR技術", excluded: "立即溝通", imageCount: 0 },
+  { name: "xueqiu", url: "https://xueqiu.com/5636485254/253443400", title: "通威太陽能（元件）鹽城基地首車元件順利發運", text: "及時高效響應全球客戶和市場", excluded: "用的陝汽的重卡送貨", imageCount: 3 },
   { name: "hacker-news", url: "https://news.ycombinator.com/item?id=40380738", title: "Show HN: I built a LLM-powered Ask HN: like Perplexity, but for HN comments", text: "Ollama on your machine!", excluded: "Matching the HN style", imageCount: 0 },
-  { name: "v2ex", url: "https://www.v2ex.com/t/1000000", title: "程序员如何从公司上班转型", text: "看看大家多久后能来还愿", excluded: "抱歉跑个题", imageCount: 0 },
-  { name: "xiaoyuzhou", url: "https://www.xiaoyuzhoufm.com/episode/62ad4ae5f9b62781ea058a02", title: "025. 快！抓紧时间拖延！", text: "韦礼安", excluded: "宝子姐生日快乐", imageCount: 1 },
+  { name: "v2ex", url: "https://www.v2ex.com/t/1000000", title: "程式設計師如何從公司上班轉型", text: "看看大家多久後能來還願", excluded: "抱歉跑個題", imageCount: 0 },
+  { name: "xiaoyuzhou", url: "https://www.xiaoyuzhoufm.com/episode/62ad4ae5f9b62781ea058a02", title: "025. 快！抓緊時間拖延！", text: "韋禮安", excluded: "寶子姐生日快樂", imageCount: 1 },
   { name: "facebook", url: "https://www.facebook.com/NASA/posts/pfbid0dPToN66CzcAHGMoaNe3jszH4FfBKvqkE5gogCNJkTxXDPsSGYrGvcVwsLgByyMQQl", title: "Brewing up baby stars ⭐NASA's James Webb Space Telescope's unique view reveals many previously hidde", text: "in the red cloud", excluded: "That eight-pronged diffraction pattern", imageCount: 1 },
   { name: "instagram", url: "https://www.instagram.com/p/DeAYvsnn4la/", title: "Swipe for countless stars", text: "Sagittarius B2", excluded: "smallsciencesociety", imageCount: 3 },
   { name: "instagram-slide-captions", url: "https://www.instagram.com/p/DeKe6teEpya/", title: "Warning: These slides may cause existential wonder ✨To celebrate World Space Week, today’s #GoogleDoodle spotlights a never-before-seen photo".slice(0,120), text: "how do astronomers turn raw space data into breathtaking images", excluded: "My first love", imageCount: 20 },
   { name: "threads", url: "https://www.threads.com/@nasa/post/DZceA72Drjf", title: "This is the second week of Moon Joy June, and the prompt is “Moon.” If you’re looking for some inspiration, we have a treat for you: four new and previously unseen images from our Artemis II mission!".slice(0,120), text: "Artemis Art Show topic!", excluded: "chronicxdecay", imageCount: 4 },
-  { name: "threads-short-link", url: "https://www.threads.com/@nasa/post/DeMqtuYgkaL", title: "A LOT of Artemis II data just dropped! 🌖", text: "814GB", excluded: "热门", imageCount: 1 },
+  { name: "threads-short-link", url: "https://www.threads.com/@nasa/post/DeMqtuYgkaL", title: "A LOT of Artemis II data just dropped! 🌖", text: "814GB", excluded: "熱門", imageCount: 1 },
   { name: "substack-note", url: "https://substack.com/@tedgioia/note/c-357811021", title: "Ted Gioia · Substack Note", text: "experienced on a large screen", excluded: "The Honest Broker", imageCount: 1 },
   { name: "substack-article", url: "https://www.oneusefulthing.org/p/the-dot-and-the-swarm", title: "The Dot and the Swarm", text: "very cool pre-order bonus", excluded: "Subscribe", imageCount: 3 },
   { name: "medium-article", url: "https://scottbatson.dev/what-should-programmers-do-while-the-ai-writes-code-a2ce2e6de88e", title: "What Should Programmers Do While the AI Writes Code?", text: "10 times as meaningful", excluded: "Top highlight", imageCount: 2 },
@@ -82,7 +82,7 @@ test("platform clips persist through the extension and local API; archived image
     expect(tokenResponse.status()).toBe(201);
     const { token, apiToken } = await tokenResponse.json(); tokenId = apiToken.id;
     context = await chromium.launchPersistentContext(profile, {
-      channel: "chromium", locale: "zh-CN", timezoneId: "Asia/Shanghai", args: [`--disable-extensions-except=${directory}`, `--load-extension=${directory}`, "--host-resolver-rules=MAP clipper.localhost 127.0.0.1"],
+      channel: "chromium", locale: "zh-TW", timezoneId: "Asia/Shanghai", args: [`--disable-extensions-except=${directory}`, `--load-extension=${directory}`, "--host-resolver-rules=MAP clipper.localhost 127.0.0.1"],
     });
     context.setDefaultTimeout(15_000);
     context.setDefaultNavigationTimeout(15_000);
@@ -138,10 +138,10 @@ test("platform clips persist through the extension and local API; archived image
     const checkBossPopup = async (url: string, needsLogin: boolean) => {
       await activate(url);
       await sender.goto(worker.url().replace(/\/assets\/background\.js$/, '/popup.html'));
-      await expect(sender.locator('#capture-mode')).toHaveText(needsLogin ? '需登录' : '已适配');
+      await expect(sender.locator('#capture-mode')).toHaveText(needsLogin ? '需登入' : '已適配');
       await expect(sender.locator('#capture-context')).toHaveAttribute('data-kind', needsLogin ? 'login-required' : 'adapted');
       if (needsLogin) {
-        await expect(sender.locator('#status')).toContainText('请在网站登录并刷新');
+        await expect(sender.locator('#status')).toContainText('請在網站登入並重新整理');
         await expect(sender.locator('#capture-context .lucide-check')).toHaveCount(0);
         await expect(sender.locator('#save')).toBeEnabled();
         await sender.screenshot({path:'/tmp/edgeever-p2-boss-login-popup.png'});
@@ -188,35 +188,35 @@ test("platform clips persist through the extension and local API; archived image
       expect(memo.contentMarkdown).toContain(platform.text);
       expect(memo.contentMarkdown).not.toContain(platform.excluded);
       if(platform.name === "douban-book") {
-        expect(memo.contentMarkdown).toContain("\n\n在路上，我遇到了瓦尔泽");
-        expect(memo.contentMarkdown).toContain("\n\n有人说，他写的是西方的散文");
+        expect(memo.contentMarkdown).toContain("\n\n在路上，我遇到了瓦爾澤");
+        expect(memo.contentMarkdown).toContain("\n\n有人說，他寫的是西方的散文");
       }
       if(platform.name === "sspai") {
-        expect(memo.contentMarkdown).toContain("> **中国大陆推出睡眠呼吸暂停迹象提示功能**");
-        expect(memo.contentMarkdown).toContain("> 2026 年 10 月 14 日，Apple 在中国大陆正式推出");
+        expect(memo.contentMarkdown).toContain("> **中國大陸推出睡眠呼吸暫停跡象提示功能**");
+        expect(memo.contentMarkdown).toContain("> 2026 年 10 月 14 日，Apple 在中國大陸正式推出");
       }
       if(platform.name === "wechat") {
-        expect(memo.contentMarkdown).toContain("## 什么是Deepseek V3");
-        expect(memo.contentMarkdown).toMatch(/^###\s+第一步：注册华为云账号$/m);
+        expect(memo.contentMarkdown).toContain("## 什麼是Deepseek V3");
+        expect(memo.contentMarkdown).toMatch(/^###\s+第一步：註冊華為雲帳號$/m);
       }
       if (platform.name === "juejin") expect(memo.contentMarkdown).toContain("```javascript\nlet readFile = (path, callBack) => {");
       expect(memo.contentMarkdown).toContain(platform.name === "linkedin" ? "https://www.linkedin.com/feed/update/urn:li:activity:7497764718095323136/"
         : platform.name === "linkedin-person" ? "https://www.linkedin.com/feed/update/urn:li:share:7456582751698190336/" : platform.name.startsWith("linkedin-ugc") ? "https://www.linkedin.com/feed/update/urn:li:ugcPost:7497764716677758977/" : platform.targetUrl || platform.url);
-      expect(memo.contentMarkdown).toMatch(/抓取时间: \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\b/);
+      expect(memo.contentMarkdown).toMatch(/抓取時間: \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\b/);
       if (platform.name === "linkedin-person") {
         expect(memo.contentMarkdown).toContain("作者: Mohammad Ahmed · Technical Lead - Backend at Dizzaract");
-        expect(memo.contentMarkdown).toContain("5 个月前");
+        expect(memo.contentMarkdown).toContain("5 個月前");
       }
       if (platform.name === "boss") {
-        for (const text of ["25-50K·13薪", "深圳 5-10年 本科", "130个国家和地区", "深圳福田区博今国际A座", "五险一金"]) expect(memo.contentMarkdown).toContain(text);
+        for (const text of ["25-50K·13薪", "深圳 5-10年 本科", "130個國家和地區", "深圳福田區博今國際A座", "五險一金"]) expect(memo.contentMarkdown).toContain(text);
       }
       if (platform.name === "xueqiu-feed") {
-        expect(memo.tags).toEqual(expect.arrayContaining(["web-clip","xueqiu","投资","09992","NTES"]));
+        expect(memo.tags).toEqual(expect.arrayContaining(["web-clip","xueqiu","投資","09992","NTES"]));
         await expect(article.locator('iframe[sandbox="allow-same-origin"]')).toHaveCount(0);
         expect(await article.evaluate(()=>document.documentElement.dataset.detailScriptRan)).toBeUndefined();
       }
       if (platform.name === "xueqiu") {
-        expect(memo.tags).toEqual(expect.arrayContaining(["web-clip", "xueqiu", "投资", "SH600438", "SH601012", "SH688472"]));
+        expect(memo.tags).toEqual(expect.arrayContaining(["web-clip", "xueqiu", "投資", "SH600438", "SH601012", "SH688472"]));
         expect(memo.contentMarkdown).toContain("2023-06-17 07:54:12");
       }
       if (platform.name === "medium-article" || platform.name === "substack-article") {
@@ -256,36 +256,36 @@ test("platform clips persist through the extension and local API; archived image
         // A configured built instance must register its actual Service Worker.
         await expect.poll(()=>preview.evaluate(()=>!!navigator.serviceWorker.controller)).toBe(true);
       }
-      await preview.getByRole("button", { name: "全部笔记", exact: true }).click();
-      await preview.getByPlaceholder("搜索笔记").fill(platform.title);
+      await preview.getByRole("button", { name: "全部筆記", exact: true }).click();
+      await preview.getByPlaceholder("搜尋筆記").fill(platform.title);
       await preview.locator(`[data-memo-id="${note!.id}"]`).locator("button").first().click();
       const editor = preview.locator(".ProseMirror");
       await expect(editor).toContainText(platform.text);
       if(platform.name === "douban-book") {
-        await expect(editor.locator("p").filter({hasText:"在路上，我遇到了瓦尔泽"})).toHaveText(/^在路上，我遇到了瓦尔泽/);
-        await expect(editor.locator("p").filter({hasText:"有人说，他写的是西方的散文"})).toHaveText(/^有人说，他写的是西方的散文/);
+        await expect(editor.locator("p").filter({hasText:"在路上，我遇到了瓦爾澤"})).toHaveText(/^在路上，我遇到了瓦爾澤/);
+        await expect(editor.locator("p").filter({hasText:"有人說，他寫的是西方的散文"})).toHaveText(/^有人說，他寫的是西方的散文/);
       }
       if(platform.name === "juejin") {
         const table=editor.locator("table");
         await expect(table).toHaveCount(1);
         await expect(table.locator("tr")).toHaveCount(5);
-        await expect(table.locator("th")).toHaveText(["发展史","优点","缺点"]);
+        await expect(table.locator("th")).toHaveText(["發展史","優點","缺點"]);
         for(const [index,label] of ["callback","promise","generator","async/await"].entries()) {
           await expect(table.locator("tr").nth(index+1).locator("td")).toHaveCount(3);
           await expect(table.locator("tr").nth(index+1).locator("td").first()).toHaveText(label);
         }
-        await expect(table.locator("a")).toHaveText("事件循环");
+        await expect(table.locator("a")).toHaveText("事件迴圈");
       }
       if(platform.name === "sspai") {
-        const update=editor.locator("blockquote").filter({hasText:"中国大陆推出睡眠呼吸暂停迹象提示功能"});
+        const update=editor.locator("blockquote").filter({hasText:"中國大陸推出睡眠呼吸暫停跡象提示功能"});
         await expect(update).toHaveCount(1);
-        await expect(update.locator("strong")).toHaveText("中国大陆推出睡眠呼吸暂停迹象提示功能");
-        await expect(update).toContainText("以下内容于 10:00更新");
-        await expect(update).toContainText("2026 年 10 月 14 日，Apple 在中国大陆正式推出");
+        await expect(update.locator("strong")).toHaveText("中國大陸推出睡眠呼吸暫停跡象提示功能");
+        await expect(update).toContainText("以下內容於 10:00更新");
+        await expect(update).toContainText("2026 年 10 月 14 日，Apple 在中國大陸正式推出");
       }
       if(platform.name === "wechat") {
-        await expect(editor.locator("h2").filter({hasText:"什么是Deepseek V3"})).toHaveCount(1);
-        await expect(editor.locator("h3").filter({hasText:"第一步：注册华为云账号"})).toHaveCount(1);
+        await expect(editor.locator("h2").filter({hasText:"什麼是Deepseek V3"})).toHaveCount(1);
+        await expect(editor.locator("h3").filter({hasText:"第一步：註冊華為雲帳號"})).toHaveCount(1);
       }
       // Code-copy buttons are added by EdgeEver's editor after loading. They
       // are not part of the archived article or its source-site controls.
@@ -295,7 +295,7 @@ test("platform clips persist through the extension and local API; archived image
         return copy.textContent || "";
       });
       expect(articleText).not.toContain(platform.excluded);
-      await expect(editor.locator("p").filter({ hasText: "抓取时间:" })).toContainText(/抓取时间: \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/);
+      await expect(editor.locator("p").filter({ hasText: "抓取時間:" })).toContainText(/抓取時間: \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/);
       if (platform.name === "v2ex") {
         await expect(editor).toContainText("2023-12-13 14:47:02");
         await expect(editor).toContainText("2023-12-14 15:00:40");
@@ -325,7 +325,7 @@ test("platform clips persist through the extension and local API; archived image
         expect(mirrored).toBe(true);
         // Prepare the cached all-notes list online; searching is a separate
         // query lifecycle, while this case verifies reopening a cached note.
-        await preview.getByPlaceholder("搜索笔记").fill("");
+        await preview.getByPlaceholder("搜尋筆記").fill("");
         // The current note list virtualizes rows; verify the two rows needed
         // for switching away and back rather than counting the whole dataset.
         await expect(preview.locator(`[data-memo-id="${note!.id}"]`)).toHaveCount(1);
@@ -340,7 +340,7 @@ test("platform clips persist through the extension and local API; archived image
           await expect(editor).toContainText(platform.text);
           const images=editor.locator("img:not(.ProseMirror-separator)");await expect(images).toHaveCount(platform.imageCount);
           await expect.poll(()=>images.first().evaluate(img=>(img as HTMLImageElement).naturalWidth > 0)).toBe(true);
-          await preview.getByPlaceholder("搜索笔记").fill('6ace942f756bbb66581c3f96');
+          await preview.getByPlaceholder("搜尋筆記").fill('6ace942f756bbb66581c3f96');
           await expect(preview.locator('[data-memo-id]')).toHaveCount(1);
           await preview.locator(`[data-memo-id="${note!.id}"]`).locator("button").first().click();
           await expect(editor).toContainText(platform.text);
@@ -367,9 +367,9 @@ test("platform clips persist through the extension and local API; archived image
     const beforePaywall=(await (await request.get("/api/v1/memos?limit=100")).json()).memos.map((memo:any)=>memo.id);
     await article.goto(currentPlatform.url);await activate(currentPlatform.url);
     await sender.goto(worker.url().replace(/\/assets\/background\.js$/, '/popup.html'));
-    await expect(sender.locator('#capture-mode')).toHaveText('内容受限');
+    await expect(sender.locator('#capture-mode')).toHaveText('內容受限');
     await expect(sender.locator('#capture-context')).toHaveAttribute('data-kind','content-restricted');
-    await expect(sender.locator('#status')).toContainText('受限预览');
+    await expect(sender.locator('#status')).toContainText('受限預覽');
     await sender.screenshot({path:'/tmp/edgeever-p2-substack-restricted-popup.png'});
     expect((await save(currentPlatform.url)).ok).toBe(false);
     expect((await (await request.get("/api/v1/memos?limit=100")).json()).memos.map((memo:any)=>memo.id)).toEqual(beforePaywall);

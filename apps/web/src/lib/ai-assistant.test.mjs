@@ -13,15 +13,15 @@ describe("AI assistant interaction model", () => {
   test("chooses a useful default from the current scope and locale", () => {
     expect(getDefaultAiAction(true)).toBe("improve-writing");
     expect(getDefaultAiAction(false)).toBe("custom");
-    expect(getDefaultTargetLanguage("zh-CN")).toBe("en");
-    expect(getDefaultTargetLanguage("en-US")).toBe("zh-CN");
+    expect(getDefaultTargetLanguage("zh-TW")).toBe("en");
+    expect(getDefaultTargetLanguage("en-US")).toBe("zh-TW");
   });
 
   test("sends the visible instruction with the semantic action key", () => {
     expect(buildAiAssistantRequest({
       action: "make-shorter",
       contentMarkdown: "Long draft",
-      customInstruction: "把内容改写得更简洁。",
+      customInstruction: "把內容改寫得更簡潔。",
       targetLanguage: "en",
       title: "Draft",
       tone: "professional",
@@ -29,19 +29,19 @@ describe("AI assistant interaction model", () => {
       action: "make-shorter",
       title: "Draft",
       contentMarkdown: "Long draft",
-      instruction: "把内容改写得更简洁。",
+      instruction: "把內容改寫得更簡潔。",
     });
     expect(buildAiAssistantRequest({
       action: "translate",
       contentMarkdown: "Hello",
-      customInstruction: "将完整笔记翻译成用户指定的目标语言。",
+      customInstruction: "將完整筆記翻譯成使用者指定的目標語言。",
       targetLanguage: "en",
       title: "Draft",
       tone: "professional",
     })).toMatchObject({
       action: "translate",
       targetLanguage: "en",
-      instruction: "将完整笔记翻译成用户指定的目标语言。",
+      instruction: "將完整筆記翻譯成使用者指定的目標語言。",
     });
   });
 
@@ -53,7 +53,7 @@ describe("AI assistant interaction model", () => {
       locale: "en-US",
       parameterKind: "target-language",
       promptId: "aiprompt_translate_for_clients",
-      targetLanguage: "zh-CN",
+      targetLanguage: "zh-TW",
       title: "Draft",
       tone: "professional",
     })).toEqual({
@@ -62,7 +62,7 @@ describe("AI assistant interaction model", () => {
       locale: "en-US",
       title: "Draft",
       contentMarkdown: "Hello",
-      targetLanguage: "zh-CN",
+      targetLanguage: "zh-TW",
     });
   });
 
@@ -101,48 +101,48 @@ describe("AI assistant interaction model", () => {
 
   test("uses retained composer text as the source only when the note is empty", () => {
     expect(resolveAiAssistantComposerInput({
-      composerText: "写一首诗",
+      composerText: "寫一首詩",
       isFreeformCustom: false,
       noteContentMarkdown: "",
       noteTitle: "",
     })).toEqual({
-      contentMarkdown: "写一首诗",
+      contentMarkdown: "寫一首詩",
       customInstruction: "",
       title: "",
       usesComposerAsSource: true,
     });
     expect(resolveAiAssistantComposerInput({
-      composerText: "写一首诗",
+      composerText: "寫一首詩",
       isFreeformCustom: false,
-      noteContentMarkdown: "整篇笔记不应被翻译",
-      noteTitle: "现有笔记",
+      noteContentMarkdown: "整篇筆記不應被翻譯",
+      noteTitle: "現有筆記",
     })).toEqual({
-      contentMarkdown: "整篇笔记不应被翻译",
+      contentMarkdown: "整篇筆記不應被翻譯",
       customInstruction: "",
-      title: "现有笔记",
+      title: "現有筆記",
       usesComposerAsSource: false,
     });
     expect(resolveAiAssistantComposerInput({
-      composerText: "这段不应覆盖选区",
+      composerText: "這段不應覆蓋選區",
       hasSelection: true,
       isFreeformCustom: false,
-      noteContentMarkdown: "选中的句子",
-      noteTitle: "现有笔记",
+      noteContentMarkdown: "選中的句子",
+      noteTitle: "現有筆記",
     })).toEqual({
-      contentMarkdown: "选中的句子",
+      contentMarkdown: "選中的句子",
       customInstruction: "",
-      title: "现有笔记",
+      title: "現有筆記",
       usesComposerAsSource: false,
     });
     expect(resolveAiAssistantComposerInput({
       composerText: "",
       isFreeformCustom: false,
-      noteContentMarkdown: "留空时处理整篇笔记",
-      noteTitle: "现有笔记",
+      noteContentMarkdown: "留空時處理整篇筆記",
+      noteTitle: "現有筆記",
     })).toEqual({
-      contentMarkdown: "留空时处理整篇笔记",
+      contentMarkdown: "留空時處理整篇筆記",
       customInstruction: "",
-      title: "现有笔记",
+      title: "現有筆記",
       usesComposerAsSource: false,
     });
   });
@@ -182,11 +182,11 @@ describe("AI assistant interaction model", () => {
       const instruction = buildAiRefinementInstruction({
         originalAction,
         originalInstruction: `Original instruction for ${originalAction}`,
-        refinement: "再简洁一点",
+        refinement: "再簡潔一點",
       });
       expect(instruction).toContain(`Original processing action:\n${originalAction}`);
       expect(instruction).toContain(`Original processing instruction:\nOriginal instruction for ${originalAction}`);
-      expect(instruction).toContain("Follow-up request:\n再简洁一点");
+      expect(instruction).toContain("Follow-up request:\n再簡潔一點");
     }
   });
 
@@ -194,13 +194,13 @@ describe("AI assistant interaction model", () => {
     const instruction = buildAiRefinementInstruction({
       originalAction: "change-tone",
       originalInstruction: "Rewrite the content in the selected tone.",
-      refinement: "再短一点",
+      refinement: "再短一點",
       tone: "friendly",
     });
 
     expect(instruction).toContain("Original processing action:\nchange-tone");
     expect(instruction).toContain("Keep the revised result in the requested tone: friendly.");
-    expect(instruction).toContain("Follow-up request:\n再短一点");
+    expect(instruction).toContain("Follow-up request:\n再短一點");
   });
 
   test("keeps extractive output additive while allowing rewritten content to replace its source", () => {

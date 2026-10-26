@@ -122,7 +122,7 @@ describe("Cloudflare deployment entrypoints", () => {
     const shimPackage = JSON.parse(readRepositoryFile("packages/wrangler/package.json"));
     const shim = readRepositoryFile("packages/wrangler/bin/wrangler.js");
     const englishGuide = readRepositoryFile("docs/deploy-cloudflare-button.md");
-    const chineseGuide = readRepositoryFile("docs/deploy-cloudflare-button.zh-CN.md");
+    const chineseGuide = readRepositoryFile("docs/deploy-cloudflare-button.zh-TW.md");
 
     expect(packageJson.devDependencies.wrangler).toBe("workspace:*");
     expect(shimPackage.name).toBe("wrangler");
@@ -192,9 +192,9 @@ describe("Cloudflare deployment entrypoints", () => {
     expect(packageJson.cloudflare.bindings.EDGE_EVER_AUTH_PASSWORD.description).toBeTruthy();
 
     const englishGuide = readRepositoryFile("docs/deploy-cloudflare-button.md");
-    const chineseGuide = readRepositoryFile("docs/deploy-cloudflare-button.zh-CN.md");
+    const chineseGuide = readRepositoryFile("docs/deploy-cloudflare-button.zh-TW.md");
     expect(englishGuide).toContain("Worker runtime Secret, not a Workers Builds variable");
-    expect(chineseGuide).toContain("Worker 运行时 Secret，不是 Workers Builds 构建变量");
+    expect(chineseGuide).toContain("Worker 執行時 Secret，不是 Workers Builds 構建變數");
   });
 
   test("Workers Builds receives configuration but never the runtime password", () => {
@@ -205,14 +205,15 @@ describe("Cloudflare deployment entrypoints", () => {
     expect(setup).not.toContain('"AUTH_PASSWORD",');
     expect(setup).not.toContain('"AUTH_PASSWORD_HASH",');
     expect(setup).not.toContain("Missing EDGE_EVER_AUTH_PASSWORD");
-    expect(setup).toContain("is_secret: false");
+    expect(setup).toContain("is_secret: isSecret");
+    expect(setup).toContain('new Set(["S3_SECRET_ACCESS_KEY"])');
   });
 
   test("online deployment resolves the D1 id without editing the repository config", () => {
     const runner = readRepositoryFile("scripts/run-wrangler.mjs");
     const wranglerConfig = readRepositoryFile("wrangler.toml");
     const englishAgentDoc = readRepositoryFile("docs/agent-deploy-cloudflare.md");
-    const chineseAgentDoc = readRepositoryFile("docs/agent-deploy-cloudflare.zh-CN.md");
+    const chineseAgentDoc = readRepositoryFile("docs/agent-deploy-cloudflare.zh-TW.md");
 
     expect(wranglerConfig).toContain(
       'database_id = "00000000-0000-0000-0000-000000000000"',
@@ -222,7 +223,7 @@ describe("Cloudflare deployment entrypoints", () => {
     expect(runner).toContain("repositoryWranglerConfigError(config, usesRepositoryConfig)");
     expect(runner).not.toContain("replace the database_id placeholder");
     expect(englishAgentDoc).toContain("automatically resolves the D1 UUID");
-    expect(chineseAgentDoc).toContain("自动查询 D1 UUID");
+    expect(chineseAgentDoc).toContain("自動查詢 D1 UUID");
   });
 
   test("rejects instance-specific values in the repository Wrangler config", () => {
@@ -236,7 +237,6 @@ describe("Cloudflare deployment entrypoints", () => {
         'database_id = "00000000-0000-0000-0000-000000000000"',
         'database_id = "11111111-1111-1111-1111-111111111111"',
       ),
-      repositoryConfig.replace('bucket_name = "edgeever-resources"', 'bucket_name = "my-notes"'),
       repositoryConfig.replace('compatibility_date = "2026-06-26"', 'compatibility_date = "2026-08-17"'),
       `${repositoryConfig}\n[vars]\nEDGE_EVER_AUTH_USERNAME = "owner"\n`,
       `${repositoryConfig}\n[[routes]]\npattern = "notes.example.com"\ncustom_domain = true\n`,
@@ -394,7 +394,6 @@ describe("Cloudflare deployment entrypoints", () => {
           '  process.stdout.write(JSON.stringify({ versions: [{ version_id: "legacy-version", percentage: 100 }] }));',
           '} else if (process.argv.includes("versions")) {',
           '  process.stdout.write(JSON.stringify({ resources: { bindings: [',
-          '    { name: "RESOURCES", type: "r2_bucket", bucket_name: "legacy-user-resources" },',
           '    { name: "EDGE_EVER_AUTH_USERNAME", type: "plain_text", text: "legacy-owner" }',
           '  ] } }));',
           '} else if (process.argv.includes("deploy")) {',
@@ -414,6 +413,7 @@ describe("Cloudflare deployment entrypoints", () => {
             ...inheritedEnvironment,
             CI: "true",
             EDGE_EVER_AUTH_PASSWORD: "test-password",
+            EDGE_EVER_S3_BUCKET: "legacy-user-resources",
             EDGE_EVER_INSTANCE: "",
             WRANGLER_CONFIG: resolve(workingDirectory, "wrangler.external.toml"),
           },
@@ -432,8 +432,7 @@ describe("Cloudflare deployment entrypoints", () => {
         resolve(workingDirectory, ".wrangler.generated.toml"),
         "utf8",
       );
-      expect(generatedConfig).toContain('bucket_name = "legacy-user-resources"');
-      expect(generatedConfig).toContain('EDGE_EVER_R2_BUCKET_NAME = "legacy-user-resources"');
+      expect(generatedConfig).toContain('EDGE_EVER_S3_BUCKET = "legacy-user-resources"');
       expect(generatedConfig).toContain('EDGE_EVER_AUTH_USERNAME = "legacy-owner"');
     } finally {
       rmSync(workingDirectory, { force: true, recursive: true });
@@ -481,14 +480,14 @@ describe("Cloudflare deployment entrypoints", () => {
     expect(workflow).toContain("fork_mode=mirror");
     expect(workflow).toContain("GITHUB_STEP_SUMMARY");
     expect(workflow).toContain("name: Sync Fork and trigger deployment");
-    expect(workflow).toContain("name: Report result / 输出结果");
-    expect(workflow).toContain("::notice title=Manual redeploy / 手动重新部署");
+    expect(workflow).toContain("name: Report result / 輸出結果");
+    expect(workflow).toContain("::notice title=Manual redeploy / 手動重新部署");
     expect(workflow).toContain("PUBLISH_OUTCOME: ${{ steps.publish.outcome }}");
     expect(workflow).toContain("DEPLOY_TRIGGER_OUTCOME: ${{ steps.deploy.outcome }}");
-    expect(workflow).toContain("| Git publish / Git 发布 |");
-    expect(workflow).toContain("| Deployment trigger / 部署触发 |");
-    expect(workflow).toContain("| Live deployment / 线上部署 |");
-    expect(workflow).toContain("Not verified by this workflow / 本工作流未验证");
+    expect(workflow).toContain("| Git publish / Git 釋出 |");
+    expect(workflow).toContain("| Deployment trigger / 部署觸發 |");
+    expect(workflow).toContain("| Live deployment / 線上部署 |");
+    expect(workflow).toContain("Not verified by this workflow / 本工作流未驗證");
     expect(workflow).toContain("EDGE_EVER_CLOUDFLARE_DEPLOY_HOOK_URL");
     expect(workflow).toContain("EDGE_EVER_PRESERVE_FORK_CHANGES");
     expect(workflow).toContain("PRESERVE_FORK_CHANGES");
@@ -843,7 +842,7 @@ describe("Cloudflare deployment entrypoints", () => {
 
   test("public deployment documentation exposes only Fork and Agent paths", () => {
     const englishReadme = readRepositoryFile("README.md");
-    const chineseReadme = readRepositoryFile("README.zh-CN.md");
+    const chineseReadme = readRepositoryFile("README.zh-TW.md");
     const traditionalChineseReadme = readRepositoryFile("README.zh-TW.md");
     const japaneseReadme = readRepositoryFile("README.ja.md");
 
@@ -851,19 +850,19 @@ describe("Cloudflare deployment entrypoints", () => {
     expect(englishReadme).not.toContain("Option C: Manual Deployment");
     expect(englishReadme).toContain("Fork https://github.com/tianma-if/edgeever");
     expect(chineseReadme).not.toContain("deploy.workers.cloudflare.com");
-    expect(chineseReadme).not.toContain("方案 C：手动部署");
+    expect(chineseReadme).not.toContain("方案 C：手動部署");
     expect(chineseReadme).toContain("Fork https://github.com/tianma-if/edgeever");
     expect(traditionalChineseReadme).not.toContain("deploy.workers.cloudflare.com");
     expect(traditionalChineseReadme).not.toContain("方案 C：手動部署");
     expect(traditionalChineseReadme).toContain("Fork https://github.com/tianma-if/edgeever");
     expect(japaneseReadme).not.toContain("deploy.workers.cloudflare.com");
-    expect(japaneseReadme).not.toContain("方案 C：手動導入");
+    expect(japaneseReadme).not.toContain("方案 C：手動匯入");
     expect(japaneseReadme).toContain("Fork https://github.com/tianma-if/edgeever");
   });
 
   test("product site deployment prompts mirror the root READMEs", () => {
     const englishReadme = readRepositoryFile("README.md");
-    const chineseReadme = readRepositoryFile("README.zh-CN.md");
+    const chineseReadme = readRepositoryFile("README.zh-TW.md");
     const siteDeploymentComponent = readRepositoryFile(
       "apps/site/src/components/agent-install-tabs.astro",
     );
@@ -871,25 +870,25 @@ describe("Cloudflare deployment entrypoints", () => {
     expect(deploymentPrompts["en-US"]).toBe(
       extractTextPrompt(englishReadme, "### Option A: Deploy with an AI Agent (Recommended)"),
     );
-    expect(deploymentPrompts["zh-CN"]).toBe(
-      extractTextPrompt(chineseReadme, "### 方案一：交给 AI Agent 部署（推荐）"),
+    expect(deploymentPrompts["zh-TW"]).toBe(
+      extractTextPrompt(chineseReadme, "### 方案一：交給 AI Agent 部署（建議）"),
     );
     expect(siteDeploymentComponent).toContain('deploymentPrompts["en-US"]');
-    expect(siteDeploymentComponent).toContain('deploymentPrompts["zh-CN"]');
+    expect(siteDeploymentComponent).toContain('deploymentPrompts["zh-TW"]');
     expect(siteDeploymentComponent).toContain('manualDeploymentCopy["en-US"]');
-    expect(siteDeploymentComponent).toContain('manualDeploymentCopy["zh-CN"]');
+    expect(siteDeploymentComponent).toContain('manualDeploymentCopy["zh-TW"]');
     expect(siteDeploymentComponent).toContain("UnionPay");
-    expect(siteDeploymentComponent).toContain("银联（UnionPay）");
+    expect(siteDeploymentComponent).toContain("銀聯（UnionPay）");
     expect(siteDeploymentComponent).toContain("free storage allowance");
-    expect(siteDeploymentComponent).toContain("免费存储额度");
+    expect(siteDeploymentComponent).toContain("免費儲存額度");
     expect(siteDeploymentComponent).not.toContain("dual-currency credit card");
-    expect(siteDeploymentComponent).not.toContain("双币信用卡");
+    expect(siteDeploymentComponent).not.toContain("雙幣信用卡");
     expect(siteDeploymentComponent).not.toContain("China Merchants Bank");
-    expect(siteDeploymentComponent).not.toContain("招商和浦发");
+    expect(siteDeploymentComponent).not.toContain("招商和浦發");
 
     for (const [locale, readme, heading, separator] of [
       ["en-US", englishReadme, "### Option B: Manual Online Deployment", ": "],
-      ["zh-CN", chineseReadme, "### 方案二：手动在线部署", "："],
+      ["zh-TW", chineseReadme, "### 方案二：手動線上部署", "："],
     ] as const) {
       const section = normalizeMarkdownCopy(extractSection(readme, heading));
       const manualCopy = manualDeploymentCopy[locale];
@@ -904,7 +903,7 @@ describe("Cloudflare deployment entrypoints", () => {
 
   test("AI Agent deployment remains fully online", () => {
     const englishAgentDoc = readRepositoryFile("docs/agent-deploy-cloudflare.md");
-    const chineseAgentDoc = readRepositoryFile("docs/agent-deploy-cloudflare.zh-CN.md");
+    const chineseAgentDoc = readRepositoryFile("docs/agent-deploy-cloudflare.zh-TW.md");
 
     expect(englishAgentDoc).toContain("Workers & Pages");
     expect(englishAgentDoc).toContain("Update deployed EdgeEver");
@@ -914,7 +913,7 @@ describe("Cloudflare deployment entrypoints", () => {
     expect(englishAgentDoc).not.toContain("deploy:setup");
     expect(englishAgentDoc).not.toContain(".env.local");
     expect(chineseAgentDoc).toContain("Workers & Pages");
-    expect(chineseAgentDoc).toContain("默认作为部署镜像");
+    expect(chineseAgentDoc).toContain("預設作為部署映象");
     expect(chineseAgentDoc).toContain("EDGE_EVER_PRESERVE_FORK_CHANGES");
     expect(chineseAgentDoc).not.toContain("bun run deploy:manual");
     expect(chineseAgentDoc).not.toContain("bun run deploy:manual");

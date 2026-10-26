@@ -157,13 +157,13 @@ export default defineConfig({
       manifest: {
         name: "EdgeEver",
         short_name: "EdgeEver",
-        description: "EdgeEver：基于 Cloudflare 与 Docker 自托管的现代化开源笔记与 AI 个人知识库。",
+        description: "EdgeEver：基於 Cloudflare 與 Docker 自託管的現代化開源筆記與 AI 個人知識庫。",
         start_url: "/",
         scope: "/",
         display: "standalone",
         background_color: "#0f172a",
         theme_color: "#0f172a",
-        lang: "zh-CN",
+        lang: "zh-TW",
         categories: ["productivity", "utilities"],
         icons: [
           {

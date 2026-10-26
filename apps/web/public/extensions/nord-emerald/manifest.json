@@ -6,9 +6,9 @@
   "themeApiVersion": "1",
   "description": "A calm Nord-inspired EdgeEver theme using the public theme token API.",
   "locales": {
-    "zh-CN": {
+    "zh-TW": {
       "name": "Nord 翡翠",
-      "description": "一款宁静的 Nord 风格 EdgeEver 主题，基于公开主题令牌 API 构建。"
+      "description": "一款寧靜的 Nord 風格 EdgeEver 主題，基於公開主題令牌 API 構建。"
     }
   },
   "author": "EdgeEver",

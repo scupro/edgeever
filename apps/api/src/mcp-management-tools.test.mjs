@@ -193,8 +193,8 @@ describe("MCP template and AI instruction management", () => {
     sqlite.query("INSERT INTO notebooks (id, workspace_id, name) VALUES (?, ?, ?)").run("nb_posters", "ws_mcp", "Posters");
     const create = input => callMcpTool(context, auth, "create_memo", { notebookId: "nb_posters", ...input });
     const first = await create({ title: "精力管理", contentMarkdown: serializePosterDocument(createPosterDocument("精力管理")) });
-    const second = await callMcpTool(context, auth, "create_poster_memo", { notebookId: "nb_posters", title: "精力分配", heading: "保护精力" });
-    const prose = await create({ title: "精力管理海报说明", contentMarkdown: "这只是普通笔记" });
+    const second = await callMcpTool(context, auth, "create_poster_memo", { notebookId: "nb_posters", title: "精力分配", heading: "保護精力" });
+    const prose = await create({ title: "精力管理海報說明", contentMarkdown: "這只是普通筆記" });
     const page = await callMcpTool(context, auth, "list_memos", { poster: true, limit: 1 });
     expect(page.memos).toHaveLength(1);
     expect(page.memos[0].poster).toBe(true);
@@ -216,7 +216,7 @@ describe("MCP template and AI instruction management", () => {
   test("creates an actual editable poster from copy without encoded source", async () => {
     const { sqlite, auth, context } = createFixture();
     sqlite.query("INSERT INTO notebooks (id, workspace_id, name) VALUES (?, ?, ?)").run("nb_posters", "ws_mcp", "Posters");
-    const input = { notebookId: "nb_posters", title: "时间管理与精力分配", heading: "精力管理大于时间管理", subtitle: "把最好的精力留给最重要的事。", template: "bold", format: "square" };
+    const input = { notebookId: "nb_posters", title: "時間管理與精力分配", heading: "精力管理大於時間管理", subtitle: "把最好的精力留給最重要的事。", template: "bold", format: "square" };
     const created = await callMcpTool(context, auth, "create_poster_memo", input);
     expect(created.poster).toBe(true);
     const saved = await callMcpTool(context, auth, "get_memo", { memoId: created.memo.id });
@@ -224,8 +224,8 @@ describe("MCP template and AI instruction management", () => {
     expect(poster).toMatchObject({ width: 1080, height: 1080, copy: { title: input.heading, subtitle: input.subtitle } });
     const read = await callMcpTool(context, auth, "get_poster", { memoId: created.memo.id });
     const heading = read.poster.elements.find(element => element.role === "title");
-    const updated = await callMcpTool(context, auth, "update_poster", { memoId: created.memo.id, expectedRevision: read.memo.revision, edits: [{ id: heading.id, patch: { text: "保护你的精力" } }] });
-    expect(parsePosterDocument(updated.memo.contentMarkdown).copy.title).toBe("保护你的精力");
+    const updated = await callMcpTool(context, auth, "update_poster", { memoId: created.memo.id, expectedRevision: read.memo.revision, edits: [{ id: heading.id, patch: { text: "保護你的精力" } }] });
+    expect(parsePosterDocument(updated.memo.contentMarkdown).copy.title).toBe("保護你的精力");
     await expect(callMcpTool(context, { ...auth, scopes: ["read:memos"] }, "create_poster_memo", input)).rejects.toThrow();
     await expect(callMcpTool(context, { ...auth, workspaceId: "ws_other" }, "create_poster_memo", input)).rejects.toThrow();
     const before = sqlite.query("SELECT COUNT(*) AS count FROM memos").get().count;
@@ -312,17 +312,17 @@ describe("MCP template and AI instruction management", () => {
       notebookId: "nb_graphics",
       template: "chart-pie-donut-plain-text",
       data: {
-        title: "腾讯 2025 年营收占比",
-        desc: "图中比例为演示用估算，不代表腾讯官方披露数据。",
+        title: "騰訊 2025 年營收佔比",
+        desc: "圖中比例為演示用估算，不代表騰訊官方披露資料。",
         values: [
-          { label: "增值服务", value: 52 },
-          { label: "金融科技与企业服务", value: 30 },
-          { label: "网络广告", value: 16 },
-          { label: "其他业务", value: 2 },
+          { label: "增值服務", value: 52 },
+          { label: "金融科技與企業服務", value: 30 },
+          { label: "網路廣告", value: 16 },
+          { label: "其他業務", value: 2 },
         ],
       },
     });
-    expect(created).toMatchObject({ infographic: true, template: "chart-pie-donut-plain-text", memo: { title: "腾讯 2025 年营收占比" } });
+    expect(created).toMatchObject({ infographic: true, template: "chart-pie-donut-plain-text", memo: { title: "騰訊 2025 年營收佔比" } });
     expect(JSON.stringify(created.memo)).not.toContain("edgeever-infographic-v1");
     const stored = sqlite.query("SELECT content_markdown FROM memo_contents WHERE memo_id = ?").get(created.memo.id);
     const infographic = parseInfographicDocument(stored.content_markdown);
@@ -336,12 +336,12 @@ describe("MCP template and AI instruction management", () => {
     await expect(callMcpTool(context, auth, "create_infographic_memo", {
       notebookId: "nb_graphics",
       template: "chart-pie-donut-plain-text",
-      data: { title: "坏占比", values: [{ label: "甲", value: -5 }] },
+      data: { title: "壞佔比", values: [{ label: "甲", value: -5 }] },
     })).rejects.toMatchObject({ code: "invalid_params" });
     await expect(callMcpTool(context, { ...auth, scopes: ["read:memos"] }, "create_infographic_memo", {
       notebookId: "nb_graphics",
       template: "chart-pie-donut-plain-text",
-      data: { title: "占比", values: [{ label: "甲", value: 1 }] },
+      data: { title: "佔比", values: [{ label: "甲", value: 1 }] },
     })).rejects.toMatchObject({ code: "forbidden" });
   });
 
@@ -425,7 +425,7 @@ describe("MCP template and AI instruction management", () => {
       .run("nb_tables", "ws_mcp", "Tables");
     const created = await callMcpTool(context, auth, "create_memo", {
       notebookId: "nb_tables",
-      title: "阅读清单",
+      title: "閱讀清單",
       contentMarkdown: serializeTableDocument(createDefaultTableDocument()),
     });
     const read = await callMcpTool(context, auth, "get_memo", { memoId: created.memo.id });
@@ -445,7 +445,7 @@ describe("MCP template and AI instruction management", () => {
       .run("nb_tables", "ws_mcp", "Tables");
     const created = await callMcpTool(context, auth, "create_memo", {
       notebookId: "nb_tables",
-      title: "阅读清单",
+      title: "閱讀清單",
       contentMarkdown: serializeTableDocument(createDefaultTableDocument()),
     });
     const memoId = created.memo.id;
@@ -456,19 +456,19 @@ describe("MCP template and AI instruction management", () => {
 
     const added = await callMcpTool(context, auth, "add_table_record", {
       memoId, expectedRevision: first.revision,
-      cells: { fld_name: "读一本书", fld_status: "进行中" },
+      cells: { fld_name: "讀一本書", fld_status: "進行中" },
     });
-    expect(added.record).toMatchObject({ id: added.recordId, cells: { fld_name: "读一本书", fld_status: "进行中" } });
+    expect(added.record).toMatchObject({ id: added.recordId, cells: { fld_name: "讀一本書", fld_status: "進行中" } });
     const page = await callMcpTool(context, auth, "get_table_records", { memoId, offset: 1, limit: 1 });
     expect(page.records.map((record) => record.id)).toEqual([added.recordId]);
     const byId = await callMcpTool(context, auth, "get_table_records", { memoId, recordId: added.recordId });
-    expect(byId.records[0].cells.fld_name).toBe("读一本书");
+    expect(byId.records[0].cells.fld_name).toBe("讀一本書");
 
     const changed = await callMcpTool(context, auth, "update_table_record", {
       memoId, recordId: added.recordId, expectedRevision: added.revision,
       cells: { fld_status: "完成", fld_date: "2026-09-30" },
     });
-    expect(changed.record.cells).toMatchObject({ fld_name: "读一本书", fld_status: "完成", fld_date: "2026-09-30" });
+    expect(changed.record.cells).toMatchObject({ fld_name: "讀一本書", fld_status: "完成", fld_date: "2026-09-30" });
     const deleted = await callMcpTool(context, auth, "delete_table_record", {
       memoId, recordId: added.recordId, expectedRevision: changed.revision,
     });
@@ -547,25 +547,25 @@ describe("MCP template and AI instruction management", () => {
     sqlite.query("INSERT INTO notebooks (id, workspace_id, name) VALUES (?, ?, ?)")
       .run("nb_tables", "ws_mcp", "Tables");
     const created = await callMcpTool(context, auth, "create_table_memo", {
-      notebookId: "nb_tables", title: "客户跟进", tags: ["CRM"],
+      notebookId: "nb_tables", title: "客戶跟進", tags: ["CRM"],
       fields: [
-        { name: "客户", type: "text" },
-        { name: "阶段", type: "select", options: ["线索", "洽谈", "成交"] },
+        { name: "客戶", type: "text" },
+        { name: "階段", type: "select", options: ["線索", "洽談", "成交"] },
       ],
     });
     const memoId = created.memo.id;
     const [customer, stage] = created.fields;
-    expect(created.memo.title).toBe("客户跟进");
+    expect(created.memo.title).toBe("客戶跟進");
     expect(JSON.stringify(created.memo)).not.toContain("edgeever-table-v1");
     expect((await callMcpTool(context, auth, "get_table_records", { memoId })).totalRecords).toBe(0);
     const added = await callMcpTool(context, auth, "add_table_record", {
       memoId, expectedRevision: created.revision,
-      cells: { [customer.id]: "明月公司", [stage.id]: "洽谈" },
+      cells: { [customer.id]: "明月公司", [stage.id]: "洽談" },
     });
 
     const operations = [
-      { op: "update_field", fieldId: customer.id, changes: { name: "客户名称" } },
-      { op: "add_field", field: { name: "金额", type: "number" } },
+      { op: "update_field", fieldId: customer.id, changes: { name: "客戶名稱" } },
+      { op: "add_field", field: { name: "金額", type: "number" } },
     ];
     const preview = await callMcpTool(context, auth, "update_table_schema", {
       memoId, expectedRevision: added.revision, operations, dryRun: true,
@@ -576,11 +576,11 @@ describe("MCP template and AI instruction management", () => {
     const changed = await callMcpTool(context, auth, "update_table_schema", {
       memoId, expectedRevision: added.revision, operations,
     });
-    expect(changed.fields.map((field) => field.name)).toEqual(["客户名称", "阶段", "金额"]);
+    expect(changed.fields.map((field) => field.name)).toEqual(["客戶名稱", "階段", "金額"]);
     expect(changed.fields[0].id).toBe(customer.id);
     expect(changed.fields[2].id).toMatch(/^fld_/);
     const after = await callMcpTool(context, auth, "get_table_records", { memoId, recordId: added.recordId });
-    expect(after.records[0].cells).toMatchObject({ [customer.id]: "明月公司", [stage.id]: "洽谈" });
+    expect(after.records[0].cells).toMatchObject({ [customer.id]: "明月公司", [stage.id]: "洽談" });
     expect(after.records[0].cells[changed.fields[2].id]).toBeNull();
   });
 
@@ -589,16 +589,16 @@ describe("MCP template and AI instruction management", () => {
     sqlite.query("INSERT INTO notebooks (id, workspace_id, name) VALUES (?, ?, ?)")
       .run("nb_tables", "ws_mcp", "Tables");
     const created = await callMcpTool(context, auth, "create_table_memo", {
-      notebookId: "nb_tables", title: "销售线索",
+      notebookId: "nb_tables", title: "銷售線索",
       fields: [
-        { name: "名称", type: "text" },
-        { name: "状态", type: "select", options: ["新建", "完成"] },
+        { name: "名稱", type: "text" },
+        { name: "狀態", type: "select", options: ["新建", "完成"] },
       ],
     });
     const [nameField, statusField] = created.fields;
     const added = await callMcpTool(context, auth, "add_table_record", {
       memoId: created.memo.id, expectedRevision: created.revision,
-      cells: { [nameField.id]: "机会 A", [statusField.id]: "完成" },
+      cells: { [nameField.id]: "機會 A", [statusField.id]: "完成" },
     });
     const operations = [{ op: "update_field", fieldId: statusField.id, changes: { options: ["新建"] } }];
     const preview = await callMcpTool(context, auth, "update_table_schema", {
@@ -631,21 +631,21 @@ describe("MCP template and AI instruction management", () => {
     sqlite.query("INSERT INTO notebooks (id, workspace_id, name) VALUES (?, ?, ?)")
       .run("nb_tables", "ws_mcp", "Tables");
     await expect(callMcpTool(context, auth, "create_table_memo", {
-      notebookId: "nb_tables", title: "Invalid", fields: [{ name: "状态", type: "select" }],
+      notebookId: "nb_tables", title: "Invalid", fields: [{ name: "狀態", type: "select" }],
     })).rejects.toMatchObject({ code: "invalid_params" });
     await expect(callMcpTool(context, auth, "create_table_memo", {
       notebookId: "nb_tables", title: "Invalid",
-      fields: [{ name: "名称", type: "text" }, { name: "名称", type: "number" }],
+      fields: [{ name: "名稱", type: "text" }, { name: "名稱", type: "number" }],
     })).rejects.toMatchObject({ code: "invalid_params" });
     const created = await callMcpTool(context, auth, "create_table_memo", {
-      notebookId: "nb_tables", title: "Valid", fields: [{ name: "名称", type: "text" }],
+      notebookId: "nb_tables", title: "Valid", fields: [{ name: "名稱", type: "text" }],
     });
     await expect(callMcpTool(context, { ...auth, scopes: ["read:memos"] }, "create_table_memo", {
-      notebookId: "nb_tables", title: "Denied", fields: [{ name: "名称", type: "text" }],
+      notebookId: "nb_tables", title: "Denied", fields: [{ name: "名稱", type: "text" }],
     })).rejects.toMatchObject({ code: "forbidden" });
     await expect(callMcpTool(context, { ...auth, scopes: ["read:memos"] }, "update_table_schema", {
       memoId: created.memo.id, expectedRevision: created.revision,
-      operations: [{ op: "add_field", field: { name: "金额", type: "number" } }],
+      operations: [{ op: "add_field", field: { name: "金額", type: "number" } }],
     })).rejects.toMatchObject({ code: "forbidden" });
     await expect(callMcpTool(context, auth, "update_table_schema", {
       memoId: created.memo.id, expectedRevision: created.revision,
@@ -653,7 +653,7 @@ describe("MCP template and AI instruction management", () => {
     })).rejects.toMatchObject({ code: "invalid_params" });
     await expect(callMcpTool(context, { ...auth, workspaceId: "ws_other" }, "update_table_schema", {
       memoId: created.memo.id, expectedRevision: created.revision,
-      operations: [{ op: "add_field", field: { name: "金额", type: "number" } }],
+      operations: [{ op: "add_field", field: { name: "金額", type: "number" } }],
     })).rejects.toMatchObject({ code: "not_found" });
   });
 
@@ -663,7 +663,7 @@ describe("MCP template and AI instruction management", () => {
       .run("nb_tables", "ws_mcp", "Tables");
     const created = await callMcpTool(context, auth, "create_table_memo", {
       notebookId: "nb_tables", title: "合同",
-      fields: [{ name: "预算", type: "text" }, { name: "文件", type: "attachment" }],
+      fields: [{ name: "預算", type: "text" }, { name: "檔案", type: "attachment" }],
     });
     const [budget, file] = created.fields;
     sqlite.query("INSERT INTO resources (id, memo_id, object_key, kind, filename, mime_type, byte_size) VALUES (?, ?, ?, 'attachment', ?, ?, ?)")
@@ -789,7 +789,7 @@ describe("MCP template and AI instruction management", () => {
       parameterKind: "tone",
     });
 
-    const restored = await callMcpTool(context, auth, "restore_default_ai_instructions", { locale: "zh-CN" });
+    const restored = await callMcpTool(context, auth, "restore_default_ai_instructions", { locale: "zh-TW" });
     expect(restored.restoredCount).toBeGreaterThan(0);
     expect(restored.instructions).toEqual(expect.arrayContaining([
       expect.objectContaining({ origin: "default" }),

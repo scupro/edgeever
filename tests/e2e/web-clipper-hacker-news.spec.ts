@@ -35,7 +35,7 @@ test("Hacker News clips persist through the extension and local API; archived im
     expect(tokenResponse.status()).toBe(201);
     const { token, apiToken } = await tokenResponse.json(); tokenId = apiToken.id;
     context = await chromium.launchPersistentContext(profile, {
-      channel: "chromium", locale: "zh-CN", args: [`--disable-extensions-except=${directory}`, `--load-extension=${directory}`],
+      channel: "chromium", locale: "zh-TW", args: [`--disable-extensions-except=${directory}`, `--load-extension=${directory}`],
     });
     const worker: Worker = context.serviceWorkers()[0] ?? await context.waitForEvent("serviceworker");
     await worker.evaluate((settings) => chrome.storage.local.set(settings), { instanceUrl: baseURL!, token, notebookId: "" });
@@ -93,8 +93,8 @@ test("Hacker News clips persist through the extension and local API; archived im
       }
       const preview = await context.newPage();
       await preview.goto(baseURL!);
-      await preview.getByRole("button", { name: "全部笔记", exact: true }).click();
-      await preview.getByPlaceholder("搜索笔记").fill(platform.title);
+      await preview.getByRole("button", { name: "全部筆記", exact: true }).click();
+      await preview.getByPlaceholder("搜尋筆記").fill(platform.title);
       await preview.locator(`[data-memo-id="${note!.id}"]`).locator("button").first().click();
       const editor = preview.locator(".ProseMirror");
       await expect(editor).toContainText(platform.text);

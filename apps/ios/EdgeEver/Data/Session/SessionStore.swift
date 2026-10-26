@@ -54,7 +54,7 @@ final class SessionStore {
             throw APIError(
                 status: 400,
                 code: nil,
-                message: "登录成功但服务端没有返回移动端会话。请确认服务端已更新到支持 App 登录的版本。"
+                message: "登入成功但服務端沒有返回移動端會話。請確認服務端已更新到支援 App 登入的版本。"
             )
         }
         let next = MobileSession(baseUrl: url.absoluteString, token: token, user: auth.user)

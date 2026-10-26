@@ -21,27 +21,27 @@ type MobileResourceActionsProps = {
 };
 
 const copy = {
-  "zh-CN": {
+  "zh-TW": {
     attachmentActions: "附件操作",
-    imageActions: "图片操作",
+    imageActions: "圖片操作",
     cancel: "取消",
-    delete: "删除",
-    attachmentDeleteConfirm: "附件会从存储空间和当前笔记中永久删除，此操作无法撤销。",
-    attachmentDeleteTitle: "删除附件",
+    delete: "刪除",
+    attachmentDeleteConfirm: "附件會從儲存空間和當前筆記中永久刪除，此操作無法撤銷。",
+    attachmentDeleteTitle: "刪除附件",
     // Opens the system share sheet (not a silent save-to-folder).
     share: "分享",
     // Saves to a user-chosen folder (Android SAF) or share-as-save fallback.
-    download: "下载",
-    downloadFailed: "无法下载",
-    failed: "资源操作失败，请重试。",
+    download: "下載",
+    downloadFailed: "無法下載",
+    failed: "資源操作失敗，請重試。",
     filename: "文件名",
     rename: "重命名",
     attachmentRenameTitle: "重命名附件",
-    imageDeleteConfirm: "图片会从存储空间和当前笔记中永久删除，此操作无法撤销。",
-    imageDeleteTitle: "删除图片",
-    imageRenameTitle: "重命名图片",
+    imageDeleteConfirm: "圖片會從儲存空間和當前筆記中永久刪除，此操作無法撤銷。",
+    imageDeleteTitle: "刪除圖片",
+    imageRenameTitle: "重新命名圖片",
     save: "保存",
-    syncedOnly: "资源同步完成后才能重命名或删除。",
+    syncedOnly: "資源同步完成後才能重新命名或刪除。",
   },
   "en-US": {
     attachmentActions: "Attachment actions",
@@ -127,7 +127,7 @@ export const MobileAttachmentCard = ({
   return (
     <View style={[styles.card, dark && styles.cardDark]}>
       <Pressable
-        accessibilityHint={resolvedLocale !== "zh-CN" ? "Opens the system share sheet for this attachment" : "打开系统分享面板分享此附件"}
+        accessibilityHint={resolvedLocale !== "zh-TW" ? "Opens the system share sheet for this attachment" : "開啟系統分享面板分享此附件"}
         accessibilityLabel={target.filename}
         accessibilityRole="button"
         disabled={busy}
@@ -150,7 +150,7 @@ export const MobileAttachmentCard = ({
         </View>
       </Pressable>
       <Pressable
-        accessibilityLabel={resolvedLocale !== "zh-CN" ? "Attachment actions" : "附件操作"}
+        accessibilityLabel={resolvedLocale !== "zh-TW" ? "Attachment actions" : "附件操作"}
         accessibilityRole="button"
         disabled={busy}
         onPress={onActions}

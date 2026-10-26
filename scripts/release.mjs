@@ -66,7 +66,7 @@ const usage = `Usage:
     --issue-title "Release issue title" \\
     --label bug \\
     --change-en "English user-facing change" \\
-    --change-zh "中文用户更新说明" \\
+    --change-zh "中文使用者更新說明" \\
     --change-locale "ja:日本語のユーザー向け説明" \\
     --change-commit "abcdef1"
 
@@ -183,8 +183,8 @@ export const parseReleaseArgs = (argv) => {
     if (!/^[A-Za-z]{2,3}(?:-[A-Za-z0-9]{2,8})*$/.test(locale) || !change) {
       throw new Error('--change-locale must use "<locale>:<user-facing change>".');
     }
-    if (["en-us", "zh-cn"].includes(locale.toLowerCase())) {
-      throw new Error("Use --change-en and --change-zh for en-US and zh-CN release changes.");
+    if (["en-us", "zh-tw"].includes(locale.toLowerCase())) {
+      throw new Error("Use --change-en and --change-zh for en-US and zh-TW release changes.");
     }
     (localizedChanges[locale] ??= []).push(change);
   }
@@ -382,7 +382,7 @@ export const buildIssueBody = ({ changesEn, changesZh, commitCoverageAudit }) =>
   "",
   ...changesEn.map((change) => `- ${change}`),
   "",
-  "## 中文说明",
+  "## 中文說明",
   "",
   ...changesZh.map((change) => `- ${change}`),
   "",
@@ -414,7 +414,7 @@ export const buildReleaseNotes = ({
   "",
   ...changesZh.map((change) => `- ${change}`),
   "",
-  `关联 Issue：#${issueNumber}`,
+  `關聯 Issue：#${issueNumber}`,
   "",
   "## Key Changes",
   "",
@@ -423,7 +423,7 @@ export const buildReleaseNotes = ({
   `Related Issue: #${issueNumber}`,
   "",
   ...(contributors.length ? [
-    `贡献者 / Contributors：${normalizeContributors(contributors).map((username) => `@${username}`).join(" ")}`,
+    `貢獻者 / Contributors：${normalizeContributors(contributors).map((username) => `@${username}`).join(" ")}`,
     "",
   ] : []),
 ].join("\n");
@@ -432,7 +432,7 @@ export const buildReleaseSummary = ({ version, changesEn, changesZh, localizedCh
   version,
   changes: {
     "en-US": [...changesEn],
-    "zh-CN": [...changesZh],
+    "zh-TW": [...changesZh],
     ...Object.fromEntries(Object.entries(localizedChanges).map(([locale, changes]) => [locale, [...changes]])),
   },
 });

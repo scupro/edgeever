@@ -13,7 +13,7 @@ describe("local agent generated images", () => {
     const legacy = serializeLocalAgentTurns([{
       id: turnId,
       threadId,
-      message: "画一只猫",
+      message: "畫一隻貓",
       response: "",
       reasoning: "",
       tools: [],

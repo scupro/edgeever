@@ -1,6 +1,6 @@
 # Memos Migration Guide
 
-[简体中文](memos-migration-guide.md) | [English](memos-migration-guide.en-US.md)
+[繁體中文](memos-migration-guide.md) | [English](memos-migration-guide.en-US.md)
 
 Since EdgeEver natively supports AI Agent (Model Context Protocol, MCP) integration, you don't even need to export any file backups. You can directly use your AI assistant as a bridge by mounting both **Memos MCP** and **EdgeEver MCP** servers to achieve automatic cloud-to-cloud migration.
 

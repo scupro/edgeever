@@ -50,7 +50,7 @@ export const LoginScreen = () => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <Pressable accessibilityLabel="GitHub 仓库" accessibilityRole="link" onPress={() => Linking.openURL(GITHUB_REPOSITORY_URL)} style={styles.githubButton}>
+      <Pressable accessibilityLabel="GitHub 倉庫" accessibilityRole="link" onPress={() => Linking.openURL(GITHUB_REPOSITORY_URL)} style={styles.githubButton}>
         <GitHub color="#475569" size={20} />
       </Pressable>
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.keyboard}>
@@ -66,11 +66,11 @@ export const LoginScreen = () => {
               </View>
               <View style={styles.headerText}>
                 <Text style={styles.title}>EdgeEver</Text>
-                <Text style={styles.subtitle}>连接你的自托管笔记空间</Text>
+                <Text style={styles.subtitle}>連線你的自託管筆記空間</Text>
               </View>
             </View>
             <View style={styles.field}>
-              <Text style={styles.label}>实例地址</Text>
+              <Text style={styles.label}>實例地址</Text>
               <TextInput
                 autoCapitalize="none"
                 autoCorrect={false}
@@ -84,7 +84,7 @@ export const LoginScreen = () => {
             </View>
 
             <View style={styles.field}>
-              <Text style={styles.label}>用户名</Text>
+              <Text style={styles.label}>使用者名稱</Text>
               <TextInput
                 autoCapitalize="none"
                 autoCorrect={false}
@@ -95,10 +95,10 @@ export const LoginScreen = () => {
             </View>
 
             <View style={styles.field}>
-              <Text style={styles.label}>密码</Text>
+              <Text style={styles.label}>密碼</Text>
               <TextInput
                 onChangeText={setPassword}
-                placeholder="首次登录密码"
+                placeholder="首次登入密碼"
                 placeholderTextColor="#94a3b8"
                 secureTextEntry
                 style={styles.input}
@@ -118,7 +118,7 @@ export const LoginScreen = () => {
                 pressed && canSubmit ? styles.buttonPressed : null,
               ]}
             >
-              {submitting ? <ActivityIndicator color="#ffffff" /> : <Text style={styles.buttonText}>登录</Text>}
+              {submitting ? <ActivityIndicator color="#ffffff" /> : <Text style={styles.buttonText}>登入</Text>}
             </Pressable>
           </View>
         </ScrollView>

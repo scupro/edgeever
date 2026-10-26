@@ -17,7 +17,7 @@ export const localeStorageKey = "edgeever.locale.preference";
 const legacyLocaleStorageKey = "edgeever.locale";
 
 export const localeLabels: Record<SupportedLocale, string> = {
-  "zh-CN": "简体中文",
+  "zh-TW": "繁體中文",
   "en-US": "English",
   ja: "日本語",
   pl: "Polski",

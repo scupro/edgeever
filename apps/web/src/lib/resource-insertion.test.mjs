@@ -29,8 +29,8 @@ describe("uploaded resources beside an existing gallery", () => {
         type: "edgeeverFileAttachment",
         attrs: {
           url: "edgeever-staged://stage_word_1",
-          label: "附件：软件外包合同.docx",
-          filename: "软件外包合同.docx",
+          label: "附件：軟體外包合同.docx",
+          filename: "軟體外包合同.docx",
           mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
           byteSize: 42_559,
         },

@@ -191,8 +191,8 @@ type ImageExportRequest = {
   branding?: boolean;
 };
 let mode: "viewer" | "editor" = "viewer";
-let locale: MobileEditorLocale = "zh-CN";
-let currentPlaceholder = "开始输入…";
+let locale: MobileEditorLocale = "zh-TW";
+let currentPlaceholder = "開始輸入…";
 let suppressChange = false;
 const resourceResolvers = new Map<string, (dataUrl: string | null) => void>();
 let resourceSeq = 0;
@@ -341,7 +341,7 @@ function renderViewerDiagram(root: HTMLElement, diagram: DiagramDocument, theme:
   const container = document.createElement("div");
   container.className = "edgeever-x6-diagram";
   container.setAttribute("role", "img");
-  container.setAttribute("aria-label", diagram.kind === "mind-map" ? "思维导图" : diagram.kind === "architecture" ? "架构图" : "流程图");
+  container.setAttribute("aria-label", diagram.kind === "mind-map" ? "思維導圖" : diagram.kind === "architecture" ? "架構圖" : "流程圖");
   // Keep TipTap's managed DOM intact. Replacing a node inside ProseMirror makes
   // the next setContent call unreliable when SwiftUI reuses this WKWebView.
   proseMirror.hidden = true;
@@ -506,7 +506,7 @@ function createEdgeEverImageExtension() {
         actionButton.className = "edgeever-image-actions";
         actionButton.contentEditable = "false";
         actionButton.hidden = true;
-        actionButton.setAttribute("aria-label", "图片操作");
+        actionButton.setAttribute("aria-label", "圖片操作");
         actionButton.textContent = "⋯";
 
         const sizeControls = document.createElement("div");
@@ -514,7 +514,7 @@ function createEdgeEverImageExtension() {
         sizeControls.contentEditable = "false";
         sizeControls.hidden = true;
         sizeControls.setAttribute("role", "group");
-        sizeControls.setAttribute("aria-label", "图片宽度");
+        sizeControls.setAttribute("aria-label", "圖片寬度");
 
         const applyWidthAtPos = (width: number) => {
           const pos = getPos();
@@ -568,7 +568,7 @@ function createEdgeEverImageExtension() {
             loading.replaceChildren();
             const label = document.createElement("span");
             label.className = "edgeever-image-loading-label";
-            label.textContent = "图片加载失败";
+            label.textContent = "圖片載入失敗";
             loading.append(label);
             loading.hidden = false;
           } else if (phase === "loading") {
@@ -809,7 +809,7 @@ function resetReaderScroll() {
 
 const editor = new Editor({
   element: editorEl,
-  extensions: buildExtensions("开始书写…"),
+  extensions: buildExtensions("開始書寫…"),
   editable: false,
   content: { type: "doc", content: [{ type: "paragraph" }] },
   onUpdate: ({ editor: ed }) => {
@@ -1194,16 +1194,16 @@ function setToolbarVisible(visible: boolean) {
     btn.textContent = action.label;
     btn.dataset.action = action.id;
     const labels: Record<string, Record<MobileEditorLocale, string>> = {
-      undo: { "zh-CN": "撤销", "en-US": "Undo", ja: "元に戻す", pl: "Cofnij" },
-      redo: { "zh-CN": "重做", "en-US": "Redo", ja: "やり直す", pl: "Ponów" },
-      image: { "zh-CN": "插入图片", "en-US": "Insert image", ja: "画像を挿入", pl: "Wstaw obraz" },
-      bold: { "zh-CN": "粗体", "en-US": "Bold", ja: "太字", pl: "Pogrubienie" },
-      bullet: { "zh-CN": "项目符号列表", "en-US": "Bullet list", ja: "箇条書き", pl: "Lista punktowana" },
-      task: { "zh-CN": "任务清单", "en-US": "Task list", ja: "タスクリスト", pl: "Lista zadań" },
-      indent: { "zh-CN": "增加列表缩进", "en-US": "Increase list indent", ja: "リストのインデントを増やす", pl: "Zwiększ wcięcie listy" },
-      outdent: { "zh-CN": "减少列表缩进", "en-US": "Decrease list indent", ja: "リストのインデントを減らす", pl: "Zmniejsz wcięcie listy" },
-      quote: { "zh-CN": "引用", "en-US": "Block quote", ja: "引用", pl: "Cytat" },
-      hr: { "zh-CN": "分隔线", "en-US": "Horizontal rule", ja: "区切り線", pl: "Linia pozioma" },
+      undo: { "zh-TW": "撤銷", "en-US": "Undo", ja: "元に戻す", pl: "Cofnij" },
+      redo: { "zh-TW": "重做", "en-US": "Redo", ja: "やり直す", pl: "Ponów" },
+      image: { "zh-TW": "插入圖片", "en-US": "Insert image", ja: "画像を挿入", pl: "Wstaw obraz" },
+      bold: { "zh-TW": "粗體", "en-US": "Bold", ja: "太字", pl: "Pogrubienie" },
+      bullet: { "zh-TW": "專案符號列表", "en-US": "Bullet list", ja: "箇条書き", pl: "Lista punktowana" },
+      task: { "zh-TW": "任務清單", "en-US": "Task list", ja: "タスクリスト", pl: "Lista zadań" },
+      indent: { "zh-TW": "增加列表縮排", "en-US": "Increase list indent", ja: "リストのインデントを増やす", pl: "Zwiększ wcięcie listy" },
+      outdent: { "zh-TW": "減少列表縮排", "en-US": "Decrease list indent", ja: "リストのインデントを減らす", pl: "Zmniejsz wcięcie listy" },
+      quote: { "zh-TW": "引用", "en-US": "Block quote", ja: "引用", pl: "Cytat" },
+      hr: { "zh-TW": "分隔線", "en-US": "Horizontal rule", ja: "区切り線", pl: "Linia pozioma" },
     };
     btn.setAttribute("aria-label", labels[action.id]?.[locale] ?? action.id);
     btn.addEventListener("click", () => {
@@ -1445,7 +1445,7 @@ const api: EdgeEverEditorAPI = {
     const nextMode = opts.mode === "editor" ? "editor" : "viewer";
     const modeChanged = nextMode !== mode;
     mode = nextMode;
-    locale = opts.locale === "en-US" || opts.locale === "ja" || opts.locale === "pl" ? opts.locale : "zh-CN";
+    locale = opts.locale === "en-US" || opts.locale === "ja" || opts.locale === "pl" ? opts.locale : "zh-TW";
     // Configuring a reused WebView is not a document edit. TipTap otherwise emits
     // an update for its old (often empty) body before native pushes the share seed.
     editor.setEditable(mode === "editor", false);

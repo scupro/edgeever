@@ -2,7 +2,7 @@
  * Platform-neutral storage seams used by the API layer.
  *
  * These contracts describe only the operations consumed by application code.
- * Runtime adapters translate D1, SQLite, R2, filesystem, or S3 primitives into
+ * Runtime adapters translate D1, SQLite, filesystem, or S3 primitives into
  * these shapes without leaking provider SDK types into routes and services.
  */
 export type DatabaseOperationResult = {
@@ -78,10 +78,14 @@ export type BlobStoreAdapter = {
 /** The complete persistence surface consumed by the API. */
 export type StorageAdapter = {
   db: DatabaseAdapter;
-  resources: BlobStoreAdapter;
+  /**
+   * Object store for attachments and imported files. It is absent when the
+   * deployment did not configure any external object storage.
+   */
+  resources?: BlobStoreAdapter;
   diagnostics: {
     database: "d1" | "sqlite";
-    resources: "r2" | "filesystem" | "s3";
+    resources: "filesystem" | "s3";
     migrationTable: "d1_migrations" | "_edgeever_migrations";
   };
 };

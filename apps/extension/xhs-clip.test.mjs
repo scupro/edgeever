@@ -20,23 +20,23 @@ const pageUrl = `https://www.xiaohongshu.com/explore/${noteId}?xsec_token=CBjuq-
 
 const labels = {
   capturedAt: "2026-09-26T00:00:00.000Z",
-  sourceLabel: "来源",
-  capturedAtLabel: "抓取时间",
-  timeLabel: "时间",
-  locationLabel: "地点",
-  altFallback: "图片",
+  sourceLabel: "來源",
+  capturedAtLabel: "抓取時間",
+  timeLabel: "時間",
+  locationLabel: "地點",
+  altFallback: "圖片",
 };
 
 const read = {
   ok: true,
   noteId,
-  title: "世赛现场，会贴瓷砖的女生帅爆了",
-  desc: "谁说贴瓷砖是男生的主场\n#世界技能大赛",
-  nickname: "王小猫",
+  title: "世賽現場，會貼瓷磚的女生帥爆了",
+  desc: "誰說貼瓷磚是男生的主場\n#世界技能大賽",
+  nickname: "王小貓",
   timeMs: Date.parse("2026-09-20T08:00:00.000Z"),
   timeText: "",
   location: "上海",
-  tags: ["世界技能大赛", "瓷砖铺贴"],
+  tags: ["世界技能大賽", "瓷磚鋪貼"],
   images: [{
     url: "",
     urlDefault: "http://sns-webpic-qc.xhscdn.com/note/cover!nd_dft_wlteh_webp_3",
@@ -63,15 +63,15 @@ describe("xiaohongshu addresses", () => {
 
 describe("xiaohongshu note content", () => {
   test("keeps the note text, missing tags, display photo, and source link", () => {
-    expect(cleanXhsText("谁说贴瓷砖是男生的主场\n展开")).toBe("谁说贴瓷砖是男生的主场");
-    expect(xhsBodyText(read.desc, read.tags)).toBe("谁说贴瓷砖是男生的主场\n#世界技能大赛\n#瓷砖铺贴");
+    expect(cleanXhsText("誰說貼瓷磚是男生的主場\n展開")).toBe("誰說貼瓷磚是男生的主場");
+    expect(xhsBodyText(read.desc, read.tags)).toBe("誰說貼瓷磚是男生的主場\n#世界技能大賽\n#瓷磚鋪貼");
     expect(splitXhsDateText("6天前 上海")).toEqual({ timeText: "6天前", location: "上海" });
     expect(splitXhsDateText("昨天 12:30 上海")).toEqual({ timeText: "昨天 12:30", location: "上海" });
     expect(xhsTimeIso(read.timeMs)).toBe("2026-09-20T08:00:00.000Z");
     const resolved = resolveXhsNote(read, pageUrl);
     expect(resolved?.imageUrls).toEqual(["https://sns-webpic-qc.xhscdn.com/note/cover!nd_dft_wlteh_webp_3"]);
-    expect(xhsNoteTitle({ title: resolved.title, nickname: resolved.nickname, body: resolved.body, fallback: "一篇小红书笔记" }))
-      .toBe("世赛现场，会贴瓷砖的女生帅爆了");
+    expect(xhsNoteTitle({ title: resolved.title, nickname: resolved.nickname, body: resolved.body, fallback: "一篇小紅書筆記" }))
+      .toBe("世賽現場，會貼瓷磚的女生帥爆了");
     const markdown = xhsNoteMarkdown({
       ...labels,
       nickname: resolved.nickname,
@@ -80,14 +80,14 @@ describe("xiaohongshu note content", () => {
       datetime: resolved.datetime,
       location: resolved.location,
       noteUrl: resolved.noteUrl,
-      images: [{ resourceId: "res_1", alt: "封面]图" }],
+      images: [{ resourceId: "res_1", alt: "封面]圖" }],
     });
-    expect(markdown.startsWith("王小猫")).toBe(true);
-    expect(markdown).toContain("世赛现场，会贴瓷砖的女生帅爆了");
-    expect(markdown).toContain("#瓷砖铺贴");
-    expect(markdown).toContain("![封面 图](/api/v1/resources/res_1/blob)");
+    expect(markdown.startsWith("王小貓")).toBe(true);
+    expect(markdown).toContain("世賽現場，會貼瓷磚的女生帥爆了");
+    expect(markdown).toContain("#瓷磚鋪貼");
+    expect(markdown).toContain("![封面 圖](/api/v1/resources/res_1/blob)");
     expect(markdown).toContain(`(https://www.xiaohongshu.com/explore/${noteId}?xsec_token=CBjuq-token&xsec_source=app_share)`);
-    expect(markdown).toContain("地点: 上海");
+    expect(markdown).toContain("地點: 上海");
     expect(markdown).not.toContain("xhscdn.com");
     expect(markdown).not.toContain("foo=1");
   });
@@ -97,7 +97,7 @@ describe("xiaohongshu note content", () => {
       ...read,
       title: "",
       timeMs: 0,
-      timeText: "编辑于 6天前 上海",
+      timeText: "編輯於 6天前 上海",
       location: "",
       images: [{
         url: "https://sns-avatar-qc.xhscdn.com/avatar/cat.jpg",
@@ -111,11 +111,11 @@ describe("xiaohongshu note content", () => {
         infoList: [],
       }],
     }, pageUrl);
-    expect(resolved?.datetime).toBe("编辑于 6天前");
+    expect(resolved?.datetime).toBe("編輯於 6天前");
     expect(resolved?.location).toBe("上海");
     expect(resolved?.imageUrls).toEqual(["https://ci.xiaohongshu.com/note/second.jpg"]);
-    expect(xhsNoteTitle({ title: "", nickname: "王小猫", body: resolved.body, fallback: "一篇小红书笔记" }))
-      .toBe("王小猫: 谁说贴瓷砖是男生的主场");
+    expect(xhsNoteTitle({ title: "", nickname: "王小貓", body: resolved.body, fallback: "一篇小紅書筆記" }))
+      .toBe("王小貓: 誰說貼瓷磚是男生的主場");
     expect(imageUrlsFromXhsImages([{
       url: "https://sns-webpic-qc.xhscdn.com/note/clip.mp4",
       urlDefault: "",
@@ -196,10 +196,10 @@ describe("saveCapturedXhsNote", () => {
 
   const input = {
     notebookId: "nb_inbox",
-    title: "世赛现场，会贴瓷砖的女生帅爆了",
-    nickname: "王小猫",
-    noteTitle: "世赛现场，会贴瓷砖的女生帅爆了",
-    body: "谁说贴瓷砖是男生的主场",
+    title: "世賽現場，會貼瓷磚的女生帥爆了",
+    nickname: "王小貓",
+    noteTitle: "世賽現場，會貼瓷磚的女生帥爆了",
+    body: "誰說貼瓷磚是男生的主場",
     datetime: "2026-09-20T08:00:00.000Z",
     location: "上海",
     noteUrl: canonicalNoteUrl(pageUrl, noteId),
@@ -217,7 +217,7 @@ describe("saveCapturedXhsNote", () => {
     expect(saved).toEqual({ memoId: "memo_1", resourceIds: [] });
     expect(fixture.order).toEqual(["create"]);
     expect(fixture.calls.created.tags).toEqual(["web-clip"]);
-    expect(fixture.calls.created.contentMarkdown).toContain("谁说贴瓷砖是男生的主场");
+    expect(fixture.calls.created.contentMarkdown).toContain("誰說貼瓷磚是男生的主場");
   });
 
   test("keeps the text note when a photo cannot be uploaded", async () => {

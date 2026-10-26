@@ -1,4 +1,4 @@
-江城圆体 (JiangCheng YuanTi)
+江城圓體 (JiangCheng YuanTi)
 Source: https://www.npmjs.com/package/@fontpkg/jiang-cheng-yuan-ti
 This copy: subset and converted to WOFF2 by Qiaomu Cover Design
 

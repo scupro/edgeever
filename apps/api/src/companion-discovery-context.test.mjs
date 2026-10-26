@@ -49,7 +49,7 @@ test("analysis fingerprint includes content, real IDs, context and model configu
   const hash = await discoveryInputHash(request);
   expect(hash).toMatch(/^[0-9a-f]{64}$/);
   expect(await discoveryInputHash({ ...request })).toBe(hash);
-  for (const patch of [{ locale: "zh-CN" }, { settingsVersion: 2 }, { contextRevision: 1 }, { anchorId: candidates[1].id },
+  for (const patch of [{ locale: "zh-TW" }, { settingsVersion: 2 }, { contextRevision: 1 }, { anchorId: candidates[1].id },
     { modelConfiguration: { default_model_id: "model-b" } },
     ...["title", "contentMarkdown", "updatedAt"].map(key => ({ candidates: candidates.map((note, i) => i ? note : { ...note, [key]: `${note[key]} changed` }) })),
     { candidates: candidates.map((note, i) => i ? note : { ...note, plainText: true }) },

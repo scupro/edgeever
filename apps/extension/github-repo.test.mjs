@@ -13,12 +13,12 @@ import {
 
 const labels = {
   capturedAt: "2026-10-01T00:00:00.000Z",
-  sourceLabel: "来源",
-  capturedAtLabel: "抓取时间",
-  homepageLabel: "主页",
-  languageLabel: "语言",
-  licenseLabel: "许可证",
-  topicsLabel: "话题",
+  sourceLabel: "來源",
+  capturedAtLabel: "抓取時間",
+  homepageLabel: "主頁",
+  languageLabel: "語言",
+  licenseLabel: "許可證",
+  topicsLabel: "話題",
 };
 
 const source = (overrides = {}) => ({
@@ -151,12 +151,12 @@ describe("github repository card", () => {
     const markdown = githubRepoNoteMarkdown({ ...facts, ...labels });
     expect(githubRepoNoteTitle(facts.owner, facts.name)).toBe("tianma-if/edgeever");
     expect(markdown.startsWith("Open-source, AI-native knowledge base.")).toBe(true);
-    expect(markdown).toContain("主页: [edgeever.org](https://edgeever.org/)");
-    expect(markdown).toContain("语言: TypeScript");
-    expect(markdown).toContain("许可证: AGPL-3.0");
-    expect(markdown).toContain("话题: notes, mcp, sqlite");
+    expect(markdown).toContain("主頁: [edgeever.org](https://edgeever.org/)");
+    expect(markdown).toContain("語言: TypeScript");
+    expect(markdown).toContain("許可證: AGPL-3.0");
+    expect(markdown).toContain("話題: notes, mcp, sqlite");
     expect(markdown).toContain("[https://github.com/tianma-if/edgeever](https://github.com/tianma-if/edgeever)");
-    expect(markdown).toContain("抓取时间: 2026-10-01T00:00:00.000Z");
+    expect(markdown).toContain("抓取時間: 2026-10-01T00:00:00.000Z");
     expect(markdown).not.toContain("1915");
     expect(markdown).not.toContain("995");
   });
@@ -178,9 +178,9 @@ describe("github repository card", () => {
     expect(facts?.homepage).toBe("");
     expect(facts?.topics).toEqual([]);
     const markdown = githubRepoNoteMarkdown({ ...facts, ...labels });
-    expect(markdown).not.toContain("主页:");
-    expect(markdown).not.toContain("话题:");
-    expect(markdown).toContain("来源: [https://github.com/tianma-if/edgeever](https://github.com/tianma-if/edgeever)");
+    expect(markdown).not.toContain("主頁:");
+    expect(markdown).not.toContain("話題:");
+    expect(markdown).toContain("來源: [https://github.com/tianma-if/edgeever](https://github.com/tianma-if/edgeever)");
   });
 
   test("does not treat an unrelated GitHub page as the repository in the address", () => {

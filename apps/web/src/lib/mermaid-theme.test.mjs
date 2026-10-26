@@ -6,10 +6,10 @@ import { contrastRatio } from "./color-contrast";
 import { getOfficialMermaidThemeVariables } from "./mermaid-theme";
 
 const SEQUENCE_SOURCE = `sequenceDiagram
-  participant User as 用户
-  participant App as 客户端
-  User->>App: 保存笔记
-  App-->>User: 保存成功`;
+  participant User as 使用者
+  participant App as 客戶端
+  User->>App: 儲存筆記
+  App-->>User: 儲存成功`;
 
 describe("official Mermaid theme variables", () => {
   test("maps every built-in theme across flowchart, sequence, and state diagrams", () => {

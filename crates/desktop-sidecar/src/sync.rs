@@ -781,7 +781,7 @@ fn ensure_active_inbox(tx: &Transaction<'_>) -> Result<String, String> {
 
     tx.execute(
         "INSERT INTO notebooks (id, parent_id, name, slug, icon, color, sort_order, created_at, updated_at)
-         VALUES ('nb_inbox', NULL, '等待分类', 'inbox', 'notebook', '#0f766e', 10,
+         VALUES ('nb_inbox', NULL, '等待分類', 'inbox', 'notebook', '#0f766e', 10,
                  strftime('%Y-%m-%dT%H:%M:%fZ','now'), strftime('%Y-%m-%dT%H:%M:%fZ','now'))",
         [],
     )

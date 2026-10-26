@@ -36,7 +36,7 @@ export const ANDROID_INSTALL_UPDATE_SOURCES: readonly MobileInstallUpdateSource[
   {
     id: "github",
     labelEn: "Download from GitHub",
-    labelZh: "从 GitHub 下载",
+    labelZh: "從 GitHub 下載",
     url: GITHUB_LATEST_RELEASE_URL,
   },
 ];

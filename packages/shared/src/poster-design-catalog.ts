@@ -3,7 +3,7 @@
 export const POSTER_DESIGN_TEMPLATES = [
   {
     "id": "minimal",
-    "zh": "简约白",
+    "zh": "簡約白",
     "en": "Minimal",
     "fit": [
       "xhs",
@@ -13,13 +13,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "wechat",
       "x"
     ],
-    "zhUse": "干净克制，适合观点、读书、知识类",
+    "zhUse": "乾淨剋制，適合觀點、讀書、知識類",
     "enUse": "Clean and restrained; opinions, reading, knowledge",
     "available": true
   },
   {
     "id": "editorial",
-    "zh": "杂志",
+    "zh": "雜誌",
     "en": "Editorial",
     "fit": [
       "wechat",
@@ -29,13 +29,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "portrait",
       "square"
     ],
-    "zhUse": "衬线大标题 + 细线，有质感，适合深度内容与公众号",
+    "zhUse": "襯線大標題 + 細線，有質感，適合深度內容與公眾號",
     "enUse": "Serif headline with rules; essays and articles",
     "available": false
   },
   {
     "id": "bold",
-    "zh": "醒目黄",
+    "zh": "醒目黃",
     "en": "Loud yellow",
     "fit": [
       "xhs",
@@ -49,7 +49,7 @@ export const POSTER_DESIGN_TEMPLATES = [
       "wide",
       "vertical"
     ],
-    "zhUse": "高饱和纯色 + 黑字，信息流里最抢眼",
+    "zhUse": "高飽和純色 + 黑字，資訊流裡最搶眼",
     "enUse": "Saturated flat colour with black type; stops the scroll",
     "available": true
   },
@@ -70,13 +70,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "portrait",
       "square"
     ],
-    "zhUse": "深底荧光点缀，适合 AI、编程、效率工具",
+    "zhUse": "深底熒光點綴，適合 AI、程式設計、效率工具",
     "enUse": "Dark with a neon glow; AI, code, tools",
     "available": false
   },
   {
     "id": "poster",
-    "zh": "大字报",
+    "zh": "大字報",
     "en": "Poster",
     "fit": [
       "xhs",
@@ -85,13 +85,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "square",
       "vertical"
     ],
-    "zhUse": "满屏居中大字，情绪强，适合金句、避坑、警告",
+    "zhUse": "滿屏居中大字，情緒強，適合金句、避坑、警告",
     "enUse": "Full-bleed centred type; punchy statements",
     "available": true
   },
   {
     "id": "split",
-    "zh": "左文右图",
+    "zh": "左文右圖",
     "en": "Arch split",
     "fit": [
       "youtube",
@@ -106,13 +106,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "portrait",
       "square"
     ],
-    "zhUse": "左文案右拱门：奶油底 + 橙色拱门窗 + 太阳圆 + 细线，右侧放人像或产品最好看",
+    "zhUse": "左文案右拱門：奶油底 + 橙色拱門窗 + 太陽圓 + 細線，右側放人像或產品最好看",
     "enUse": "Copy on the left, an orange arch window on the right for a portrait or product; cream paper, a sun disc and fine rules",
     "available": true
   },
   {
     "id": "sticker",
-    "zh": "便签",
+    "zh": "便籤",
     "en": "Sticky note",
     "fit": [
       "xhs",
@@ -120,13 +120,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "portrait",
       "square"
     ],
-    "zhUse": "粉底便签纸，生活感，适合种草、日常、分享",
+    "zhUse": "粉底便籤紙，生活感，適合種草、日常、分享",
     "enUse": "Pink backdrop, paper note; lifestyle posts",
     "available": false
   },
   {
     "id": "gradient",
-    "zh": "渐变光感",
+    "zh": "漸變光感",
     "en": "Soft gradient",
     "fit": [
       "youtube",
@@ -141,13 +141,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "portrait",
       "square"
     ],
-    "zhUse": "蓝青渐变 + 白字，通用、稳、不出错",
+    "zhUse": "藍青漸變 + 白字，通用、穩、不出錯",
     "enUse": "Blue-cyan gradient with white type; safe and versatile",
     "available": false
   },
   {
     "id": "center",
-    "zh": "居中标签",
+    "zh": "居中標籤",
     "en": "Centered",
     "fit": [
       "xhs",
@@ -160,13 +160,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "bilibili-hd",
       "wide"
     ],
-    "zhUse": "细框居中，黄色高亮副标，通用百搭",
+    "zhUse": "細框居中，黃色高亮副標，通用百搭",
     "enUse": "Thin frame, centred, highlighted subtitle; all-purpose",
     "available": false
   },
   {
     "id": "checklist",
-    "zh": "清单笔记",
+    "zh": "清單筆記",
     "en": "Checklist",
     "fit": [
       "xhs",
@@ -174,13 +174,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "portrait",
       "square"
     ],
-    "zhUse": "标题 + 3~4 条要点，信息密度高，小红书干货首选",
+    "zhUse": "標題 + 3~4 條要點，資訊密度高，小紅書乾貨首選",
     "enUse": "Headline plus 3–4 points; dense and useful",
     "available": false
   },
   {
     "id": "number",
-    "zh": "数字干货",
+    "zh": "數字乾貨",
     "en": "Big number",
     "fit": [
       "xhs",
@@ -192,13 +192,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "bilibili",
       "bilibili-43"
     ],
-    "zhUse": "超大数字做钩子（7 个技巧 / 3 步），点击率高的榜单体",
+    "zhUse": "超大數字做鉤子（7 個技巧 / 3 步），點選率高的榜單體",
     "enUse": "A huge numeral as the hook; listicles",
     "available": true
   },
   {
     "id": "impact",
-    "zh": "油管冲击",
+    "zh": "油管衝擊",
     "en": "Thumbnail punch",
     "fit": [
       "youtube",
@@ -208,14 +208,14 @@ export const POSTER_DESIGN_TEMPLATES = [
       "wide",
       "vertical"
     ],
-    "zhUse": "深蓝放射光 + 黄字黑描边硬阴影 + 红色角标，右侧留主体位；短标题效果最好",
+    "zhUse": "深藍放射光 + 黃字黑描邊硬陰影 + 紅色角標，右側留主體位；短標題效果最好",
     "enUse": "Blue sunburst, yellow type with a black outline and hard shadow, a red arrow and burst badge; room for a subject on the right",
     "photo": true,
     "available": false
   },
   {
     "id": "compare",
-    "zh": "对比",
+    "zh": "對比",
     "en": "Versus",
     "fit": [
       "xhs",
@@ -228,7 +228,7 @@ export const POSTER_DESIGN_TEMPLATES = [
       "bilibili-hd",
       "wide"
     ],
-    "zhUse": "斜切分屏：左边黯淡的“之前”，右边鲜亮的“之后”，中间一枚 VS；副标题写成「A | B」",
+    "zhUse": "斜切分屏：左邊黯淡的“之前”，右邊鮮亮的“之後”，中間一枚 VS；副標題寫成「A | B」",
     "enUse": "A slanted split: dull “before” against vivid “after” with a VS burst; write the subtitle as “A | B”",
     "available": false
   },
@@ -248,13 +248,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "wide",
       "vertical"
     ],
-    "zhUse": "黑粗框 + 硬阴影 + 荧光底，年轻、有趣、辨识度高",
+    "zhUse": "黑粗框 + 硬陰影 + 熒光底，年輕、有趣、辨識度高",
     "enUse": "Thick black borders, hard shadows, bright backdrop",
     "available": true
   },
   {
     "id": "soft",
-    "zh": "柔雾莫兰迪",
+    "zh": "柔霧莫蘭迪",
     "en": "Soft haze",
     "fit": [
       "xhs",
@@ -264,13 +264,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "wechat",
       "x"
     ],
-    "zhUse": "低饱和柔光，适合生活方式、情绪、穿搭、女性向",
+    "zhUse": "低飽和柔光，適合生活方式、情緒、穿搭、女性向",
     "enUse": "Muted haze; lifestyle, mood, fashion",
     "available": false
   },
   {
     "id": "swiss",
-    "zh": "瑞士网格",
+    "zh": "瑞士網格",
     "en": "Swiss grid",
     "fit": [
       "xhs",
@@ -285,13 +285,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "bilibili-hd",
       "wide"
     ],
-    "zhUse": "米白底 + 红圆 + 极粗无衬线 + 网格细线，国际主义风格",
+    "zhUse": "米白底 + 紅圓 + 極粗無襯線 + 網格細線，國際主義風格",
     "enUse": "Off-white, a red disc, ultra-bold sans and grid hairlines",
     "available": true
   },
   {
     "id": "acid",
-    "zh": "酸性渐变",
+    "zh": "酸性漸變",
     "en": "Acid mesh",
     "fit": [
       "xhs",
@@ -305,13 +305,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "wide",
       "vertical"
     ],
-    "zhUse": "浅粉紫弥散光斑 + 颗粒 + 居中深紫大字 + 一枚闪光；潮流、音乐、AI 话题",
+    "zhUse": "淺粉紫彌散光斑 + 顆粒 + 居中深紫大字 + 一枚閃光；潮流、音樂、AI 話題",
     "enUse": "Pastel mesh glows and grain, a centred deep-violet headline and one sparkle; trendy, music, AI",
     "available": true
   },
   {
     "id": "collage",
-    "zh": "拼贴手账",
+    "zh": "拼貼手賬",
     "en": "Paper collage",
     "fit": [
       "xhs",
@@ -321,13 +321,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "bilibili",
       "wechat"
     ],
-    "zhUse": "牛皮纸 + 撕纸色块 + 胶带 + 贴纸，生活、手账、种草",
+    "zhUse": "牛皮紙 + 撕紙色塊 + 膠帶 + 貼紙，生活、手賬、種草",
     "enUse": "Kraft paper, torn colour blocks, tape and stickers; lifestyle and journaling",
     "available": true
   },
   {
     "id": "mega",
-    "zh": "大字满版",
+    "zh": "大字滿版",
     "en": "Mega type",
     "fit": [
       "xhs",
@@ -337,13 +337,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "vertical",
       "youtube"
     ],
-    "zhUse": "标题放大到撑满画面，高饱和纯色底，最强的信息流冲击力",
+    "zhUse": "標題放大到撐滿畫面，高飽和純色底，最強的資訊流衝擊力",
     "enUse": "The headline fills the artboard on a saturated colour; maximum scroll-stopping force",
     "available": true
   },
   {
     "id": "ticker",
-    "zh": "跑马灯",
+    "zh": "跑馬燈",
     "en": "Ticker",
     "fit": [
       "youtube",
@@ -356,13 +356,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "portrait",
       "square"
     ],
-    "zhUse": "奶黄底 + 斜向滚动字带 + 硬阴影大字，B 站 / YouTube 的信息流利器",
+    "zhUse": "奶黃底 + 斜向滾動字帶 + 硬陰影大字，B 站 / YouTube 的資訊流利器",
     "enUse": "Cream with diagonal ticker bands and hard-shadow type; built for video feeds",
     "available": false
   },
   {
     "id": "memo",
-    "zh": "便签笔记",
+    "zh": "便籤筆記",
     "en": "Memo paper",
     "fit": [
       "xhs",
@@ -371,13 +371,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "square",
       "wechat"
     ],
-    "zhUse": "横线笔记纸 + 红色页边线 + 荧光笔划重点，学习、笔记、干货",
+    "zhUse": "橫線筆記紙 + 紅色頁邊線 + 熒光筆劃重點，學習、筆記、乾貨",
     "enUse": "Ruled notebook paper with a margin line and a highlighter; study notes and tips",
     "available": true
   },
   {
     "id": "pop",
-    "zh": "贴纸波普",
+    "zh": "貼紙波普",
     "en": "Pop sticker",
     "fit": [
       "xhs",
@@ -391,13 +391,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "wide",
       "vertical"
     ],
-    "zhUse": "明黄底 + 黑色粗标题 + 几枚歪贴的粉、蓝、绿色块贴纸 + 白色胶囊副标题；年轻好玩，但不靠描边、硬投影和爆炸星",
+    "zhUse": "明黃底 + 黑色粗標題 + 幾枚歪貼的粉、藍、綠色塊貼紙 + 白色膠囊副標題；年輕好玩，但不靠描邊、硬投影和爆炸星",
     "enUse": "Yellow, heavy black type, a few tilted pink, blue and green stickers and a white pill subtitle; playful without outlines, hard shadows or bursts",
     "available": true
   },
   {
     "id": "mag",
-    "zh": "杂志封面",
+    "zh": "雜誌封面",
     "en": "Magazine",
     "fit": [
       "wechat",
@@ -408,13 +408,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "square",
       "bilibili"
     ],
-    "zhUse": "纸质底 + 衬线巨标题 + 巨型虚影期号 + 报头细线，像一本真杂志",
+    "zhUse": "紙質底 + 襯線巨標題 + 巨型虛影期號 + 報頭細線，像一本真雜誌",
     "enUse": "Paper, a huge serif headline, a ghost issue numeral and masthead rules; a real magazine cover",
     "available": true
   },
   {
     "id": "print",
-    "zh": "印刷海报",
+    "zh": "印刷海報",
     "en": "Print poster",
     "fit": [
       "xhs",
@@ -429,7 +429,7 @@ export const POSTER_DESIGN_TEMPLATES = [
       "bilibili-hd",
       "wide"
     ],
-    "zhUse": "黑 + 米白 + 一抹朱红，裁切线、套准标、沿边文字、条码，欧洲字体海报的语汇",
+    "zhUse": "黑 + 米白 + 一抹硃紅，裁切線、套準標、沿邊文字、條碼，歐洲字型海報的語彙",
     "enUse": "Black, paper and one vermilion; crop marks, registration target, edge text and barcode: the European typographic poster vocabulary",
     "available": true
   },
@@ -450,13 +450,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "wechat",
       "x"
     ],
-    "zhUse": "粉蓝弥散背景 + 大幅磨砂玻璃卡片 + 悬浮小胶囊，现代、产品、App 感",
+    "zhUse": "粉藍彌散背景 + 大幅磨砂玻璃卡片 + 懸浮小膠囊，現代、產品、App 感",
     "enUse": "Pastel mesh background, a large frosted glass card and floating pills; modern, product, app",
     "available": true
   },
   {
     "id": "bento",
-    "zh": "便当清单",
+    "zh": "便當清單",
     "en": "Bento list",
     "fit": [
       "xhs",
@@ -465,13 +465,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "square",
       "wechat"
     ],
-    "zhUse": "深色标题卡 + 三张彩色要点卡拼成便当格，信息密度高又好看",
+    "zhUse": "深色標題卡 + 三張彩色要點卡拼成便當格，資訊密度高又好看",
     "enUse": "A dark headline card and three colour cards in a bento grid; dense and good looking",
     "available": true
   },
   {
     "id": "neon",
-    "zh": "霓虹网格",
+    "zh": "霓虹網格",
     "en": "Neon grid",
     "fit": [
       "youtube",
@@ -486,13 +486,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "portrait",
       "square"
     ],
-    "zhUse": "深色透视网格 + 霓虹发光字 + 取景框角标，AI、编程、赛博",
+    "zhUse": "深色透視網格 + 霓虹發光字 + 取景框角標，AI、程式設計、賽博",
     "enUse": "Dark perspective grid, neon glow type and viewfinder corners; AI, code, cyber",
     "available": false
   },
   {
     "id": "calm",
-    "zh": "松弛留白",
+    "zh": "鬆弛留白",
     "en": "Calm paper",
     "fit": [
       "xhs",
@@ -502,13 +502,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "wechat",
       "x"
     ],
-    "zhUse": "云舞白纸 + 大号衬线标题 + 竖线与弧线 + 沿边小字，克制的“冷静风”",
+    "zhUse": "雲舞白紙 + 大號襯線標題 + 豎線與弧線 + 沿邊小字，剋制的“冷靜風”",
     "enUse": "Cloud-white paper, a large serif headline, a vertical rule, an arc and edge text; quiet and restrained",
     "available": true
   },
   {
     "id": "folio",
-    "zh": "编辑大标题",
+    "zh": "編輯大標題",
     "en": "Editorial headline",
     "fit": [
       "xhs",
@@ -523,13 +523,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "bilibili-hd",
       "wide"
     ],
-    "zhUse": "纸面编辑版式：顶部粗线 + 栏目名与期号、贴左黑体大标题、宋体导语、底部细线收边；只有一个焦点，留白占一半",
+    "zhUse": "紙面編輯版式：頂部粗線 + 欄目名與期號、貼左黑體大標題、宋體導語、底部細線收邊；只有一個焦點，留白佔一半",
     "enUse": "An editorial page: a heavy top rule with section and issue, a flush-left heavy headline, a serif standfirst and a hairline foot; one focal point, half the page left empty",
     "available": true
   },
   {
     "id": "numeral",
-    "zh": "单色大数字",
+    "zh": "單色大數字",
     "en": "Big numeral",
     "fit": [
       "xhs",
@@ -544,13 +544,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "wechat",
       "x"
     ],
-    "zhUse": "一个巨型数字做钩子 + 其下小标题；单一强调色，适合清单、教程、数字干货",
+    "zhUse": "一個巨型數字做鉤子 + 其下小標題；單一強調色，適合清單、教程、數字乾貨",
     "enUse": "One oversized numeral as the hook, a quiet headline beneath; a single accent colour for lists, tutorials and number posts",
     "available": true
   },
   {
     "id": "sage",
-    "zh": "纸质卡片",
+    "zh": "紙質卡片",
     "en": "Paper card",
     "fit": [
       "xhs",
@@ -565,13 +565,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "bilibili-hd",
       "wide"
     ],
-    "zhUse": "低饱和鼠尾草底 + 一张米白纸卡，标题落在卡片上；温和、干净、有质感",
+    "zhUse": "低飽和鼠尾草底 + 一張米白紙卡，標題落在卡片上；溫和、乾淨、有質感",
     "enUse": "A muted sage ground with one warm paper card carrying the headline; gentle, clean and tactile",
     "available": true
   },
   {
     "id": "seal",
-    "zh": "书法印章",
+    "zh": "書法印章",
     "en": "Ink & seal",
     "fit": [
       "xhs",
@@ -582,13 +582,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "x",
       "vertical"
     ],
-    "zhUse": "宣纸底 + 淡墨巨圆 + 大号衬线标题 + 红印章；纯中文短标题自动改竖排",
+    "zhUse": "宣紙底 + 淡墨巨圓 + 大號襯線標題 + 紅印章；純中文短標題自動改豎排",
     "enUse": "Rice paper, a huge ink wash disc, a big serif headline and a red seal; short Chinese titles run vertically",
     "available": true
   },
   {
     "id": "quote",
-    "zh": "金句海报",
+    "zh": "金句海報",
     "en": "Quote poster",
     "fit": [
       "xhs",
@@ -598,13 +598,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "wechat",
       "x"
     ],
-    "zhUse": "墨黑底 + 巨型金色引号 + 衬线金句，一句话撑满一张海报",
+    "zhUse": "墨黑底 + 巨型金色引號 + 襯線金句，一句話撐滿一張海報",
     "enUse": "Ink black, a giant gold quotation mark and a serif statement; one line carries the poster",
     "available": false
   },
   {
     "id": "cinema",
-    "zh": "电影感",
+    "zh": "電影感",
     "en": "Cinematic",
     "fit": [
       "youtube",
@@ -615,14 +615,14 @@ export const POSTER_DESIGN_TEMPLATES = [
       "wechat",
       "x"
     ],
-    "zhUse": "青橙调光 + 镜头光晕 + 金色取景角 + 字距拉开的衬线片名，纪录片、Vlog、深度内容",
+    "zhUse": "青橙調光 + 鏡頭光暈 + 金色取景角 + 字距拉開的襯線片名，紀錄片、Vlog、深度內容",
     "enUse": "Teal-and-orange light, lens flare, gold viewfinder corners and a wide-tracked serif title; documentary and vlog",
     "photo": true,
     "available": false
   },
   {
     "id": "bili",
-    "zh": "B 站知识区",
+    "zh": "B 站知識區",
     "en": "Bilibili explainer",
     "fit": [
       "bilibili",
@@ -636,13 +636,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "portrait",
       "square"
     ],
-    "zhUse": "浅灰底 + B 站粉蓝双色 + 粉色分区标签 + 黑色大标题 + 小电视画框（屏幕是图位）；知识区、科普、测评的干净信息感",
+    "zhUse": "淺灰底 + B 站粉藍雙色 + 粉色分割槽標籤 + 黑色大標題 + 小電視畫框（螢幕是圖位）；知識區、科普、測評的乾淨資訊感",
     "enUse": "Light grey with Bilibili pink and blue, a section tag, a bold headline and a little-TV frame whose screen takes a picture; explainers and reviews",
     "available": true
   },
   {
     "id": "highlight",
-    "zh": "荧光标题",
+    "zh": "熒遊標題",
     "en": "Highlighter",
     "fit": [
       "xhs",
@@ -657,13 +657,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "vertical",
       "wechat"
     ],
-    "zhUse": "白纸黑字 + 每行标题下一道圆头荧光笔（每行微微不同的倾斜），像在笔记上划重点；干货、观点、教程都稳",
+    "zhUse": "白紙黑字 + 每行標題下一道圓頭熒光筆（每行微微不同的傾斜），像在筆記上劃重點；乾貨、觀點、教程都穩",
     "enUse": "Black type on white with a round-ended highlighter stroke under every line, each at its own slight tilt; tips, opinions and tutorials",
     "available": true
   },
   {
     "id": "notes",
-    "zh": "备忘录",
+    "zh": "備忘錄",
     "en": "Notes app",
     "fit": [
       "xhs",
@@ -677,13 +677,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "bilibili-hd",
       "wide"
     ],
-    "zhUse": "手机备忘录截图：黄色返回键 + 日期 + 黑色大标题 + 勾选清单（要点写在 points 里）；小红书“截图型”，亲切可信",
+    "zhUse": "手機備忘錄截圖：黃色返回鍵 + 日期 + 黑色大標題 + 勾選清單（要點寫在 points 裡）；小紅書“截圖型”，親切可信",
     "enUse": "A phone notes screenshot: yellow back button, date, bold headline and a checklist from the points; personal and trustworthy",
     "available": true
   },
   {
     "id": "chat",
-    "zh": "聊天截图",
+    "zh": "聊天截圖",
     "en": "Chat bubbles",
     "fit": [
       "xhs",
@@ -697,13 +697,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "wide",
       "vertical"
     ],
-    "zhUse": "一问一答的聊天气泡：副标题是提问，标题是回答；对话感强，适合问答、AI、情感、职场",
+    "zhUse": "一問一答的聊天氣泡：副標題是提問，標題是回答；對話感強，適合問答、AI、情感、職場",
     "enUse": "A chat exchange: the subtitle asks, the headline answers; Q&A, AI, relationships and work",
     "available": true
   },
   {
     "id": "keyword",
-    "zh": "一词冲击",
+    "zh": "一詞衝擊",
     "en": "Keyword punch",
     "fit": [
       "youtube",
@@ -717,7 +717,7 @@ export const POSTER_DESIGN_TEMPLATES = [
       "portrait",
       "square"
     ],
-    "zhUse": "缩略图式三词标题：饱和蓝底 + 超粗白字 + 一块黄色关键词标签（副标题）+ 主体位上一枚浅色圆盘（有图时主体站在上面）；不靠描边和爆炸星也抢眼",
+    "zhUse": "縮圖式三詞標題：飽和藍底 + 超粗白字 + 一塊黃色關鍵詞標籤（副標題）+ 主體位上一枚淺色圓盤（有圖時主體站在上面）；不靠描邊和爆炸星也搶眼",
     "enUse": "A three-word thumbnail: saturated blue, heavy white type, one yellow keyword tag (the subtitle) and a pale disc where the subject stands; loud without outlines or bursts",
     "photo": true,
     "available": true
@@ -739,7 +739,7 @@ export const POSTER_DESIGN_TEMPLATES = [
       "bilibili-hd",
       "wide"
     ],
-    "zhUse": "再生纸 + 荧光粉与蓝两种专色叠印 + 轻微错版 + 颗粒；独立杂志、展览、文艺与潮流话题",
+    "zhUse": "再生紙 + 熒光粉與藍兩種專色疊印 + 輕微錯版 + 顆粒；獨立雜誌、展覽、文藝與潮流話題",
     "enUse": "Recycled paper, fluorescent pink and blue overprinting with slight misregistration and grain; zines, shows and culture",
     "available": true
   },
@@ -760,13 +760,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "bilibili-hd",
       "wide"
     ],
-    "zhUse": "一张带缺口和齿孔的入场券：主券写标题，存根放标签与条码；活动、课程、展览、旅行",
+    "zhUse": "一張帶缺口和齒孔的入場券：主券寫標題，存根放標籤與條碼；活動、課程、展覽、旅行",
     "enUse": "An admission ticket with notches and perforation: headline on the main part, label and barcode on the stub; events, courses, travel",
     "available": true
   },
   {
     "id": "window",
-    "zh": "窗口教程",
+    "zh": "視窗教程",
     "en": "App window",
     "fit": [
       "youtube",
@@ -781,13 +781,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "wechat",
       "x"
     ],
-    "zhUse": "柔和渐变底上一扇 macOS 风格窗口：红黄绿三点 + 文件名标签 + 窗口里的大标题；教程、工具、编程、效率",
+    "zhUse": "柔和漸變底上一扇 macOS 風格視窗：紅黃綠三點 + 檔名標籤 + 視窗裡的大標題；教程、工具、程式設計、效率",
     "enUse": "A macOS-style window on a soft gradient: traffic lights, a file tab and the headline inside; tutorials, tools and code",
     "available": true
   },
   {
     "id": "newspaper",
-    "zh": "报纸头版",
+    "zh": "報紙頭版",
     "en": "Front page",
     "fit": [
       "wechat",
@@ -802,7 +802,7 @@ export const POSTER_DESIGN_TEMPLATES = [
       "bilibili-hd",
       "wide"
     ],
-    "zhUse": "新闻纸 + 衬线报头（标签做报名）+ 双线 + 期号栏 + 分栏灰条；把观点做成“头版头条”，评论、深度、年度盘点",
+    "zhUse": "新聞紙 + 襯線報頭（標籤做報名）+ 雙線 + 期號欄 + 分欄灰條；把觀點做成“頭版頭條”，評論、深度、年度盤點",
     "enUse": "Newsprint, a serif masthead (the label), double rules, a dateline and greeked columns; opinion, analysis, annual reviews",
     "available": true
   },
@@ -822,13 +822,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "wide",
       "wechat"
     ],
-    "zhUse": "一张贴着胶带的拍立得相纸（相纸里是图位）+ 标签写在相纸下沿 + 旁边大标题；旅行、Vlog、生活记录",
+    "zhUse": "一張貼著膠帶的拍立得相紙（相紙裡是圖位）+ 標籤寫在相紙下沿 + 旁邊大標題；旅行、Vlog、生活記錄",
     "enUse": "A taped instant photo (the print is a picture slot), the label on its lip and a big headline beside it; travel, vlogs, everyday life",
     "available": true
   },
   {
     "id": "stack",
-    "zh": "叠字海报",
+    "zh": "疊字海報",
     "en": "Echo stack",
     "fit": [
       "xhs",
@@ -839,13 +839,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "wechat",
       "x"
     ],
-    "zhUse": "同一句标题上下重复、逐层变淡，中间一行是红色实字；字体海报的节奏感，适合短标题、口号、金句",
+    "zhUse": "同一句標題上下重複、逐層變淡，中間一行是紅色實字；字型海報的節奏感，適合短標題、口號、金句",
     "enUse": "The headline repeated in fading layers around one solid red line; a rhythmic type poster for short titles and slogans",
     "available": true
   },
   {
     "id": "serial",
-    "zh": "栏目头图",
+    "zh": "欄目頭圖",
     "en": "Column header",
     "fit": [
       "wechat",
@@ -860,13 +860,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "portrait",
       "square"
     ],
-    "zhUse": "深绿栏目条（栏目名 + 大期号，标签写“周刊 12”）+ 标题；公众号系列文章、周刊、播客的固定头图，转发裁成方图时标题仍在中间",
+    "zhUse": "深綠欄目條（欄目名 + 大期號，標籤寫“週刊 12”）+ 標題；公眾號系列文章、週刊、播客的固定頭圖，轉發裁成方圖時標題仍在中間",
     "enUse": "A dark column band with the series name and a big issue number (label like “Weekly 12”) beside the headline; recurring newsletters and podcasts",
     "available": true
   },
   {
     "id": "regeng",
-    "zh": "热梗卡",
+    "zh": "熱梗卡",
     "en": "Daily drop",
     "fit": [
       "xhs",
@@ -875,13 +875,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "square",
       "wechat"
     ],
-    "zhUse": "黑色话题条（#标签#）+ 三层错位描边卡片里的粗黑大字 + 左下“No.期号”；每日热梗、资讯速递、系列笔记，小红书辨识度很高",
+    "zhUse": "黑色話題條（#標籤#）+ 三層錯位描邊卡片裡的粗黑大字 + 左下“No.期號”；每日熱梗、資訊速遞、系列筆記，小紅書辨識度很高",
     "enUse": "A black hashtag bar, a heavy headline in a stack of three offset outlined cards and an issue number; daily drops, news and series notes",
     "available": true
   },
   {
     "id": "interview",
-    "zh": "黑黄箭头",
+    "zh": "黑黃箭頭",
     "en": "Black & yellow",
     "fit": [
       "xhs",
@@ -895,13 +895,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "wide",
       "vertical"
     ],
-    "zhUse": "黑底 + 黄色超粗标题 + 一条手绘大箭头指向标题 + 白框英文标签 + 角落笑脸；面试、考试、干货清单，强对比又不土",
+    "zhUse": "黑底 + 黃色超粗標題 + 一條手繪大箭頭指向標題 + 白框英文標籤 + 角落笑臉；面試、考試、乾貨清單，強對比又不土",
     "enUse": "Black, a heavy yellow headline, one big hand-drawn arrow pointing at it, a boxed label and a corner smiley; interviews, exams and checklists",
     "available": true
   },
   {
     "id": "brush",
-    "zh": "笔刷收藏",
+    "zh": "筆刷收藏",
     "en": "Brush highlight",
     "fit": [
       "xhs",
@@ -915,13 +915,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "bilibili-hd",
       "wide"
     ],
-    "zhUse": "白底粗黑标题 + 最后一行压一道绿色笔刷 + 歪贴的“建议收藏!”标签 + 底部 ✓ 清单（points）；副业、避坑、干货，最像小红书爆款笔记",
+    "zhUse": "白底粗黑標題 + 最後一行壓一道綠色筆刷 + 歪貼的“建議收藏!”標籤 + 底部 ✓ 清單（points）；副業、避坑、乾貨，最像小紅書爆款筆記",
     "enUse": "Heavy black type on white, a green brush stroke under the last line, a tilted “save this” tag and a check row from the points; tips and side hustles",
     "available": true
   },
   {
     "id": "calendar",
-    "zh": "日历页",
+    "zh": "日曆頁",
     "en": "Calendar page",
     "fit": [
       "xhs",
@@ -935,13 +935,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "bilibili-hd",
       "wide"
     ],
-    "zhUse": "纯蓝底 + 一张带装订环的白色日历页 + 页里的粗黑大字；每日一句、打卡、待办、节日，干净有仪式感",
+    "zhUse": "純藍底 + 一張帶裝訂環的白色日曆頁 + 頁裡的粗黑大字；每日一句、打卡、待辦、節日，乾淨有儀式感",
     "enUse": "Flat blue with a white calendar page and binding rings, a heavy headline on the page; daily lines, check-ins and to-dos",
     "available": true
   },
   {
     "id": "frame",
-    "zh": "框线大字",
+    "zh": "框線大字",
     "en": "Framed type",
     "fit": [
       "xhs",
@@ -956,13 +956,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "bilibili-hd",
       "wide"
     ],
-    "zhUse": "纯色底 + 一圈细内框 + 撑满框的超大标题 + 一角出血的太阳圆；招聘、开学、通知、活动，最简单也最醒目",
+    "zhUse": "純色底 + 一圈細內框 + 撐滿框的超大標題 + 一角出血的太陽圓；招聘、開學、通知、活動，最簡單也最醒目",
     "enUse": "Flat colour, a thin inset frame, a headline that fills it and a sun disc bleeding off a corner; hiring, launches and notices",
     "available": true
   },
   {
     "id": "kicker",
-    "zh": "粗细引题",
+    "zh": "粗細引題",
     "en": "Kicker headline",
     "fit": [
       "xhs",
@@ -976,13 +976,13 @@ export const POSTER_DESIGN_TEMPLATES = [
       "bilibili-hd",
       "wide"
     ],
-    "zhUse": "浅灰底：副标题当细字引题写在上面，标题粗黑放大 + 双线胶囊标签 + 底部“右滑查看 ››››”；经验、问答、职场，信息感强",
+    "zhUse": "淺灰底：副標題當細字引題寫在上面，標題粗黑放大 + 雙線膠囊標籤 + 底部“右滑檢視 ››››”；經驗、問答、職場，資訊感強",
     "enUse": "Light grey: the subtitle as a thin kicker above a heavy headline, a double-ring pill tag and a “swipe” cue; experience posts, Q&A, work",
     "available": true
   },
   {
     "id": "corner",
-    "zh": "斜角色块",
+    "zh": "斜角色塊",
     "en": "Corner wedge",
     "fit": [
       "xhs",
@@ -996,7 +996,7 @@ export const POSTER_DESIGN_TEMPLATES = [
       "wide",
       "wechat"
     ],
-    "zhUse": "白底 + 右下一大块斜切薄荷色 + 左上粗黑大字 + 黑色胶囊副标题 + 一条弯箭头；计划、清单、自律、学习，清爽有节奏",
+    "zhUse": "白底 + 右下一大塊斜切薄荷色 + 左上粗黑大字 + 黑色膠囊副標題 + 一條彎箭頭；計劃、清單、自律、學習，清爽有節奏",
     "enUse": "White with a big mint wedge from the lower right, a heavy headline top left, a black pill subtitle and a curved arrow; plans, lists and study",
     "available": true
   }

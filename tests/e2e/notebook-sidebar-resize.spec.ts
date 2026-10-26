@@ -10,7 +10,7 @@ test("resizes the notebook pane from a fully clickable drag handle", async ({ pa
   await page.reload();
 
   const sidebar = page.locator("#edgeever-notebook-sidebar");
-  const handle = page.getByRole("separator", { name: "调整笔记本栏宽度" });
+  const handle = page.getByRole("separator", { name: "調整筆記本欄寬度" });
   await expect(sidebar).toBeVisible();
   await expect(handle).toBeVisible();
   await expect(handle).toHaveCSS("touch-action", "none");
@@ -34,7 +34,7 @@ test("resizes the notebook pane from a fully clickable drag handle", async ({ pa
   expect(await page.evaluate((storageKey) => window.localStorage.getItem(storageKey), NOTEBOOK_SIDEBAR_WIDTH_STORAGE_KEY)).toBe(String(resizedWidth));
 
   await page.reload();
-  await expect(page.getByRole("separator", { name: "调整笔记本栏宽度" })).toHaveAttribute("aria-valuenow", String(resizedWidth));
+  await expect(page.getByRole("separator", { name: "調整筆記本欄寬度" })).toHaveAttribute("aria-valuenow", String(resizedWidth));
 });
 
 test("keyboard resizing starts from the displayed notebook pane width", async ({ page }) => {
@@ -46,7 +46,7 @@ test("keyboard resizing starts from the displayed notebook pane width", async ({
   );
   await page.reload();
 
-  const handle = page.getByRole("separator", { name: "调整笔记本栏宽度" });
+  const handle = page.getByRole("separator", { name: "調整筆記本欄寬度" });
   await expect(handle).toHaveAttribute("aria-valuenow", "204");
   await handle.focus();
   await page.keyboard.press("ArrowLeft");

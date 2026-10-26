@@ -3,8 +3,8 @@ import { Icon } from "astro-icon/components";
 import { deploymentPrompts, manualDeploymentCopy } from "@/deployment-prompts";
 import { getLocalizedPath } from "@/i18n";
 
-const { locale = "zh-CN" } = Astro.props;
-const isEnglish = locale !== "zh-CN";
+const { locale = "zh-TW" } = Astro.props;
+const isEnglish = locale !== "zh-TW";
 
 const copy = isEnglish
   ? {
@@ -36,32 +36,32 @@ const copy = isEnglish
       promptText: deploymentPrompts["en-US"],
     }
   : {
-      oneClick: "方案二：手动在线部署",
-      agent: "方案一：交给 AI Agent 部署",
+      oneClick: "方案二：手動線上部署",
+      agent: "方案一：交給 AI Agent 部署",
       docker: "方案三：Docker 部署",
-      recommended: "推荐",
+      recommended: "推薦",
       agentIntro:
-        "将下方提示词直接复制发送给 AI Agent（如 Codex、Claude、Cursor、WorkBuddy、Antigravity、OpenClaw、Hermes Agent 等）。执行过程中，如需访问 GitHub 或 Cloudflare，请确认权限范围并按提示完成授权。",
-      agentGuide: "详细约定与要求：AI Agent 在线部署约定",
+        "將下方提示詞直接複製傳送給 AI Agent（如 Codex、Claude、Cursor、WorkBuddy、Antigravity、OpenClaw、Hermes Agent 等）。執行過程中，如需訪問 GitHub 或 Cloudflare，請確認權限範圍並按提示完成授權。",
+      agentGuide: "詳細約定與要求：AI Agent 線上部署約定",
       agentGuideHref:
-        "https://github.com/tianma-if/edgeever/blob/main/docs/agent-deploy-cloudflare.zh-CN.md",
-      oneClickIntro: manualDeploymentCopy["zh-CN"].intro,
-      manualSteps: manualDeploymentCopy["zh-CN"].steps,
-      oneClickGuide: "查看在线部署文档",
+        "https://github.com/tianma-if/edgeever/blob/main/docs/agent-deploy-cloudflare.zh-TW.md",
+      oneClickIntro: manualDeploymentCopy["zh-TW"].intro,
+      manualSteps: manualDeploymentCopy["zh-TW"].steps,
+      oneClickGuide: "檢視線上部署文件",
       oneClickGuideHref:
-        "https://github.com/tianma-if/edgeever/blob/main/docs/deploy-cloudflare-button.zh-CN.md",
-      dockerTitle: "一条命令完成 Docker 自托管",
-      dockerPrerequisite: "运行命令前，请先安装 Docker 环境（含 Docker Compose v2）。",
-      dockerGuide: "查看完整 Docker 部署指南",
+        "https://github.com/tianma-if/edgeever/blob/main/docs/deploy-cloudflare-button.zh-TW.md",
+      dockerTitle: "一條命令完成 Docker 自託管",
+      dockerPrerequisite: "執行命令前，請先安裝 Docker 環境（含 Docker Compose v2）。",
+      dockerGuide: "檢視完整 Docker 部署指南",
       dockerGuideHref: "/docker-deploy",
       dockerCommandLabel: "COMMAND",
-      copyCommand: "复制命令",
+      copyCommand: "複製命令",
       promptLabel: "PROMPT",
-      copyPrompt: "复制提示词",
-      copying: "复制中...",
-      copied: "已复制",
-      copyFailed: "复制失败",
-      promptText: deploymentPrompts["zh-CN"],
+      copyPrompt: "複製提示詞",
+      copying: "複製中...",
+      copied: "已複製",
+      copyFailed: "複製失敗",
+      promptText: deploymentPrompts["zh-TW"],
     };
 ---
 
@@ -206,7 +206,7 @@ const copy = isEnglish
           </p>
         ) : (
           <p>
-            <span class="font-semibold text-amber-950">提示：</span>虽然 Cloudflare R2 存储提供了足够慷慨、在笔记场景中几乎永远不会超量的<a class="underline underline-offset-2 hover:text-amber-950" href="https://developers.cloudflare.com/r2/pricing/#free-tier" target="_blank" rel="noopener">免费存储额度</a>，但需先开通 R2 subscription 并绑定付款方式。Cloudflare <a class="underline underline-offset-2 hover:text-amber-950" href="https://developers.cloudflare.com/billing/get-started/update-billing-info/#supported-payment-methods" target="_blank" rel="noopener">官方支持</a> 银联（UnionPay）、Visa、Mastercard 等银行卡，以及 PayPal、Apple Pay、Google Pay 等付款方式。
+            <span class="font-semibold text-amber-950">提示：</span>雖然 Cloudflare R2 儲存提供了足夠慷慨、在筆記場景中幾乎永遠不會超量的<a class="underline underline-offset-2 hover:text-amber-950" href="https://developers.cloudflare.com/r2/pricing/#free-tier" target="_blank" rel="noopener">免費儲存額度</a>，但需先開通 R2 subscription 並繫結付款方式。Cloudflare <a class="underline underline-offset-2 hover:text-amber-950" href="https://developers.cloudflare.com/billing/get-started/update-billing-info/#supported-payment-methods" target="_blank" rel="noopener">官方支援</a> 銀聯（UnionPay）、Visa、Mastercard 等銀行卡，以及 PayPal、Apple Pay、Google Pay 等付款方式。
           </p>
         )}
       </div>

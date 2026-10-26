@@ -157,18 +157,18 @@ const CLICK_GUARD = `                      aria-disabled="true"
 describe("NotebookTreeItem inbox delete affordance", () => {
   test("explains why the starter Inbox notebook has no working delete action", () => {
     const treeItemSource = readFileSync(new URL("./NotebookTreeItem.tsx", import.meta.url), "utf8");
-    const catalogs = ["en-US", "zh-CN", "ja", "pl"].map((locale) =>
+    const catalogs = ["en-US", "zh-TW", "ja", "pl"].map((locale) =>
       readFileSync(new URL(`../../../../packages/shared/src/i18n/${locale}.ts`, import.meta.url), "utf8"),
     );
 
     expect(treeItemSource).toContain('const isInbox = node.slug === "inbox"');
 
-    // 说明必须是始终可见的 inline 文本：原生 title 在 disabled 项上不可达（pointer-events-none，
-    // 且键盘焦点会跳过 disabled 项）。
+    // 說明必須是始終可見的 inline 文字：原生 title 在 disabled 項上不可達（pointer-events-none，
+    // 且鍵盤焦點會跳過 disabled 項）。
     expect(treeItemSource).not.toContain('title={t("notebookTree.inboxDeleteHint")}');
     expect(treeItemSource.split('t("notebookTree.inboxDeleteHint")').length - 1).toBe(2);
 
-    // 两个菜单各一份：行内操作菜单 + 右键菜单
+    // 兩個選單各一份：行內操作選單 + 右鍵選單
     expect(treeItemSource).toContain(CLICK_GUARD);
     expect(treeItemSource).toContain('<ContextMenuSeparator className="my-1 h-px bg-slate-100" />\n              <div');
 

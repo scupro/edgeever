@@ -165,15 +165,15 @@ const loadAuthenticatedImageDataUrl = (
 };
 
 const alertProtectedImageLoadFailure = (
-  locale: "zh-CN" | "en-US" | "ja" | "pl",
+  locale: "zh-TW" | "en-US" | "ja" | "pl",
   failure: ProtectedResourceLoadFailure
 ) => {
-  const statusLabel = failure.status != null ? String(failure.status) : locale !== "zh-CN" ? "network error" : "网络错误";
+  const statusLabel = failure.status != null ? String(failure.status) : locale !== "zh-TW" ? "network error" : "網路錯誤";
   Alert.alert(
-    locale !== "zh-CN" ? "Image failed to load" : "图片加载失败",
-    locale !== "zh-CN"
+    locale !== "zh-TW" ? "Image failed to load" : "圖片載入失敗",
+    locale !== "zh-TW"
       ? `Could not load a note image (${statusLabel}). Check the network and try again.`
-      : `笔记中的图片未能加载（${statusLabel}）。请检查网络后重试。`
+      : `筆記中的圖片未能載入（${statusLabel}）。請檢查網路後重試。`
   );
 };
 
@@ -226,13 +226,13 @@ const loadAuthenticatedSvg = (source: AuthenticatedImageSource) => {
 const MOBILE_THEME_LABELS = {
   "glass": { labelZh: "透明", labelEn: "Glass" },
   "quote": { labelZh: "金句", labelEn: "Quote" },
-  "book": { labelZh: "书摘", labelEn: "Book excerpt" },
-  "memo": { labelZh: "备忘录", labelEn: "Memo" },
-  "bento": { labelZh: "便当", labelEn: "Bento" },
+  "book": { labelZh: "書摘", labelEn: "Book excerpt" },
+  "memo": { labelZh: "備忘錄", labelEn: "Memo" },
+  "bento": { labelZh: "便當", labelEn: "Bento" },
   "black-sun": { labelZh: "黑日", labelEn: "Black Sun" },
   "frame": { labelZh: "框界", labelEn: "Frame" },
-  "handwritten": { labelZh: "手写", labelEn: "Handwritten" },
-  "code": { labelZh: "代码", labelEn: "Code" },
+  "handwritten": { labelZh: "手寫", labelEn: "Handwritten" },
+  "code": { labelZh: "程式碼", labelEn: "Code" },
 };
 
 const MOBILE_THEME_OPTIONS = NOTE_IMAGE_THEME_OPTIONS.map((id) => ({
@@ -534,7 +534,7 @@ export const MemoDetailModal = ({
     showNotebook: imageShareNotebook, showTags: imageShareTags, showUpdatedAt: imageShareUpdatedAt,
     showBranding: imageShareBranding,
   } = imageSharePreferences;
-  const imageShareFontLabel = getMobileNoteImageFontLabel(imageShareFontStyle, imageShareTheme, resolvedLocale === "zh-CN");
+  const imageShareFontLabel = getMobileNoteImageFontLabel(imageShareFontStyle, imageShareTheme, resolvedLocale === "zh-TW");
   const [viewerNotebookPickerOpen, setViewerNotebookPickerOpen] = useState(false);
   const [viewerTagsOpen, setViewerTagsOpen] = useState(false);
   const [viewerTags, setViewerTags] = useState<string[]>([]);
@@ -615,13 +615,13 @@ export const MemoDetailModal = ({
   });
 
   const downloadResource = useCallback(async (target: MobileResourceTarget) => {
-    if (!client) throw new Error(resolvedLocale !== "zh-CN" ? "The resource client is unavailable." : "当前无法读取资源。");
+    if (!client) throw new Error(resolvedLocale !== "zh-TW" ? "The resource client is unavailable." : "當前無法讀取資源。");
     try {
       await openMobileResource(client, target, { baseUrl, token: session?.token });
     } catch (error) {
       Alert.alert(
-        resolvedLocale !== "zh-CN" ? "Unable to open resource" : "无法打开资源",
-        error instanceof Error ? error.message : (resolvedLocale !== "zh-CN" ? "Try again later." : "请稍后重试。")
+        resolvedLocale !== "zh-TW" ? "Unable to open resource" : "無法開啟資源",
+        error instanceof Error ? error.message : (resolvedLocale !== "zh-TW" ? "Try again later." : "請稍後重試。")
       );
       throw error;
     }
@@ -648,19 +648,19 @@ export const MemoDetailModal = ({
       await updateMutation.mutateAsync({ memo, payload: { notebookId: viewerNotebookId, tags: viewerTags } });
       setViewerTagsOpen(false);
     } catch (error) {
-      Alert.alert("保存失败", error instanceof Error ? error.message : "请重试");
+      Alert.alert("儲存失敗", error instanceof Error ? error.message : "請重試");
     } finally {
       setMetadataSaving(false);
     }
   };
 
   const saveResourceAs = useCallback(async (target: MobileResourceTarget) => {
-    if (!client) throw new Error(resolvedLocale !== "zh-CN" ? "The resource client is unavailable." : "当前无法读取资源。");
+    if (!client) throw new Error(resolvedLocale !== "zh-TW" ? "The resource client is unavailable." : "當前無法讀取資源。");
     const result = await saveMobileResourceAs(client, target, { baseUrl, token: session?.token });
     if (result.kind === "saf") {
       Alert.alert(
-        resolvedLocale !== "zh-CN" ? "Downloaded" : "下载成功",
-        resolvedLocale !== "zh-CN" ? `Saved ${result.filename}` : `已保存：${result.filename}`
+        resolvedLocale !== "zh-TW" ? "Downloaded" : "下載成功",
+        resolvedLocale !== "zh-TW" ? `Saved ${result.filename}` : `已儲存：${result.filename}`
       );
     }
   }, [baseUrl, client, resolvedLocale, session?.token]);
@@ -712,11 +712,11 @@ export const MemoDetailModal = ({
     ? `${searchMatchCount > 0 ? activeMatchIndex + 1 : 0}/${searchMatchCount}`
     : "0/0";
   const syncStatusLabel = isSaving || syncStatus === "syncing"
-    ? "保存中"
+    ? "儲存中"
     : syncStatus === "conflict"
-      ? "同步冲突"
+      ? "同步衝突"
       : syncStatus === "error"
-        ? "同步失败"
+        ? "同步失敗"
         : syncStatus === "pending"
           ? "待同步"
           : "已同步";
@@ -732,8 +732,8 @@ export const MemoDetailModal = ({
     if (syncStatus === "error" || syncStatus === "pending") {
       const detail = syncError?.trim()
         || (syncStatus === "pending"
-          ? "本地改动还在等待上传到云端。可立即重试同步。"
-          : "本地改动未能上传到云端。可立即重试同步。");
+          ? "本機改動還在等待上傳到雲端。可立即重試同步。"
+          : "本機改動未能上傳到雲端。可立即重試同步。");
       Alert.alert(syncStatusLabel, detail, [
         { text: "取消", style: "cancel" },
         { text: "立即同步", onPress: onRetrySync },
@@ -869,13 +869,13 @@ export const MemoDetailModal = ({
     try {
       await Clipboard.setStringAsync(memo.id);
       Alert.alert(
-        resolvedLocale !== "zh-CN" ? "Note ID copied" : "笔记 ID 已复制",
+        resolvedLocale !== "zh-TW" ? "Note ID copied" : "筆記 ID 已複製",
         memo.id
       );
     } catch {
       Alert.alert(
-        resolvedLocale !== "zh-CN" ? "Could not copy note ID" : "复制笔记 ID 失败",
-        resolvedLocale !== "zh-CN" ? "Please try again." : "请稍后重试。"
+        resolvedLocale !== "zh-TW" ? "Could not copy note ID" : "複製筆記 ID 失敗",
+        resolvedLocale !== "zh-TW" ? "Please try again." : "請稍後重試。"
       );
     }
   };
@@ -922,17 +922,17 @@ export const MemoDetailModal = ({
     setIsExportingImage(false);
     if (imageShareFromList) setImageShareOptionsOpen(true);
     const localizedMessage = message === "NOTE_IMAGE_TOO_LONG"
-      ? (resolvedLocale !== "zh-CN"
+      ? (resolvedLocale !== "zh-TW"
           ? "This note is too long for one readable image. Choose a smaller font size or split the note."
-          : "这篇笔记太长，无法生成清晰的单张图片。请调小导出字号，或拆分笔记后重试。")
+          : "這篇筆記太長，無法生成清晰的單張圖片。請調小匯出字號，或拆分筆記後重試。")
       : message === "NOTE_IMAGE_RENDER_FAILED"
-        ? (resolvedLocale !== "zh-CN"
+        ? (resolvedLocale !== "zh-TW"
             ? "This image could not be rendered on this device. Try a smaller font size or a shorter note."
-            : "这台设备无法渲染这张图片。请调小导出字号，或缩短笔记后重试。")
+            : "這臺裝置無法渲染這張圖片。請調小匯出字號，或縮短筆記後重試。")
       : message;
     Alert.alert(
-      resolvedLocale !== "zh-CN" ? "Image export failed" : "导出笔记图片失败",
-      localizedMessage || (resolvedLocale !== "zh-CN" ? "Try again later." : "请稍后重试。")
+      resolvedLocale !== "zh-TW" ? "Image export failed" : "匯出筆記圖片失敗",
+      localizedMessage || (resolvedLocale !== "zh-TW" ? "Try again later." : "請稍後重試。")
     );
   }, [clearImageExportTimeout, imageShareFromList, resolvedLocale]);
 
@@ -991,7 +991,7 @@ export const MemoDetailModal = ({
         setPreparedNoteImage(prepared);
       } else {
         setIsExportingImage(false);
-        if (!(await Sharing.isAvailableAsync())) throw new Error(resolvedLocale !== "zh-CN" ? "Sharing is unavailable on this device." : "当前设备无法打开系统分享面板。");
+        if (!(await Sharing.isAvailableAsync())) throw new Error(resolvedLocale !== "zh-TW" ? "Sharing is unavailable on this device." : "當前裝置無法開啟系統分享面板。");
         await Sharing.shareAsync(file.uri, {
           dialogTitle: event.filename,
           mimeType: event.mimeType,
@@ -999,8 +999,8 @@ export const MemoDetailModal = ({
       }
     } catch (error) {
       Alert.alert(
-        resolvedLocale !== "zh-CN" ? "Image export failed" : "导出笔记图片失败",
-        error instanceof Error ? error.message : (resolvedLocale !== "zh-CN" ? "Try again later." : "请稍后重试。")
+        resolvedLocale !== "zh-TW" ? "Image export failed" : "匯出筆記圖片失敗",
+        error instanceof Error ? error.message : (resolvedLocale !== "zh-TW" ? "Try again later." : "請稍後重試。")
       );
     } finally {
       imageExportChunksRef.current = [];
@@ -1034,7 +1034,7 @@ export const MemoDetailModal = ({
     if (!memo || !viewerReady || isExportingImage || imageExportRequestRef.current !== null) return;
     const viewer = viewerRef.current;
     if (!viewer) {
-      failImageExport(resolvedLocale !== "zh-CN" ? "The note viewer is not ready. Try again." : "笔记尚未准备好，请重试。");
+      failImageExport(resolvedLocale !== "zh-TW" ? "The note viewer is not ready. Try again." : "筆記尚未準備好，請重試。");
       return;
     }
     const requestId = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
@@ -1048,9 +1048,9 @@ export const MemoDetailModal = ({
     setIsExportingImage(true);
     imageExportTimeoutRef.current = setTimeout(() => {
       if (imageExportRequestRef.current !== requestId) return;
-      failImageExport(resolvedLocale !== "zh-CN"
+      failImageExport(resolvedLocale !== "zh-TW"
         ? "Image generation timed out. Please try again."
-        : "生成图片超时，请重试。");
+        : "生成圖片超時，請重試。");
       setViewerReady(false);
       setViewerGeneration((generation) => generation + 1);
     }, IMAGE_EXPORT_TIMEOUT_MS);
@@ -1085,12 +1085,12 @@ export const MemoDetailModal = ({
 
   const sharePreparedNoteImage = useCallback(async (prepared: MobilePreparedNoteImage) => {
     try {
-      if (!(await Sharing.isAvailableAsync())) throw new Error(resolvedLocale !== "zh-CN" ? "Sharing is unavailable on this device." : "当前设备无法打开系统分享面板。");
+      if (!(await Sharing.isAvailableAsync())) throw new Error(resolvedLocale !== "zh-TW" ? "Sharing is unavailable on this device." : "當前裝置無法開啟系統分享面板。");
       await Sharing.shareAsync(prepared.uri, { dialogTitle: prepared.filename, mimeType: prepared.mimeType });
     } catch (shareError) {
       Alert.alert(
-        resolvedLocale !== "zh-CN" ? "Share failed" : "分享失败",
-        shareError instanceof Error ? shareError.message : (resolvedLocale !== "zh-CN" ? "Try again later." : "请稍后重试。")
+        resolvedLocale !== "zh-TW" ? "Share failed" : "分享失敗",
+        shareError instanceof Error ? shareError.message : (resolvedLocale !== "zh-TW" ? "Try again later." : "請稍後重試。")
       );
     }
   }, [resolvedLocale]);
@@ -1116,7 +1116,7 @@ export const MemoDetailModal = ({
         encoding: FileSystem.EncodingType.Base64,
       });
       savedPath = getSavedImagePath(destination)
-        ?? (resolvedLocale !== "zh-CN" ? `Selected folder / ${prepared.filename}` : `所选文件夹 / ${prepared.filename}`);
+        ?? (resolvedLocale !== "zh-TW" ? `Selected folder / ${prepared.filename}` : `所選資料夾 / ${prepared.filename}`);
     } catch (saveError) {
       if (destination) {
         await FileSystem.StorageAccessFramework.deleteAsync(destination, { idempotent: true }).catch(() => {});
@@ -1124,10 +1124,10 @@ export const MemoDetailModal = ({
       const message = saveError instanceof Error ? saveError.message : "";
       const isUnwritableDirectory = /isn't writable|not writable|EACCES|Permission denied/i.test(message);
       Alert.alert(
-        resolvedLocale !== "zh-CN" ? "Save failed" : "保存失败",
+        resolvedLocale !== "zh-TW" ? "Save failed" : "儲存失敗",
         isUnwritableDirectory
-          ? (resolvedLocale !== "zh-CN" ? "This folder cannot accept files. Choose a folder in internal storage, such as Pictures." : "此文件夹无法写入。请选择内部存储中的其他文件夹，例如“Pictures”。")
-          : (message || (resolvedLocale !== "zh-CN" ? "Try again later." : "请稍后重试。"))
+          ? (resolvedLocale !== "zh-TW" ? "This folder cannot accept files. Choose a folder in internal storage, such as Pictures." : "此資料夾無法寫入。請選擇內部儲存中的其他資料夾，例如“Pictures”。")
+          : (message || (resolvedLocale !== "zh-TW" ? "Try again later." : "請稍後重試。"))
       );
     } finally {
       setImageSavePickerOpen(false);
@@ -1161,7 +1161,7 @@ export const MemoDetailModal = ({
             <View style={styles.createMemoHeaderActions}>
               <Text numberOfLines={1} style={[styles.createMemoStatus, styles.richEditorHeaderStatus, (editor.saving || editor.uploading || editor.dirty) && styles.createMemoStatusActive, editor.error && styles.richEditorStatusError]}>{editor.saveLabel}</Text>
               <Pressable
-                accessibilityLabel="完成编辑"
+                accessibilityLabel="完成編輯"
                 accessibilityRole="button"
                 disabled={editor.uploading || !editor.ready}
                 onPress={() => void editor.requestClose()}
@@ -1180,8 +1180,8 @@ export const MemoDetailModal = ({
             {titleCollapsed && !searchOpen && memo ? (
               !memo.isDeleted && !locksRichTextEdit ? (
                 <Pressable
-                  accessibilityHint="进入编辑并聚焦标题"
-                  accessibilityLabel={`编辑笔记标题：${memoTitle}`}
+                  accessibilityHint="進入編輯並聚焦標題"
+                  accessibilityLabel={`編輯筆記標題：${memoTitle}`}
                   accessibilityRole="button"
                   onPress={() => {
                     beginEditorStartup();
@@ -1199,9 +1199,9 @@ export const MemoDetailModal = ({
             <Pressable
               accessibilityHint={
                 syncStatus === "conflict"
-                  ? "查看并处理同步冲突"
+                  ? "檢視並處理同步衝突"
                   : syncStatusInteractive
-                    ? "查看同步状态并立即重试"
+                    ? "檢視同步狀態並立即重試"
                     : undefined
               }
               accessibilityLabel={syncStatusLabel}
@@ -1223,8 +1223,8 @@ export const MemoDetailModal = ({
             </Pressable>
             {memo && !memo.isDeleted ? (
               <Pressable
-                accessibilityLabel="选择笔记标签"
-                accessibilityHint="点选已有标签，或输入名称创建新标签"
+                accessibilityLabel="選擇筆記標籤"
+                accessibilityHint="點選已有標籤，或輸入名稱建立新標籤"
                 accessibilityRole="button"
                 disabled={isSaving}
                 hitSlop={6}
@@ -1236,7 +1236,7 @@ export const MemoDetailModal = ({
             ) : null}
             {memo && !memo.isDeleted ? (
               <Pressable
-                accessibilityLabel="搜索当前笔记"
+                accessibilityLabel="搜尋當前筆記"
                 accessibilityRole="button"
                 onPress={() => setSearchOpen(true)}
                 style={styles.detailHeaderIconButton}
@@ -1245,7 +1245,7 @@ export const MemoDetailModal = ({
               </Pressable>
             ) : null}
             {memo ? (
-              <Pressable accessibilityLabel="笔记操作" accessibilityRole="button" onPress={() => setActionsOpen(true)} style={styles.detailHeaderIconButton}>
+              <Pressable accessibilityLabel="筆記操作" accessibilityRole="button" onPress={() => setActionsOpen(true)} style={styles.detailHeaderIconButton}>
                 <MoreHorizontal color="#475569" size={21} />
               </Pressable>
             ) : null}
@@ -1256,28 +1256,28 @@ export const MemoDetailModal = ({
         {!isEditing && syncStatus === "conflict" && memo ? (
           <View style={styles.conflictBanner}>
             <Text style={styles.conflictBannerText}>
-              云端笔记已在其他标签页、设备，或离线期间被更新。可先复制本地草稿，再采用云端版本后继续编辑。
+              雲端筆記已在其他標籤頁、裝置，或離線期間被更新。可先複製本機草稿，再採用雲端版本後繼續編輯。
             </Text>
             {syncError ? <Text style={styles.conflictBannerText}>{syncError}</Text> : null}
             <View style={styles.conflictBannerActions}>
               <Pressable
-                accessibilityLabel="采用云端并重新加载"
+                accessibilityLabel="採用雲端並重新載入"
                 accessibilityRole="button"
                 onPress={() => onAdoptCloudVersion(memo)}
                 style={styles.conflictBannerPrimaryButton}
               >
-                <Text style={styles.conflictBannerPrimaryButtonText}>采用云端并重新加载</Text>
+                <Text style={styles.conflictBannerPrimaryButtonText}>採用雲端並重新載入</Text>
               </Pressable>
               <Pressable
-                accessibilityLabel="复制本地草稿"
+                accessibilityLabel="複製本機草稿"
                 accessibilityRole="button"
                 onPress={() => onCopyLocalDraft(memo)}
                 style={styles.conflictBannerSecondaryButton}
               >
-                <Text style={styles.conflictBannerSecondaryButtonText}>复制本地草稿</Text>
+                <Text style={styles.conflictBannerSecondaryButtonText}>複製本機草稿</Text>
               </Pressable>
               <Pressable
-                accessibilityLabel="查看并处理同步冲突"
+                accessibilityLabel="檢視並處理同步衝突"
                 accessibilityRole="button"
                 onPress={() => onResolveSyncConflict(memo)}
                 style={styles.conflictBannerSecondaryButton}
@@ -1292,8 +1292,8 @@ export const MemoDetailModal = ({
           <View style={syncStatus === "error" ? styles.syncErrorBanner : styles.syncPendingBanner}>
             <Text style={syncStatus === "error" ? styles.syncErrorBannerText : styles.syncPendingBannerText}>
               {syncStatus === "error"
-                ? (syncError?.trim() || "本地改动未能上传到云端。内容仍保存在本机，可立即重试。")
-                : (syncError?.trim() || "本地改动待上传。下拉刷新或点此可立即同步。")}
+                ? (syncError?.trim() || "本機改動未能上傳到雲端。內容仍儲存在本機，可立即重試。")
+                : (syncError?.trim() || "本機改動待上傳。下拉重新整理或點此可立即同步。")}
             </Text>
             <View style={styles.conflictBannerActions}>
               <Pressable
@@ -1306,12 +1306,12 @@ export const MemoDetailModal = ({
               </Pressable>
               {syncStatus === "error" ? (
                 <Pressable
-                  accessibilityLabel="复制本地草稿"
+                  accessibilityLabel="複製本機草稿"
                   accessibilityRole="button"
                   onPress={() => onCopyLocalDraft(memo)}
                   style={styles.syncErrorBannerSecondaryButton}
                 >
-                  <Text style={styles.syncErrorBannerSecondaryButtonText}>复制本地草稿</Text>
+                  <Text style={styles.syncErrorBannerSecondaryButtonText}>複製本機草稿</Text>
                 </Pressable>
               ) : null}
             </View>
@@ -1339,13 +1339,13 @@ export const MemoDetailModal = ({
                   value={editor.title}
                 />
                 <View style={[styles.createMemoMetaRow, styles.richStandaloneMetaRow]}>
-                  <Pressable accessibilityLabel="所在笔记本" accessibilityRole="button" onPress={() => editor.setNotebookPickerOpen(true)} style={styles.createMemoNotebookButton}>
+                  <Pressable accessibilityLabel="所在筆記本" accessibilityRole="button" onPress={() => editor.setNotebookPickerOpen(true)} style={styles.createMemoNotebookButton}>
                     <Text numberOfLines={1} style={styles.createMemoNotebookText}>{editor.notebookLabel}</Text>
                     <ChevronDown color="#64748b" size={14} />
                   </Pressable>
-                  <Pressable accessibilityLabel="选择笔记标签" accessibilityRole="button" onPress={() => editor.setTagPickerOpen(true)} style={[styles.createMemoTagsButton, styles.richStandaloneTagsInput]}>
+                  <Pressable accessibilityLabel="選擇筆記標籤" accessibilityRole="button" onPress={() => editor.setTagPickerOpen(true)} style={[styles.createMemoTagsButton, styles.richStandaloneTagsInput]}>
                     <Text numberOfLines={1} style={[styles.createMemoTagsInput, !editor.tagsText && styles.createMemoTagsPlaceholder]}>
-                      {editor.tagsText || "添加标签"}
+                      {editor.tagsText || "新增標籤"}
                     </Text>
                     <ChevronDown color="#94a3b8" size={14} />
                   </Pressable>
@@ -1361,15 +1361,15 @@ export const MemoDetailModal = ({
                     title={editor.title}
                   />
                 </View>
-                {editor.draftRestored ? <Text style={styles.richEditorDraftNotice}>已恢复上次未完成的本地草稿</Text> : null}
+                {editor.draftRestored ? <Text style={styles.richEditorDraftNotice}>已恢復上次未完成的本機草稿</Text> : null}
                 {editor.error ? <Text style={styles.richEditorInlineError}>{editor.error}</Text> : null}
               </View>
             ) : titleCollapsed && !searchOpen ? null : (
             <View style={detailLayoutStyles.meta}>
               {!memo.isDeleted && !locksRichTextEdit ? (
                 <Pressable
-                  accessibilityHint="进入编辑并聚焦标题"
-                  accessibilityLabel="编辑笔记标题"
+                  accessibilityHint="進入編輯並聚焦標題"
+                  accessibilityLabel="編輯筆記標題"
                   accessibilityRole="button"
                   onPress={() => {
                     beginEditorStartup();
@@ -1402,8 +1402,8 @@ export const MemoDetailModal = ({
                 </View>
                 ) : (
                 <Pressable
-                  accessibilityHint="更改笔记所属笔记本"
-                  accessibilityLabel="所在笔记本"
+                  accessibilityHint="更改筆記所屬筆記本"
+                  accessibilityLabel="所在筆記本"
                   accessibilityRole="button"
                   disabled={isSaving}
                   hitSlop={8}
@@ -1421,7 +1421,7 @@ export const MemoDetailModal = ({
                     matchOffset={metadataSearchMatches.title.length}
                     matches={metadataSearchMatches.tags}
                     style={[styles.detailTagsInline, memo.tags.length === 0 && styles.detailTagsPlaceholder]}
-                    text={memoTagsText || "添加标签，用逗号分隔"}
+                    text={memoTagsText || "新增標籤，用逗號分隔"}
                   />
                 </View>
               </View>
@@ -1430,7 +1430,7 @@ export const MemoDetailModal = ({
                 <View style={styles.noteSearchPanel}>
                   <Search color="#64748b" size={16} />
                   <TextInput
-                    accessibilityLabel="在当前笔记内搜索"
+                    accessibilityLabel="在當前筆記內搜尋"
                     autoCapitalize="none"
                     autoCorrect={false}
                     onChangeText={(value) => {
@@ -1439,7 +1439,7 @@ export const MemoDetailModal = ({
                       setActiveMatchIndex(0);
                     }}
                     onSubmitEditing={() => moveSearchMatch(1)}
-                    placeholder="搜索"
+                    placeholder="搜尋"
                     placeholderTextColor="#94a3b8"
                     returnKeyType="search"
                     style={styles.noteSearchInput}
@@ -1452,7 +1452,7 @@ export const MemoDetailModal = ({
                     {searchMatchLabel}
                   </Text>
                   <Pressable
-                    accessibilityLabel="上一个搜索结果"
+                    accessibilityLabel="上一個搜尋結果"
                     accessibilityRole="button"
                     disabled={searchMatchCount === 0}
                     hitSlop={4}
@@ -1462,7 +1462,7 @@ export const MemoDetailModal = ({
                     <ChevronUp color={searchMatchCount === 0 ? "#cbd5e1" : "#0f172a"} size={18} />
                   </Pressable>
                   <Pressable
-                    accessibilityLabel="下一个搜索结果"
+                    accessibilityLabel="下一個搜尋結果"
                     accessibilityRole="button"
                     disabled={searchMatchCount === 0}
                     hitSlop={4}
@@ -1472,7 +1472,7 @@ export const MemoDetailModal = ({
                     <ChevronDown color={searchMatchCount === 0 ? "#cbd5e1" : "#0f172a"} size={18} />
                   </Pressable>
                   <Pressable
-                    accessibilityLabel="关闭搜索"
+                    accessibilityLabel="關閉搜尋"
                     accessibilityRole="button"
                     hitSlop={4}
                     onPress={closeNoteSearch}
@@ -1524,7 +1524,7 @@ export const MemoDetailModal = ({
               />
             ) : (
               <View style={styles.centerState}>
-                <Text style={styles.errorText}>{resolvedLocale !== "zh-CN" ? "Not signed in." : "未登录。"}</Text>
+                <Text style={styles.errorText}>{resolvedLocale !== "zh-TW" ? "Not signed in." : "未登入。"}</Text>
               </View>
             )}
             {!viewerReady ? (
@@ -1535,12 +1535,12 @@ export const MemoDetailModal = ({
           </View>
         ) : (
           <View style={styles.centerState}>
-            <Text style={styles.errorText}>笔记加载失败</Text>
+            <Text style={styles.errorText}>筆記載入失敗</Text>
           </View>
         )}
         {memo && !memo.isDeleted && !locksRichTextEdit && !isEditing ? (
           <Pressable
-            accessibilityLabel="编辑笔记"
+            accessibilityLabel="編輯筆記"
             accessibilityRole="button"
             onPress={() => {
               beginEditorStartup();
@@ -1557,18 +1557,18 @@ export const MemoDetailModal = ({
             <Pressable onPress={() => setActionsOpen(false)} style={styles.actionSheetBackdrop}>
               <Pressable style={styles.actionSheet}>
                 <View style={styles.actionSheetHandle} />
-                <Text style={styles.actionSheetTitle}>{resolvedLocale !== "zh-CN" ? "Note actions" : "笔记操作"}</Text>
+                <Text style={styles.actionSheetTitle}>{resolvedLocale !== "zh-TW" ? "Note actions" : "筆記操作"}</Text>
                 {!memo.isDeleted ? (
                   <>
                     <DetailActionSheetItem
                       disabled={isSharing}
                       icon={isSharing ? <ActivityIndicator color="#16A06E" size="small" /> : <Share2 color="#0f172a" size={18} />}
-                      label={resolvedLocale !== "zh-CN" ? "Share note" : "分享笔记"}
+                      label={resolvedLocale !== "zh-TW" ? "Share note" : "分享筆記"}
                       onPress={() => closeActionsAndRun(() => onShare(memo))}
                     />
                     <DetailActionSheetItem
                       icon={<History color="#0f172a" size={18} />}
-                      label={resolvedLocale !== "zh-CN" ? "Version history" : "版本历史"}
+                      label={resolvedLocale !== "zh-TW" ? "Version history" : "版本歷史"}
                       onPress={() => closeActionsAndRun(() => onOpenRevisions(memo))}
                     />
                   </>
@@ -1576,7 +1576,7 @@ export const MemoDetailModal = ({
                 {!memo.isDeleted && !locksRichTextEdit ? (
                   <DetailActionSheetItem
                     icon={<Sparkles color="#16A06E" size={18} />}
-                    label={resolvedLocale !== "zh-CN" ? "AI note assistant" : "AI 笔记助手"}
+                    label={resolvedLocale !== "zh-TW" ? "AI note assistant" : "AI 筆記助手"}
                     onPress={() => closeActionsAndRun(() => setAiAssistantOpen(true))}
                   />
                 ) : null}
@@ -1584,39 +1584,39 @@ export const MemoDetailModal = ({
                   disabled={!canCopyMemoId}
                   icon={<Copy color="#0f172a" size={18} />}
                   label={canCopyMemoId
-                    ? (resolvedLocale !== "zh-CN" ? "Copy note ID" : "复制笔记 ID")
-                    : (resolvedLocale !== "zh-CN" ? "Copy note ID after sync" : "同步后可复制笔记 ID")}
+                    ? (resolvedLocale !== "zh-TW" ? "Copy note ID" : "複製筆記 ID")
+                    : (resolvedLocale !== "zh-TW" ? "Copy note ID after sync" : "同步後可複製筆記 ID")}
                   onPress={() => closeActionsAndRun(() => void copyMemoId())}
                 />
                 <DetailActionSheetItem
                   disabled={isExportingImage || !viewerReady || !imageSharePreferencesReady}
                   icon={isExportingImage ? <ActivityIndicator color="#16A06E" size="small" /> : <Share2 color="#0f172a" size={18} />}
                   label={isExportingImage
-                    ? (resolvedLocale !== "zh-CN" ? "Generating share image" : "正在生成分享图片")
-                    : (resolvedLocale !== "zh-CN" ? "Share as image" : "分享为图片")}
+                    ? (resolvedLocale !== "zh-TW" ? "Generating share image" : "正在生成分享圖片")
+                    : (resolvedLocale !== "zh-TW" ? "Share as image" : "分享為圖片")}
                   onPress={() => closeActionsAndRun(() => setImageShareOptionsOpen(true))}
                 />
                 <DetailActionSheetItem
                   disabled={isExportingImage || !viewerReady || !imageSharePreferencesReady}
                   icon={<Download color="#0f172a" size={18} />}
-                  label={resolvedLocale !== "zh-CN" ? "Advanced export PNG" : "高级导出 PNG"}
+                  label={resolvedLocale !== "zh-TW" ? "Advanced export PNG" : "高階匯出 PNG"}
                   onPress={() => closeActionsAndRun(() => exportMemoImage("png"))}
                 />
                 <DetailActionSheetItem
                   disabled={isExportingImage || !viewerReady || !imageSharePreferencesReady}
                   icon={<Download color="#0f172a" size={18} />}
-                  label={resolvedLocale !== "zh-CN" ? "Advanced export JPEG" : "高级导出 JPEG"}
+                  label={resolvedLocale !== "zh-TW" ? "Advanced export JPEG" : "高階匯出 JPEG"}
                   onPress={() => closeActionsAndRun(() => exportMemoImage("jpeg"))}
                 />
                 {memo.isDeleted ? (
                   <>
-                    <DetailActionSheetItem icon={<Search color="#0f172a" size={18} />} label="搜索当前笔记" onPress={() => closeActionsAndRun(() => {
+                    <DetailActionSheetItem icon={<Search color="#0f172a" size={18} />} label="搜尋當前筆記" onPress={() => closeActionsAndRun(() => {
                       setSearchOpen(true);
                     })} />
-                    <DetailActionSheetItem icon={<History color="#0f172a" size={18} />} label="版本历史" onPress={() => closeActionsAndRun(() => onOpenRevisions(memo))} />
-                    <DetailActionSheetItem disabled={isRestoring} icon={<RotateCcw color="#0f172a" size={18} />} label={isRestoring ? "恢复中" : "恢复笔记"} onPress={() => closeActionsAndRun(() => onRestore(memo))} />
+                    <DetailActionSheetItem icon={<History color="#0f172a" size={18} />} label="版本歷史" onPress={() => closeActionsAndRun(() => onOpenRevisions(memo))} />
+                    <DetailActionSheetItem disabled={isRestoring} icon={<RotateCcw color="#0f172a" size={18} />} label={isRestoring ? "恢復中" : "恢復筆記"} onPress={() => closeActionsAndRun(() => onRestore(memo))} />
                     <View style={styles.listActionDivider} />
-                    <DetailActionSheetItem danger disabled={isDeleting} icon={<Trash2 color="#b91c1c" size={18} />} label={isDeleting ? "删除中" : "彻底删除"} onPress={() => closeActionsAndRun(() => onDelete(memo))} />
+                    <DetailActionSheetItem danger disabled={isDeleting} icon={<Trash2 color="#b91c1c" size={18} />} label={isDeleting ? "刪除中" : "徹底刪除"} onPress={() => closeActionsAndRun(() => onDelete(memo))} />
                   </>
                 ) : null}
               </Pressable>
@@ -1627,8 +1627,8 @@ export const MemoDetailModal = ({
           {preparedNoteImage ? (
           <SafeAreaView style={imageShareStyles.previewSafeArea}>
             <View style={imageShareStyles.previewHeader}>
-              <Text style={imageShareStyles.previewTitle}>{resolvedLocale !== "zh-CN" ? "Image preview" : "图片预览"}</Text>
-              <Pressable accessibilityLabel={resolvedLocale !== "zh-CN" ? "Close preview" : "关闭预览"} accessibilityRole="button" onPress={closeImagePreview} style={imageShareStyles.previewCloseButton}>
+              <Text style={imageShareStyles.previewTitle}>{resolvedLocale !== "zh-TW" ? "Image preview" : "圖片預覽"}</Text>
+              <Pressable accessibilityLabel={resolvedLocale !== "zh-TW" ? "Close preview" : "關閉預覽"} accessibilityRole="button" onPress={closeImagePreview} style={imageShareStyles.previewCloseButton}>
                 <X color="#0f172a" size={22} />
               </Pressable>
             </View>
@@ -1648,43 +1648,43 @@ export const MemoDetailModal = ({
               />
               {preparedNoteImage.fontFallback || isExportingImage ? (
                 <View accessibilityLiveRegion="polite">
-                  <Text style={imageShareStyles.previewWarning}>{resolvedLocale === "zh-CN"
-                    ? isExportingImage ? "字体加载中…" : "暂时使用替代字体，加载成功后将自动恢复"
+                  <Text style={imageShareStyles.previewWarning}>{resolvedLocale === "zh-TW"
+                    ? isExportingImage ? "字型載入中…" : "暫時使用替代字型，載入成功後將自動恢復"
                     : isExportingImage ? "Loading font…" : "Temporarily using substitute fonts. The original fonts will be restored automatically when loaded."}</Text>
                   {!isExportingImage ? <Pressable accessibilityRole="button" onPress={() => imageFontRecoveryRef.current?.retry()} style={imageShareStyles.previewSecondaryButton}>
-                    <Text>{resolvedLocale === "zh-CN" ? "重试" : "Retry"}</Text>
+                    <Text>{resolvedLocale === "zh-TW" ? "重試" : "Retry"}</Text>
                   </Pressable> : null}
                 </View>
               ) : null}
               {preparedNoteImage.failedImages > 0 ? (
                 <Text style={imageShareStyles.previewWarning}>
-                  {resolvedLocale !== "zh-CN"
+                  {resolvedLocale !== "zh-TW"
                     ? `${preparedNoteImage.failedImages} of ${preparedNoteImage.totalImages} note image(s) could not be included.`
-                    : `笔记中的 ${preparedNoteImage.totalImages} 张图片有 ${preparedNoteImage.failedImages} 张未能包含。`}
+                    : `筆記中的 ${preparedNoteImage.totalImages} 張圖片有 ${preparedNoteImage.failedImages} 張未能包含。`}
                 </Text>
               ) : null}
               {preparedNoteImage.height > 12_000 ? (
                 <Text style={imageShareStyles.previewWarning}>
-                  {resolvedLocale !== "zh-CN"
+                  {resolvedLocale !== "zh-TW"
                     ? "This is a long image. Some social apps may reduce its quality; keep the saved original."
-                    : "图片较长，部分社交平台可能会压缩画质；建议保留保存的原图。"}
+                    : "圖片較長，部分社交平臺可能會壓縮畫質；建議保留儲存的原圖。"}
                 </Text>
               ) : null}
             </ScrollView>
             <View style={imageShareStyles.previewActions}>
               <Pressable accessibilityRole="button" onPress={() => void savePreparedNoteImage(preparedNoteImage)} style={imageShareStyles.previewSecondaryButton}>
                 <Download color="#0f172a" size={18} />
-                <Text style={imageShareStyles.previewSecondaryButtonText}>{resolvedLocale !== "zh-CN" ? "Save" : "保存图片"}</Text>
+                <Text style={imageShareStyles.previewSecondaryButtonText}>{resolvedLocale !== "zh-TW" ? "Save" : "儲存圖片"}</Text>
               </Pressable>
               <Pressable accessibilityRole="button" onPress={() => void sharePreparedNoteImage(preparedNoteImage)} style={imageShareStyles.previewPrimaryButton}>
                 <Share2 color="#ffffff" size={18} />
-                <Text style={imageShareStyles.previewPrimaryButtonText}>{resolvedLocale !== "zh-CN" ? "Share" : "系统分享"}</Text>
+                <Text style={imageShareStyles.previewPrimaryButtonText}>{resolvedLocale !== "zh-TW" ? "Share" : "系統分享"}</Text>
               </Pressable>
             </View>
             {savedImagePath ? (
               <View accessibilityLiveRegion="polite" pointerEvents="none" style={imageShareStyles.savedImageTipContainer}>
                 <View style={imageShareStyles.savedImageTip}>
-                  <Text style={imageShareStyles.savedImageTipTitle}>{resolvedLocale !== "zh-CN" ? "Saved to" : "图片已保存至"}</Text>
+                  <Text style={imageShareStyles.savedImageTipTitle}>{resolvedLocale !== "zh-TW" ? "Saved to" : "圖片已儲存至"}</Text>
                   <Text style={imageShareStyles.savedImageTipPath}>{savedImagePath}</Text>
                 </View>
               </View>
@@ -1703,15 +1703,15 @@ export const MemoDetailModal = ({
               {imageShareFontPickerOpen ? (
                 <View style={imageShareStyles.fontPicker}>
                   <View style={imageShareStyles.fontPickerHeader}>
-                    <Pressable accessibilityRole="button" accessibilityLabel={resolvedLocale === "zh-CN" ? "返回分享设置" : "Back to share settings"} onPress={() => setImageShareFontPickerOpen(false)} style={imageShareStyles.previewCloseButton}>
+                    <Pressable accessibilityRole="button" accessibilityLabel={resolvedLocale === "zh-TW" ? "返回分享設定" : "Back to share settings"} onPress={() => setImageShareFontPickerOpen(false)} style={imageShareStyles.previewCloseButton}>
                       <ChevronLeft color="#0f172a" size={22} />
                     </Pressable>
-                    <Text style={imageShareStyles.previewTitle}>{resolvedLocale === "zh-CN" ? "字体风格" : "Typography"}</Text>
+                    <Text style={imageShareStyles.previewTitle}>{resolvedLocale === "zh-TW" ? "字型風格" : "Typography"}</Text>
                   </View>
                   <MobileNoteImageFontPicker
                     selected={imageShareFontStyle}
                     theme={imageShareTheme}
-                    chinese={resolvedLocale === "zh-CN"}
+                    chinese={resolvedLocale === "zh-TW"}
                     onSelect={async (font) => {
                       setImageSharePreference("fontStyle", font);
                       setImageShareFontPickerOpen(false);
@@ -1721,15 +1721,15 @@ export const MemoDetailModal = ({
                 </View>
               ) : null}
               <View style={[imageShareStyles.settingsContent, imageShareFontPickerOpen && imageShareStyles.hidden]}>
-              <Text style={styles.actionSheetTitle}>{resolvedLocale !== "zh-CN" ? "Share as image" : "分享为图片"}</Text>
+              <Text style={styles.actionSheetTitle}>{resolvedLocale !== "zh-TW" ? "Share as image" : "分享為圖片"}</Text>
               <ScrollView contentContainerStyle={imageShareStyles.optionsContent} showsVerticalScrollIndicator={false} style={imageShareStyles.optionsScroll}>
 
               {imageSharePreferencesReady ? <>
-              <Text style={styles.actionSheetSectionTitle}>{resolvedLocale !== "zh-CN" ? "Theme" : "主题风格"}</Text>
+              <Text style={styles.actionSheetSectionTitle}>{resolvedLocale !== "zh-TW" ? "Theme" : "主題風格"}</Text>
               <View style={imageShareStyles.themeGrid}>
                 {MOBILE_THEME_OPTIONS.map((item) => {
                   const isSelected = imageShareTheme === item.id;
-                  const label = resolvedLocale !== "zh-CN" ? item.labelEn : item.labelZh;
+                  const label = resolvedLocale !== "zh-TW" ? item.labelEn : item.labelZh;
                   return (
                     <Pressable
                       key={item.id}
@@ -1755,12 +1755,12 @@ export const MemoDetailModal = ({
                 })}
               </View>
 
-              <Text style={styles.actionSheetSectionTitle}>{resolvedLocale !== "zh-CN" ? "Font size" : "字号大小"}</Text>
+              <Text style={styles.actionSheetSectionTitle}>{resolvedLocale !== "zh-TW" ? "Font size" : "字號大小"}</Text>
               <View style={imageShareStyles.choiceRow}>
                 {([
-                  ["sm", resolvedLocale !== "zh-CN" ? "Compact" : "紧凑"],
-                  ["md", resolvedLocale !== "zh-CN" ? "Standard" : "标准"],
-                  ["lg", resolvedLocale !== "zh-CN" ? "Comfortable" : "舒适"],
+                  ["sm", resolvedLocale !== "zh-TW" ? "Compact" : "緊湊"],
+                  ["md", resolvedLocale !== "zh-TW" ? "Standard" : "標準"],
+                  ["lg", resolvedLocale !== "zh-TW" ? "Comfortable" : "舒適"],
                 ] as const).map(([value, label]) => (
                   <Pressable key={value} accessibilityRole="button" onPress={() => setImageSharePreference("fontSize", value)} style={[imageShareStyles.choice, imageShareFontSize === value && imageShareStyles.choiceActive]}>
                     <Text style={[imageShareStyles.choiceText, imageShareFontSize === value && imageShareStyles.choiceTextActive]}>{label}</Text>
@@ -1768,12 +1768,12 @@ export const MemoDetailModal = ({
                 ))}
               </View>
 
-              <Text style={styles.actionSheetSectionTitle}>{resolvedLocale !== "zh-CN" ? "Card width" : "卡片宽度"}</Text>
+              <Text style={styles.actionSheetSectionTitle}>{resolvedLocale !== "zh-TW" ? "Card width" : "卡片寬度"}</Text>
               <View style={imageShareStyles.choiceRow}>
                 {([
-                  ["compact", resolvedLocale !== "zh-CN" ? "Compact" : "紧凑"],
-                  ["standard", resolvedLocale !== "zh-CN" ? "Standard" : "标准"],
-                  ["wide", resolvedLocale !== "zh-CN" ? "Wide" : "宽屏"],
+                  ["compact", resolvedLocale !== "zh-TW" ? "Compact" : "緊湊"],
+                  ["standard", resolvedLocale !== "zh-TW" ? "Standard" : "標準"],
+                  ["wide", resolvedLocale !== "zh-TW" ? "Wide" : "寬屏"],
                 ] as const).map(([value, label]) => (
                   <Pressable key={value} accessibilityRole="button" onPress={() => setImageSharePreference("cardWidth", value)} style={[imageShareStyles.choice, imageShareCardWidth === value && imageShareStyles.choiceActive]}>
                     <Text style={[imageShareStyles.choiceText, imageShareCardWidth === value && imageShareStyles.choiceTextActive]}>{label}</Text>
@@ -1783,29 +1783,29 @@ export const MemoDetailModal = ({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel={`${resolvedLocale === "zh-CN" ? "字体风格" : "Typography"}: ${imageShareFontLabel}`}
-                accessibilityHint={resolvedLocale === "zh-CN" ? "打开字体选择列表" : "Open font selection"}
+                accessibilityLabel={`${resolvedLocale === "zh-TW" ? "字型風格" : "Typography"}: ${imageShareFontLabel}`}
+                accessibilityHint={resolvedLocale === "zh-TW" ? "開啟字型選擇列表" : "Open font selection"}
                 onPress={() => setImageShareFontPickerOpen(true)}
                 style={imageShareStyles.fontSelector}
               >
-                <Text style={imageShareStyles.optionLabel}>{resolvedLocale === "zh-CN" ? "字体风格" : "Typography"}</Text>
+                <Text style={imageShareStyles.optionLabel}>{resolvedLocale === "zh-TW" ? "字型風格" : "Typography"}</Text>
                 <Text style={imageShareStyles.fontSelectorValue}>
                   {imageShareFontLabel}
                 </Text>
                 <ChevronDown color="#64748b" size={18} />
               </Pressable>
 
-              <Text style={imageShareStyles.choiceText}>{resolvedLocale === "zh-CN"
-                ? "下载型字体首次使用需联网，下载后缓存；普惠体等推荐字体保留完整文件，首次下载较大。"
+              <Text style={imageShareStyles.choiceText}>{resolvedLocale === "zh-TW"
+                ? "下載型字型首次使用需聯網，下載後快取；普惠體等推薦字型保留完整檔案，首次下載較大。"
                 : "Downloadable fonts need a connection on first use and are cached. PuHuiTi and other recommended fonts use complete original files, so initial downloads are larger."}</Text>
 
-              <Text style={styles.actionSheetSectionTitle}>{resolvedLocale !== "zh-CN" ? "Content Elements" : "显示内容"}</Text>
+              <Text style={styles.actionSheetSectionTitle}>{resolvedLocale !== "zh-TW" ? "Content Elements" : "顯示內容"}</Text>
               {([
-                [resolvedLocale !== "zh-CN" ? "Title" : "笔记标题", imageShareTitle, "showTitle"],
-                [resolvedLocale !== "zh-CN" ? "Notebook" : "笔记本", imageShareNotebook, "showNotebook"],
-                [resolvedLocale !== "zh-CN" ? "Tags" : "标签", imageShareTags, "showTags"],
-                [resolvedLocale !== "zh-CN" ? "Updated time" : "更新时间", imageShareUpdatedAt, "showUpdatedAt"],
-                [resolvedLocale !== "zh-CN" ? "EdgeEver branding" : "EdgeEver 品牌标识", imageShareBranding, "showBranding"],
+                [resolvedLocale !== "zh-TW" ? "Title" : "筆記標題", imageShareTitle, "showTitle"],
+                [resolvedLocale !== "zh-TW" ? "Notebook" : "筆記本", imageShareNotebook, "showNotebook"],
+                [resolvedLocale !== "zh-TW" ? "Tags" : "標籤", imageShareTags, "showTags"],
+                [resolvedLocale !== "zh-TW" ? "Updated time" : "更新時間", imageShareUpdatedAt, "showUpdatedAt"],
+                [resolvedLocale !== "zh-TW" ? "EdgeEver branding" : "EdgeEver 品牌標識", imageShareBranding, "showBranding"],
               ] as const).map(([label, selected, preferenceKey]) => (
                 <Pressable key={label} accessibilityRole="checkbox" accessibilityState={{ checked: selected }} onPress={() => setImageSharePreference(preferenceKey, !selected)} style={imageShareStyles.optionRow}>
                   <Text style={imageShareStyles.optionLabel}>{label}</Text>
@@ -1813,14 +1813,14 @@ export const MemoDetailModal = ({
                 </Pressable>
               ))}
 
-              <Text style={styles.actionSheetSectionTitle}>{resolvedLocale !== "zh-CN" ? "Format" : "格式"}</Text>
+              <Text style={styles.actionSheetSectionTitle}>{resolvedLocale !== "zh-TW" ? "Format" : "格式"}</Text>
               <View style={imageShareStyles.choiceRow}>
                 {(["png", "jpeg"] as const).map((value) => (
                   <Pressable key={value} accessibilityRole="button" onPress={() => setImageSharePreference("format", value)} style={[imageShareStyles.formatChoice, imageShareFormat === value && imageShareStyles.choiceActive]}>
                     <Text style={[imageShareStyles.choiceText, imageShareFormat === value && imageShareStyles.choiceTextActive]}>
                       {value === "png"
-                        ? (resolvedLocale !== "zh-CN" ? "PNG · Crisp text" : "PNG · 超清无损")
-                        : (resolvedLocale !== "zh-CN" ? "JPEG · Smaller file" : "JPEG · 体积小")}
+                        ? (resolvedLocale !== "zh-TW" ? "PNG · Crisp text" : "PNG · 超清無損")
+                        : (resolvedLocale !== "zh-TW" ? "JPEG · Smaller file" : "JPEG · 體積小")}
                     </Text>
                   </Pressable>
                 ))}
@@ -1850,14 +1850,14 @@ export const MemoDetailModal = ({
                   {isExportingImage ? <ActivityIndicator color="#ffffff" size="small" /> : <Share2 color="#ffffff" size={18} />}
                   <Text style={imageShareStyles.shareButtonText}>
                     {isExportingImage
-                      ? (imageFontStatus === "loading" ? (resolvedLocale === "zh-CN" ? "字体加载中…" : "Loading font…") : imageExportStage === "render"
-                        ? (resolvedLocale !== "zh-CN" ? "Rendering image…" : "正在渲染图片…")
+                      ? (imageFontStatus === "loading" ? (resolvedLocale === "zh-TW" ? "字型載入中…" : "Loading font…") : imageExportStage === "render"
+                        ? (resolvedLocale !== "zh-TW" ? "Rendering image…" : "正在渲染圖片…")
                         : imageExportStage === "transfer"
-                          ? (resolvedLocale !== "zh-CN" ? "Saving preview…" : "正在保存预览…")
-                          : (resolvedLocale !== "zh-CN" ? "Preparing image…" : "正在准备图片…"))
+                          ? (resolvedLocale !== "zh-TW" ? "Saving preview…" : "正在儲存預覽…")
+                          : (resolvedLocale !== "zh-TW" ? "Preparing image…" : "正在準備圖片…"))
                       : !viewerReady
-                      ? (resolvedLocale !== "zh-CN" ? "Preparing note…" : "正在准备笔记…")
-                      : (resolvedLocale !== "zh-CN" ? "Generate preview" : "生成预览")}
+                      ? (resolvedLocale !== "zh-TW" ? "Preparing note…" : "正在準備筆記…")
+                      : (resolvedLocale !== "zh-TW" ? "Generate preview" : "生成預覽")}
                   </Text>
                 </Pressable>
               </View>
@@ -1879,8 +1879,8 @@ export const MemoDetailModal = ({
             {imagePreview ? (
               <ZoomableImagePreview
                 key={imagePreview.source}
-                accessibilityHint={resolvedLocale !== "zh-CN" ? "Long press for image actions" : "长按打开图片操作"}
-                accessibilityLabel={imagePreview.alt || (resolvedLocale !== "zh-CN" ? "Image preview" : "图片预览")}
+                accessibilityHint={resolvedLocale !== "zh-TW" ? "Long press for image actions" : "長按開啟圖片操作"}
+                accessibilityLabel={imagePreview.alt || (resolvedLocale !== "zh-TW" ? "Image preview" : "圖片預覽")}
                 onLongPress={() => {
                   // Long-press fullscreen preview → same resource sheet as ⋯ in the note.
                   const target = getMobileImageTarget(imagePreview.source, imagePreview.alt);
@@ -1904,7 +1904,7 @@ export const MemoDetailModal = ({
               />
             ) : null}
             <Pressable
-              accessibilityLabel={resolvedLocale !== "zh-CN" ? "Close image preview" : "关闭图片预览"}
+              accessibilityLabel={resolvedLocale !== "zh-TW" ? "Close image preview" : "關閉圖片預覽"}
               accessibilityRole="button"
               onPress={() => setImagePreview(null)}
               style={resourceImageStyles.previewClose}
@@ -1973,7 +1973,7 @@ export const MemoDetailModal = ({
             disabled={metadataSaving}
             headerContent={(
               <Pressable
-                accessibilityLabel="所在笔记本"
+                accessibilityLabel="所在筆記本"
                 accessibilityRole="button"
                 disabled={metadataSaving}
                 onPress={() => {
@@ -1994,7 +1994,7 @@ export const MemoDetailModal = ({
                   <Text style={[styles.createMemoDoneText, detailLayoutStyles.metadataCancelText]}>取消</Text>
                 </Pressable>
                 <Pressable accessibilityRole="button" disabled={metadataSaving || isSaving} onPress={() => void saveViewerMetadata()} style={[styles.createMemoDoneButton, (metadataSaving || isSaving) && styles.createMemoDoneButtonDisabled]}>
-                  <Text style={[styles.createMemoDoneText, (metadataSaving || isSaving) && styles.createMemoDoneTextDisabled]}>{metadataSaving ? "保存中" : "保存"}</Text>
+                  <Text style={[styles.createMemoDoneText, (metadataSaving || isSaving) && styles.createMemoDoneTextDisabled]}>{metadataSaving ? "儲存中" : "儲存"}</Text>
                 </Pressable>
               </View>
             )}

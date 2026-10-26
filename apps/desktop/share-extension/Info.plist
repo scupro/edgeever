@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>zh-Hans</string>
+	<string>zh-Hant</string>
 	<key>CFBundleDisplayName</key>
 	<string>EdgeEver</string>
 	<key>CFBundleExecutable</key>

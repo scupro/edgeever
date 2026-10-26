@@ -52,7 +52,7 @@ export const MobileAiAssistantModal = ({
   const { resolvedLocale } = useMobileLocale();
   const { resolvedTheme } = useMobileTheme();
   const dark = resolvedTheme === "dark";
-  const tr = (zh: string, en: string) => resolvedLocale !== "zh-CN" ? en : zh;
+  const tr = (zh: string, en: string) => resolvedLocale !== "zh-TW" ? en : zh;
   const [action, setAction] = useState<AssistantAction>("summarize");
   const [selectedPromptId, setSelectedPromptId] = useState<string | null>(null);
   const [targetLanguage, setTargetLanguage] = useState<TargetLanguage>(() => getDefaultAiTargetLanguage(resolvedLocale));
@@ -82,38 +82,38 @@ export const MobileAiAssistantModal = ({
     ?? (["summarize", "extract-key-points", "extract-todos", "continue-writing"].includes(action) ? "append" : "both");
 
   const labels: Record<AssistantAction, string> = {
-    summarize: tr("精简总结", "Summarize"),
-    "extract-key-points": tr("提炼要点", "Key points"),
-    "extract-todos": tr("提取待办", "Extract tasks"),
-    "rewrite-proofread": tr("改写与校对", "Rewrite & proofread"),
-    "improve-writing": tr("润色表达", "Polish"),
-    "fix-spelling-grammar": tr("修正拼写与语法", "Fix spelling & grammar"),
-    "make-shorter": tr("精炼表达", "Make concise"),
-    "make-longer": tr("扩写内容", "Make longer"),
-    "simplify-language": tr("简化表达", "Simplify language"),
-    "change-tone": tr("调整语气", "Change tone"),
-    translate: tr("全文翻译", "Translate"),
-    "continue-writing": tr("继续写作", "Continue writing"),
-    custom: tr("自定义指令", "Custom prompt"),
+    summarize: tr("精簡總結", "Summarize"),
+    "extract-key-points": tr("提煉要點", "Key points"),
+    "extract-todos": tr("提取待辦", "Extract tasks"),
+    "rewrite-proofread": tr("改寫與校對", "Rewrite & proofread"),
+    "improve-writing": tr("潤色表達", "Polish"),
+    "fix-spelling-grammar": tr("修正拼寫與語法", "Fix spelling & grammar"),
+    "make-shorter": tr("精煉表達", "Make concise"),
+    "make-longer": tr("擴寫內容", "Make longer"),
+    "simplify-language": tr("簡化表達", "Simplify language"),
+    "change-tone": tr("調整語氣", "Change tone"),
+    translate: tr("全文翻譯", "Translate"),
+    "continue-writing": tr("繼續寫作", "Continue writing"),
+    custom: tr("自定義指令", "Custom prompt"),
   };
 
   const languageLabels: Record<TargetLanguage, string> = {
-    en: tr("英语", "English"),
-    "zh-CN": tr("简体中文", "Simplified Chinese"),
-    "zh-TW": tr("繁体中文", "Traditional Chinese"),
-    ja: tr("日语", "Japanese"),
-    ko: tr("韩语", "Korean"),
-    es: tr("西班牙语", "Spanish"),
-    fr: tr("法语", "French"),
-    de: tr("德语", "German"),
-    pt: tr("葡萄牙语", "Portuguese"),
-    pl: tr("波兰语", "Polish"),
+    en: tr("英語", "English"),
+    "zh-TW": tr("繁體中文", "Traditional Chinese"),
+    "zh-TW": tr("繁體中文", "Traditional Chinese"),
+    ja: tr("日語", "Japanese"),
+    ko: tr("韓語", "Korean"),
+    es: tr("西班牙語", "Spanish"),
+    fr: tr("法語", "French"),
+    de: tr("德語", "German"),
+    pt: tr("葡萄牙語", "Portuguese"),
+    pl: tr("波蘭語", "Polish"),
   };
 
   const toneLabels: Record<Tone, string> = {
-    professional: tr("专业", "Professional"),
+    professional: tr("專業", "Professional"),
     friendly: tr("友好", "Friendly"),
-    casual: tr("轻松", "Casual"),
+    casual: tr("輕鬆", "Casual"),
     direct: tr("直接", "Direct"),
   };
 
@@ -215,8 +215,8 @@ export const MobileAiAssistantModal = ({
       if (controller.signal.aborted) return;
       setError(
         caught instanceof ApiRequestError && caught.code === "ai_not_configured"
-          ? tr("请先在 Web 或桌面端的“模型与代理”中配置模型。", "Configure a model in Models and agents on the web or desktop app first.")
-          : caught instanceof Error ? caught.message : tr("AI 生成失败。", "AI generation failed.")
+          ? tr("請先在 Web 或桌面端的“模型與代理”中配置模型。", "Configure a model in Models and agents on the web or desktop app first.")
+          : caught instanceof Error ? caught.message : tr("AI 生成失敗。", "AI generation failed.")
       );
     } finally {
       if (controllerRef.current === controller) {
@@ -240,10 +240,10 @@ export const MobileAiAssistantModal = ({
     setError(null);
     try {
       await onApply(output, mode);
-      Alert.alert(tr("已更新笔记", "Note updated"));
+      Alert.alert(tr("已更新筆記", "Note updated"));
       onClose();
     } catch (caught) {
-      setError(caught instanceof Error ? caught.message : tr("更新笔记失败。", "Could not update the note."));
+      setError(caught instanceof Error ? caught.message : tr("更新筆記失敗。", "Could not update the note."));
     } finally {
       setApplying(false);
     }
@@ -311,27 +311,27 @@ export const MobileAiAssistantModal = ({
         <View style={[styles.header, { borderBottomColor: border }]}>
           <View style={styles.titleRow}>
             <Sparkles color="#16A06E" size={20} />
-            <Text style={[styles.title, { color: foreground }]}>{tr("AI 笔记助手", "AI note assistant")}</Text>
+            <Text style={[styles.title, { color: foreground }]}>{tr("AI 筆記助手", "AI note assistant")}</Text>
           </View>
-          <Pressable accessibilityLabel={tr("关闭", "Close")} accessibilityRole="button" onPress={onClose} style={styles.iconButton}>
+          <Pressable accessibilityLabel={tr("關閉", "Close")} accessibilityRole="button" onPress={onClose} style={styles.iconButton}>
             <X color={muted} size={22} />
           </Pressable>
         </View>
         <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
           <Text style={[styles.description, { color: muted }]}>
-            {tr("选择 AI 要做的事。输出只会作为草稿，确认后才会修改笔记。", "Choose what AI should do. Output remains a draft until you apply it.")}
+            {tr("選擇 AI 要做的事。輸出只會作為草稿，確認後才會修改筆記。", "Choose what AI should do. Output remains a draft until you apply it.")}
           </Text>
-          {selectField(tr("处理方式", "Action"), selectedPrompt?.name ?? labels[action], () => setPicker("action"))}
-          {promptNeedsTargetLanguage(parameterKind) ? selectField(tr("目标语言", "Target language"), languageLabels[targetLanguage], () => setPicker("language")) : null}
-          {promptNeedsTone(parameterKind) ? selectField(tr("语气", "Tone"), toneLabels[tone], () => setPicker("tone")) : null}
+          {selectField(tr("處理方式", "Action"), selectedPrompt?.name ?? labels[action], () => setPicker("action"))}
+          {promptNeedsTargetLanguage(parameterKind) ? selectField(tr("目標語言", "Target language"), languageLabels[targetLanguage], () => setPicker("language")) : null}
+          {promptNeedsTone(parameterKind) ? selectField(tr("語氣", "Tone"), toneLabels[tone], () => setPicker("tone")) : null}
           {!selectedPrompt && action === "custom" ? (
             <View style={styles.field}>
-              <Text style={[styles.fieldLabel, { color: foreground }]}>{tr("告诉 AI 你想怎么处理", "Tell AI what to do")}</Text>
+              <Text style={[styles.fieldLabel, { color: foreground }]}>{tr("告訴 AI 你想怎麼處理", "Tell AI what to do")}</Text>
               <TextInput
                 maxLength={2000}
                 multiline
                 onChangeText={setCustomInstruction}
-                placeholder={tr("例如：改成适合周报的结构，保留所有数据", "For example: Restructure this for a weekly report and keep all data")}
+                placeholder={tr("例如：改成適合週報的結構，保留所有資料", "For example: Restructure this for a weekly report and keep all data")}
                 placeholderTextColor={muted}
                 style={[styles.instructionInput, { borderColor: border, color: foreground, backgroundColor: surface }]}
                 value={customInstruction}
@@ -344,25 +344,25 @@ export const MobileAiAssistantModal = ({
           </View>
           <View style={[styles.result, { borderColor: border, backgroundColor: mutedSurface }]}>
             <Text selectable style={[styles.resultText, { color: output ? foreground : muted }]}>
-              {output || tr("生成的草稿会显示在这里。", "The generated draft will appear here.")}
+              {output || tr("生成的草稿會顯示在這裡。", "The generated draft will appear here.")}
             </Text>
           </View>
           {output && !generating ? (
             <View style={styles.field}>
-              <Text style={[styles.fieldLabel, { color: foreground }]}>{tr("继续调整", "Refine result")}</Text>
+              <Text style={[styles.fieldLabel, { color: foreground }]}>{tr("繼續調整", "Refine result")}</Text>
               <View style={styles.refineRow}>
                 <TextInput
                   maxLength={2000}
                   onChangeText={setRefineInstruction}
                   onSubmitEditing={refine}
-                  placeholder={tr("例如：再简洁一点", "For example: Make it more concise")}
+                  placeholder={tr("例如：再簡潔一點", "For example: Make it more concise")}
                   placeholderTextColor={muted}
                   returnKeyType="send"
                   style={[styles.refineInput, { borderColor: border, color: foreground, backgroundColor: surface }]}
                   value={refineInstruction}
                 />
                 <Pressable disabled={!refineInstruction.trim()} onPress={refine} style={[styles.refineButton, !refineInstruction.trim() && styles.disabled]}>
-                  <Text style={styles.refineButtonText}>{tr("调整", "Refine")}</Text>
+                  <Text style={styles.refineButtonText}>{tr("調整", "Refine")}</Text>
                 </Pressable>
               </View>
             </View>
@@ -373,7 +373,7 @@ export const MobileAiAssistantModal = ({
           <View style={styles.footerRow}>
             <Pressable disabled={!output || generating} onPress={() => void Clipboard.setStringAsync(output)} style={[styles.secondaryButton, { borderColor: border }, (!output || generating) && styles.disabled]}>
               <Copy color={foreground} size={16} />
-              <Text style={[styles.secondaryText, { color: foreground }]}>{tr("复制", "Copy")}</Text>
+              <Text style={[styles.secondaryText, { color: foreground }]}>{tr("複製", "Copy")}</Text>
             </Pressable>
             {promptAllowsAppend(resultMode) ? (
               <Pressable disabled={!output || generating || applying} onPress={() => void apply("append")} style={[styles.secondaryButton, { borderColor: border }, (!output || generating || applying) && styles.disabled]}>
@@ -382,7 +382,7 @@ export const MobileAiAssistantModal = ({
             ) : null}
             {promptAllowsReplace(resultMode) ? (
               <Pressable disabled={!output || generating || applying} onPress={() => void apply("replace")} style={[styles.secondaryButton, { borderColor: border }, (!output || generating || applying) && styles.disabled]}>
-                <Text style={[styles.secondaryText, { color: foreground }]}>{tr("替换", "Replace")}</Text>
+                <Text style={[styles.secondaryText, { color: foreground }]}>{tr("替換", "Replace")}</Text>
               </Pressable>
             ) : null}
           </View>
@@ -402,7 +402,7 @@ export const MobileAiAssistantModal = ({
           <Pressable onPress={() => setPicker(null)} style={styles.pickerBackdrop}>
             <View style={[styles.pickerSheet, { backgroundColor: surface }]}>
               <Text style={[styles.pickerTitle, { color: foreground }]}>
-                {picker === "action" ? tr("选择处理方式", "Choose an action") : picker === "language" ? tr("选择目标语言", "Choose target language") : tr("选择语气", "Choose tone")}
+                {picker === "action" ? tr("選擇處理方式", "Choose an action") : picker === "language" ? tr("選擇目標語言", "Choose target language") : tr("選擇語氣", "Choose tone")}
               </Text>
               <ScrollView style={styles.pickerScroll}>
                 {pickerOptions.map((option) => (

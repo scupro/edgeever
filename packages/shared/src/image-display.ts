@@ -12,7 +12,7 @@ export const IMAGE_WIDTH_PRESETS = [
 export const NEW_IMAGE_WIDTH_PERCENT = IMAGE_WIDTH_PRESETS[1].width;
 
 /**
- * Phone columns are already narrow. A desktop percent such as 35% ("较小")
+ * Phone columns are already narrow. A desktop percent such as 35% ("較小")
  * paints a stamp there, and the image action button covers most of it.
  * At or below this viewport, images fill the column. The stored percent stays
  * in the note for wide layouts.

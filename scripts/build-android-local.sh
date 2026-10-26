@@ -21,7 +21,7 @@ if [[ -n "${JAVA_HOME:-}" ]]; then
 fi
 
 if ! command -v java >/dev/null 2>&1; then
-  echo "未找到 Java 17。请先执行: brew install openjdk@17" >&2
+  echo "未找到 Java 17。請先執行: brew install openjdk@17" >&2
   exit 1
 fi
 
@@ -36,19 +36,19 @@ run_timed() {
   shift
   local started_at=$SECONDS
 
-  echo "[$(date '+%H:%M:%S')] 开始：${label}"
+  echo "[$(date '+%H:%M:%S')] 開始：${label}"
   "$@"
   echo "[$(date '+%H:%M:%S')] 完成：${label}（$((SECONDS - started_at)) 秒）"
 }
 
 if [[ -z "$ANDROID_SDK_ROOT" ]]; then
-  echo "未找到 Android SDK，请设置 ANDROID_HOME 或 ANDROID_SDK_ROOT。" >&2
+  echo "未找到 Android SDK，請設定 ANDROID_HOME 或 ANDROID_SDK_ROOT。" >&2
   exit 1
 fi
 
 cd "$PROJECT_ROOT"
-run_timed "安装 JavaScript 依赖" bun install --frozen-lockfile
-run_timed "准备移动端图标" bun run prepare:mobile:icons
+run_timed "安裝 JavaScript 依賴" bun install --frozen-lockfile
+run_timed "準備移動端圖示" bun run prepare:mobile:icons
 
 PREBUILD_FINGERPRINT="$({
   shasum \
@@ -61,12 +61,12 @@ PREBUILD_STAMP="$ANDROID_DIR/.edgeever-prebuild-fingerprint"
 PREVIOUS_FINGERPRINT="$(test -f "$PREBUILD_STAMP" && cat "$PREBUILD_STAMP" || true)"
 
 if [[ ! -x "$ANDROID_DIR/gradlew" || "$PREBUILD_FINGERPRINT" != "$PREVIOUS_FINGERPRINT" ]]; then
-  echo "更新 Android 原生工程（保留已有编译缓存）..."
+  echo "更新 Android 原生工程（保留已有編譯快取）..."
   cd "$MOBILE_DIR"
   run_timed "生成 Android 原生工程" bunx expo prebuild --platform android
   printf '%s' "$PREBUILD_FINGERPRINT" > "$PREBUILD_STAMP"
 else
-  echo "跳过 Android prebuild：原生配置未变化。"
+  echo "跳過 Android prebuild：原生配置未變化。"
 fi
 
 cd "$ANDROID_DIR"
@@ -77,17 +77,17 @@ COMMON_ARGS=(
   -Dorg.gradle.jvmargs=-Xmx6g\ -XX:MaxMetaspaceSize=1g\ -Dfile.encoding=UTF-8
 )
 
-: "${ANDROID_KEYSTORE_FILE:?请设置 ANDROID_KEYSTORE_FILE（本地上传密钥路径）}"
-: "${ANDROID_KEYSTORE_PASSWORD:?请设置 ANDROID_KEYSTORE_PASSWORD}"
-: "${ANDROID_KEY_ALIAS:?请设置 ANDROID_KEY_ALIAS}"
-: "${ANDROID_KEY_PASSWORD:?请设置 ANDROID_KEY_PASSWORD}"
+: "${ANDROID_KEYSTORE_FILE:?請設定 ANDROID_KEYSTORE_FILE（本機上傳金鑰路徑）}"
+: "${ANDROID_KEYSTORE_PASSWORD:?請設定 ANDROID_KEYSTORE_PASSWORD}"
+: "${ANDROID_KEY_ALIAS:?請設定 ANDROID_KEY_ALIAS}"
+: "${ANDROID_KEY_PASSWORD:?請設定 ANDROID_KEY_PASSWORD}"
 
 # Expo's DOM exporter writes current files without pruning old files. React Native's
 # Gradle inputs also omit workspace packages. Rebuild only the generated JS/DOM
 # assets from an empty directory; native compilation keeps its existing caches.
 rm -rf "$ANDROID_DIR/app/build/generated/assets/react/release" \
   "$ANDROID_DIR/app/build/generated/res/react/release"
-run_timed "刷新生产 JavaScript 与 DOM 资源" ./gradlew \
+run_timed "重新整理生產 JavaScript 與 DOM 資源" ./gradlew \
   :app:createBundleReleaseJsAndAssets --rerun --no-build-cache "${COMMON_ARGS[@]:1}"
 
 
@@ -98,8 +98,8 @@ APK_PATH="$ANDROID_DIR/app/build/outputs/apk/release/app-release.apk"
 APKSIGNER_PATH="$ANDROID_SDK_ROOT/build-tools/36.0.0/apksigner"
 
 if [[ "$MODE" == "fast" ]]; then
-  echo "构建生产签名 arm64 快速 APK（关闭 R8、资源压缩和 PNG crunch）..."
-  run_timed "Gradle 快速 APK 构建" ./gradlew assembleRelease \
+  echo "構建生產簽名 arm64 快速 APK（關閉 R8、資源壓縮和 PNG crunch）..."
+  run_timed "Gradle 快速 APK 構建" ./gradlew assembleRelease \
     "${COMMON_ARGS[@]}" \
     -PreactNativeArchitectures=arm64-v8a \
     -Pandroid.enableMinifyInReleaseBuilds=false \
@@ -112,7 +112,7 @@ if [[ "$MODE" == "fast" ]]; then
     -Pandroid.injected.signing.store.type=PKCS12
   test -s "$APK_PATH"
   test -x "$APKSIGNER_PATH"
-  run_timed "校验 APK 固定签名" \
+  run_timed "校驗 APK 固定簽名" \
     node "$PROJECT_ROOT/scripts/verify-android-apk-signature.mjs" \
     "$APK_PATH" "$APKSIGNER_PATH"
   echo "完成: $APK_PATH"
@@ -120,8 +120,8 @@ if [[ "$MODE" == "fast" ]]; then
 fi
 
 if [[ "$MODE" == "apk" ]]; then
-  echo "构建生产签名 APK（${APK_ARCHS}）..."
-  run_timed "Gradle 生产 APK 构建" ./gradlew assembleRelease \
+  echo "構建生產簽名 APK（${APK_ARCHS}）..."
+  run_timed "Gradle 生產 APK 構建" ./gradlew assembleRelease \
     "${COMMON_ARGS[@]}" \
     -PreactNativeArchitectures="$APK_ARCHS" \
     -Pandroid.injected.signing.store.file="$KEYSTORE_FILE" \
@@ -133,17 +133,17 @@ if [[ "$MODE" == "apk" ]]; then
   test -s "$APK_PATH"
   test -x "$APKSIGNER_PATH"
   test -x "$AAPT2_PATH"
-  run_timed "校验 APK 固定签名" \
+  run_timed "校驗 APK 固定簽名" \
     node "$PROJECT_ROOT/scripts/verify-android-apk-signature.mjs" \
     "$APK_PATH" "$APKSIGNER_PATH"
-  run_timed "读取 APK 信息" bash -c '"$1" dump badging "$2" | sed -n "1p"' _ "$AAPT2_PATH" "$APK_PATH"
-  run_timed "计算 APK SHA-256" shasum -a 256 "$APK_PATH"
+  run_timed "讀取 APK 資訊" bash -c '"$1" dump badging "$2" | sed -n "1p"' _ "$AAPT2_PATH" "$APK_PATH"
+  run_timed "計算 APK SHA-256" shasum -a 256 "$APK_PATH"
   echo "完成: $APK_PATH"
   exit 0
 fi
 
-echo "构建 Play 签名 AAB（${PLAY_ARCHS}）..."
-run_timed "Gradle 生产 AAB 构建" ./gradlew bundleRelease \
+echo "構建 Play 簽名 AAB（${PLAY_ARCHS}）..."
+run_timed "Gradle 生產 AAB 構建" ./gradlew bundleRelease \
   "${COMMON_ARGS[@]}" \
   -PreactNativeArchitectures="$PLAY_ARCHS" \
   -Pandroid.injected.signing.store.file="$KEYSTORE_FILE" \
@@ -156,16 +156,16 @@ AAB_PATH="app/build/outputs/bundle/release/app-release.aab"
 PACKAGED_MANIFEST="app/build/intermediates/packaged_manifests/release/processReleaseManifestForPackage/AndroidManifest.xml"
 test -s "$PACKAGED_MANIFEST"
 if grep -q "android.permission.REQUEST_INSTALL_PACKAGES" "$PACKAGED_MANIFEST"; then
-  echo "Play AAB 的最终合并清单仍包含 REQUEST_INSTALL_PACKAGES，停止发布。" >&2
+  echo "Play AAB 的最終合併清單仍包含 REQUEST_INSTALL_PACKAGES，停止釋出。" >&2
   exit 1
 fi
 ACTUAL_PLAY_ARCHS="$(unzip -Z1 "$AAB_PATH" | sed -n 's#^base/lib/\([^/]*\)/.*#\1#p' | sort -u | paste -sd, -)"
 if [[ "$ACTUAL_PLAY_ARCHS" != "$PLAY_ARCHS" ]]; then
-  echo "AAB 架构不符合预期：期望 ${PLAY_ARCHS}，实际 ${ACTUAL_PLAY_ARCHS:-无原生库}。" >&2
+  echo "AAB 架構不符合預期：期望 ${PLAY_ARCHS}，實際 ${ACTUAL_PLAY_ARCHS:-無原生庫}。" >&2
   exit 1
 fi
 
-run_timed "校验 AAB 签名" jarsigner -verify "$AAB_PATH"
+run_timed "校驗 AAB 簽名" jarsigner -verify "$AAB_PATH"
 test -s app/build/outputs/mapping/release/mapping.txt
 echo "完成: $ANDROID_DIR/$AAB_PATH"
-echo "反混淆文件: $ANDROID_DIR/app/build/outputs/mapping/release/mapping.txt"
+echo "反混淆檔案: $ANDROID_DIR/app/build/outputs/mapping/release/mapping.txt"

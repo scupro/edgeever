@@ -25,7 +25,7 @@ const createFixture = () => {
       entity_type TEXT NOT NULL, entity_id TEXT NOT NULL, metadata_json TEXT NOT NULL, created_at TEXT NOT NULL
     );
     INSERT INTO notebooks (id, workspace_id, name, slug, is_deleted, created_at, updated_at) VALUES
-      ('ws_1_inbox', 'ws_1', '等待分类', 'inbox', 0, '2026-09-10T00:00:00.000Z', '2026-09-10T00:00:00.000Z'),
+      ('ws_1_inbox', 'ws_1', '等待分類', 'inbox', 0, '2026-09-10T00:00:00.000Z', '2026-09-10T00:00:00.000Z'),
       ('nb_notes', 'ws_1', 'Notes', 'notes', 0, '2026-09-10T00:00:00.000Z', '2026-09-10T00:00:00.000Z');
   `);
   return { sqlite, db: createSelfHostedStorageAdapter(sqlite, "/tmp/edgeever-notebook-service-test-unused").db };
@@ -67,7 +67,7 @@ describe("notebook identity", () => {
         INSERT INTO workspaces (id, name) VALUES ('ws_empty', 'Empty');
         INSERT INTO workspaces (id, name) VALUES ('ws_trashed', 'Trashed inbox');
         INSERT INTO notebooks (id, workspace_id, name, slug, is_deleted, deleted_at)
-        VALUES ('ws_trashed_inbox', 'ws_trashed', '等待分类', 'inbox', 1, '2026-09-10T00:00:00.000Z');
+        VALUES ('ws_trashed_inbox', 'ws_trashed', '等待分類', 'inbox', 1, '2026-09-10T00:00:00.000Z');
       `);
       sqlite.exec(readFileSync("migrations/0046_restore_workspace_inbox_identity.sql", "utf8"));
       expect(sqlite.query("SELECT name, slug, is_deleted FROM notebooks WHERE id = 'nb_inbox'").get()).toEqual({
@@ -80,7 +80,7 @@ describe("notebook identity", () => {
         is_deleted: 0,
       });
       expect(sqlite.query("SELECT name, slug FROM notebooks WHERE id = 'ws_empty_inbox'").get()).toEqual({
-        name: "等待分类",
+        name: "等待分類",
         slug: "inbox",
       });
       expect(sqlite.query("PRAGMA foreign_key_check").all()).toEqual([]);
@@ -102,7 +102,7 @@ describe("notebook identity", () => {
           'nb_7f802977e3cc4e8eb30ef3665955ed39',
           'ws_default',
           NULL,
-          '等待分类',
+          '等待分類',
           'inbox',
           'notebook',
           '#0f766e',
@@ -167,7 +167,7 @@ describe("notebook identity", () => {
       ).toEqual({ name: "idx_notebooks_one_active_inbox" });
       expect(() => sqlite.exec(`
         INSERT INTO notebooks (id, workspace_id, name, slug)
-        VALUES ('nb_second_inbox', 'ws_default', '等待分类', 'inbox')
+        VALUES ('nb_second_inbox', 'ws_default', '等待分類', 'inbox')
       `)).toThrow(/unique/i);
       expect(sqlite.query("PRAGMA foreign_key_check").all()).toEqual([]);
     } finally {
@@ -185,7 +185,7 @@ describe("notebook identity", () => {
       sqlite.exec(`
         INSERT INTO notebooks (id, workspace_id, parent_id, name, slug, icon, color, sort_order)
         VALUES
-          ('ws_default_inbox', 'ws_default', NULL, '等待分类', 'inbox', 'notebook', '#0f766e', 10),
+          ('ws_default_inbox', 'ws_default', NULL, '等待分類', 'inbox', 'notebook', '#0f766e', 10),
           ('nb_under_duplicate', 'ws_default', 'ws_default_inbox', 'Nested', 'nested', 'notebook', '#0f766e', 20);
         INSERT INTO memos (id, workspace_id, notebook_id, title, excerpt)
         VALUES
@@ -239,13 +239,13 @@ describe("notebook identity", () => {
     const fixture = createFixture();
     try {
       fixture.sqlite.exec(`
-        UPDATE notebooks SET name = '注册考试', slug = NULL WHERE id = 'nb_notes';
+        UPDATE notebooks SET name = '註冊考試', slug = NULL WHERE id = 'nb_notes';
         INSERT INTO notebooks (id, workspace_id, parent_id, name, slug, is_deleted, created_at, updated_at) VALUES
-          ('nb_law', 'ws_1', 'nb_notes', '法律法规', NULL, 0, '2026-09-10T00:00:00.000Z', '2026-09-10T00:00:00.000Z'),
-          ('nb_history', 'ws_1', 'nb_notes', '建筑史', 'history', 0, '2026-09-10T00:00:00.000Z', '2026-09-10T00:00:00.000Z'),
-          ('nb_outline', 'ws_1', 'nb_history', '大纲', 'outline', 0, '2026-09-10T00:00:00.000Z', '2026-09-10T00:00:00.000Z');
+          ('nb_law', 'ws_1', 'nb_notes', '法律法規', NULL, 0, '2026-09-10T00:00:00.000Z', '2026-09-10T00:00:00.000Z'),
+          ('nb_history', 'ws_1', 'nb_notes', '建築史', 'history', 0, '2026-09-10T00:00:00.000Z', '2026-09-10T00:00:00.000Z'),
+          ('nb_outline', 'ws_1', 'nb_history', '大綱', 'outline', 0, '2026-09-10T00:00:00.000Z', '2026-09-10T00:00:00.000Z');
         INSERT INTO memos (id, workspace_id, notebook_id, title, is_deleted, updated_at)
-        VALUES ('memo_trashed', 'ws_1', 'nb_law', '已删除', 1, '2026-09-10T00:00:00.000Z');
+        VALUES ('memo_trashed', 'ws_1', 'nb_law', '已刪除', 1, '2026-09-10T00:00:00.000Z');
       `);
 
       await deleteNotebookRecord(fixture.db, "ws_1", "nb_notes", actor);
@@ -264,9 +264,9 @@ describe("notebook identity", () => {
     try {
       fixture.sqlite.exec(`
         INSERT INTO notebooks (id, workspace_id, parent_id, name, slug, is_deleted, created_at, updated_at) VALUES
-          ('nb_child', 'ws_1', 'nb_notes', '子笔记本', 'child', 0, '2026-09-10T00:00:00.000Z', '2026-09-10T00:00:00.000Z');
+          ('nb_child', 'ws_1', 'nb_notes', '子筆記本', 'child', 0, '2026-09-10T00:00:00.000Z', '2026-09-10T00:00:00.000Z');
         INSERT INTO memos (id, workspace_id, notebook_id, title, is_deleted, updated_at)
-        VALUES ('memo_keep', 'ws_1', 'nb_child', '还在', 0, '2026-09-10T00:00:00.000Z');
+        VALUES ('memo_keep', 'ws_1', 'nb_child', '還在', 0, '2026-09-10T00:00:00.000Z');
       `);
 
       await expect(deleteNotebookRecord(fixture.db, "ws_1", "nb_notes", actor)).rejects.toMatchObject({

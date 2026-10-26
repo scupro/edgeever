@@ -61,131 +61,131 @@ const zipOf = (entries) => {
 };
 
 const transcript = [
-  "·鱼",
+  "·魚",
   "2026年9月22日 22:15",
-  "[链接] 发布说明 https://example.com/post",
+  "[連結] 釋出說明 https://example.com/post",
   "",
   "·Flechazo",
   "2026年9月22日 22:15",
-  "[图片] 微信图片_202609222215_1.jpg",
+  "[圖片] 微信圖片_202609222215_1.jpg",
   "",
-  "·鱼",
+  "·魚",
   "2026年9月22日 22:16",
-  "[发呆]还没注册",
+  "[發呆]還沒註冊",
   "",
-  "·鱼",
+  "·魚",
   "2026年9月22日 22:19",
-  "[动画表情]",
+  "[動畫表情]",
   "",
-  "·鱼",
+  "·魚",
   "2026年9月22日 22:20",
-  "[视频] 微信视频_1.mp4",
+  "[影片] 微信影片_1.mp4",
   "",
 ].join("\n");
 
 const sampleArchive = () => zipOf([
-  { name: "聊天记录.txt", data: transcript, method: 8 },
-  { name: "聊天记录内的图片、视频和文件/微信图片_202609222215_1.jpg", data: "jpeg-bytes", method: 0 },
-  { name: "聊天记录内的图片、视频和文件/微信视频_1.mp4", data: "video-bytes", method: 8 },
-  { name: "聊天记录内的图片、视频和文件/说明.pdf", data: "pdf-bytes" },
+  { name: "聊天記錄.txt", data: transcript, method: 8 },
+  { name: "聊天記錄內的圖片、影片和檔案/微信圖片_202609222215_1.jpg", data: "jpeg-bytes", method: 0 },
+  { name: "聊天記錄內的圖片、影片和檔案/微信影片_1.mp4", data: "video-bytes", method: 8 },
+  { name: "聊天記錄內的圖片、影片和檔案/說明.pdf", data: "pdf-bytes" },
 ]);
 
 describe("WeChat chat archive", () => {
   test("turns the exported zip into messages, an inline image, and attachments", () => {
-    const note = wechatChatNoteFromArchive(sampleArchive(), "聊天记录_20260922_223222.zip");
-    expect(note.title).toBe("聊天记录_20260922_223222");
-    expect(note.markdown).not.toContain("💬 **微信聊天记录**");
-    expect(note.markdown).toContain("**鱼** · 2026年9月22日 22:15");
-    expect(note.markdown).toContain("[发布说明](https://example.com/post)");
-    expect(note.markdown).toContain("![微信图片_202609222215_1.jpg](edgeever-wechat-media://m1)");
-    expect(note.markdown).toContain("😶还没注册");
-    expect(note.markdown).toContain("*[动画表情]*");
-    expect(note.markdown).toContain("[附件：微信视频_1.mp4](edgeever-wechat-media://m2)");
-    expect(note.markdown).toContain("[附件：说明.pdf](edgeever-wechat-media://m3)");
+    const note = wechatChatNoteFromArchive(sampleArchive(), "聊天記錄_20260922_223222.zip");
+    expect(note.title).toBe("聊天記錄_20260922_223222");
+    expect(note.markdown).not.toContain("💬 **微信聊天記錄**");
+    expect(note.markdown).toContain("**魚** · 2026年9月22日 22:15");
+    expect(note.markdown).toContain("[釋出說明](https://example.com/post)");
+    expect(note.markdown).toContain("![微信圖片_202609222215_1.jpg](edgeever-wechat-media://m1)");
+    expect(note.markdown).toContain("😶還沒註冊");
+    expect(note.markdown).toContain("*[動畫表情]*");
+    expect(note.markdown).toContain("[附件：微信影片_1.mp4](edgeever-wechat-media://m2)");
+    expect(note.markdown).toContain("[附件：說明.pdf](edgeever-wechat-media://m3)");
     expect(note.markdown).not.toContain(".zip");
     expect(note.media.map((item) => [item.filename, item.mimeType, Buffer.from(item.bytes).toString()])).toEqual([
-      ["微信图片_202609222215_1.jpg", "image/jpeg", "jpeg-bytes"],
-      ["微信视频_1.mp4", "video/mp4", "video-bytes"],
-      ["说明.pdf", "application/pdf", "pdf-bytes"],
+      ["微信圖片_202609222215_1.jpg", "image/jpeg", "jpeg-bytes"],
+      ["微信影片_1.mp4", "video/mp4", "video-bytes"],
+      ["說明.pdf", "application/pdf", "pdf-bytes"],
     ]);
   });
 
   test("formats quoted replies as markdown blockquotes and maps emoji", () => {
     const quoteTranscript = [
-      "·张三",
+      "·張三",
       "2026年9月24日 10:00",
-      "明天开会讨论方案",
+      "明天開會討論方案",
       "",
       "·李四",
       "2026年9月24日 10:05",
-      "「张三：明天开会讨论方案」",
+      "「張三：明天開會討論方案」",
       "- - - - - - - - - - - - - - -",
-      "收到，我准备一下材料[OK]",
+      "收到，我準備一下材料[OK]",
     ].join("\n");
-    const archive = zipOf([{ name: "聊天记录.txt", data: quoteTranscript }]);
-    const note = wechatChatNoteFromArchive(archive, "项目组讨论.zip");
-    expect(note.markdown).toContain("> **张三**：明天开会讨论方案");
-    expect(note.markdown).toContain("收到，我准备一下材料👌");
+    const archive = zipOf([{ name: "聊天記錄.txt", data: quoteTranscript }]);
+    const note = wechatChatNoteFromArchive(archive, "專案組討論.zip");
+    expect(note.markdown).toContain("> **張三**：明天開會討論方案");
+    expect(note.markdown).toContain("收到，我準備一下材料👌");
   });
 
   test("simplifies times on the same day and keeps full date across days", () => {
     const multiDayTranscript = [
-      "·张三",
+      "·張三",
       "2026年9月24日 10:00",
       "第一天上午",
       "",
       "·李四",
       "2026年9月24日 10:05",
-      "第一天同天回复",
+      "第一天同天回覆",
       "",
-      "·张三",
+      "·張三",
       "2026年9月25日 09:00",
       "第二天上午",
     ].join("\n");
-    const archive = zipOf([{ name: "聊天记录.txt", data: multiDayTranscript }]);
-    const note = wechatChatNoteFromArchive(archive, "跨天讨论.zip");
-    expect(note.markdown).toContain("**张三** · 2026年9月24日 10:00");
+    const archive = zipOf([{ name: "聊天記錄.txt", data: multiDayTranscript }]);
+    const note = wechatChatNoteFromArchive(archive, "跨天討論.zip");
+    expect(note.markdown).toContain("**張三** · 2026年9月24日 10:00");
     expect(note.markdown).toContain("**李四** · 10:05");
-    expect(note.markdown).toContain("**张三** · 2026年9月25日 09:00");
+    expect(note.markdown).toContain("**張三** · 2026年9月25日 09:00");
   });
 
   test("adds the first message time when WeChat provides only a generic archive name", () => {
-    expect(wechatChatNoteFromArchive(sampleArchive(), "聊天记录.zip").title).toBe("聊天记录 · 2026-09-22 22:15");
-    expect(wechatChatNoteFromArchive(sampleArchive()).title).toBe("聊天记录 · 2026-09-22 22:15");
-    const withoutMessages = zipOf([{ name: "聊天记录.txt", data: "无法识别时间的旧聊天记录" }]);
-    expect(wechatChatNoteFromArchive(withoutMessages, "聊天记录.zip").title).toBe("聊天记录");
+    expect(wechatChatNoteFromArchive(sampleArchive(), "聊天記錄.zip").title).toBe("聊天記錄 · 2026-09-22 22:15");
+    expect(wechatChatNoteFromArchive(sampleArchive()).title).toBe("聊天記錄 · 2026-09-22 22:15");
+    const withoutMessages = zipOf([{ name: "聊天記錄.txt", data: "無法識別時間的舊聊天記錄" }]);
+    expect(wechatChatNoteFromArchive(withoutMessages, "聊天記錄.zip").title).toBe("聊天記錄");
   });
 
   test("preserves transcript text that does not match a message header", () => {
-    const archive = zipOf([{ name: "聊天记录.txt", data: [
-      "聊天开始前的说明",
-      "·鱼",
+    const archive = zipOf([{ name: "聊天記錄.txt", data: [
+      "聊天開始前的說明",
+      "·魚",
       "2026年9月22日 22:15",
       "你好",
       "",
-      "[系统消息] 群名已更改",
+      "[系統訊息] 群名已更改",
       "",
-      "·鱼",
+      "·魚",
       "2026年9月22日 22:16",
       "收到",
     ].join("\n") }]);
-    const note = wechatChatNoteFromArchive(archive, "聊天记录.zip");
-    expect(note.title).toBe("聊天记录 · 2026-09-22 22:15");
-    expect(note.markdown).toContain("聊天开始前的说明");
-    expect(note.markdown).toContain("\\[系统消息\\] 群名已更改");
+    const note = wechatChatNoteFromArchive(archive, "聊天記錄.zip");
+    expect(note.title).toBe("聊天記錄 · 2026-09-22 22:15");
+    expect(note.markdown).toContain("聊天開始前的說明");
+    expect(note.markdown).toContain("\\[系統訊息\\] 群名已更改");
     expect(note.markdown).toContain("收到");
   });
 
   test("rejects archives that are not a WeChat transcript", () => {
     expect(() => wechatChatNoteFromArchive(zipOf([{ name: "readme.txt", data: "hello" }]))).toThrow(WeChatArchiveError);
     expect(() => wechatChatNoteFromArchive(Buffer.from("not a zip"))).toThrow(WeChatArchiveError);
-    expect(() => wechatChatNoteFromArchive(zipOf([{ name: "../聊天记录.txt", data: transcript }]))).toThrow(WeChatArchiveError);
+    expect(() => wechatChatNoteFromArchive(zipOf([{ name: "../聊天記錄.txt", data: transcript }]))).toThrow(WeChatArchiveError);
   });
 });
 
  test("bounds actual deflate output even when the declared size is forged", () => {
-  const archive = zipOf([{ name: "聊天记录.txt", data: Buffer.alloc(8 * 1024 * 1024, 65), method: 8, declaredSize: 1 }]);
+  const archive = zipOf([{ name: "聊天記錄.txt", data: Buffer.alloc(8 * 1024 * 1024, 65), method: 8, declaredSize: 1 }]);
   expect(() => wechatChatNoteFromArchive(archive)).toThrow(WeChatArchiveError);
-  const valid = zipOf([{ name: "聊天记录.txt", data: transcript, method: 8 }]);
-  expect(wechatChatNoteFromArchive(valid).markdown).toContain("鱼");
+  const valid = zipOf([{ name: "聊天記錄.txt", data: transcript, method: 8 }]);
+  expect(wechatChatNoteFromArchive(valid).markdown).toContain("魚");
 });

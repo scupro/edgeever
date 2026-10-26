@@ -88,29 +88,29 @@ export const infographicFamilyChoices = (decision: InfographicFamilyDecision) =>
     ? [decision.family, ...decision.alternatives].slice(0, 3) : [];
 
 export const templateForRequest = (request: string): string | null => {
-  if (/(饼图|环形图|pie|donut)/i.test(request)) return "chart-pie-donut-plain-text";
-  if (/(柱状图|条形图|bar chart|column chart)/i.test(request)) return "chart-column-simple";
-  if (/(折线图|趋势图|line chart)/i.test(request)) return "chart-line-plain-text";
-  if (/(词云|word\s*cloud)/i.test(request)) return "chart-wordcloud";
-  if (/(思维导图|脑图|mind\s*map)/i.test(request)) return "hierarchy-mindmap-branch-gradient-lined-palette";
-  if (/(层级图|组织结构|树状图|hierarchy|org chart)/i.test(request)) return "hierarchy-tree-tech-style-capsule-item";
-  if (/(关系图|网络图|relation|network)/i.test(request)) return "relation-network-simple-circle-node";
+  if (/(餅圖|環形圖|pie|donut)/i.test(request)) return "chart-pie-donut-plain-text";
+  if (/(柱狀圖|條形圖|bar chart|column chart)/i.test(request)) return "chart-column-simple";
+  if (/(折線圖|趨勢圖|line chart)/i.test(request)) return "chart-line-plain-text";
+  if (/(詞雲|word\s*cloud)/i.test(request)) return "chart-wordcloud";
+  if (/(思維導圖|腦圖|mind\s*map)/i.test(request)) return "hierarchy-mindmap-branch-gradient-lined-palette";
+  if (/(層級圖|組織結構|樹狀圖|hierarchy|org chart)/i.test(request)) return "hierarchy-tree-tech-style-capsule-item";
+  if (/(關係圖|網路圖|relation|network)/i.test(request)) return "relation-network-simple-circle-node";
   return null;
 };
 
 export const sampleOfficialData = (template: string): Record<string, unknown> => {
   const family = officialTemplateFamily(template);
   const entry = (label: string, desc: string) => ({ label, desc });
-  if (family === "chart") return { title: "示例图表", values: [{ label: "项目 A", value: 40 }, { label: "项目 B", value: 30 }, { label: "项目 C", value: 20 }] };
-  if (family === "hierarchy") return { title: "示例层级", root: { label: "主题", children: [entry("分支 A", "说明"), entry("分支 B", "说明")] } };
-  if (family === "relation") return { title: "示例关系", nodes: [{ id: "a", label: "节点 A" }, { id: "b", label: "节点 B" }], relations: [{ from: "a", to: "b", direction: "forward" }] };
+  if (family === "chart") return { title: "示例圖表", values: [{ label: "專案 A", value: 40 }, { label: "專案 B", value: 30 }, { label: "專案 C", value: 20 }] };
+  if (family === "hierarchy") return { title: "示例層級", root: { label: "主題", children: [entry("分支 A", "說明"), entry("分支 B", "說明")] } };
+  if (family === "relation") return { title: "示例關係", nodes: [{ id: "a", label: "節點 A" }, { id: "b", label: "節點 B" }], relations: [{ from: "a", to: "b", direction: "forward" }] };
   if (family === "comparison") {
-    const labels = template === "compare-swot" ? ["优势", "劣势", "机会", "威胁"] : ["方案 A", "方案 B"];
-    return { title: "示例对比", compares: labels.map((label) => ({ label, children: [entry("维度一", "简短说明"), entry("维度二", "简短说明")] })) };
+    const labels = template === "compare-swot" ? ["優勢", "劣勢", "機會", "威脅"] : ["方案 A", "方案 B"];
+    return { title: "示例對比", compares: labels.map((label) => ({ label, children: [entry("維度一", "簡短說明"), entry("維度二", "簡短說明")] })) };
   }
-  if (family === "quadrant") return { title: "示例四象限", compares: ["第一象限", "第二象限", "第三象限", "第四象限"].map((label) => entry(label, "简短说明")) };
-  if (family === "sequence") return { title: "示例流程", sequences: [entry("第一步", "简短说明"), entry("第二步", "简短说明"), entry("第三步", "简短说明")] };
-  return { title: "示例列表", lists: [entry("项目 A", "简短说明"), entry("项目 B", "简短说明"), entry("项目 C", "简短说明")] };
+  if (family === "quadrant") return { title: "示例四象限", compares: ["第一象限", "第二象限", "第三象限", "第四象限"].map((label) => entry(label, "簡短說明")) };
+  if (family === "sequence") return { title: "示例流程", sequences: [entry("第一步", "簡短說明"), entry("第二步", "簡短說明"), entry("第三步", "簡短說明")] };
+  return { title: "示例列表", lists: [entry("專案 A", "簡短說明"), entry("專案 B", "簡短說明"), entry("專案 C", "簡短說明")] };
 };
 
 export const parseGeneratedOfficialSelection = (output: string, templates: string[]) => {
@@ -126,26 +126,26 @@ export const parseGeneratedOfficialSelection = (output: string, templates: strin
 
 export const shortlistOfficialTemplates = (request: string, templates: string[], currentTemplate?: string, family?: OfficialTemplateFamily) => {
   const requestedFamily: OfficialTemplateFamily = family ?? (templateForRequest(request)?.startsWith("chart-") ? "chart"
-    : /(思维导图|脑图|树状图|组织结构|层级|mind\s*map|hierarchy|org chart)/i.test(request) ? "hierarchy"
-    : /(关系图|网络图|network|relation)/i.test(request) ? "relation"
+    : /(思維導圖|腦圖|樹狀圖|組織結構|層級|mind\s*map|hierarchy|org chart)/i.test(request) ? "hierarchy"
+    : /(關係圖|網路圖|network|relation)/i.test(request) ? "relation"
     : /(四象限|象限|quadrant)/i.test(request) ? "quadrant"
-    : /(对比|比较|差异|swot|\bvs\b|comparison)/i.test(request) ? "comparison"
-    : /(步骤|流程|时间线|时间轴|发展历程|发展史|历史沿革|成长历程|路线图|里程碑|step|process|timeline|roadmap)/i.test(request) ? "sequence"
-    : /(饼图|柱状图|折线图|图表|chart|graph)/i.test(request) ? "chart"
+    : /(對比|比較|差異|swot|\bvs\b|comparison)/i.test(request) ? "comparison"
+    : /(步驟|流程|時間線|時間軸|發展歷程|發展史|歷史沿革|成長曆程|路線圖|里程碑|step|process|timeline|roadmap)/i.test(request) ? "sequence"
+    : /(餅圖|柱狀圖|折線圖|圖表|chart|graph)/i.test(request) ? "chart"
     : currentTemplate ? officialTemplateFamily(currentTemplate) : "list");
   const words = request.toLowerCase().match(/[a-z]+/g) ?? [];
   const preferred = new Set([templateForRequest(request), ...(!requestsInfographicLayoutChange(request) ? [currentTemplate] : [])].filter(Boolean));
   const candidates = templates.filter((id) => officialTemplateFamily(id) === requestedFamily);
   const comparisonCandidates = requestedFamily === "comparison"
-    ? /(swot|优劣势)/i.test(request) ? candidates.filter((id) => id === "compare-swot")
-      : /(优缺点|利弊|pros|cons)/i.test(request) ? candidates.filter((id) => id.includes("pros-cons"))
-      : /(前后|变化|before|after|箭头)/i.test(request) ? candidates.filter((id) => id.includes("arrow"))
+    ? /(swot|優劣勢)/i.test(request) ? candidates.filter((id) => id === "compare-swot")
+      : /(優缺點|利弊|pros|cons)/i.test(request) ? candidates.filter((id) => id.includes("pros-cons"))
+      : /(前後|變化|before|after|箭頭)/i.test(request) ? candidates.filter((id) => id.includes("arrow"))
       : candidates.filter((id) => id.endsWith("-vs"))
     : candidates;
   const familyCandidates = comparisonCandidates.length ? comparisonCandidates : candidates;
-  const shapedCandidates = requestedFamily === "sequence" && /(时间线|时间轴|发展历程|发展史|历史沿革|成长历程|里程碑|timeline|chronolog)/i.test(request)
+  const shapedCandidates = requestedFamily === "sequence" && /(時間線|時間軸|發展歷程|發展史|歷史沿革|成長曆程|里程碑|timeline|chronolog)/i.test(request)
     ? familyCandidates.filter((id) => id.startsWith("sequence-timeline-"))
-    : requestedFamily === "sequence" && /(路线图|roadmap)/i.test(request)
+    : requestedFamily === "sequence" && /(路線圖|roadmap)/i.test(request)
       ? familyCandidates.filter((id) => id.startsWith("sequence-roadmap-"))
       : familyCandidates;
   const alternatives = requestsInfographicLayoutChange(request)
@@ -233,10 +233,10 @@ export const buildInfographicSyntax = (input: {
 
 export const inferInfographicKind = (request: string): InfographicKind | null => {
   if (/(四象限|象限|swot|quadrant|2\s*[×xX]\s*2)/i.test(request)) return "quadrant";
-  if (/(对比|比较|差异|\bvs\.?\b|\bversus\b|compar(?:e|ison))/i.test(request)) return "comparison";
-  if (/(时间线|时间轴|发展历程|发展史|历史沿革|成长历程|路线图|里程碑|timeline|chronolog|roadmap)/i.test(request)) return "timeline";
-  if (/(步骤|流程|step|process)/i.test(request)) return "steps";
-  if (/(清单|列表|金字塔|网格|list|pyramid|grid)/i.test(request)) return "list";
+  if (/(對比|比較|差異|\bvs\.?\b|\bversus\b|compar(?:e|ison))/i.test(request)) return "comparison";
+  if (/(時間線|時間軸|發展歷程|發展史|歷史沿革|成長曆程|路線圖|里程碑|timeline|chronolog|roadmap)/i.test(request)) return "timeline";
+  if (/(步驟|流程|step|process)/i.test(request)) return "steps";
+  if (/(清單|列表|金字塔|網格|list|pyramid|grid)/i.test(request)) return "list";
   return null;
 };
 
@@ -246,27 +246,27 @@ export const inferInfographicFamily = (request: string): OfficialTemplateFamily 
   const kind = inferInfographicKind(request);
   if (kind === "steps" || kind === "timeline") return "sequence";
   if (kind) return kind;
-  if (/(数据可视化|图表|\bchart\b)/i.test(request)) return "chart";
+  if (/(資料視覺化|圖表|\bchart\b)/i.test(request)) return "chart";
   return null;
 };
 
 export const requestsInfographicLayoutChange = (request: string) =>
-  /(模板|版式|风格|样式|布局|排版|紧凑|圆形|金字塔|网格|路线图|里程碑|编号|交错|template|layout|style|compact|circular|pyramid|grid|roadmap|milestone|numbered|zigzag)/i.test(request)
-  || /(换个|另一种|其他|更合适).{0,8}(图|模板|版式)/i.test(request);
+  /(模板|版式|風格|樣式|佈局|排版|緊湊|圓形|金字塔|網格|路線圖|里程碑|編號|交錯|template|layout|style|compact|circular|pyramid|grid|roadmap|milestone|numbered|zigzag)/i.test(request)
+  || /(換個|另一種|其他|更合適).{0,8}(圖|模板|版式)/i.test(request);
 
 export const requestsInfographicFamilyChange = (request: string) =>
-  /(图形类型|图表类型|换个图|另一种图|其他图|更合适的图|different (?:chart|diagram|type))/i.test(request);
+  /(圖形型別|圖表型別|換個圖|另一種圖|其他圖|更合適的圖|different (?:chart|diagram|type))/i.test(request);
 
 const inferInfographicTemplate = (request: string, kind: InfographicKind): string | null => {
-  if (kind === "quadrant" && /(圆形|圆环|circular)/i.test(request)) return "compare-quadrant-quarter-circular";
-  if (kind === "comparison" && /(紧凑|密集|compact)/i.test(request)) return "compare-binary-horizontal-compact-card-vs";
-  if (kind === "comparison" && /(前后|变化|方向|箭头|arrow)/i.test(request)) return "compare-binary-horizontal-simple-arrow";
-  if (kind === "timeline" && /(路线图|roadmap)/i.test(request)) return "sequence-roadmap-vertical-simple";
+  if (kind === "quadrant" && /(圓形|圓環|circular)/i.test(request)) return "compare-quadrant-quarter-circular";
+  if (kind === "comparison" && /(緊湊|密集|compact)/i.test(request)) return "compare-binary-horizontal-compact-card-vs";
+  if (kind === "comparison" && /(前後|變化|方向|箭頭|arrow)/i.test(request)) return "compare-binary-horizontal-simple-arrow";
+  if (kind === "timeline" && /(路線圖|roadmap)/i.test(request)) return "sequence-roadmap-vertical-simple";
   if (kind === "timeline" && /(里程碑|milestone)/i.test(request)) return "sequence-timeline-done-list";
   if (kind === "list" && /(金字塔|pyramid)/i.test(request)) return "list-pyramid-compact-card";
-  if (kind === "list" && /(网格|grid)/i.test(request)) return "list-grid-simple";
-  if (kind === "steps" && /(交错|zigzag)/i.test(request)) return "sequence-horizontal-zigzag-simple";
-  if (kind === "steps" && /(编号|数字|numbered)/i.test(request)) return "sequence-steps-simple";
+  if (kind === "list" && /(網格|grid)/i.test(request)) return "list-grid-simple";
+  if (kind === "steps" && /(交錯|zigzag)/i.test(request)) return "sequence-horizontal-zigzag-simple";
+  if (kind === "steps" && /(編號|數字|numbered)/i.test(request)) return "sequence-steps-simple";
   return null;
 };
 
@@ -300,11 +300,11 @@ export const resolveInfographicEditSelection = (request: string, templates: stri
 };
 
 export const shouldReplaceExistingInfographic = (request: string, currentKind: InfographicKind | undefined) => {
-  if (!currentKind) return /(生成|画|做|重做|重新|全新).{0,40}(图|信息图|对比|比较|时间线|流程)/i.test(request);
+  if (!currentKind) return /(生成|畫|做|重做|重新|全新).{0,40}(圖|資訊圖|對比|比較|時間線|流程)/i.test(request);
   const requestedKind = inferInfographicKind(request);
   if (requestedKind && requestedKind !== currentKind) return true;
-  if (/(模板|版式|风格|样式|布局|紧凑|圆形|template|layout|style)/i.test(request) && !/(生成|画|做|重做|重新)/i.test(request)) return false;
-  return /(生成|画|做|换成|改成|重做|重新).{0,40}(图|信息图|对比|比较|时间线|流程)/i.test(request);
+  if (/(模板|版式|風格|樣式|佈局|緊湊|圓形|template|layout|style)/i.test(request) && !/(生成|畫|做|重做|重新)/i.test(request)) return false;
+  return /(生成|畫|做|換成|改成|重做|重新).{0,40}(圖|資訊圖|對比|比較|時間線|流程)/i.test(request);
 };
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>
@@ -349,7 +349,7 @@ export const parseGeneratedInfographicContent = (output: string, request: string
   return {
     kind,
     template,
-    title: stringValue(data.title) || (kind === "quadrant" ? "四象限图" : stringValue(request).slice(0, 60)),
+    title: stringValue(data.title) || (kind === "quadrant" ? "四象限圖" : stringValue(request).slice(0, 60)),
     description: stringValue(data.description ?? data.desc),
     items,
   };

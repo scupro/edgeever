@@ -55,7 +55,7 @@ const createApp = async () => {
   for (const migration of globSync("migrations/*.sql").sort()) sqlite.exec(readFileSync(migration, "utf8"));
   sqlite.query("INSERT INTO workspaces (id, name, is_personal) VALUES ('ws_form', 'Form', 1)").run();
   sqlite.query("INSERT INTO notebooks (id, workspace_id, name) VALUES ('nb_form', 'ws_form', 'Inbox')").run();
-  sqlite.query("INSERT INTO memos (id, workspace_id, notebook_id, title) VALUES ('memo_form', 'ws_form', 'nb_form', '报名')").run();
+  sqlite.query("INSERT INTO memos (id, workspace_id, notebook_id, title) VALUES ('memo_form', 'ws_form', 'nb_form', '報名')").run();
   sqlite.query("INSERT INTO memo_contents (memo_id, content_json, content_markdown, content_text, content_hash) VALUES ('memo_form', '{}', '', '', 'hash')").run();
   const database = new SqliteD1Database(sqlite);
   await updateMemoRecord(database, "ws_form", "memo_form", {
@@ -63,7 +63,7 @@ const createApp = async () => {
   }, { actorType: "user", actorId: null }, "owner", false);
   sqlite.query(
     `INSERT INTO table_forms (id, memo_id, workspace_id, token, enabled, title, fields_json)
-     VALUES ('form_1', 'memo_form', 'ws_form', ?, 1, '报名表', ?)`,
+     VALUES ('form_1', 'memo_form', 'ws_form', ?, 1, '報名錶', ?)`,
   ).run(token, JSON.stringify([{ fieldId: "fld_name", required: true }]));
   const app = new Hono();
   registerPublicTableFormRoutes(app);
@@ -76,21 +76,21 @@ describe("public table forms", () => {
     const listed = await app.request(`/api/public/forms/${token}`, {}, environment);
     expect(listed.status).toBe(200);
     const body = JSON.stringify(await listed.json());
-    expect(body).toContain("名称");
-    expect(body).not.toContain("示例记录");
+    expect(body).toContain("名稱");
+    expect(body).not.toContain("示例記錄");
 
     const submitted = await app.request(`/api/public/forms/${token}/submissions`, {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ cells: { fld_name: "外来记录" } }),
+      body: JSON.stringify({ cells: { fld_name: "外來記錄" } }),
     }, environment);
     expect(submitted.status).toBe(201);
     const stored = sqlite.query("SELECT content_markdown FROM memo_contents WHERE memo_id = 'memo_form'").get().content_markdown;
-    expect(stored).toContain("外来记录");
+    expect(stored).toContain("外來記錄");
     expect(sqlite.query("SELECT updated_by FROM memos WHERE id = 'memo_form'").get().updated_by).toBe("table-form");
 
     const again = await app.request(`/api/public/forms/${token}`, {}, environment);
-    expect(JSON.stringify(await again.json())).not.toContain("外来记录");
+    expect(JSON.stringify(await again.json())).not.toContain("外來記錄");
     const missing = await app.request(`/api/public/forms/${token}/submissions`, {
       method: "POST",
       headers: { "content-type": "application/json" },
@@ -108,7 +108,7 @@ describe("public table forms", () => {
     const lockedBody = await locked.json();
     expect(lockedBody.form.passwordRequired).toBe(true);
     expect(lockedBody.form.fields).toEqual([]);
-    expect(JSON.stringify(lockedBody)).not.toContain("示例记录");
+    expect(JSON.stringify(lockedBody)).not.toContain("示例記錄");
 
     sqlite.query("UPDATE table_forms SET enabled = 0 WHERE id = 'form_1'").run();
     const closed = await app.request(`/api/public/forms/${token}`, {}, environment);

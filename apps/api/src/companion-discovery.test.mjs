@@ -105,7 +105,7 @@ describe("quiet discoveries", () => {
     const allowNextCheck = () => f.sqlite.exec("UPDATE companion_discovery_settings SET last_check_at = '2020-01-01', last_cursor = -1");
     await updateMemoRecord(f.db, scope.workspaceId, f.notes[0].id, { contentMarkdown: "Project changed details" }, actor, "owner");
     allowNextCheck(); await f.run(); expect(f.calls()).toBe(2);
-    f.options.locale = "zh-CN";
+    f.options.locale = "zh-TW";
     allowNextCheck(); await f.run(); expect(f.calls()).toBe(3);
     await f.enable(); allowNextCheck(); await f.run(); expect(f.calls()).toBe(4);
     f.sqlite.exec("INSERT INTO ai_workspace_settings(workspace_id, created_at, updated_at) VALUES ('ws_test', '2026-01-01', '2026-01-01');");

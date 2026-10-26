@@ -173,7 +173,7 @@ describe("signed community registry", () => {
     const { raw, privateKey } = signingKey();
     const storage = createMemoryCommunityRegistryStorage();
     const revoked = signedRelease(privateKey, registryDocument([], {
-      revocations: [{ id: "com.example.readwise", reason: "仓库已转为私有", revokedAt: "2026-10-05T00:00:00.000Z" }],
+      revocations: [{ id: "com.example.readwise", reason: "倉庫已轉為私有", revokedAt: "2026-10-05T00:00:00.000Z" }],
     }));
     const first = await loadDisplayPluginMarketplace({
       refreshCommunity: true,

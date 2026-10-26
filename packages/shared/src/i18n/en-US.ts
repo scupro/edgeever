@@ -1346,8 +1346,8 @@ export const enUS = {
     title: "OSS object storage",
     description: "Configure the object storage used for new images and attachments across this EdgeEver instance. Only the instance owner can make changes.",
     providers: {
-      builtin: { title: "Built-in storage", description: "Use the Cloudflare R2 binding or the current runtime's default object store." },
-      s3: { title: "Third-party OSS", description: "Connect an S3-compatible OSS, COS, S3, MinIO, or R2 service." },
+      builtin: { title: "Built-in storage", description: "Use the S3-compatible object storage configured for this deployment, or the current runtime's default object store." },
+      s3: { title: "Third-party OSS", description: "Connect an S3-compatible OSS, COS, S3, or MinIO service." },
     },
     displayName: "Configuration name",
     endpoint: "Endpoint",
@@ -1572,7 +1572,6 @@ export const enUS = {
     targetLanguage: "Target language",
     targetLanguages: {
       en: "English",
-      "zh-CN": "Simplified Chinese",
       "zh-TW": "Traditional Chinese",
       ja: "Japanese",
       ko: "Korean",
@@ -1670,13 +1669,13 @@ export const enUS = {
         replace: "Replace selected text",
         stale: "The note changed, so this was not written.",
         chips: {
-          "zh-CN": "中文",
+          "zh-TW": "中文",
           en: "English",
           ja: "日本語",
           pl: "Polski",
         },
         languageNames: {
-          "zh-CN": "Simplified Chinese",
+          "zh-TW": "Traditional Chinese",
           en: "English",
           ja: "Japanese",
           pl: "Polish",
@@ -1854,7 +1853,6 @@ export const enUS = {
     },
     newUploadObjectStorage: "New upload object storage",
     objectStorageBackends: {
-      builtin_r2: "Built-in R2",
       builtin_filesystem: "Local filesystem",
       builtin_s3: "Instance-provided S3-compatible storage",
       external_s3: "Third-party S3-compatible OSS",

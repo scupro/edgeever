@@ -4,31 +4,31 @@ import { formatSystemInfoClipboard } from "./system-info-clipboard.ts";
 describe("formatSystemInfoClipboard", () => {
   test("builds structured Markdown and HTML tables", () => {
     const formatted = formatSystemInfoClipboard({
-      title: "系统信息",
-      fieldLabel: "项目",
-      valueLabel: "信息",
+      title: "系統資訊",
+      fieldLabel: "專案",
+      valueLabel: "資訊",
       groups: [{
-        title: "云端实例",
+        title: "雲端實例",
         items: [
-          { label: "实例版本", value: "v1.81.0" },
-          { label: "实例地址", value: "https://example.com" },
+          { label: "實例版本", value: "v1.81.0" },
+          { label: "實例地址", value: "https://example.com" },
         ],
       }],
     });
 
     expect(formatted.plainText).toBe([
-      "# 系统信息",
+      "# 系統資訊",
       "",
-      "## 云端实例",
-      "| 项目 | 信息 |",
+      "## 雲端實例",
+      "| 專案 | 資訊 |",
       "| --- | --- |",
-      "| 实例版本 | v1.81.0 |",
-      "| 实例地址 | https://example.com |",
+      "| 實例版本 | v1.81.0 |",
+      "| 實例地址 | https://example.com |",
     ].join("\n"));
-    expect(formatted.html).toContain("<h1>系统信息</h1>");
-    expect(formatted.html).toContain("<h2>云端实例</h2>");
+    expect(formatted.html).toContain("<h1>系統資訊</h1>");
+    expect(formatted.html).toContain("<h2>雲端實例</h2>");
     expect(formatted.html).toContain("<table>");
-    expect(formatted.html).toContain('<th scope="row">实例版本</th><td>v1.81.0</td>');
+    expect(formatted.html).toContain('<th scope="row">實例版本</th><td>v1.81.0</td>');
   });
 
   test("escapes clipboard values for both formats", () => {

@@ -95,22 +95,22 @@ const MobileEditorStartupOverlay = ({
     <View accessibilityLiveRegion="polite" style={styles.richEditorLoading}>
       {!timedOut ? <ActivityIndicator color="#16a06e" size="large" /> : null}
       <Text style={styles.richEditorLoadingTitle}>
-        {translate(timedOut ? "编辑器启动时间过长" : "正在启动编辑器")}
+        {translate(timedOut ? "編輯器啟動時間過長" : "正在啟動編輯器")}
       </Text>
       <Text style={styles.mutedText}>
         {translate(timedOut
-          ? "本地编辑器未能及时启动，可以重试或返回，当前草稿不会丢失。"
-          : "正在准备本地编辑器，笔记内容是安全的。")}
+          ? "本機編輯器未能及時啟動，可以重試或返回，當前草稿不會丟失。"
+          : "正在準備本機編輯器，筆記內容是安全的。")}
       </Text>
       {timedOut ? (
         <Pressable
-          accessibilityLabel={translate("重试")}
+          accessibilityLabel={translate("重試")}
           accessibilityRole="button"
           onPress={onRetry}
           style={styles.actionButton}
         >
           <RotateCcw color="#0f172a" size={16} />
-          <Text style={styles.actionButtonText}>{translate("重试")}</Text>
+          <Text style={styles.actionButtonText}>{translate("重試")}</Text>
         </Pressable>
       ) : null}
     </View>
@@ -123,19 +123,19 @@ const resolveEditableMemoTitle = (title?: string | null) => {
 };
 
 const alertProtectedImageLoadFailure = (
-  locale: "zh-CN" | "en-US" | "ja" | "pl",
+  locale: "zh-TW" | "en-US" | "ja" | "pl",
   failure: ProtectedResourceLoadFailure
 ) => {
   const statusLabel = failure.status != null
     ? String(failure.status)
-    : locale !== "zh-CN"
+    : locale !== "zh-TW"
       ? "network error"
-      : "网络错误";
+      : "網路錯誤";
   Alert.alert(
-    locale !== "zh-CN" ? "Image failed to load" : "图片加载失败",
-    locale !== "zh-CN"
+    locale !== "zh-TW" ? "Image failed to load" : "圖片載入失敗",
+    locale !== "zh-TW"
       ? `Could not load a note image (${statusLabel}). Check the network and try again.`
-      : `笔记中的图片未能加载（${statusLabel}）。请检查网络后重试。`
+      : `筆記中的圖片未能載入（${statusLabel}）。請檢查網路後重試。`
   );
 };
 
@@ -212,7 +212,7 @@ export const CreateMemoModal = ({
   const editorStartup = useMobileEditorStartupGuard({ active: draftLoaded && Boolean(baseUrl), ready: editorReady });
   const { pickUploadAssets, uploadSourcePicker } = useMobileEditorUploadAsset();
   const targetNotebookId = notebookId || fallbackNotebookId;
-  const selectedNotebookName = notebooks.find((notebook) => notebook.id === targetNotebookId)?.name ?? "选择笔记本";
+  const selectedNotebookName = notebooks.find((notebook) => notebook.id === targetNotebookId)?.name ?? "選擇筆記本";
   const titleRef = useRef(title);
   const tagsTextRef = useRef(tagsText);
   const targetNotebookIdRef = useRef(targetNotebookId);
@@ -365,9 +365,9 @@ export const CreateMemoModal = ({
       tagsText: tagsTextRef.current,
     };
     if (createMemoSeedHasContent(current)) {
-      Alert.alert(translate("应用模板？"), translate("当前内容将被模板内容替换。"), [
+      Alert.alert(translate("應用模板？"), translate("當前內容將被模板內容替換。"), [
         { text: translate("取消"), style: "cancel" },
-        { text: translate("替换"), style: "destructive", onPress: () => applyTemplateSeed(seed) },
+        { text: translate("替換"), style: "destructive", onPress: () => applyTemplateSeed(seed) },
       ]);
       return;
     }
@@ -392,7 +392,7 @@ export const CreateMemoModal = ({
   const createMutation = useMutation({
     mutationFn: async () => {
       if (!targetNotebookId) {
-        throw new Error("请先创建一个笔记本");
+        throw new Error("請先建立一個筆記本");
       }
       const materializedMemo = materializedMemoRef.current;
       if (materializedMemo) {
@@ -498,7 +498,7 @@ export const CreateMemoModal = ({
       return materializedMemoRef.current;
     }
     if (!client || !targetNotebookIdRef.current) {
-      throw new Error("当前无法连接实例，请稍后重试");
+      throw new Error("當前無法連線實例，請稍後重試");
     }
     setImageOperation("creating");
     const response = await client.createMemo({
@@ -535,14 +535,14 @@ export const CreateMemoModal = ({
       setImageOperation("uploading");
       const uploadAsset = await prepareUploadAsset(asset, imageCompressionEnabled);
       const { resource } = await uploadMobileResource(client!, memo.id, uploadAsset);
-      applyMobileEditorUpload(editorRef, resource, uploadId, uploadAsset.name || (resource.kind === "image" ? "图片" : "附件"));
+      applyMobileEditorUpload(editorRef, resource, uploadId, uploadAsset.name || (resource.kind === "image" ? "圖片" : "附件"));
       if (resource.kind === "image" && !keepBusy) {
         safeDomCall(() => editorRef.current?.finishImageBatch([resource.url]));
       }
       return resource.kind === "image" ? resource.url : null;
     } catch (error) {
       cancelMobileEditorUpload(editorRef, uploadId);
-      Alert.alert("附件上传失败", error instanceof Error ? error.message : "请检查网络连接后重试");
+      Alert.alert("附件上傳失敗", error instanceof Error ? error.message : "請檢查網路連線後重試");
     } finally {
       if (!keepBusy) setImageOperation("idle");
     }
@@ -711,7 +711,7 @@ export const CreateMemoModal = ({
         </Pressable>
         <View style={styles.createMemoHeaderActions}>
           <Text style={[styles.createMemoStatus, (submitStarted || createMutation.isPending) && styles.createMemoStatusActive]}>
-            {imageOperation === "creating" ? "正在创建" : imageOperation === "uploading" ? "正在上传" : submitStarted || createMutation.isPending || dirty ? "保存中" : editorReady ? "已保存" : "准备中"}
+            {imageOperation === "creating" ? "正在建立" : imageOperation === "uploading" ? "正在上傳" : submitStarted || createMutation.isPending || dirty ? "儲存中" : editorReady ? "已儲存" : "準備中"}
           </Text>
           <Pressable
             accessibilityLabel={translate("模板")}
@@ -723,7 +723,7 @@ export const CreateMemoModal = ({
             <Text style={[styles.createMemoTemplateButtonText, !canUseTemplate && styles.createMemoDoneTextDisabled]}>{translate("模板")}</Text>
           </Pressable>
           <Pressable
-            accessibilityLabel="完成新建笔记"
+            accessibilityLabel="完成新建筆記"
             disabled={!canSubmitCreateMemo}
             onPress={() => void submitCreateMemo()}
             style={[styles.createMemoDoneButton, !canSubmitCreateMemo && styles.createMemoDoneButtonDisabled]}
@@ -736,7 +736,7 @@ export const CreateMemoModal = ({
       <View style={styles.createMemoMain}>
         <TextInput
           autoCorrect
-          accessibilityLabel="笔记标题"
+          accessibilityLabel="筆記標題"
           onChangeText={(value) => {
             setTitle(value);
             markDirty();
@@ -748,13 +748,13 @@ export const CreateMemoModal = ({
         />
 
         <View style={styles.createMemoMetaRow}>
-          <Pressable accessibilityLabel="所在笔记本" accessibilityRole="button" onPress={() => setNotebookPickerOpen(true)} style={styles.createMemoNotebookButton}>
+          <Pressable accessibilityLabel="所在筆記本" accessibilityRole="button" onPress={() => setNotebookPickerOpen(true)} style={styles.createMemoNotebookButton}>
             <Text numberOfLines={1} style={styles.createMemoNotebookText}>{selectedNotebookName}</Text>
             <ChevronDown color="#64748b" size={14} />
           </Pressable>
-          <Pressable accessibilityLabel="选择笔记标签" accessibilityRole="button" onPress={() => setTagPickerOpen(true)} style={styles.createMemoTagsButton}>
+          <Pressable accessibilityLabel="選擇筆記標籤" accessibilityRole="button" onPress={() => setTagPickerOpen(true)} style={styles.createMemoTagsButton}>
             <Text numberOfLines={1} style={[styles.createMemoTagsInput, !tagsText && styles.createMemoTagsPlaceholder]}>
-              {tagsText || "添加标签"}
+              {tagsText || "新增標籤"}
             </Text>
             <ChevronDown color="#94a3b8" size={14} />
           </Pressable>
@@ -776,7 +776,7 @@ export const CreateMemoModal = ({
         </View>
 
         {createMutation.error ? (
-          <Text style={styles.errorText}>{createMutation.error instanceof Error ? createMutation.error.message : "创建失败"}</Text>
+          <Text style={styles.errorText}>{createMutation.error instanceof Error ? createMutation.error.message : "建立失敗"}</Text>
         ) : null}
       </View>
       <NotebookPickerModal
@@ -890,7 +890,7 @@ export const RichEditorModal = ({
   const editorStartup = useMobileEditorStartupGuard({ active: Boolean(memo && baseUrl), ready });
   const { pickUploadAssets, uploadSourcePicker } = useMobileEditorUploadAsset();
   const notebookLabel = notebooks.find((notebook) => notebook.id === notebookId)?.name ?? localizeMissingNotebookName(resolvedLocale);
-  const saveLabel = error ? "保存失败" : saving ? "保存中" : uploading ? "上传中" : dirty ? (draftRestored ? "本地草稿" : "未保存") : ready ? "已保存" : "加载中";
+  const saveLabel = error ? "儲存失敗" : saving ? "儲存中" : uploading ? "上傳中" : dirty ? (draftRestored ? "本機草稿" : "未儲存") : ready ? "已儲存" : "載入中";
   const titleRef = useRef(title);
   const tagsTextRef = useRef(tagsText);
   const notebookIdRef = useRef(notebookId);
@@ -985,7 +985,7 @@ export const RichEditorModal = ({
       setDraftRestored(false);
       return savedMemo;
     } catch (saveError) {
-      setError(saveError instanceof Error ? saveError.message : "保存失败");
+      setError(saveError instanceof Error ? saveError.message : "儲存失敗");
       return null;
     } finally {
       savingRef.current = false;
@@ -1029,7 +1029,7 @@ export const RichEditorModal = ({
       return;
     }
     if (memo.id.startsWith("local:")) {
-      Alert.alert("正在同步新笔记", "首次同步完成后即可上传本地图片；图片链接现在就可以直接粘贴到正文。");
+      Alert.alert("正在同步新筆記", "首次同步完成後即可上傳本機圖片；圖片連結現在就可以直接貼上到正文。");
       return;
     }
     const assets = await pickUploadAssets();
@@ -1052,13 +1052,13 @@ export const RichEditorModal = ({
         }
         const uploadAsset = await prepareUploadAsset(asset, imageCompressionEnabled);
         const { resource } = await uploadMobileResource(client, memo.id, uploadAsset);
-        applyMobileEditorUpload(editorRef, resource, uploadId, uploadAsset.name || (resource.kind === "image" ? "图片" : "附件"));
+        applyMobileEditorUpload(editorRef, resource, uploadId, uploadAsset.name || (resource.kind === "image" ? "圖片" : "附件"));
         if (resource.kind === "image") sources.push(resource.url);
         uploadId = null;
       }
     } catch (uploadError) {
       cancelMobileEditorUpload(editorRef, uploadId);
-      setError(uploadError instanceof Error ? uploadError.message : "附件上传失败");
+      setError(uploadError instanceof Error ? uploadError.message : "附件上傳失敗");
     } finally {
       safeDomCall(() => editorRef.current?.finishImageBatch(sources));
       uploadingRef.current = false;
@@ -1176,7 +1176,7 @@ export const RichEditorModal = ({
           <View style={styles.createMemoHeaderActions}>
             <Text numberOfLines={1} style={[styles.createMemoStatus, styles.richEditorHeaderStatus, (saving || uploading || dirty) && styles.createMemoStatusActive, error && styles.richEditorStatusError]}>{saveLabel}</Text>
             <Pressable
-              accessibilityLabel="完成编辑"
+              accessibilityLabel="完成編輯"
               accessibilityRole="button"
               disabled={saving || uploading || !ready}
               onPress={() => void requestClose()}
@@ -1203,13 +1203,13 @@ export const RichEditorModal = ({
               value={title}
             />
             <View style={[styles.createMemoMetaRow, styles.richStandaloneMetaRow]}>
-              <Pressable accessibilityLabel="所在笔记本" accessibilityRole="button" onPress={() => setNotebookPickerOpen(true)} style={styles.createMemoNotebookButton}>
+              <Pressable accessibilityLabel="所在筆記本" accessibilityRole="button" onPress={() => setNotebookPickerOpen(true)} style={styles.createMemoNotebookButton}>
                 <Text numberOfLines={1} style={styles.createMemoNotebookText}>{notebookLabel}</Text>
                 <ChevronDown color="#64748b" size={14} />
               </Pressable>
-              <Pressable accessibilityLabel="选择笔记标签" accessibilityRole="button" onPress={() => setTagPickerOpen(true)} style={[styles.createMemoTagsButton, styles.richStandaloneTagsInput]}>
+              <Pressable accessibilityLabel="選擇筆記標籤" accessibilityRole="button" onPress={() => setTagPickerOpen(true)} style={[styles.createMemoTagsButton, styles.richStandaloneTagsInput]}>
                 <Text numberOfLines={1} style={[styles.createMemoTagsInput, !tagsText && styles.createMemoTagsPlaceholder]}>
-                  {tagsText || "添加标签"}
+                  {tagsText || "新增標籤"}
                 </Text>
                 <ChevronDown color="#94a3b8" size={14} />
               </Pressable>
@@ -1226,17 +1226,17 @@ export const RichEditorModal = ({
                 title={title}
               />
             </View>
-            {draftRestored ? <Text style={styles.richEditorDraftNotice}>已恢复上次未完成的本地草稿</Text> : null}
+            {draftRestored ? <Text style={styles.richEditorDraftNotice}>已恢復上次未完成的本機草稿</Text> : null}
             <View style={styles.richEditorFrame}>
               {editorElement}
               {!ready ? <MobileEditorStartupOverlay onRetry={retryEditorStartup} timedOut={editorStartup.timedOut} /> : null}
             </View>
             {error ? <Text style={styles.richEditorInlineError}>{error}</Text> : null}
-            {startupMs !== null && __DEV__ ? <Text style={styles.richEditorPerf}>本地编辑器启动：{startupMs}ms</Text> : null}
+            {startupMs !== null && __DEV__ ? <Text style={styles.richEditorPerf}>本機編輯器啟動：{startupMs}ms</Text> : null}
           </View>
         ) : (
           <View style={styles.centerState}>
-            <Text style={styles.errorText}>缺少笔记数据，无法打开富文本编辑器</Text>
+            <Text style={styles.errorText}>缺少筆記資料，無法開啟富文字編輯器</Text>
           </View>
         )}
         <NotebookPickerModal

@@ -27,11 +27,11 @@ struct WebClipLabels: Equatable, Sendable {
     var usesFullwidthColon: Bool
 
     static let chinese = WebClipLabels(
-        sourceLabel: "来源",
-        capturedAtLabel: "剪藏时间",
-        unavailableBody: "正文暂时无法抓取，来源链接已保留，可稍后重试。",
-        fallbackTitle: "网页剪藏",
-        imageAlt: "图片",
+        sourceLabel: "來源",
+        capturedAtLabel: "剪藏時間",
+        unavailableBody: "正文暫時無法抓取，來源連結已保留，可稍後重試。",
+        fallbackTitle: "網頁剪藏",
+        imageAlt: "圖片",
         usesFullwidthColon: true
     )
 
@@ -136,7 +136,7 @@ enum WebClipper {
         )
     }
 
-    static func htmlToMarkdown(_ html: String, baseURL: URL, imageAlt: String = "图片") -> String {
+    static func htmlToMarkdown(_ html: String, baseURL: URL, imageAlt: String = "圖片") -> String {
         guard !html.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return "" }
         var value = replace(html, pattern: #"<!--[\s\S]*?-->"#) { _ in "" }
         value = replace(
@@ -309,7 +309,7 @@ struct WebClipCaptureView: UIViewRepresentable {
         func startTimeout() {
             completed = false
             timeout?.cancel()
-            let work = DispatchWorkItem { [weak self] in self?.finishFailure("微信文章加载超时。") }
+            let work = DispatchWorkItem { [weak self] in self?.finishFailure("微信文章載入超時。") }
             timeout = work
             DispatchQueue.main.asyncAfter(deadline: .now() + 20, execute: work)
         }
@@ -337,7 +337,7 @@ struct WebClipCaptureView: UIViewRepresentable {
                     finalURL: body["finalUrl"] as? String ?? loadedURL?.absoluteString ?? ""
                 ))
             } else {
-                finishFailure(body["message"] as? String ?? "没有找到可剪藏的正文。")
+                finishFailure(body["message"] as? String ?? "沒有找到可剪藏的正文。")
             }
         }
 
@@ -361,7 +361,7 @@ struct WebClipCaptureView: UIViewRepresentable {
             }
             var error=text(".weui-msg__title")||text(".weui-msg__desc");
             if(error){send({status:"failed",message:error});return;}
-            attempts++; if(attempts>=50){send({status:"failed",message:"页面加载完成，但没有找到可剪藏的正文。"});return;}
+            attempts++; if(attempts>=50){send({status:"failed",message:"頁面載入完成，但沒有找到可剪藏的正文。"});return;}
             setTimeout(capture,250);
           }
           capture();

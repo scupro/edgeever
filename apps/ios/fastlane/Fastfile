@@ -10,7 +10,7 @@ platform :ios do
     notes_zh = ENV["APP_STORE_RELEASE_NOTES_ZH"].to_s.strip
     notes_en = ENV["APP_STORE_RELEASE_NOTES_EN"].to_s.strip
     has_notes = notes_zh != "" && notes_en != ""
-    release_notes = has_notes ? { "zh-Hans" => notes_zh, "en-US" => notes_en } : nil
+    release_notes = has_notes ? { "zh-Hant" => notes_zh, "en-US" => notes_en } : nil
     if has_notes
       notes_ja = ENV["APP_STORE_RELEASE_NOTES_JA"].to_s.strip
       if notes_ja == ""

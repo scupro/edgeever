@@ -10,8 +10,8 @@ describe("AI draft insertion", () => {
   });
 
   test("separates generated block content when the cursor is inside a line", () => {
-    expect(insertAiDraftAtTextCursor("前半后半", "插入", 2)).toEqual({
-      next: "前半\n\n插入\n\n后半",
+    expect(insertAiDraftAtTextCursor("前半後半", "插入", 2)).toEqual({
+      next: "前半\n\n插入\n\n後半",
       caret: 8,
     });
   });

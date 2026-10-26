@@ -165,14 +165,14 @@ export const cleanXhsText = (value: string) => {
   const lines = value.replace(/\r/g, "").split("\n").map((line) => line.trim());
   while (lines.length > 0 && !lines[0]) lines.shift();
   while (lines.length > 0 && !lines[lines.length - 1]) lines.pop();
-  return lines.join("\n").replace(/\n{3,}/g, "\n\n").replace(/\n?(展开全文|展开|收起)\s*$/u, "").trim();
+  return lines.join("\n").replace(/\n{3,}/g, "\n\n").replace(/\n?(展開全文|展開|收起)\s*$/u, "").trim();
 };
 
 export const xhsBodyText = (desc: string, tags: string[]) => {
   const text = cleanXhsText(desc);
   const missing: string[] = [];
   for (const tag of tags) {
-    const bare = tag.replace(/^#/, "").replace(/\[话题\]#?$/u, "").trim();
+    const bare = tag.replace(/^#/, "").replace(/\[話題\]#?$/u, "").trim();
     if (!bare || text.includes(bare)) continue;
     missing.push(`#${bare}`);
   }
@@ -187,7 +187,7 @@ export const splitXhsDateText = (value: string) => {
   const match = text.match(/^(.*?)(?:\s+)([^\s]+)$/);
   const head = match?.[1]?.trim() ?? "";
   const tail = match?.[2]?.trim() ?? "";
-  if (head && tail && /(前|昨天|今天|编辑于|\d{4}[-/.]\d{1,2}|\d{1,2}[-/.]\d{1,2})/.test(head) && !/(前|昨天|今天)/.test(tail)) {
+  if (head && tail && /(前|昨天|今天|編輯於|\d{4}[-/.]\d{1,2}|\d{1,2}[-/.]\d{1,2})/.test(head) && !/(前|昨天|今天)/.test(tail)) {
     return { timeText: head, location: tail };
   }
   return { timeText: text, location: "" };

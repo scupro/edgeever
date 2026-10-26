@@ -26,7 +26,14 @@ export type Bindings = {
   EDGE_EVER_AUTH_LOGIN_USERNAME_COOLDOWN_SECONDS?: string;
   EDGE_EVER_AUTH_LOGIN_IP_MAX_ATTEMPTS?: string;
   EDGE_EVER_AUTH_LOGIN_IP_COOLDOWN_SECONDS?: string;
-  EDGE_EVER_R2_BUCKET_NAME?: string;
+  /** S3-compatible object storage used for attachments and imported files. */
+  EDGE_EVER_S3_ENDPOINT?: string;
+  EDGE_EVER_S3_REGION?: string;
+  EDGE_EVER_S3_BUCKET?: string;
+  EDGE_EVER_S3_ACCESS_KEY_ID?: string;
+  EDGE_EVER_S3_SECRET_ACCESS_KEY?: string;
+  EDGE_EVER_S3_FORCE_PATH_STYLE?: string;
+  EDGE_EVER_S3_OBJECT_PREFIX?: string;
   /** Legacy decryption fallback; new credentials use auth-derived keys. */
   EDGE_EVER_STORAGE_ENCRYPTION_KEY?: string;
   EDGE_EVER_CREDENTIALS_ENCRYPTION_KEY?: string;

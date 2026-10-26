@@ -699,7 +699,7 @@ export const WorkspaceApp = ({
   const visibleActivePane: Pane = mobileEditorReturnMemoId ? "memos" : activePane;
   const defaultMemoNotebookId =
     notebooks.find(
-      (notebook) => notebook.id === "nb_inbox" || notebook.slug === "inbox" || notebook.name === "等待分类"
+      (notebook) => notebook.id === "nb_inbox" || notebook.slug === "inbox" || notebook.name === "等待分類"
     )?.id ?? null;
   const createMemoNotebookId = getCreateMemoNotebookId(selectedNotebookId, notebooks, defaultMemoNotebookId);
   const canCreateMemo = Boolean(createMemoNotebookId && memoView !== "trash");
@@ -1568,7 +1568,7 @@ export const WorkspaceApp = ({
   };
 
   const handleDeleteNotebook = (notebook: Notebook) => {
-    if (notebook.id === "nb_inbox" || notebook.slug === "inbox" || notebook.name === "等待分类") {
+    if (notebook.id === "nb_inbox" || notebook.slug === "inbox" || notebook.name === "等待分類") {
       setAppNoticeDialog({
         title: t("workspace.inboxDeleteTitle"),
         description: t("workspace.inboxDeleteDescription"),

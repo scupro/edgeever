@@ -60,8 +60,8 @@ final class ChromeParityTests: XCTestCase {
     }
 
     func testCreateSaveStatusLabels() {
-        XCTAssertEqual(CreateSaveStatus.saving.labelZH, "保存中")
-        XCTAssertEqual(CreateSaveStatus.saved.labelZH, "已保存")
+        XCTAssertEqual(CreateSaveStatus.saving.labelZH, "儲存中")
+        XCTAssertEqual(CreateSaveStatus.saved.labelZH, "已儲存")
         XCTAssertTrue(CreateSaveStatus.saving.isActive)
         XCTAssertFalse(CreateSaveStatus.saved.isActive)
     }
@@ -80,7 +80,7 @@ final class ChromeParityTests: XCTestCase {
 
     func testDetailSyncStatusLabelsAndInteraction() {
         XCTAssertEqual(DetailSyncStatus.synced.labelZH, "已同步")
-        XCTAssertEqual(DetailSyncStatus.conflict.labelZH, "同步冲突")
+        XCTAssertEqual(DetailSyncStatus.conflict.labelZH, "同步衝突")
         XCTAssertEqual(DetailSyncStatus.pending.labelZH, "待同步")
         XCTAssertTrue(DetailSyncStatus.pending.isInteractive)
         XCTAssertTrue(DetailSyncStatus.conflict.isInteractive)
@@ -104,7 +104,7 @@ final class ChromeParityTests: XCTestCase {
         XCTAssertTrue(src.contains("generateAndApplySmartTags"), "smart tags must generate and apply in one action")
         XCTAssertTrue(src.contains("tag.badge.plus"), "smart tags must use the same tag-plus metaphor as web and Android")
         XCTAssertFalse(src.contains("Image(systemName: \"tag\")"), "tags field must not repeat the tag icon beside the smart-tags control")
-        XCTAssertFalse(src.contains("AI 推荐标签"), "tag picker must not retain the multi-step AI suggestion flow")
+        XCTAssertFalse(src.contains("AI 推薦標籤"), "tag picker must not retain the multi-step AI suggestion flow")
         XCTAssertTrue(src.contains("CreateMemoChrome.editorFrame"), "missing bordered editor")
         XCTAssertTrue(src.contains("TipTapWebView"), "editor wiring must remain")
         XCTAssertTrue(src.contains("commitCreate") || src.contains("persistDraftOrQueue"), "save path must remain")
@@ -170,7 +170,7 @@ final class ChromeParityTests: XCTestCase {
         let view = try readShippedSource("Features/Workspace/WorkspaceView.swift")
         let store = try readShippedSource("Features/Workspace/WorkspaceStore.swift")
         XCTAssertTrue(view.contains("SelectionMoreSheet"))
-        XCTAssertTrue(view.contains("全选当前列表"))
+        XCTAssertTrue(view.contains("全選當前列表"))
         XCTAssertTrue(view.contains("WebClipCaptureView"))
         XCTAssertTrue(view.contains("WebClipper.build"))
         XCTAssertTrue(store.contains("toggleVisibleSelection"))
@@ -186,7 +186,7 @@ final class ChromeParityTests: XCTestCase {
         XCTAssertTrue(source.contains(#"type: "searchResult""#))
         XCTAssertTrue(runtime.contains("session.theme"))
         XCTAssertTrue(runtime.contains("session.locale"))
-        XCTAssertFalse(runtime.contains("locale: 'zh-CN', theme: 'light'"))
+        XCTAssertFalse(runtime.contains("locale: 'zh-TW', theme: 'light'"))
     }
 
     func testWorkspacePresentsEditFromRootCover() throws {
@@ -298,7 +298,7 @@ final class ChromeParityTests: XCTestCase {
         XCTAssertTrue(source.contains("showImageSourcePicker = true"))
         XCTAssertTrue(source.contains("SystemCameraPicker"))
         XCTAssertTrue(source.contains("SystemImagePicker"))
-        XCTAssertTrue(source.contains("从相册选择"))
+        XCTAssertTrue(source.contains("從相簿選擇"))
         XCTAssertTrue(source.contains("拍照"))
     }
 

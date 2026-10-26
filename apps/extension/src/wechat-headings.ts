@@ -30,7 +30,7 @@ export const restoreWechatHeadings = (body: Element) => {
     sizes.set(paragraph,runs);
   }
   const bodySize=[...weights].sort((a,b)=>b[1]-a[1])[0]?.[0] || 0;
-  const stepPattern=/^第([一二三四五六七八九十百零〇两]+|\d+)步[：:]\s*\S/;
+  const stepPattern=/^第([一二三四五六七八九十百零〇兩]+|\d+)步[：:]\s*\S/;
   const stepCandidates=paragraphs.filter(node=>stepPattern.test(platformText(node)) && !/[。！？!?；;]/.test(platformText(node)));
   // A sequence of distinct step labels establishes section structure; a lone
   // instruction mentioning a first step remains an ordinary paragraph.

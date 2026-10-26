@@ -1,6 +1,6 @@
 import type { CompanionMemory } from "@edgeever/shared";
 const wordSegmenter = new Intl.Segmenter("zh", { granularity: "word" });
-const stopWords = new Set("我 你 的 了 是 在 什么 怎么 哪些 这个 那个 一个 请 吗 呢 和 与 i you the a an is are to of what how my me".split(" "));
+const stopWords = new Set("我 你 的 了 是 在 什麼 怎麼 哪些 這個 那個 一個 請 嗎 呢 和 與 i you the a an is are to of what how my me".split(" "));
 const normalizeMemoryText = (text: string) => text.normalize("NFKC").toLowerCase();
 const memoryTerms = (text: string) => {
   const terms = new Set<string>();

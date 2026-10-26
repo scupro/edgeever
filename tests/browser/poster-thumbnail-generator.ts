@@ -12,9 +12,9 @@ Object.assign(window, {
     async prepare(id: string, zh: boolean) {
       const input = {
         id, zh, width: 1080, height: 1440,
-        title: zh ? "把想法\n变成作品" : "MAKE IDEAS\nWORTH SHARING",
-        subtitle: zh ? "一个好想法，值得被看见。" : "Ideas deserve to be seen.",
-        badge: zh ? "创作笔记" : "CREATIVE NOTES",
+        title: zh ? "把想法\n變成作品" : "MAKE IDEAS\nWORTH SHARING",
+        subtitle: zh ? "一個好想法，值得被看見。" : "Ideas deserve to be seen.",
+        badge: zh ? "創作筆記" : "CREATIVE NOTES",
       };
       const draft = await buildPosterDesign(input);
       const texts = draft.elements.filter(element => element.type === "text");

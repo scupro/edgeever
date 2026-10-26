@@ -4,7 +4,7 @@ import { createPosterDocument, parsePosterDocument, serializePosterDocument, pos
 
 describe("poster source compatibility", () => {
   test("round-trips editable elements, resources, source links and a portable preview", () => {
-    const document = { ...createPosterDocument("知识卡片", "Read & share"), previewResourceId: "res_preview", sourceMemoId: "memo_source" };
+    const document = { ...createPosterDocument("知識卡片", "Read & share"), previewResourceId: "res_preview", sourceMemoId: "memo_source" };
     document.elements.push({ id: "image", name: "photo", type: "image", resourceId: "res_image", x: 10, y: 20, width: 50, height: 80, opacity: .5, locked: true, rotation: 30 });
     const markdown = serializePosterDocument(document);
     expect(parsePosterDocument(markdown)).toEqual(document);
@@ -36,8 +36,8 @@ describe("poster source compatibility", () => {
 
 describe("editable design styles", () => {
   test("preserves real template curves, gradients, typography, badges, grouping and crop", () => {
-    const document = { ...createPosterDocument("设计源稿", "Round trip"), templateId: "folio", platformId: "xhs", backgroundGradient: { kind: "linear", from: "#f4efe4", to: "#baf264", angle: 120 } };
-    document.elements[1] = { ...document.elements[1], role: "title", sourceText: "设计源稿", fontFamily: "思源黑体 Heavy", fontStyle: "italic", underline: true, lineHeight: 1.08, charSpacing: -20, shadow: { color: "rgba(0,0,0,0.2)", blur: 20, offsetX: 4, offsetY: 6 }, groupId: "group_1" };
+    const document = { ...createPosterDocument("設計源稿", "Round trip"), templateId: "folio", platformId: "xhs", backgroundGradient: { kind: "linear", from: "#f4efe4", to: "#baf264", angle: 120 } };
+    document.elements[1] = { ...document.elements[1], role: "title", sourceText: "設計源稿", fontFamily: "思源黑體 Heavy", fontStyle: "italic", underline: true, lineHeight: 1.08, charSpacing: -20, shadow: { color: "rgba(0,0,0,0.2)", blur: 20, offsetX: 4, offsetY: 6 }, groupId: "group_1" };
     document.elements.push({ id: "curve", name: "Curve", type: "path", path: "M 0 100 Q 100 0 200 100 Z", x: 40, y: 80, width: 200, height: 100, rotation: 15, opacity: .8, locked: false, fill: "#16a06e", stroke: "#07130b", strokeWidth: 12, gradient: { kind: "radial", from: "#ffffff", to: "#16a06e", angle: 90, stops: [{ offset: 0, color: "#ffffff" }, { offset: 1, color: "rgba(22,160,110,0.5)" }], coords: { x1: .5, y1: .5, x2: .5, y2: .5, r1: 0, r2: 1 } } });
     document.elements.push({ id: "image_crop", name: "Photo", type: "image", resourceId: "resource_photo", x: 0, y: 0, width: 1080, height: 1440, rotation: 0, opacity: 1, flipX: true, crop: { x: .2, y: 0, width: .6, height: 1 } });
     expect(parsePosterDocument(serializePosterDocument(document))).toEqual(document);

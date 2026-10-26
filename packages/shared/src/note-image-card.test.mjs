@@ -5,7 +5,7 @@ import {
   resolveTheme, resolveNoteImageTypography, buildImageExportBasename, buildNoteImageCardMarkup,
   estimateReadingStats, generateCardCss,
 } from "./note-image-card";
-import { zhCN } from "./i18n/zh-CN";
+import { zhTW } from "./i18n/zh-TW";
 import { enUS } from "./i18n/en-US";
 import { ja } from "./i18n/ja";
 import { pl } from "./i18n/pl";
@@ -14,10 +14,10 @@ import { NOTE_IMAGE_FONT_SUBSETS } from "./note-image-font-manifest";
 describe("note image templates", () => {
   test("author signatures show only the name without a generated avatar in every template", () => {
     for (const theme of NOTE_IMAGE_THEME_OPTIONS) {
-      const markup = buildNoteImageCardMarkup({ theme, title: "Note", bodyHtml: "<p>Text</p>", author: "天马", showAuthor: true });
+      const markup = buildNoteImageCardMarkup({ theme, title: "Note", bodyHtml: "<p>Text</p>", author: "天馬", showAuthor: true });
       const { document } = parseHTML(markup);
       const signature = document.querySelector(".edgeever-footer-author");
-      expect(signature?.textContent).toBe("天马");
+      expect(signature?.textContent).toBe("天馬");
       expect(signature?.children.length).toBe(1);
       expect(document.querySelector(".edgeever-card-avatar")).toBeNull();
     }
@@ -44,7 +44,7 @@ describe("note image templates", () => {
     for (const theme of NOTE_IMAGE_THEME_OPTIONS) {
       expect(NOTE_IMAGE_THEMES[theme]).toBeDefined();
       expect(NOTE_IMAGE_BACKGROUND_COLORS[theme]).toMatch(/^#[\da-f]{6}$/i);
-      for (const locale of [zhCN, enUS, ja, pl]) expect(locale.editor.imageShare.themes[theme]).toBeTruthy();
+      for (const locale of [zhTW, enUS, ja, pl]) expect(locale.editor.imageShare.themes[theme]).toBeTruthy();
     }
     for (const retired of ["paper", "press", "highlight", "slate", "mint", "aurora", "sunset", "terminal"]) {
       expect(NOTE_IMAGE_THEME_OPTIONS).not.toContain(retired);
@@ -129,10 +129,10 @@ describe("note image templates", () => {
         expect(markup.match(/class="edgeever-brand-badge"/g)).toHaveLength(1);
       }
     }
-    const signed = buildNoteImageCardMarkup({ theme: "bento", title: "Note", bodyHtml: "", author: "天马", showAuthor: true, showBranding: false });
+    const signed = buildNoteImageCardMarkup({ theme: "bento", title: "Note", bodyHtml: "", author: "天馬", showAuthor: true, showBranding: false });
     expect(signed).not.toContain('class="edgeever-card-avatar"');
-    expect(signed).toContain('<span>天马</span>');
-    expect(signed).toContain('<span>天马</span>');
+    expect(signed).toContain('<span>天馬</span>');
+    expect(signed).toContain('<span>天馬</span>');
     expect(signed).not.toContain('class="edgeever-brand-badge"');
   });
 
@@ -171,11 +171,11 @@ describe("note image templates", () => {
 
   test("only standalone short quotes receive display typography without a title", () => {
     const cases = [
-      ["<p>把想法写清楚。</p>", true], ["<p><strong>Less, but better.</strong></p>", true],
-      [`<p>${"长文内容".repeat(30)}</p>`, false], ["<p>第一段</p><p>第二段</p>", false],
+      ["<p>把想法寫清楚。</p>", true], ["<p><strong>Less, but better.</strong></p>", true],
+      [`<p>${"長文內容".repeat(30)}</p>`, false], ["<p>第一段</p><p>第二段</p>", false],
       ["<p>第一行<br>第二行</p>", false], ["<p></p>", false], ["<p><br></p>", false],
       ["<p>&nbsp;</p>", false], ["<p>&#160;</p>", false],
-      ["<h2>小标题</h2><p>正文</p>", false], ['<p><img src="image.png">配图</p>', false],
+      ["<h2>小標題</h2><p>正文</p>", false], ['<p><img src="image.png">配圖</p>', false],
     ];
     for (const [bodyHtml, short] of cases) {
       const markup = buildNoteImageCardMarkup({ theme: "quote", title: "Title", bodyHtml, showTitle: false });
@@ -196,7 +196,7 @@ describe("note image templates", () => {
   });
 
   test("keeps mixed-language reading statistics and portable filenames", () => {
-    const stats = estimateReadingStats("<p>中文阅读与 English words.</p>");
+    const stats = estimateReadingStats("<p>中文閱讀與 English words.</p>");
     expect(stats.totalCount).toBe(7);
     expect(stats.minutes).toBe(1);
     expect(buildImageExportBasename(" Roadmap: Q3/Q4. ", "Untitled")).toBe("Roadmap- Q3-Q4");

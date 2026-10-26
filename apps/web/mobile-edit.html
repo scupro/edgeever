@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-TW">
   <head>
     <meta charset="UTF-8" />
     <meta
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <title>编辑笔记 - EdgeEver</title>
+    <title>編輯筆記 - EdgeEver</title>
     <style>
       #mobile-editor-bootstrap {
         min-height: 100dvh;
@@ -98,13 +98,13 @@
               retry: "Retry",
             }
           : {
-              loading: "正在打开编辑器…",
-              loadingDetail: "笔记内容是安全的，网络较慢时可能需要稍等片刻。",
-              delayed: "编辑器启动时间较长，请检查网络连接。",
-              failed: "编辑器未能启动",
-              failedDetail: "请检查网络后重试，或先返回笔记列表。",
+              loading: "正在開啟編輯器…",
+              loadingDetail: "筆記內容是安全的，網路較慢時可能需要稍等片刻。",
+              delayed: "編輯器啟動時間較長，請檢查網路連線。",
+              failed: "編輯器未能啟動",
+              failedDetail: "請檢查網路後重試，或先返回筆記列表。",
               back: "返回",
-              retry: "重试",
+              retry: "重試",
             };
         let mounted = false;
         let slowLoadTimer = 0;
@@ -176,11 +176,11 @@
       <main id="mobile-editor-bootstrap" data-state="loading" role="status" aria-live="polite">
         <section class="mobile-editor-bootstrap-card">
           <div class="mobile-editor-bootstrap-spinner" aria-hidden="true"></div>
-          <h1 id="mobile-editor-bootstrap-title" class="mobile-editor-bootstrap-title">正在打开编辑器…</h1>
-          <p id="mobile-editor-bootstrap-detail" class="mobile-editor-bootstrap-detail">笔记内容是安全的，网络较慢时可能需要稍等片刻。</p>
+          <h1 id="mobile-editor-bootstrap-title" class="mobile-editor-bootstrap-title">正在開啟編輯器…</h1>
+          <p id="mobile-editor-bootstrap-detail" class="mobile-editor-bootstrap-detail">筆記內容是安全的，網路較慢時可能需要稍等片刻。</p>
           <div class="mobile-editor-bootstrap-actions">
             <button id="mobile-editor-bootstrap-back" class="mobile-editor-bootstrap-action" type="button">返回</button>
-            <button id="mobile-editor-bootstrap-retry" class="mobile-editor-bootstrap-action" data-primary="true" type="button" hidden>重试</button>
+            <button id="mobile-editor-bootstrap-retry" class="mobile-editor-bootstrap-action" data-primary="true" type="button" hidden>重試</button>
           </div>
         </section>
       </main>

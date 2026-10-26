@@ -208,4 +208,4 @@ export const readJike = (doc: Document, pageUrl: string, target: PlatformTarget 
   return {ok:true,clip:{...target,title,author:author || undefined,publishedAt:created ? {value:created,precision:"datetime"} : time ? {value:time,precision:"relative"} : undefined,markdown,tags:["web-clip","jike"],completeness:"complete"}};
 };
 export const jikeExpandButton = (doc: Document, card: Element | null = doc.querySelector(".post-page .post-wrap")): HTMLElement | null => Array.from(card?.querySelectorAll<HTMLElement>('.text button,.text [role="button"], [class*="_contentWrapper_"] button, [class*="_contentWrapper_"] [role="button"], [class*="_contentWrapper_"] [class*="_expandButton_"]') || [])
-  .find(n=>/^(展开|展开全文|展开全部|显示全文|查看更多)$/.test(platformText(platformReadableCopy(n)))) || null;
+  .find(n=>/^(展開|展開全文|展開全部|顯示全文|檢視更多)$/.test(platformText(platformReadableCopy(n)))) || null;

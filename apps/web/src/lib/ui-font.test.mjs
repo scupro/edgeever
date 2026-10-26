@@ -34,11 +34,11 @@ describe("interface font preference", () => {
 
   test("persists a bundled face and a custom family independently of note text", () => {
     const values = installLocalStorage();
-    writeUiFontPreference({ choice: "wenkai", customFamily: "霞鹜文楷" });
+    writeUiFontPreference({ choice: "wenkai", customFamily: "霞鶩文楷" });
     expect(values.get(UI_FONT_STORAGE_KEY)).toBe("wenkai");
-    expect(values.get(UI_FONT_CUSTOM_STORAGE_KEY)).toBe("霞鹜文楷");
+    expect(values.get(UI_FONT_CUSTOM_STORAGE_KEY)).toBe("霞鶩文楷");
     expect(values.has("edgeever.editorBodyFont")).toBe(false);
-    expect(readUiFontPreference()).toEqual({ choice: "wenkai", customFamily: "霞鹜文楷" });
+    expect(readUiFontPreference()).toEqual({ choice: "wenkai", customFamily: "霞鶩文楷" });
   });
 
   test("falls back when local storage is unavailable", () => {

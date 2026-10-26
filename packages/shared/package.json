@@ -17,7 +17,7 @@
     "./native-image-gallery": "./src/native-image-gallery.ts",
     "./i18n": "./src/i18n/index.ts",
     "./i18n/en-US": "./src/i18n/en-US.ts",
-    "./i18n/zh-CN": "./src/i18n/zh-CN.ts",
+    "./i18n/zh-TW": "./src/i18n/zh-TW.ts",
     "./i18n/ja": "./src/i18n/ja.ts",
     "./i18n/pl": "./src/i18n/pl.ts",
     "./i18n/locales": "./src/i18n/locales.ts",

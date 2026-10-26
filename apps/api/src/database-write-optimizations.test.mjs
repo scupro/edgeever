@@ -191,7 +191,7 @@ describe("database write optimizations", () => {
       database,
       memo.workspace_id,
       memo.id,
-      { contentMarkdown: "普通笔记" },
+      { contentMarkdown: "普通筆記" },
       actor,
       "owner",
     );

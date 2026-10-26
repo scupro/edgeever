@@ -59,7 +59,7 @@ export const readDouban = (doc: Document, target: PlatformTarget, sourceUrl: str
     author=doc.querySelector('.main-hd > a[href*="/people/"]');
     const header=doc.querySelector(".main-hd");
     time=header?.querySelector(".main-meta span[content],.main-meta time") || null;
-    if (/已编辑/.test(text(header?.querySelector(".main-meta") || null))) time=null;
+    if (/已編輯/.test(text(header?.querySelector(".main-meta") || null))) time=null;
     subject=header?.querySelector('a[href*="/subject/"]') || null;
     rating=header?.querySelector(".main-title-rating[title]") || null;
   } else if (parts[1] === "comment") {
@@ -74,7 +74,7 @@ export const readDouban = (doc: Document, target: PlatformTarget, sourceUrl: str
     body=card.querySelector(".comment-content"); author=card.querySelector('.comment-info a[href*="/people/"]');
     time=card.querySelector(".comment-time"); subject=doc.querySelector('h1 a[href*="/subject/"],.subject-title a[href]');
     rating=card.querySelector(".rating[title]");
-    title=[text(subject) || title.replace(/\s*短评$/, ""),text(author)].filter(Boolean).join(" · ") || title;
+    title=[text(subject) || title.replace(/\s*短評$/, ""),text(author)].filter(Boolean).join(" · ") || title;
   } else {
     body=doc.querySelector(`#link-report .note`);
     author=doc.querySelector('.note-header a.note-author[href*="/people/"]');

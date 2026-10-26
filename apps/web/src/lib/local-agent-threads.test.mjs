@@ -17,9 +17,9 @@ const turnB = "44444444-4444-4444-8444-444444444444";
 const turn = (overrides = {}) => ({
   id: turnA,
   threadId: threadA,
-  message: "总结这篇笔记",
-  response: "这是一份摘要",
-  reasoning: "先看标题",
+  message: "總結這篇筆記",
+  response: "這是一份摘要",
+  reasoning: "先看標題",
   tools: [{ id: "tool-1", name: "search", status: "done", title: "Search notes" }],
   attachments: [{ id: "file-1", filename: "notes.txt", mediaType: "text/plain", byteLength: 12 }],
   images: [{ id: "img-1", mediaType: "image/png", base64: "AAAA" }],
@@ -35,9 +35,9 @@ describe("local agent threads", () => {
     expect(stored.turns).toEqual([{
       id: turnA,
       threadId: threadA,
-      message: "总结这篇笔记",
-      response: "这是一份摘要",
-      reasoning: "先看标题",
+      message: "總結這篇筆記",
+      response: "這是一份摘要",
+      reasoning: "先看標題",
       tools: [{ id: "tool-1", name: "search", status: "done", title: "Search notes" }],
       attachments: [{ id: "file-1", filename: "notes.txt", mediaType: "text/plain", byteLength: 12 }],
       status: "completed",
@@ -78,23 +78,23 @@ describe("local agent threads", () => {
   test("names a chat from its first message and orders newer chats first", () => {
     const threads = chatThreadsFromTurns([
       turn({ message: "第二句", createdAt: "2026-09-03T00:00:00.000Z" }),
-      turn({ id: turnB, message: "第一句，后面还有", createdAt: "2026-09-01T00:00:00.000Z" }),
+      turn({ id: turnB, message: "第一句，後面還有", createdAt: "2026-09-01T00:00:00.000Z" }),
       turn({
         id: turnB,
         threadId: threadB,
-        message: "另一段会话",
+        message: "另一段會話",
         createdAt: "2026-09-04T00:00:00.000Z",
       }),
     ]);
-    expect(threads.map((item) => item.title)).toEqual(["另一段会话", "第一句，后面还有"]);
+    expect(threads.map((item) => item.title)).toEqual(["另一段會話", "第一句，後面還有"]);
   });
 
   test("continues only the selected chat and skips a running turn", () => {
     const transcript = localAgentTranscript([
-      turn({ message: "第一问", response: "第一答", createdAt: "2026-09-01T00:00:00.000Z" }),
+      turn({ message: "第一問", response: "第一答", createdAt: "2026-09-01T00:00:00.000Z" }),
       turn({
         id: turnB,
-        message: "正在问",
+        message: "正在問",
         response: "",
         status: "running",
         createdAt: "2026-09-03T00:00:00.000Z",
@@ -102,15 +102,15 @@ describe("local agent threads", () => {
       turn({
         id: turnB,
         threadId: threadB,
-        message: "别带上这段",
-        response: "另一会话",
+        message: "別帶上這段",
+        response: "另一會話",
         createdAt: "2026-09-04T00:00:00.000Z",
       }),
     ], threadA);
-    expect(transcript).toContain("User: 第一问");
+    expect(transcript).toContain("User: 第一問");
     expect(transcript).toContain("Assistant: 第一答");
-    expect(transcript).not.toContain("正在问");
-    expect(transcript).not.toContain("别带上这段");
+    expect(transcript).not.toContain("正在問");
+    expect(transcript).not.toContain("別帶上這段");
   });
 
   test("keeps a stored thread id and otherwise opens the latest chat", () => {

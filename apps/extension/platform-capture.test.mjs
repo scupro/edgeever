@@ -53,7 +53,7 @@ const capture = async ({ fixture = "xiaoyuzhou", url = xUrl, expectedUrl = url, 
 test("the real page's fully loaded Show Notes do not need an expansion click", async () => {
   const { result, calls } = await capture();
   expect(result.ok).toBe(true);
-  expect(result.clip.markdown).toContain("韦礼安");
+  expect(result.clip.markdown).toContain("韋禮安");
   expect(calls.clicks).toBe(0);
   expect(calls.messages).toHaveLength(1);
   expect(calls.messages[0].requestId).toBe("capture-1");
@@ -69,7 +69,7 @@ for(const [id,fixture,images] of [['6114376649/411862401','xueqiu-feed-detail',0
     expect(frame.src).toBe('https://www.xueqiu.com/'+id);expect(frame.getAttribute('sandbox')).toBe('allow-same-origin');
     return original;
   }});
-  expect(result.ok).toBe(true);expect(result.clip.url).toBe(expectedUrl);expect(result.clip.markdown).toContain(images ? '把自己的真金白银押在别人的嘴上，早晚是要付出代价的。' : finalParagraph);
+  expect(result.ok).toBe(true);expect(result.clip.url).toBe(expectedUrl);expect(result.clip.markdown).toContain(images ? '把自己的真金白銀押在別人的嘴上，早晚是要付出代價的。' : finalParagraph);
   expect(result.clip.markdown.match(/!\[/g) || []).toHaveLength(images);expect(calls.details).toHaveLength(1);
   expect(calls.details[0].isConnected).toBe(false);expect(calls.messages).toHaveLength(1);
 });
@@ -109,7 +109,7 @@ test("an incomplete DOM expands only the Show Notes control once and waits for c
     doc.querySelector(".expand").addEventListener("click", () => { notes.innerHTML = full; changed(); });
   } });
   expect(result.ok).toBe(true);
-  expect(result.clip.markdown).toContain("韦礼安");
+  expect(result.clip.markdown).toContain("韋禮安");
   expect(calls.clicks).toBe(1);
   expect(calls.disconnected).toBe(true);
 });
@@ -143,7 +143,7 @@ test("toolbar selection wins over the platform article, while a page menu ignore
   expect(toolbar.result.selection.markdown).toBe("Selected passage");
   expect(toolbar.result.clip).toBeUndefined();
   const menu = await capture({ selectionFirst: false, prepare });
-  expect(menu.result.clip.markdown).toContain("韦礼安");
+  expect(menu.result.clip.markdown).toContain("韋禮安");
   expect(menu.result.selection).toBeUndefined();
 });
 
@@ -178,15 +178,15 @@ test("Substack Note injection filters hidden CSS before checking complete conten
 
 test("Jike long text expands through the actual injected bundle and retains link identities",async()=>{
   const {result,calls}=await capture({fixture:'jike-long',url:'https://m.okjike.com/originalPosts/64c9dd9a2edae6abdc610605',prepare:({doc,changed})=>{
-    const body=doc.querySelector('.text'),full=body.innerHTML;body.innerHTML='<span>我在即刻写东西</span><button class="expand">展开全文</button>';
+    const body=doc.querySelector('.text'),full=body.innerHTML;body.innerHTML='<span>我在即刻寫東西</span><button class="expand">展開全文</button>';
     body.querySelector('button').addEventListener('click',()=>{body.innerHTML=full;changed();});
   }});
-  expect(result.ok).toBe(true);expect(result.clip.markdown).toContain('《世界尽头的咖啡馆》');expect(calls.clicks).toBe(1);expect(calls.disconnected).toBe(true);
+  expect(result.ok).toBe(true);expect(result.clip.markdown).toContain('《世界盡頭的咖啡館》');expect(calls.clicks).toBe(1);expect(calls.disconnected).toBe(true);
 });
 
 for(const navigate of [false,true])test(`Jike expansion ${navigate?'navigation':'timeout'} refuses the partial post`,async()=>{
   const {result,calls}=await capture({fixture:'jike-long',url:'https://m.okjike.com/originalPosts/64c9dd9a2edae6abdc610605',prepare:({doc,location,changed})=>{
-    const body=doc.querySelector('.text');body.innerHTML='<span>我在即刻写东西</span><button class="expand">展开全文</button>';
+    const body=doc.querySelector('.text');body.innerHTML='<span>我在即刻寫東西</span><button class="expand">展開全文</button>';
     if(navigate)body.querySelector('button').addEventListener('click',()=>{location.href='https://m.okjike.com/originalPosts/6715e824d9dc81724c2ec74d';changed();});
   }});
   expect(result).toEqual({ok:false,reason:navigate?'changed':'incomplete'});expect(calls.clicks).toBe(1);expect(calls.disconnected).toBe(true);

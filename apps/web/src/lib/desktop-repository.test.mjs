@@ -16,7 +16,7 @@ globalThis.window = {
     sidecarRequest: async (method, params) => {
       lastRequest = { method, params };
       if (method === "memo.get") {
-        const filename = params.memoId === "memo_wechat" ? "微信图片_202609231723_1.jpg" : "screenshot.webp";
+        const filename = params.memoId === "memo_wechat" ? "微信圖片_202609231723_1.jpg" : "screenshot.webp";
         return {
           memo: {
             id: params.memoId,
@@ -43,7 +43,7 @@ globalThis.window = {
             id: "res_wechat",
             memoId: "memo_wechat",
             kind: "image",
-            filename: "微信图片_202609231723_1.webp",
+            filename: "微信圖片_202609231723_1.webp",
             url: "/api/v1/resources/res_wechat/blob",
           }],
           summary: { totalCount: 2, totalBytes: 2, imageCount: 2, attachmentCount: 0 },
@@ -102,20 +102,20 @@ describe("desktop repository memo saves", () => {
       { id: "memo-1", revision: 2, contentHash: "base-hash" },
       {
         title: "Rich note",
-        contentJson: { type: "doc", content: [{ type: "paragraph", content: [{ type: "text", text: "富文本正文" }] }] },
+        contentJson: { type: "doc", content: [{ type: "paragraph", content: [{ type: "text", text: "富文字正文" }] }] },
         tags: [],
       },
     );
 
     expect(lastRequest.method).toBe("memo.update");
-    expect(lastRequest.params.contentMarkdown).toContain("富文本正文");
+    expect(lastRequest.params.contentMarkdown).toContain("富文字正文");
   });
 
   test("rewrites a dead staged screenshot URL before saving the memo", async () => {
     await createDesktopRepository().updateMemo(
       { id: "memo_shot", revision: 1, contentHash: "base-hash" },
       {
-        title: "截图",
+        title: "截圖",
         contentJson: {
           type: "doc",
           content: [{
@@ -298,8 +298,8 @@ describe("desktop note duplication", () => {
 
 describe("desktop Markdown note creation", () => {
   test("parses imported Markdown before sending it to the sidecar", async () => {
-    const markdown = "### 项目经历\n\n**项目亮点：**\n\n* 使用 `Next.js`\n* [文档](https://example.com)";
-    await createDesktopRepository().createMemo({ notebookId: "nb", title: "简历", contentMarkdown: markdown, tags: [] });
+    const markdown = "### 專案經歷\n\n**專案亮點：**\n\n* 使用 `Next.js`\n* [文件](https://example.com)";
+    await createDesktopRepository().createMemo({ notebookId: "nb", title: "簡歷", contentMarkdown: markdown, tags: [] });
     expect(lastRequest.method).toBe("memo.create");
     expect(lastRequest.params.contentMarkdown).toBe(markdown);
     const nodes = lastRequest.params.contentJson.content;

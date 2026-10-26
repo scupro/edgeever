@@ -28,7 +28,7 @@ const isDashboardLauncherCommand = (
   const panelTitle = panel.title?.trim() ?? "";
   const title = command.title?.trim() ?? "";
   if (!panelTitle || !title) return false;
-  if (title === `打开${panelTitle}` || title === `打开${panelTitle}面板`) return true;
+  if (title === `開啟${panelTitle}` || title === `開啟${panelTitle}面板`) return true;
   const lower = title.toLocaleLowerCase();
   const panelLower = panelTitle.toLocaleLowerCase();
   return lower === `open ${panelLower}` || lower === `open ${panelLower} dashboard`;

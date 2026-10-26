@@ -1,6 +1,6 @@
 # Optional share-image fonts
 
-[简体中文](note-image-fonts.zh-CN.md)
+[繁體中文](note-image-fonts.zh-TW.md)
 
 Body settings, poster design and share images use the same directory of 23 named fonts, including all five fonts in Qiaomu’s designer starter pack. They load remote, version-pinned resources on demand; no additional font binaries are included in Web, desktop, Android or iOS packages. The picker, loader and license notices add a small amount of application code.
 
@@ -12,7 +12,7 @@ Body settings, poster design and share images use the same directory of 23 named
 | Noto Sans SC Heavy | `@fontsource/noto-sans-sc@5.3.1/900.css` |
 | PuHuiTi Regular · Recommended | `@fontpkg/alibaba-pu-hui-ti-3-0@3.1.2/AlibabaPuHuiTi-3-55-Regular.ttf` |
 | PuHuiTi Heavy · Recommended | `@fontpkg/alibaba-pu-hui-ti-3-0@3.1.2/AlibabaPuHuiTi-3-105-Heavy.ttf` |
-| YouShe Title · Recommended | `@fontpkg/you-she-biao-ti-hei@1.0.0/优设标题黑.ttf` |
+| YouShe Title · Recommended | `@fontpkg/you-she-biao-ti-hei@1.0.0/優設標題黑.ttf` |
 | Alimama ShuHei · Recommended | `@fontpkg/alimama-shu-hei-ti@1.0.5/AlimamaShuHeiTi-Bold.ttf` |
 
 Smiley Sans is also a member of the five-font recommended pack. The four additional recommended files are downloaded unchanged, with pinned byte lengths and SHA-256 digests. SHA-256 is checked when Web Crypto is available; byte length and container checks apply in all contexts. They are approximately 8.53 MB, 2.54 MB, 1.41 MB and 1.36 MB respectively. They are not converted or subsetted. Each original file is downloaded when its font is selected or its preview row becomes visible, not by installing the application. Opening and scrolling the picker can therefore download several complete original fonts.

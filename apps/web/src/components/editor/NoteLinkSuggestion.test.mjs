@@ -10,16 +10,16 @@ import {
 } from "./NoteLinkSuggestion.tsx";
 
 const labels = {
-  menu: "引用笔记",
-  empty: "没有找到可引用的笔记",
-  close: "关闭引用笔记",
-  untitled: "无标题笔记",
+  menu: "引用筆記",
+  empty: "沒有找到可引用的筆記",
+  close: "關閉引用筆記",
+  untitled: "無標題筆記",
 };
 
 const memo = (overrides) => ({
   id: "memo-1",
-  title: "项目笔记",
-  excerpt: "项目摘要",
+  title: "專案筆記",
+  excerpt: "專案摘要",
   isDeleted: false,
   ...overrides,
 });
@@ -46,13 +46,13 @@ describe("note link suggestion", () => {
   };
 
   test("does not open for @ embedded in passwords, emails, or ordinary text", () => {
-    for (const text of ["secret+@F(", "user@example.com", "文字@笔记", "hello@"]) {
+    for (const text of ["secret+@F(", "user@example.com", "文字@筆記", "hello@"]) {
       expect(suggestionFor([{ type: "text", text }]).active).toBe(false);
     }
   });
 
   test("opens at paragraph starts and after whitespace, including multiword queries", () => {
-    for (const [text, query] of [["@", ""], ["@项目", "项目"], ["参考 @项目 笔记", "项目 笔记"], ["参考\t@项目", "项目"], ["参考\u3000@项目", "项目"]]) {
+    for (const [text, query] of [["@", ""], ["@專案", "專案"], ["參考 @專案 筆記", "專案 筆記"], ["參考\t@專案", "專案"], ["參考\u3000@專案", "專案"]]) {
       const suggestion = suggestionFor([{ type: "text", text }]);
       expect(suggestion.active).toBe(true);
       expect(suggestion.query).toBe(query);
@@ -65,16 +65,16 @@ describe("note link suggestion", () => {
       { type: "text", text: "@F(", marks: [{ type: "bold" }] },
     ]).active).toBe(false);
     expect(suggestionFor([
-      { type: "text", text: "参考 " },
-      { type: "text", text: "@项目", marks: [{ type: "bold" }] },
+      { type: "text", text: "參考 " },
+      { type: "text", text: "@專案", marks: [{ type: "bold" }] },
     ]).active).toBe(true);
   });
 
   test("opens after a hard break but not immediately after inline code", () => {
     expect(suggestionFor([
-      { type: "text", text: "参考" },
+      { type: "text", text: "參考" },
       { type: "hardBreak" },
-      { type: "text", text: "@项目" },
+      { type: "text", text: "@專案" },
     ]).active).toBe(true);
     expect(suggestionFor([
       { type: "text", text: "user", marks: [{ type: "code" }] },
@@ -96,7 +96,7 @@ describe("note link suggestion", () => {
       extensions: [StarterKit],
       content: {
         type: "doc",
-        content: [{ type: "paragraph", content: [{ type: "text", text: "@项目" }] }],
+        content: [{ type: "paragraph", content: [{ type: "text", text: "@專案" }] }],
       },
     });
 
@@ -119,7 +119,7 @@ describe("note link suggestion", () => {
           title: null,
         },
       }],
-      text: "项目笔记",
+      text: "專案筆記",
     }]);
     editor.destroy();
   });
@@ -141,7 +141,7 @@ describe("note link suggestion", () => {
       range: { from: 1, to: 2 },
     });
 
-    expect(editor.getText()).toBe("无标题笔记");
+    expect(editor.getText()).toBe("無標題筆記");
     editor.destroy();
   });
 });

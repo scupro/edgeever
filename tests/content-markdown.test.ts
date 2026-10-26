@@ -3,13 +3,13 @@ import { docToMarkdown, markdownToDoc } from "@edgeever/shared";
 
 describe("shared Markdown conversion", () => {
   test("parses adjacent headings, lists, quotes, and inline formatting into TipTap nodes", () => {
-    const doc = markdownToDoc(`## 1. 公司主体信息 (Organization Info)
-* **公司中文全称**：郑州市冰硅网络科技有限公司
-* **公司英文名称**：Example Co., Ltd.
-## 2. 联系方式 (Domain & Contact)
-* **项目官方网站**：[EdgeEver](https://www.edgeever.org)
+    const doc = markdownToDoc(`## 1. 公司主體資訊 (Organization Info)
+* **公司中文全稱**：鄭州市冰矽網路科技有限公司
+* **公司英文名稱**：Example Co., Ltd.
+## 2. 聯絡方式 (Domain & Contact)
+* **專案官方網站**：[EdgeEver](https://www.edgeever.org)
 > [!WARNING]
-> 请勿绑定其他账号。`);
+> 請勿繫結其他帳號。`);
 
     expect(doc.content.map((node) => node.type)).toEqual([
       "heading",
@@ -23,7 +23,7 @@ describe("shared Markdown conversion", () => {
     const firstText = firstList.content?.[0]?.content?.[0]?.content?.[0];
     expect(firstText).toEqual({
       type: "text",
-      text: "公司中文全称",
+      text: "公司中文全稱",
       marks: [{ type: "bold" }],
     });
 
@@ -62,14 +62,14 @@ describe("shared Markdown conversion", () => {
   });
 
   test("serializes TipTap marks and block nodes back to Markdown", () => {
-    const markdown = `# 标题
+    const markdown = `# 標題
 
-- **粗体**与*斜体*
-- [链接](https://example.com)
+- **粗體**與*斜體*
+- [連結](https://example.com)
 
 > 引用
 
-\`code\` 和 ~~删除~~`;
+\`code\` 和 ~~刪除~~`;
 
     expect(docToMarkdown(markdownToDoc(markdown))).toBe(markdown);
   });
@@ -79,7 +79,7 @@ describe("shared Markdown conversion", () => {
 const answer = 42;
 \`\`\`
 
-![示例](/api/v1/resources/res_1/blob "标题")`;
+![示例](/api/v1/resources/res_1/blob "標題")`;
 
     const doc = markdownToDoc(markdown);
     expect(doc.content.map((node) => node.type)).toEqual(["codeBlock", "image"]);
@@ -88,7 +88,7 @@ const answer = 42;
   });
 
   test("groups consecutive images into one gallery and keeps a single image alone", () => {
-    const markdown = "正文\n\n![一](/a.png)\n\n![二](/b.png)\n\n![三](/c.png)\n\n来源";
+    const markdown = "正文\n\n![一](/a.png)\n\n![二](/b.png)\n\n![三](/c.png)\n\n來源";
     const doc = markdownToDoc(markdown);
     expect(doc.content.map((node) => node.type)).toEqual(["paragraph", "edgeeverImageGallery", "paragraph"]);
     expect(doc.content[1]?.attrs).toEqual({ layout: "auto" });

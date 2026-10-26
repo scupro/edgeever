@@ -158,11 +158,11 @@ jobs:
           {
             echo "### EdgeEver update / EdgeEver 更新"
             echo ""
-            echo "| Field / 字段 | Value / 值 |"
+            echo "| Field / 欄位 | Value / 值 |"
             echo "| --- | --- |"
             echo "| Channel / 更新通道 | \`${UPDATE_CHANNEL}\` |"
             echo "| Fork mode / Fork 模式 | \`${fork_mode}\` |"
-            echo "| Upstream target / 上游目标 | \`${target_ref}\` (\`${target_commit:0:12}\`, v${target_version}) |"
+            echo "| Upstream target / 上游目標 | \`${target_ref}\` (\`${target_commit:0:12}\`, v${target_version}) |"
             echo "| Fork main before / 更新前 | \`${head_commit:0:12}\` (v${head_version}) |"
             echo "| Decision / 判定 | \`${reason}\` / align=\`${align_mode}\` / update=\`${update_required}\` / republish=\`${republish_only}\` |"
             echo ""
@@ -194,18 +194,18 @@ jobs:
             esac
             if [ "${republish_only}" = "true" ]; then
               echo ""
-              echo "**Manual redeploy / 手动重新部署：** the Fork is already aligned, so this run will push an empty commit and request a fresh Cloudflare build."
+              echo "**Manual redeploy / 手動重新部署：** the Fork is already aligned, so this run will push an empty commit and request a fresh Cloudflare build."
             fi
             echo ""
             echo "Prefer this workflow over GitHub **Sync fork**. Mirror mode owns the managed product tree while preserving the Fork's local updater layer and \`.github/workflows/**\`."
           } >> "${GITHUB_STEP_SUMMARY}"
 
           if [ "${republish_only}" = "true" ]; then
-            echo "::notice title=Manual redeploy / 手动重新部署::Fork code is already v${target_version}. This run will push an empty commit and request a fresh Cloudflare build."
+            echo "::notice title=Manual redeploy / 手動重新部署::Fork code is already v${target_version}. This run will push an empty commit and request a fresh Cloudflare build."
           elif [ "${update_required}" = "true" ]; then
             echo "::notice title=EdgeEver update / EdgeEver 更新::Fork main v${head_version} will be synchronized to v${target_version}, then a Cloudflare build will be requested."
           else
-            echo "::notice title=Scheduled check / 定时检查::Fork code is already v${target_version}. No Git push or Cloudflare deployment was requested by this run."
+            echo "::notice title=Scheduled check / 定時檢查::Fork code is already v${target_version}. No Git push or Cloudflare deployment was requested by this run."
           fi
 
           echo "channel=${UPDATE_CHANNEL} target=${target_ref}@${target_commit:0:12} (v${target_version}) head=${head_commit:0:12} (v${head_version}) reason=${reason} align=${align_mode} update=${update_required} republish=${republish_only}"
@@ -324,7 +324,7 @@ jobs:
           echo "" >> "${GITHUB_STEP_SUMMARY}"
           echo "Triggered optional Cloudflare Deploy Hook after publish." >> "${GITHUB_STEP_SUMMARY}"
 
-      - name: Report result / 输出结果
+      - name: Report result / 輸出結果
         if: always() && steps.upstream.outcome == 'success'
         env:
           TARGET_REF: ${{ steps.upstream.outputs.target_ref }}
@@ -341,22 +341,22 @@ jobs:
         run: |
           set -euo pipefail
           final_commit="$(git rev-parse HEAD)"
-          git_result="Not requested / 未请求"
-          deploy_result="Not requested / 未请求"
-          live_result="Not changed by this run / 本次运行未改变线上部署"
+          git_result="Not requested / 未請求"
+          deploy_result="Not requested / 未請求"
+          live_result="Not changed by this run / 本次執行未改變線上部署"
           live_status="unchanged"
           notice_level="notice"
-          notice_title="Scheduled check / 定时检查"
+          notice_title="Scheduled check / 定時檢查"
           notice_body="Fork code is already v${TARGET_VERSION}. No Git push or Cloudflare deployment was requested."
 
           if [ "${UPDATE_REQUIRED}" = "true" ] || [ "${REPUBLISH_ONLY}" = "true" ]; then
-            live_result="Not verified by this workflow / 本工作流未验证"
+            live_result="Not verified by this workflow / 本工作流未驗證"
             live_status="not_verified"
             if [ "${PUBLISH_OUTCOME}" != "success" ]; then
-              git_result="Failed (\`${PUBLISH_OUTCOME}\`) / 失败"
-              deploy_result="Not requested because Git publish failed / 因 Git 发布失败而未请求"
+              git_result="Failed (\`${PUBLISH_OUTCOME}\`) / 失敗"
+              deploy_result="Not requested because Git publish failed / 因 Git 釋出失敗而未請求"
               notice_level="error"
-              notice_title="Git publish failed / Git 发布失败"
+              notice_title="Git publish failed / Git 釋出失敗"
               notice_body="The Fork could not publish v${TARGET_VERSION}; no Cloudflare deployment was requested."
             else
               case "${PUBLISH_MODE}" in
@@ -371,18 +371,18 @@ jobs:
               if [ "${DEPLOY_TRIGGER_OUTCOME}" = "success" ]; then
                 case "${DEPLOY_TRIGGER_METHOD}" in
                   git_push_and_deploy_hook)
-                    deploy_result="Requested by Git push and Deploy Hook / 已通过 Git push 和 Deploy Hook 请求"
+                    deploy_result="Requested by Git push and Deploy Hook / 已透過 Git push 和 Deploy Hook 請求"
                     ;;
                   *)
-                    deploy_result="Requested by Git push / 已通过 Git push 请求"
+                    deploy_result="Requested by Git push / 已透過 Git push 請求"
                     ;;
                 esac
-                notice_title="Deployment requested / 已请求部署"
+                notice_title="Deployment requested / 已請求部署"
                 notice_body="Fork main is ${final_commit:0:12} (v${TARGET_VERSION}). Confirm Cloudflare Deployments builds this commit; the live version is not verified here."
               else
-                deploy_result="Trigger failed (\`${DEPLOY_TRIGGER_OUTCOME}\`) / 触发失败"
+                deploy_result="Trigger failed (\`${DEPLOY_TRIGGER_OUTCOME}\`) / 觸發失敗"
                 notice_level="error"
-                notice_title="Deployment trigger failed / 部署触发失败"
+                notice_title="Deployment trigger failed / 部署觸發失敗"
                 notice_body="Fork main is ${final_commit:0:12} (v${TARGET_VERSION}), but the Cloudflare deployment request failed."
               fi
             fi
@@ -390,17 +390,17 @@ jobs:
 
           {
             echo ""
-            echo "### Result / 结果"
+            echo "### Result / 結果"
             echo ""
-            echo "| Field / 字段 | Value / 值 |"
+            echo "| Field / 欄位 | Value / 值 |"
             echo "| --- | --- |"
-            echo "| Target version / 目标版本 | \`${TARGET_REF}\` / v${TARGET_VERSION} |"
-            echo "| Final main / 最终 main | \`${final_commit:0:12}\` |"
-            echo "| Git publish / Git 发布 | ${git_result} |"
-            echo "| Deployment trigger / 部署触发 | ${deploy_result} |"
-            echo "| Live deployment / 线上部署 | ${live_result} |"
+            echo "| Target version / 目標版本 | \`${TARGET_REF}\` / v${TARGET_VERSION} |"
+            echo "| Final main / 最終 main | \`${final_commit:0:12}\` |"
+            echo "| Git publish / Git 釋出 | ${git_result} |"
+            echo "| Deployment trigger / 部署觸發 | ${deploy_result} |"
+            echo "| Live deployment / 線上部署 | ${live_result} |"
             echo ""
-            echo "When a deployment was requested, confirm Cloudflare **Deployments** builds commit \`${final_commit:0:12}\`. / 若已请求部署，请在 Cloudflare **Deployments** 中确认构建 commit 为 \`${final_commit:0:12}\`。"
+            echo "When a deployment was requested, confirm Cloudflare **Deployments** builds commit \`${final_commit:0:12}\`. / 若已請求部署，請在 Cloudflare **Deployments** 中確認構建 commit 為 \`${final_commit:0:12}\`。"
           } >> "${GITHUB_STEP_SUMMARY}"
           echo "::${notice_level} title=${notice_title}::${notice_body}"
           echo "result target=v${TARGET_VERSION} final=${final_commit:0:12} git_publish=${PUBLISH_OUTCOME} publish_mode=${PUBLISH_MODE:-none} deploy_trigger=${DEPLOY_TRIGGER_OUTCOME} deploy_method=${DEPLOY_TRIGGER_METHOD:-none} live=${live_status}"

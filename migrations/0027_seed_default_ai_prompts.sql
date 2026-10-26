@@ -9,9 +9,9 @@ INSERT OR IGNORE INTO ai_prompt_templates (
 SELECT
   id || '_aiprompt_summarize',
   id,
-  '总结',
-  '压缩全文，提炼主题、结论与可执行结果',
-  '对笔记做真正的精简总结，不要逐句改写或复述原文。提炼中心主题、主要观点、关键结论与可执行结果。去掉重复、修辞、举例和次要细节，除非它们对理解结论必不可少。较长笔记用 3–7 条简洁 Markdown 要点；短笔记用 1–3 句即可。不要大段照搬原文，也不要添加原文没有的信息。保持笔记原语言，只返回总结内容。',
+  '總結',
+  '壓縮全文，提煉主題、結論與可執行結果',
+  '對筆記做真正的精簡總結，不要逐句改寫或複述原文。提煉中心主題、主要觀點、關鍵結論與可執行結果。去掉重複、修辭、舉例和次要細節，除非它們對理解結論必不可少。較長筆記用 3–7 條簡潔 Markdown 要點；短筆記用 1–3 句即可。不要大段照搬原文，也不要新增原文沒有的資訊。保持筆記原語言，只返回總結內容。',
   strftime('%Y-%m-%dT%H:%M:%fZ', 'now'),
   strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
 FROM workspaces;
@@ -22,9 +22,9 @@ INSERT OR IGNORE INTO ai_prompt_templates (
 SELECT
   id || '_aiprompt_extract-key-points',
   id,
-  '提炼要点',
-  '提取最重要观点，输出简洁要点列表',
-  '提取笔记中最重要的要点，用简洁的 Markdown 列表输出。保持原语言，不要添加原文没有的信息。',
+  '提煉要點',
+  '提取最重要觀點，輸出簡潔要點列表',
+  '提取筆記中最重要的要點，用簡潔的 Markdown 列表輸出。保持原語言，不要新增原文沒有的資訊。',
   strftime('%Y-%m-%dT%H:%M:%fZ', 'now'),
   strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
 FROM workspaces;
@@ -35,9 +35,9 @@ INSERT OR IGNORE INTO ai_prompt_templates (
 SELECT
   id || '_aiprompt_extract-todos',
   id,
-  '提取待办',
-  '识别可执行任务，生成任务清单',
-  '从笔记中提取明确或隐含的待办事项，用 Markdown 任务列表（- [ ]）输出。保持原语言，不要编造任务。若没有可执行事项，用原文语言简短说明。',
+  '提取待辦',
+  '識別可執行任務，生成任務清單',
+  '從筆記中提取明確或隱含的待辦事項，用 Markdown 任務列表（- [ ]）輸出。保持原語言，不要編造任務。若沒有可執行事項，用原文語言簡短說明。',
   strftime('%Y-%m-%dT%H:%M:%fZ', 'now'),
   strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
 FROM workspaces;
@@ -48,9 +48,9 @@ INSERT OR IGNORE INTO ai_prompt_templates (
 SELECT
   id || '_aiprompt_rewrite-proofread',
   id,
-  '改写与校对',
-  '润色全文并校对语法、标点与结构',
-  '改写并校对整篇笔记。修正拼写、语法、标点、清晰度与结构，不改变原意。保持原语言与 Markdown 格式，只返回修订后的完整内容。',
+  '改寫與校對',
+  '潤色全文並校對語法、標點與結構',
+  '改寫並校對整篇筆記。修正拼寫、語法、標點、清晰度與結構，不改變原意。保持原語言與 Markdown 格式，只返回修訂後的完整內容。',
   strftime('%Y-%m-%dT%H:%M:%fZ', 'now'),
   strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
 FROM workspaces;
@@ -61,9 +61,9 @@ INSERT OR IGNORE INTO ai_prompt_templates (
 SELECT
   id || '_aiprompt_improve-writing',
   id,
-  '改进表达',
-  '提升表达清晰度与流畅度',
-  '改进文字的清晰度、流畅度与用词，不改变原意。保持原语言与有用的 Markdown 格式，只返回改进后的内容。',
+  '改進表達',
+  '提升表達清晰度與流暢度',
+  '改進文字的清晰度、流暢度與用詞，不改變原意。保持原語言與有用的 Markdown 格式，只返回改進後的內容。',
   strftime('%Y-%m-%dT%H:%M:%fZ', 'now'),
   strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
 FROM workspaces;
@@ -74,9 +74,9 @@ INSERT OR IGNORE INTO ai_prompt_templates (
 SELECT
   id || '_aiprompt_make-shorter',
   id,
-  '缩短内容',
-  '删减冗余，保留关键事实',
-  '把内容改写得更简洁。去掉重复与废话，保留每一个重要事实。保持原语言与有用的 Markdown 格式，只返回缩短后的内容。',
+  '縮短內容',
+  '刪減冗餘，保留關鍵事實',
+  '把內容改寫得更簡潔。去掉重複與廢話，保留每一個重要事實。保持原語言與有用的 Markdown 格式，只返回縮短後的內容。',
   strftime('%Y-%m-%dT%H:%M:%fZ', 'now'),
   strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
 FROM workspaces;
@@ -87,9 +87,9 @@ INSERT OR IGNORE INTO ai_prompt_templates (
 SELECT
   id || '_aiprompt_make-longer',
   id,
-  '扩写内容',
-  '在不编造事实的前提下扩写说明',
-  '扩写内容，补充有用的说明与更顺畅的过渡，但不要编造事实。保持原语言与有用的 Markdown 格式，只返回扩写后的内容。',
+  '擴寫內容',
+  '在不編造事實的前提下擴寫說明',
+  '擴寫內容，補充有用的說明與更順暢的過渡，但不要編造事實。保持原語言與有用的 Markdown 格式，只返回擴寫後的內容。',
   strftime('%Y-%m-%dT%H:%M:%fZ', 'now'),
   strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
 FROM workspaces;
@@ -100,9 +100,9 @@ INSERT OR IGNORE INTO ai_prompt_templates (
 SELECT
   id || '_aiprompt_simplify-language',
   id,
-  '简化表达',
-  '用更通俗易懂的语言改写',
-  '用清晰、平实、更好懂的语言改写内容。保持原意、原语言与有用的 Markdown 格式，只返回简化后的内容。',
+  '簡化表達',
+  '用更通俗易懂的語言改寫',
+  '用清晰、平實、更好懂的語言改寫內容。保持原意、原語言與有用的 Markdown 格式，只返回簡化後的內容。',
   strftime('%Y-%m-%dT%H:%M:%fZ', 'now'),
   strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
 FROM workspaces;
@@ -113,9 +113,9 @@ INSERT OR IGNORE INTO ai_prompt_templates (
 SELECT
   id || '_aiprompt_continue-writing',
   id,
-  '继续写作',
-  '从笔记末尾自然续写',
-  '从笔记结束处自然续写。只返回新增续写内容，不要重复原文。保持原语言与 Markdown 风格。',
+  '繼續寫作',
+  '從筆記末尾自然續寫',
+  '從筆記結束處自然續寫。只返回新增續寫內容，不要重複原文。保持原語言與 Markdown 風格。',
   strftime('%Y-%m-%dT%H:%M:%fZ', 'now'),
   strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
 FROM workspaces;

@@ -244,7 +244,7 @@ describe("first sign-in seed localization", () => {
 
   test("keeps the demo's own seed in the visitor's language", async () => {
     expect(await signIn({ demo: true, body: { locale: "en-US" } }))
-      .toEqual({ status: 200, inbox: "等待分类", pending: 0 });
+      .toEqual({ status: 200, inbox: "等待分類", pending: 0 });
   });
 });
 

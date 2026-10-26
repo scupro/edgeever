@@ -20,7 +20,7 @@ export const readXiaoyuzhou = (doc: Document, pageUrl: string, labels: PlatformL
   const target = platformTarget(pageUrl);
   if (target?.platform !== "xiaoyuzhou") return { ok: false, reason: "not-target" };
   const header = doc.querySelector("main header");
-  const notes = doc.querySelector('section[aria-label="节目show notes"] .sn-content article');
+  const notes = doc.querySelector('section[aria-label="節目show notes"] .sn-content article');
   const canonical = doc.querySelector('link[rel="canonical"]')?.getAttribute("href") || "";
   if (!header || !notes) return { ok: false, reason: "unreadable" };
   const cleanHeader = platformReadableCopy(header);

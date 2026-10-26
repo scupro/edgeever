@@ -6,19 +6,19 @@ describe("plugin setting localization", () => {
     key: "format", type: "select", label: "Format", default: "text",
     options: [{ value: "text", label: "Text" }, { value: "emoji", label: "Emoji" }],
     locales: {
-      "zh-CN": { label: "格式", options: { text: "文本" } },
+      "zh-TW": { label: "格式", options: { text: "文字" } },
       ja: { label: "形式", options: { text: "テキスト" } },
     },
   };
 
   test("uses exact locale, then matching language, then base copy", () => {
-    expect(localizePluginSettingField(field, "zh-CN")).toMatchObject({ label: "格式", options: [{ value: "text", label: "文本" }, { value: "emoji", label: "Emoji" }] });
+    expect(localizePluginSettingField(field, "zh-TW")).toMatchObject({ label: "格式", options: [{ value: "text", label: "文字" }, { value: "emoji", label: "Emoji" }] });
     expect(localizePluginSettingField(field, "ja-JP").label).toBe("形式");
     expect(localizePluginSettingField(field, "fr-FR")).toBe(field);
   });
 
   test("keeps setting keys and values while translating text", () => {
-    const localized = localizePluginSettingField(field, "zh-CN");
+    const localized = localizePluginSettingField(field, "zh-TW");
     expect(localized.key).toBe(field.key);
     expect(localized.default).toBe(field.default);
     expect(localized.options.map(({ value }) => value)).toEqual(["text", "emoji"]);

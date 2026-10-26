@@ -22,15 +22,15 @@ import {
 
 describe("merged memo title", () => {
   test("prefers an explicit title, then the first custom source title", () => {
-    const sources = [{ title: "无标题笔记" }, { title: "  手动标题  " }, { title: "另一个标题" }];
+    const sources = [{ title: "無標題筆記" }, { title: "  手動標題  " }, { title: "另一個標題" }];
 
-    expect(resolveMergedMemoTitle("  指定标题  ", sources)).toBe("指定标题");
-    expect(resolveMergedMemoTitle(undefined, sources)).toBe("手动标题");
+    expect(resolveMergedMemoTitle("  指定標題  ", sources)).toBe("指定標題");
+    expect(resolveMergedMemoTitle(undefined, sources)).toBe("手動標題");
   });
 
   test("uses a dated merge title when every source is untitled", () => {
-    expect(resolveMergedMemoTitle(undefined, [{ title: null }, { title: "无标题笔记" }], new Date(2026, 7, 2)))
-      .toBe("合并笔记 2026/8/2");
+    expect(resolveMergedMemoTitle(undefined, [{ title: null }, { title: "無標題筆記" }], new Date(2026, 7, 2)))
+      .toBe("合併筆記 2026/8/2");
   });
 });
 
@@ -76,13 +76,13 @@ describe("PDF attachment Markdown compatibility", () => {
         type: "paragraph",
         content: [{
           type: "text",
-          text: "附件：报告.pdf",
+          text: "附件：報告.pdf",
           marks: [{
             type: "link",
             attrs: {
               href: "/api/v1/resources/res_pdf/blob",
               class: "edgeever-attachment-link edgeever-attachment-kind-pdf",
-              attachmentFilename: "报告.pdf",
+              attachmentFilename: "報告.pdf",
               attachmentMimeType: "application/pdf",
               attachmentByteSize: 12582912,
             },
@@ -94,7 +94,7 @@ describe("PDF attachment Markdown compatibility", () => {
     expect(doc.content[0]?.content?.[0]).toMatchObject({
       type: PDF_ATTACHMENT_NODE_TYPE,
       attrs: {
-        filename: "报告.pdf",
+        filename: "報告.pdf",
         mimeType: "application/pdf",
         byteSize: 12582912,
       },
@@ -251,7 +251,7 @@ describe("memo character count", () => {
       type: "doc",
       content: [
         { type: "paragraph", content: [{ type: "text", text: "e\u0301 👨‍👩‍👧‍👦" }] },
-        { type: "image", attrs: { alt: "不计入" } },
+        { type: "image", attrs: { alt: "不計入" } },
       ],
     };
 
@@ -299,16 +299,16 @@ describe("Markdown table conversion", () => {
 
 describe("legacy Markdown body recovery", () => {
   test("recovers a body when the stored JSON document is empty", () => {
-    const markdown = "权威和反中心化特征，即当一个人成为某种代表性的符号之后";
+    const markdown = "權威和反中心化特徵，即當一個人成為某種代表性的符號之後";
     const resolved = resolveMemoContentDoc(markdownToDoc(""), markdown);
 
     expect(docToText(resolved)).toContain(markdown);
   });
 
   test("recovers Markdown from rich content when the compatibility copy is empty", () => {
-    const richContent = markdownToDoc("这段正文只保存在富文本 JSON 中。");
+    const richContent = markdownToDoc("這段正文只儲存在富文字 JSON 中。");
 
-    expect(resolveMemoContentMarkdown(richContent, "")).toContain("这段正文只保存在富文本 JSON 中。");
+    expect(resolveMemoContentMarkdown(richContent, "")).toContain("這段正文只儲存在富文字 JSON 中。");
   });
 });
 
@@ -526,7 +526,7 @@ describe("Theme block compatibility", () => {
 describe("details fold blocks", () => {
   test("parses GitHub details HTML and round-trips through Markdown", () => {
     const markdown = `<details>
-<summary>展开看图</summary>
+<summary>展開看圖</summary>
 
 hello **world**
 
@@ -538,7 +538,7 @@ hello **world**
       content: [
         {
           type: "detailsSummary",
-          content: [{ type: "text", text: "展开看图" }],
+          content: [{ type: "text", text: "展開看圖" }],
         },
         {
           type: "detailsContent",
@@ -555,7 +555,7 @@ hello **world**
 
     const serialized = docToMarkdown(doc);
     expect(serialized).toContain("<details>");
-    expect(serialized).toContain("<summary>展开看图</summary>");
+    expect(serialized).toContain("<summary>展開看圖</summary>");
     expect(serialized).toContain("hello **world**");
     expect(markdownToDoc(serialized)).toEqual(doc);
   });
@@ -581,7 +581,7 @@ hello **world**
 
   test("keeps an image inside a details block and writes it back as HTML", () => {
     const markdown = `<details>
-<summary>图</summary>
+<summary>圖</summary>
 
 ![pic](https://example.com/a.png)
 
@@ -824,6 +824,6 @@ describe("getMemoDisplayTitle", () => {
 
   test("keeps real titles, including Chinese ones", () => {
     expect(getMemoDisplayTitle("  Plan  ", "Untitled note")).toBe("Plan");
-    expect(getMemoDisplayTitle("会议记录", "Untitled note")).toBe("会议记录");
+    expect(getMemoDisplayTitle("會議記錄", "Untitled note")).toBe("會議記錄");
   });
 });

@@ -94,10 +94,10 @@ test('LinkedIn guest UGC URL reads the card-declared activity alias and its full
  const r=readSocial(d,target);expect(r.ok).toBe(true);expect(r.clip.id).toBe(target.id);expect(r.clip.url).toBe(target.url);
  expect(r.clip.author).toBe('Friends of NASA');expect(r.clip.markdown).toContain('144.47 MB');expect(r.clip.markdown.match(/!\[/g)).toHaveLength(8);
  expect(r.clip.markdown).toStartWith('Nancy Grace Roman Space Telescope:');
- expect(r.clip.markdown).not.toContain('21,268 位关注者');
- d.querySelector('[data-test-id="main-feed-activity-card__commentary"]').insertAdjacentHTML('beforeend','<p>21,268 位关注者 is part of this post.</p>');
- const schema=d.querySelector('script'),data=JSON.parse(schema.textContent);data.articleBody+='\n\n21,268 位关注者 is part of this post.';schema.textContent=JSON.stringify(data);
- expect(readSocial(d,target).clip.markdown).toContain('21,268 位关注者 is part of this post.');
+ expect(r.clip.markdown).not.toContain('21,268 位關注者');
+ d.querySelector('[data-test-id="main-feed-activity-card__commentary"]').insertAdjacentHTML('beforeend','<p>21,268 位關注者 is part of this post.</p>');
+ const schema=d.querySelector('script'),data=JSON.parse(schema.textContent);data.articleBody+='\n\n21,268 位關注者 is part of this post.';schema.textContent=JSON.stringify(data);
+ expect(readSocial(d,target).clip.markdown).toContain('21,268 位關注者 is part of this post.');
  expect(r.clip.publishedAt.precision).toBe('datetime');
  const card=d.querySelector('[data-activity-urn]');card.removeAttribute('data-attributed-urn');
  expect(readSocial(d,target)).toEqual({ok:false,reason:'unreadable'});
@@ -112,7 +112,7 @@ test('LinkedIn signed-in UGC card keeps full body, actor, relative time and all 
  expect(r.clip.title).toBe('Nancy Grace Roman Space Telescope: Launch Preparations | NASA Kennedy');
  expect(r.clip.markdown).toContain('144.47 MB');expect(r.clip.markdown).toContain('#Education');
  expect(r.clip.markdown.match(/!\[/g)).toHaveLength(8);
- expect(r.clip.publishedAt).toEqual({value:'1 个月前 • 已编辑',precision:'relative'});
+ expect(r.clip.publishedAt).toEqual({value:'1 個月前 • 已編輯',precision:'relative'});
  expect(r.clip.markdown).not.toContain('/safety/go/');
 });
 test('LinkedIn UGC cards reject missing images, stale identities, hidden roots and comment identities',()=>{
@@ -186,7 +186,7 @@ test('Meta captions stay escaped text and active image protocols are never prese
  const good=readSocial(d,platformTarget(socialSamples.instagram.url));expect(good.ok).toBe(true);expect(good.clip.markdown).not.toContain('<script>');expect(good.clip.markdown).toContain('\\*\\*literal\\*\\*');
 });
 test('Facebook must expand the target message before returning a complete clip',()=>{
- const d=fixture('facebook');const btn=d.createElement('button');btn.textContent='展开';d.querySelector('[data-ad-preview="message"]').appendChild(btn);
+ const d=fixture('facebook');const btn=d.createElement('button');btn.textContent='展開';d.querySelector('[data-ad-preview="message"]').appendChild(btn);
  expect(readSocial(d,platformTarget(socialSamples.facebook.url))).toEqual({ok:false,reason:'incomplete'});
 });
 test('LinkedIn JSON-LD identity rejects a stale post even when another card remains visible',()=>{
@@ -348,7 +348,7 @@ test('Substack Note binds the exact header and keeps full paragraphs, source tim
  expect(r.clip.markdown).toContain('thousands and thousands of these hot takes based on total conjecture');
  expect(r.clip.markdown).toContain('experienced on a large screen');expect(r.clip.markdown).toContain('**P.S.:**');
  expect(r.clip.markdown.match(/!\[/g)).toHaveLength(1);
- for(const noise of ['登录或注册','头像','The Honest Broker','更多选项','7h'])expect(r.clip.markdown).not.toContain(noise);
+ for(const noise of ['登入或註冊','頭像','The Honest Broker','更多選項','7h'])expect(r.clip.markdown).not.toContain(noise);
 });
 
 test('Substack Note rejects wrong identities, body-only references, hidden content and truncated text',()=>{
@@ -535,7 +535,7 @@ test('LinkedIn personal share keeps the name, professional headline and its own 
  const r=readSocial(doc,target);expect(r.ok).toBe(true);
  expect(r.clip.author).toBe('Mohammad Ahmed');
  expect(r.clip.authorHeadline).toBe('Technical Lead - Backend at Dizzaract');
- expect(r.clip.publishedAt).toEqual({value:'5 个月前',precision:'relative'});
+ expect(r.clip.publishedAt).toEqual({value:'5 個月前',precision:'relative'});
  expect(r.clip.markdown).toContain('What technology are you focusing on in 2026');
  expect(r.clip.markdown).not.toContain('Dizzaract');
  expect(r.clip.author).not.toContain('3 度');
@@ -546,11 +546,11 @@ test('LinkedIn missing professional metadata never shifts a name, role or connec
   const d=fixture('linkedin-person');
   const ps=Array.from(d.querySelectorAll('p'));
   if(remove!=='time') ps.find(n=>n.textContent.includes('Dizzaract')).remove();
-  if(remove!=='headline') ps.find(n=>n.textContent.trim()==='5 个月前').remove();
+  if(remove!=='headline') ps.find(n=>n.textContent.trim()==='5 個月前').remove();
   const r=readSocial(d,platformTarget(linkedinPersonUrl));expect(r.ok).toBe(true);
   expect(r.clip.author).toBe('Mohammad Ahmed');
   expect(r.clip.authorHeadline).toBe(remove==='time'?'Technical Lead - Backend at Dizzaract':undefined);
-  expect(r.clip.publishedAt).toEqual(remove==='headline'?{value:'5 个月前',precision:'relative'}:undefined);
+  expect(r.clip.publishedAt).toEqual(remove==='headline'?{value:'5 個月前',precision:'relative'}:undefined);
  }
  for(const name of ['linkedin','linkedin-ugc','linkedin-ugc-guest']) {
   const r=readSocial(fixture(name),platformTarget(name==='linkedin'?socialSamples.linkedin.url:linkedinUgcUrl));
@@ -559,7 +559,7 @@ test('LinkedIn missing professional metadata never shifts a name, role or connec
 });
 
 for(const time of ['5mo','5 months ago','5か月前','5 mies. temu']) test(`LinkedIn professional headline stays separate from ${time}`,()=>{
- const d=fixture('linkedin-person');Array.from(d.querySelectorAll('p')).find(n=>n.textContent.trim()==='5 个月前').textContent=time;
+ const d=fixture('linkedin-person');Array.from(d.querySelectorAll('p')).find(n=>n.textContent.trim()==='5 個月前').textContent=time;
  const r=readSocial(d,platformTarget(linkedinPersonUrl));expect(r.ok).toBe(true);
  expect(r.clip.authorHeadline).toBe('Technical Lead - Backend at Dizzaract');
  expect(r.clip.publishedAt).toEqual({value:time,precision:'relative'});
@@ -582,8 +582,8 @@ for(const placement of ['card','header']) test(`LinkedIn personal metadata canno
  (placement==='header'?card.firstElementChild:card).insertAdjacentHTML('afterbegin','<div data-urn="urn:li:activity:123"><div class="update-components-actor"><a href="https://www.linkedin.com/in/other/"><span class="update-components-actor__title">COMMENT AUTHOR</span></a><p class="update-components-actor__description">OTHER ROLE</p><time datetime="1999-01-01T00:00:00Z">1999</time></div></div>');
  const r=readSocial(d,platformTarget(linkedinPersonUrl));expect(r.ok).toBe(true);
  expect(r.clip.author).toBe('Mohammad Ahmed');expect(r.clip.authorHeadline).toBe('Technical Lead - Backend at Dizzaract');
- expect(r.clip.publishedAt).toEqual({value:'5 个月前',precision:'relative'});
- Array.from(d.querySelectorAll('p')).find(n=>n.textContent.trim()==='5 个月前').remove();
+ expect(r.clip.publishedAt).toEqual({value:'5 個月前',precision:'relative'});
+ Array.from(d.querySelectorAll('p')).find(n=>n.textContent.trim()==='5 個月前').remove();
  expect(readSocial(d,platformTarget(linkedinPersonUrl)).clip.publishedAt).toBeUndefined();
 });
 
@@ -615,10 +615,10 @@ test('Bluesky quote image alt badges are UI while alt descriptions and prose sur
  const d=fixture('bluesky-feed'),target=platformTarget('https://bsky.app/profile/bsky.app/post/3mxhdhodv222n');
  const card=socialPostCard(d,target),quote=card.querySelector('[role="link"][aria-label^="Post by "]'),button=quote.querySelector('button:has(img)');
  const holder=d.createElement('div');button.replaceWith(holder);holder.appendChild(button);
- const badge=d.createElement('div');badge.style.position='absolute';badge.innerHTML='<div>替代文本</div>';holder.appendChild(badge);
- const prose=d.createElement('p');prose.textContent='正文中的替代文本与 ALT 需要保留。';quote.appendChild(prose);
+ const badge=d.createElement('div');badge.style.position='absolute';badge.innerHTML='<div>替代文字</div>';holder.appendChild(badge);
+ const prose=d.createElement('p');prose.textContent='正文中的替代文字與 ALT 需要保留。';quote.appendChild(prose);
  const before=d.body.innerHTML,r=readSocial(d,target);expect(r.ok).toBe(true);
- const parsed=markdownToDoc(r.clip.markdown),text=docToText(parsed);expect(text).toContain('正文中的替代文本与 ALT 需要保留。');expect(text.match(/替代文本/g)).toHaveLength(1);
+ const parsed=markdownToDoc(r.clip.markdown),text=docToText(parsed);expect(text).toContain('正文中的替代文字與 ALT 需要保留。');expect(text.match(/替代文字/g)).toHaveLength(1);
  expect(r.clip.markdown).toContain('Lil bone people');expect(r.clip.markdown).toContain('/img/feed_fullsize/');expect(d.body.innerHTML).toBe(before);
 });
 

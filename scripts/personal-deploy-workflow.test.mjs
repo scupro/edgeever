@@ -18,7 +18,7 @@ describe("personal Cloudflare deployment workflow", () => {
   test("uses the isolated personal instance resources", () => {
     expect(workflow).toContain("EDGE_EVER_TIANMA_WORKER_NAME");
     expect(workflow).toContain("EDGE_EVER_TIANMA_D1_DATABASE_ID");
-    expect(workflow).toContain("EDGE_EVER_TIANMA_R2_BUCKET_NAME");
+    expect(workflow).toContain("EDGE_EVER_TIANMA_S3_BUCKET");
     expect(workflow).toContain("EDGE_EVER_TIANMA_CUSTOM_DOMAIN");
     expect(workflow).not.toContain("EDGE_EVER_DEMO_");
   });

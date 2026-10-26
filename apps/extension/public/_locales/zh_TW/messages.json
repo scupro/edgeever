@@ -1,0 +1,791 @@
+{
+  "extensionName": {
+    "message": "EdgeEver 網頁剪藏"
+  },
+  "extensionDescription": {
+    "message": "將網頁、選中文字、圖片及 Hacker News 主帖儲存到你自託管的 EdgeEver 實例。"
+  },
+  "actionTitle": {
+    "message": "儲存到 EdgeEver"
+  },
+  "webClipper": {
+    "message": "網頁剪藏"
+  },
+  "platformZhihu": {
+    "message": "知乎"
+  },
+  "saveCurrentPage": {
+    "message": "剪藏當前網頁"
+  },
+  "pluginSettings": {
+    "message": "外掛設定"
+  },
+  "readingAndSaving": {
+    "message": "正在讀取網頁並儲存……"
+  },
+  "completePluginConfiguration": {
+    "message": "請先完成外掛配置"
+  },
+  "savedToEdgeEver": {
+    "message": "已儲存到 EdgeEver。"
+  },
+  "saveFailed": {
+    "message": "儲存失敗。"
+  },
+  "optionsTitle": {
+    "message": "EdgeEver Web Clipper 設定"
+  },
+  "diagnosticsTitle": {
+    "message": "關於與診斷資訊"
+  },
+  "diagnosticsDescription": {
+    "message": "檢視外掛、瀏覽器、系統和連線資訊。不會包含 API Token。"
+  },
+  "extensionVersion": {
+    "message": "外掛版本"
+  },
+  "manifestVersion": {
+    "message": "Manifest 版本"
+  },
+  "browserVersion": {
+    "message": "瀏覽器"
+  },
+  "systemVersion": {
+    "message": "系統"
+  },
+  "extensionId": {
+    "message": "外掛 ID"
+  },
+  "instanceOrigin": {
+    "message": "實例 Origin"
+  },
+  "instancePermission": {
+    "message": "實例訪問權限"
+  },
+  "copyDiagnostics": {
+    "message": "複製診斷資訊"
+  },
+  "diagnosticsCopied": {
+    "message": "診斷資訊已複製。"
+  },
+  "diagnosticsCopyFailed": {
+    "message": "複製失敗，請檢查瀏覽器剪貼簿權限。"
+  },
+  "permissionGranted": {
+    "message": "已授權"
+  },
+  "permissionNotGranted": {
+    "message": "未授權"
+  },
+  "permissionNotConfigured": {
+    "message": "未配置實例"
+  },
+  "notConfigured": {
+    "message": "未配置"
+  },
+  "invalidInstanceAddress": {
+    "message": "地址無效"
+  },
+  "unknownValue": {
+    "message": "未知"
+  },
+  "instanceAddress": {
+    "message": "EdgeEver 實例地址"
+  },
+  "tokenPlaceholder": {
+    "message": "從 EdgeEver 設定中建立"
+  },
+  "defaultNotebook": {
+    "message": "預設筆記本"
+  },
+  "autoFirstNotebook": {
+    "message": "等待分類"
+  },
+  "testConnection": {
+    "message": "測試連線"
+  },
+  "saveSettings": {
+    "message": "儲存設定"
+  },
+  "projectAndSource": {
+    "message": "GitHub 專案與原始碼"
+  },
+  "reportIssue": {
+    "message": "反饋問題"
+  },
+  "privacyPolicy": {
+    "message": "隱私政策"
+  },
+  "connecting": {
+    "message": "正在連線……"
+  },
+  "connectionSuccessOne": {
+    "message": "連線成功，共 1 個筆記本。"
+  },
+  "connectionSuccessMany": {
+    "message": "連線成功，共 $COUNT$ 個筆記本。",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "connectionFailed": {
+    "message": "連線失敗。"
+  },
+  "settingsSaved": {
+    "message": "設定已儲存。"
+  },
+  "settingsSaveFailed": {
+    "message": "儲存失敗。"
+  },
+  "missingSettingsDetails": {
+    "message": "請先在外掛設定中填寫 EdgeEver 地址和 API Token。"
+  },
+  "instancePermissionRequired": {
+    "message": "需要允許外掛訪問你的 EdgeEver 實例。"
+  },
+  "requestFailed": {
+    "message": "EdgeEver 請求失敗（$STATUS$）。",
+    "placeholders": {
+      "status": {
+        "content": "$1"
+      }
+    }
+  },
+  "sourceLabel": {
+    "message": "來源"
+  },
+  "capturedAtLabel": {
+    "message": "抓取時間"
+  },
+  "googleSearchLabel": {
+    "message": "Google 搜尋"
+  },
+  "searchKeywordLabel": {
+    "message": "關鍵詞"
+  },
+  "noAvailableNotebooks": {
+    "message": "EdgeEver 中沒有可用的筆記本。"
+  },
+  "currentPageNotFound": {
+    "message": "找不到當前頁面。"
+  },
+  "captureTimeout": {
+    "message": "網頁內容提取在 15 秒內未完成，頁面可能過大或仍在載入。請重新整理頁面後重試。"
+  },
+  "pageAccessDenied": {
+    "message": "外掛無法讀取此頁面。請確認當前不是瀏覽器內建頁、擴充套件商店頁或受限頁面。"
+  },
+  "captureScriptFailed": {
+    "message": "網頁提取指令碼執行失敗：$DETAIL$",
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
+  },
+  "captureUnknownError": {
+    "message": "未返回具體錯誤"
+  },
+  "instanceNetworkFailed": {
+    "message": "無法連線 EdgeEver 實例。請檢查實例地址、網路連線和跨域設定。"
+  },
+  "saveFailedWithReason": {
+    "message": "儲存到 EdgeEver 失敗：$DETAIL$",
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
+  },
+  "emptyPageContent": {
+    "message": "（網頁沒有可提取的正文內容）"
+  },
+  "saveSelectionToEdgeEver": {
+    "message": "儲存所選內容到 EdgeEver"
+  },
+  "selectionSaveHint": {
+    "message": "選中網頁上的一段文字後右鍵，選擇“儲存所選內容到 EdgeEver”。這段文字會存成一條新筆記，放進上面選擇的預設筆記本。"
+  },
+  "savingSelection": {
+    "message": "正在儲存選中文字……"
+  },
+  "selectionSaved": {
+    "message": "已把選中文字存成一條筆記。"
+  },
+  "selectionEmpty": {
+    "message": "沒有選中文字，沒有儲存。"
+  },
+  "selectionNoteFallbackTitle": {
+    "message": "選中文字"
+  },
+  "saveImageToEdgeEver": {
+    "message": "儲存圖片到 EdgeEver"
+  },
+  "imageSaveHint": {
+    "message": "在網頁圖片上右鍵，選擇“儲存圖片到 EdgeEver”。圖片會存成一條新筆記，放進上面選擇的預設筆記本。"
+  },
+  "savingImage": {
+    "message": "正在儲存圖片……"
+  },
+  "imageSaved": {
+    "message": "已儲存為一條新筆記。"
+  },
+  "imageUnreadable": {
+    "message": "讀不到這張圖片的檔案，沒有儲存。它可能是頁面畫出來的，或者需要登入後才能下載。"
+  },
+  "imageTooLarge": {
+    "message": "這張圖片超過 20 MB，沒有儲存。"
+  },
+  "imageUnsupportedType": {
+    "message": "這種圖片格式暫時不能存進筆記。支援 PNG、JPEG、GIF、WebP 和 AVIF。"
+  },
+  "imagePermissionIntro": {
+    "message": "當前網頁讀不到這張圖片的檔案。允許訪問圖片所在網站後，會把它存成一條新筆記，放進剪藏外掛的預設筆記本。只會讀取你這次要儲存的這一張。"
+  },
+  "imagePermissionHost": {
+    "message": "網站：$HOST$",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "imagePermissionToast": {
+    "message": "需要允許讀取這個網站上的圖片，才能儲存。"
+  },
+  "allowAndSaveImage": {
+    "message": "允許並儲存"
+  },
+  "allowAllSitesAndSave": {
+    "message": "允許所有網站，以後右鍵直接儲存"
+  },
+  "imagePermissionDenied": {
+    "message": "沒有獲得網站訪問權限，圖片還沒有儲存。"
+  },
+  "imageResourceScopeRequired": {
+    "message": "這個 API Token 沒有寫入附件的權限。請在 EdgeEver 設定裡建立一個完整訪問的 Token。"
+  },
+  "imageNoteFallbackTitle": {
+    "message": "圖片"
+  },
+  "imageAltFallback": {
+    "message": "圖片"
+  },
+  "imageSaveWindowTitle": {
+    "message": "儲存圖片到 EdgeEver"
+  },
+  "imageSaveExpired": {
+    "message": "這次儲存已經結束。請在圖片上重新右鍵。"
+  },
+  "saveTweetToEdgeEver": {
+    "message": "儲存推文到 EdgeEver"
+  },
+  "tweetSaveHint": {
+    "message": "在 X 上右鍵一條推文，選擇“儲存推文到 EdgeEver”。正文會完整儲存，包括被「顯示更多」摺疊的部分；已經顯示的圖片也會放進同一條新筆記，筆記本與上面的預設筆記本相同。"
+  },
+  "savingTweet": {
+    "message": "正在儲存這條推文……"
+  },
+  "tweetSaved": {
+    "message": "已把這條推文存成一條筆記。"
+  },
+  "tweetNotFound": {
+    "message": "沒有定位到這條推文。請直接在推文上右鍵。"
+  },
+  "tweetPermissionIntro": {
+    "message": "時間線上有很多條推文。允許訪問 X 之後，外掛才能記住指標下的這一條。允許後，請再在同一條推文上右鍵一次。只會把你選中的這條存進剪藏外掛的預設筆記本。"
+  },
+  "tweetPermissionToast": {
+    "message": "需要允許訪問 X，才能在時間線上選中這條推文。允許後請再右鍵一次。"
+  },
+  "tweetRightClickAgain": {
+    "message": "已經可以識別時間線上的推文。請再在這條推文上右鍵一次。"
+  },
+  "allowTweetAccess": {
+    "message": "允許訪問 X"
+  },
+  "tweetPermissionDenied": {
+    "message": "沒有獲得訪問權限。請再在推文上右鍵一次來重新授權。"
+  },
+  "tweetPermissionReady": {
+    "message": "已允許。回到頁面，再在這條推文上右鍵一次。"
+  },
+  "tweetNoteFallbackTitle": {
+    "message": "一條推文"
+  },
+  "tweetSaveWindowTitle": {
+    "message": "儲存推文到 EdgeEver"
+  },
+  "tweetTimeLabel": {
+    "message": "時間"
+  },
+  "saveGithubRepoToEdgeEver": {
+    "message": "儲存倉庫資訊到 EdgeEver"
+  },
+  "githubRepoSaveHint": {
+    "message": "在 GitHub 倉庫主頁或程式碼目錄上，右鍵頁面空白、簡介或 README 正文，選擇“儲存倉庫資訊到 EdgeEver”。倉庫地址和簡介會存成一條新筆記，放進上面選擇的預設筆記本。Issue、討論和單個檔案頁不會儲存。"
+  },
+  "savingGithubRepo": {
+    "message": "正在儲存這個倉庫……"
+  },
+  "githubRepoSaved": {
+    "message": "已把這個倉庫存成一條筆記。"
+  },
+  "githubRepoNotPage": {
+    "message": "當前不是 GitHub 倉庫主頁或程式碼目錄，沒有儲存。"
+  },
+  "githubRepoUnreadable": {
+    "message": "沒有讀到這個倉庫的資訊，沒有儲存。"
+  },
+  "githubRepoHomepageLabel": {
+    "message": "主頁"
+  },
+  "githubRepoLanguageLabel": {
+    "message": "語言"
+  },
+  "githubRepoLicenseLabel": {
+    "message": "許可證"
+  },
+  "githubRepoTopicsLabel": {
+    "message": "話題"
+  },
+  "saveXhsToEdgeEver": {
+    "message": "儲存筆記到 EdgeEver"
+  },
+  "xhsSaveHint": {
+    "message": "在小紅書筆記正文上右鍵，選擇“儲存筆記到 EdgeEver”。標題、正文和筆記裡的圖片會存成一條新筆記，評論不會寫入。右鍵圖片仍然只儲存這張圖片。"
+  },
+  "savingXhs": {
+    "message": "正在儲存這篇筆記……"
+  },
+  "xhsSaved": {
+    "message": "已把這篇筆記存成一條筆記。"
+  },
+  "xhsNotFound": {
+    "message": "沒有定位到這篇筆記。請先開啟筆記，再在正文上右鍵。"
+  },
+  "xhsNeedsOpen": {
+    "message": "請先開啟這篇筆記，再在正文上右鍵。"
+  },
+  "xhsPermissionIntro": {
+    "message": "首頁上有很多篇筆記。允許訪問小紅書之後，外掛才能記住指標下的這一篇。允許後，請再在同一篇筆記上右鍵一次。只會把你選中的這篇存進剪藏外掛的預設筆記本。"
+  },
+  "xhsPermissionToast": {
+    "message": "需要允許訪問小紅書，才能在首頁上選中這篇筆記。允許後請再右鍵一次。"
+  },
+  "xhsRightClickAgain": {
+    "message": "已經可以識別首頁上的筆記。請再在這篇筆記上右鍵一次。"
+  },
+  "allowXhsAccess": {
+    "message": "允許訪問小紅書"
+  },
+  "xhsPermissionDenied": {
+    "message": "沒有獲得訪問權限。請再在筆記上右鍵一次來重新授權。"
+  },
+  "xhsPermissionReady": {
+    "message": "已允許。回到頁面，再在這篇筆記上右鍵一次。"
+  },
+  "xhsNoteFallbackTitle": {
+    "message": "一篇小紅書筆記"
+  },
+  "xhsSaveWindowTitle": {
+    "message": "儲存筆記到 EdgeEver"
+  },
+  "xhsLocationLabel": {
+    "message": "地點"
+  },
+  "saveZhihuToEdgeEver": {
+    "message": "儲存回答/文章到 EdgeEver"
+  },
+  "zhihuQuestionLabel": {
+    "message": "問題"
+  },
+  "zhihuArticleLabel": {
+    "message": "文章"
+  },
+  "zhihuAuthorLabel": {
+    "message": "作者："
+  },
+  "zhihuAnswerLabel": {
+    "message": "回答"
+  },
+  "zhihuArticleBodyLabel": {
+    "message": "正文"
+  },
+  "zhihuSaveHint": {
+    "message": "在知乎回答或文章的正文上右鍵，選擇“儲存回答/文章到 EdgeEver”。標題、作者、正文和圖片會存成一條新筆記，評論不會寫入。右鍵圖片仍然只儲存這張圖片。"
+  },
+  "savingZhihu": {
+    "message": "正在儲存這篇知乎內容……"
+  },
+  "zhihuSaved": {
+    "message": "已把這篇知乎內容存成一條筆記。"
+  },
+  "zhihuNotFound": {
+    "message": "沒有定位到這篇回答或文章。請在正文上右鍵。"
+  },
+  "zhihuUnreadable": {
+    "message": "沒有讀到這篇回答或文章的正文，沒有儲存。"
+  },
+  "zhihuPermissionIntro": {
+    "message": "頁面上有多篇回答或文章。允許訪問知乎之後，外掛才能記住指標下的這一篇。允許後，請再在同一篇正文上右鍵一次。只會把你選中的這一篇存進剪藏外掛的預設筆記本。"
+  },
+  "zhihuPermissionToast": {
+    "message": "需要允許訪問知乎，才能在列表裡選中這一篇。允許後請再右鍵一次。"
+  },
+  "zhihuRightClickAgain": {
+    "message": "已經可以識別頁面上的回答和文章。請再在正文上右鍵一次。"
+  },
+  "allowZhihuAccess": {
+    "message": "允許訪問知乎"
+  },
+  "zhihuPermissionDenied": {
+    "message": "沒有獲得訪問權限。請再在正文上右鍵一次來重新授權。"
+  },
+  "zhihuPermissionReady": {
+    "message": "已允許。回到頁面，再在這篇正文上右鍵一次。"
+  },
+  "zhihuNoteFallbackTitle": {
+    "message": "一篇知乎內容"
+  },
+  "zhihuSaveWindowTitle": {
+    "message": "儲存回答/文章到 EdgeEver"
+  },
+  "saveRedditToEdgeEver": {
+    "message": "儲存 Reddit 帖子到 EdgeEver"
+  },
+  "savingReddit": {
+    "message": "正在儲存這條 Reddit 帖子……"
+  },
+  "redditSaved": {
+    "message": "已把這條 Reddit 帖子存成筆記。"
+  },
+  "redditNotFound": {
+    "message": "沒有定位到這條 Reddit 帖子。請直接在帖子上右鍵。"
+  },
+  "redditRightClickAgain": {
+    "message": "現在可以識別 Reddit 帖子了。請在同一條帖子上再次右鍵。"
+  },
+  "redditAuthorLabel": {
+    "message": "作者"
+  },
+  "redditCommunityLabel": {
+    "message": "社群"
+  },
+  "redditLinkLabel": {
+    "message": "外部連結"
+  },
+  "saveVideoNoteToEdgeEver": {
+    "message": "儲存影片筆記到 EdgeEver"
+  },
+  "savingVideoNote": {
+    "message": "正在儲存影片筆記……"
+  },
+  "videoNoteSaved": {
+    "message": "已儲存影片筆記"
+  },
+  "videoTranscriptSaved": {
+    "message": "已儲存字幕，總結未生成"
+  },
+  "videoTranscriptNeedScope": {
+    "message": "已儲存字幕，總結未生成。請在設定中為 Token 加上 ai:generate，並配置預設模型。"
+  },
+  "videoTranscriptNeedModel": {
+    "message": "已儲存字幕，總結未生成。請先配置預設模型。"
+  },
+  "videoTranscriptTooLong": {
+    "message": "已儲存字幕。這篇太長，沒有生成總結。"
+  },
+  "videoInfoSaved": {
+    "message": "已儲存影片資訊"
+  },
+  "videoPageUnsupported": {
+    "message": "暫不支援這個頁面"
+  },
+  "videoNotRead": {
+    "message": "沒有讀到這個影片"
+  },
+  "videoSourceLabel": {
+    "message": "來源"
+  },
+  "videoPlatformLabel": {
+    "message": "平臺"
+  },
+  "videoCaptionsLabel": {
+    "message": "字幕"
+  },
+  "videoCapturedAtLabel": {
+    "message": "儲存時間"
+  },
+  "videoSummaryHeading": {
+    "message": "核心總結"
+  },
+  "videoOutlineHeading": {
+    "message": "分段大綱"
+  },
+  "videoTakeawaysHeading": {
+    "message": "要點"
+  },
+  "videoTranscriptHeading": {
+    "message": "字幕實錄"
+  },
+  "videoCoverAlt": {
+    "message": "封面"
+  },
+  "videoPlatformYouTube": {
+    "message": "YouTube"
+  },
+  "videoPlatformBilibili": {
+    "message": "嗶哩嗶哩"
+  },
+  "videoCaptionsAuto": {
+    "message": "平臺自動字幕"
+  },
+  "videoCaptionsCreator": {
+    "message": "創作者字幕"
+  },
+  "videoNoCaptions": {
+    "message": "這一集沒有可用字幕"
+  },
+  "videoNoteFallbackTitle": {
+    "message": "影片筆記"
+  },
+  "saveHackerNewsToEdgeEver": {
+    "message": "儲存 Hacker News 主帖到 EdgeEver"
+  },
+  "saveV2exToEdgeEver": {
+    "message": "儲存 V2EX 主題到 EdgeEver"
+  },
+  "saveXiaoyuzhouToEdgeEver": {
+    "message": "儲存小宇宙單集到 EdgeEver"
+  },
+  "savingPlatformClip": {
+    "message": "正在儲存當前內容到 EdgeEver…"
+  },
+  "platformNotDetail": {
+    "message": "請開啟支援的主帖、主題或單集詳情頁後重試。"
+  },
+  "platformUnreadable": {
+    "message": "無法讀取目標內容。請按需登入，等待詳情頁載入完成後重試。"
+  },
+  "platformPageChanged": {
+    "message": "剪藏時頁面內容已切換，尚未儲存。請在目標詳情頁重試。"
+  },
+  "platformIncomplete": {
+    "message": "未能讀取完整內容，尚未儲存。請展開全文並等待圖片載入後重試。"
+  },
+  "platformImagesPartial": {
+    "message": "正文已儲存，部分圖片仍為外鏈。"
+  },
+  "platformSavedWithImages": {
+    "message": "已儲存到 EdgeEver，圖片已全部歸檔。"
+  },
+  "platformNoShowNotes": {
+    "message": "本期無 Show Notes。"
+  },
+  "platformAuthorLabel": {
+    "message": "作者"
+  },
+  "platformPublishedAtLabel": {
+    "message": "釋出時間"
+  },
+  "platformRelativeTimeLabel": {
+    "message": "頁面原文，相對時間"
+  },
+  "platformScoreLabel": {
+    "message": "採集時積分"
+  },
+  "platformExternalLinkLabel": {
+    "message": "原始外鏈"
+  },
+  "platformSupplementLabel": {
+    "message": "附言"
+  },
+  "platformPodcastLabel": {
+    "message": "節目"
+  },
+  "saveFacebookToEdgeEver": {
+    "message": "儲存 Facebook 帖子到 EdgeEver"
+  },
+  "saveInstagramToEdgeEver": {
+    "message": "儲存 Instagram 帖子到 EdgeEver"
+  },
+  "saveLinkedinToEdgeEver": {
+    "message": "儲存 LinkedIn 動態到 EdgeEver"
+  },
+  "saveThreadsToEdgeEver": {
+    "message": "儲存 Threads 帖子到 EdgeEver"
+  },
+  "saveBlueskyToEdgeEver": {
+    "message": "儲存 Bluesky 帖子到 EdgeEver"
+  },
+  "socialSelectPost": {
+    "message": "請開啟帖子詳情頁，或在目標帖子上再次右鍵儲存。"
+  },
+  "checkingPageCapture": {
+    "message": "識別中"
+  },
+  "pageCaptureAdapted": {
+    "message": "已適配"
+  },
+  "pageCaptureGeneric": {
+    "message": "通用採集"
+  },
+  "pageCaptureSelectPost": {
+    "message": "選帖或文字"
+  },
+  "pageCaptureUnavailable": {
+    "message": "不可剪藏"
+  },
+  "pageCaptureUnknown": {
+    "message": "未識別"
+  },
+  "platformXiaoyuzhou": {
+    "message": "小宇宙"
+  },
+  "saveSubstackNoteToEdgeEver": {
+    "message": "儲存 Substack 短帖到 EdgeEver"
+  },
+  "adaptedPlatformsTitle": {
+    "message": "深度適配平臺"
+  },
+  "platformXiaohongshu": {
+    "message": "小紅書"
+  },
+  "platformBilibili": {
+    "message": "嗶哩嗶哩"
+  },
+  "platformPosts": {
+    "message": "帖子"
+  },
+  "platformNotes": {
+    "message": "筆記與圖集"
+  },
+  "platformAnswersArticles": {
+    "message": "回答與文章"
+  },
+  "platformRepositories": {
+    "message": "倉庫資訊"
+  },
+  "platformCaptionsImages": {
+    "message": "配文與圖集"
+  },
+  "platformMainPosts": {
+    "message": "主帖"
+  },
+  "platformTopics": {
+    "message": "主題與補充"
+  },
+  "platformShowNotes": {
+    "message": "單集 Show Notes"
+  },
+  "platformArticles": {
+    "message": "文章"
+  },
+  "platformArticlesNotes": {
+    "message": "文章與 Notes"
+  },
+  "platformVideoCaptions": {
+    "message": "影片字幕"
+  },
+  "viewDiagnostics": {
+    "message": "檢視診斷資訊"
+  },
+  "socialPlatformsTitle": {
+    "message": "社交動態"
+  },
+  "readingPlatformsTitle": {
+    "message": "文章與社群"
+  },
+  "mediaPlatformsTitle": {
+    "message": "影片與播客"
+  },
+  "closeNotification": {
+    "message": "關閉提示"
+  },
+  "clipNotifications": {
+    "message": "剪藏提示"
+  },
+  "saveBossToEdgeEver": {
+    "message": "儲存 BOSS 直聘崗位到 EdgeEver"
+  },
+  "saveXueqiuToEdgeEver": {
+    "message": "儲存雪球帖子到 EdgeEver"
+  },
+  "platformBoss": {
+    "message": "BOSS 直聘"
+  },
+  "platformXueqiu": {
+    "message": "雪球"
+  },
+  "pageCaptureLoginRequired": {
+    "message": "需登入"
+  },
+  "pageCaptureLoginHint": {
+    "message": "當前崗位僅顯示登入預覽。請在網站登入並重新整理後再剪藏全文；仍可儲存選中文字。"
+  },
+  "platformWechat": {
+    "message": "微信公眾號"
+  },
+  "saveWechatToEdgeEver": {
+    "message": "儲存微信公眾號到 EdgeEver"
+  },
+  "platformJike": {
+    "message": "即刻"
+  },
+  "saveJikeToEdgeEver": {
+    "message": "儲存即刻到 EdgeEver"
+  },
+  "platformSspai": {
+    "message": "少數派"
+  },
+  "saveSspaiToEdgeEver": {
+    "message": "儲存少數派到 EdgeEver"
+  },
+  "platformJuejin": {
+    "message": "掘金"
+  },
+  "saveJuejinToEdgeEver": {
+    "message": "儲存掘金到 EdgeEver"
+  },
+  "platformDouban": {
+    "message": "豆瓣"
+  },
+  "saveDoubanToEdgeEver": {
+    "message": "儲存豆瓣到 EdgeEver"
+  },
+  "platformOfficialAccountLabel": {
+    "message": "公眾號"
+  },
+  "platformListSourceLabel": {
+    "message": "原列表"
+  },
+  "doubanSelectComment": {
+    "message": "請在目標短評上右鍵選擇“儲存豆瓣到 EdgeEver”，或選中文字後剪藏。"
+  },
+  "pageCaptureRestricted": {
+    "message": "內容受限"
+  },
+  "pageCaptureRestrictedHint": {
+    "message": "當前頁面只有受限預覽。請先在網站取得完整閱讀權限並重新整理，或選中可見段落後儲存。"
+  },
+  "modelDirectPermission": {
+    "message": "影片摘要需要直接訪問模型服務 $HOST$。請授權後重新剪藏。",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "modelDirectAllow": {
+    "message": "允許訪問模型服務"
+  },
+  "modelDirectReady": {
+    "message": "已授權，請重新剪藏影片。"
+  },
+  "modelDirectDenied": {
+    "message": "未獲得模型訪問權限。"
+  }
+}

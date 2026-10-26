@@ -957,9 +957,9 @@ export const buildPublishStyles = (
 
 const THEME_BLOCK_LABELS: Record<string, string> = {
   intro: "引言",
-  "key-point": "重点观点",
+  "key-point": "重點觀點",
   callout: "提示",
-  chapter: "章节",
+  chapter: "章節",
 };
 
 const themeBlockStyles = (
@@ -1707,7 +1707,7 @@ const applyThemeBlocks = (
     block.style.cssText = `${styles.block}${block.style.cssText}`;
     const label = root.ownerDocument.createElement("p");
     label.setAttribute("data-ee-publish-chrome", "true");
-    label.textContent = THEME_BLOCK_LABELS[kind] || "主题组件";
+    label.textContent = THEME_BLOCK_LABELS[kind] || "主題元件";
     label.style.cssText = styles.label;
     block.insertBefore(label, block.firstChild);
   });

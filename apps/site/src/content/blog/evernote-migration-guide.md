@@ -1,10 +1,10 @@
 ---
 draft: false
-title: "从印象笔记迁移到自托管笔记应用：EdgeEver ENEX 完整指南"
-snippet: "通过 ENEX、evernote-backup 与 EdgeEver MCP，完整迁移笔记、附件、时间信息和嵌套笔记本。"
+title: "從印象筆記遷移到自託管筆記應用：EdgeEver ENEX 完整指南"
+snippet: "透過 ENEX、evernote-backup 與 EdgeEver MCP，完整遷移筆記、附件、時間資訊和巢狀筆記本。"
 image: {
     src: "/images/evernote-migration.jpg",
-    alt: "从印象笔记迁移到 EdgeEver"
+    alt: "從印象筆記遷移到 EdgeEver"
 }
 publishDate: "2026-07-02 01:00"
 category: "Migration"
@@ -12,57 +12,57 @@ author: "EdgeEver Team"
 tags: [evernote, migration, self-hosted, mcp]
 ---
 
-> EdgeEver 与印象笔记、Evernote 无关联。本指南仅用于说明用户如何将自己拥有的数据迁移到 EdgeEver。印象笔记和 Evernote 是其各自权利人的商标。
+> EdgeEver 與印象筆記、Evernote 無關聯。本指南僅用於說明使用者如何將自己擁有的資料遷移到 EdgeEver。印象筆記和 Evernote 是其各自權利人的商標。
 
-我们推荐使用 AI 编程助手（如 Antigravity、Claude Code、Cursor 等）自动执行迁移。核心仓库迁移指南说明：该方案已完成内存流式优化与空文本预处理，能应对数 GB 级别超大笔记库，并保留创建/修改时间与嵌套笔记本目录层级。
+我們推薦使用 AI 程式設計助手（如 Antigravity、Claude Code、Cursor 等）自動執行遷移。核心倉庫遷移指南說明：該方案已完成記憶體流式最佳化與空文字預處理，能應對數 GB 級別超大筆記庫，並保留建立/修改時間與巢狀筆記本目錄層級。
 
-如果还在比较「自托管印象笔记替代方案」，可先看 [EdgeEver 品类说明](/self-hosted-evernote-alternative)，再按下面步骤搬家。
+如果還在比較「自託管印象筆記替代方案」，可先看 [EdgeEver 品類說明](/self-hosted-evernote-alternative)，再按下面步驟搬家。
 
-### 常见问题
+### 常見問題
 
-- **会保留笔记本、附件和时间吗？** 文档化流程会保留创建/修改时间与嵌套笔记本层级。导入后请抽查带图片的笔记。
-- **必须用 AI 助手吗？** 推荐，但不是唯一路径。也可以下载 `scripts/import-evernote-enex-via-mcp.mjs`，按脚本注释手动执行。
-- **和印象笔记官方有关系吗？** 没有。本指南只处理你自己拥有的数据。
+- **會保留筆記本、附件和時間嗎？** 檔案化流程會保留建立/修改時間與巢狀筆記本層級。匯入後請抽查帶圖片的筆記。
+- **必須用 AI 助手嗎？** 推薦，但不是唯一路徑。也可以下載 `scripts/import-evernote-enex-via-mcp.mjs`，按指令碼註釋手動執行。
+- **和印象筆記官方有關係嗎？** 沒有。本指南只處理你自己擁有的資料。
 
 ---
 
-### 步骤 1：配置并安装 EdgeEver MCP 服务
+### 步驟 1：配置並安裝 EdgeEver MCP 服務
 
-1. 点击网页端左下角的 **设置（Settings）** 图标。
-2. 在 **API & MCP 授权** 卡片生成 Token 后，点击 **复制完整 MCP 配置** 按钮。
-3. 把复制的 JSON 配置直接发送给你的 AI 编程助手，让它帮你配置到当前 AI 客户端中：
+1. 點選網頁端左下角的 **設定（Settings）** 圖示。
+2. 在 **API & MCP 授權** 卡片生成 Token 後，點選 **複製完整 MCP 配置** 按鈕。
+3. 把複製的 JSON 配置直接傳送給你的 AI 程式設計助手，讓它幫你配置到當前 AI 客戶端中：
 
 ```text
-你是 AI 编程助手。这是我的 EdgeEver MCP 服务配置 JSON。请帮我把这个 MCP 服务直接配置到我当前使用的 AI 编辑器/客户端（如 Claude Code, Cursor, Cline 等）的 MCP 服务器配置文件中：
+你是 AI 程式設計助手。這是我的 EdgeEver MCP 服務配置 JSON。請幫我把這個 MCP 服務直接配置到我當前使用的 AI 編輯器/客戶端（如 Claude Code, Cursor, Cline 等）的 MCP 伺服器配置檔案中：
 
-<在此处粘贴刚才复制的 JSON 配置内容>
+<在此處貼上剛才複製的 JSON 配置內容>
 ```
 
 ---
 
-### 步骤 2：使用 AI 助手拉取并导入笔记
+### 步驟 2：使用 AI 助手拉取並匯入筆記
 
-当 AI 助手配置好 MCP 后，复制以下 Prompt 发送给它，让它自动拉取印象笔记数据并导入：
+當 AI 助手配置好 MCP 後，複製以下 Prompt 傳送給它，讓它自動拉取印象筆記資料並匯入：
 
 ```text
-你是 AI 编程助手。请帮我把本地的印象笔记全量迁移到我当前部署的 EdgeEver 实例中：
-1. 检查并使用 `pipx install evernote-backup` 自动安装备份工具。
-2. 提示我输入印象笔记的用户名和密码并初始化数据库（指定 china 后端），随后同步数据并导出到 `./evernote-export` 目录。
-3. 从 GitHub 下载最新版迁移脚本：`https://raw.githubusercontent.com/tianma-if/edgeever/main/scripts/import-evernote-enex-via-mcp.mjs` 到本地。
-4. 安装脚本所需的本地图片压缩库 `sharp` 和 `fast-xml-parser` 依赖。
-5. 使用先前配置的 URL 和 Token 运行该脚本完成迁移（脚本会自动进行 WebP 图片转换）：
-   - 全量迁移：`bun import-evernote-enex-via-mcp.mjs --input "./evernote-export" --yes`
-   - 指定迁移某些笔记本：追加 `--include "笔记本A,笔记本B"` 参数。
+你是 AI 程式設計助手。請幫我把本機的印象筆記全量遷移到我當前部署的 EdgeEver 實例中：
+1. 檢查並使用 `pipx install evernote-backup` 自動安裝備份工具。
+2. 提示我輸入印象筆記的使用者名稱和密碼並初始化資料庫（指定 china 後端），隨後同步資料並匯出到 `./evernote-export` 目錄。
+3. 從 GitHub 下載最新版遷移指令碼：`https://raw.githubusercontent.com/tianma-if/edgeever/main/scripts/import-evernote-enex-via-mcp.mjs` 到本機。
+4. 安裝指令碼所需的本機圖片壓縮庫 `sharp` 和 `fast-xml-parser` 依賴。
+5. 使用先前配置的 URL 和 Token 執行該指令碼完成遷移（指令碼會自動進行 WebP 圖片轉換）：
+   - 全量遷移：`bun import-evernote-enex-via-mcp.mjs --input "./evernote-export" --yes`
+   - 指定遷移某些筆記本：追加 `--include "筆記本A,筆記本B"` 引數。
 
-请告诉我你需要什么信息（如账号密码），收到后直接并发自动执行上述步骤。
+請告訴我你需要什麼資訊（如帳號密碼），收到後直接併發自動執行上述步驟。
 ```
 
-> 手动模式备用：如果不使用 AI 助手，也可以前往 GitHub 仓库 [EdgeEver GitHub](https://github.com/tianma-if/edgeever) 下载 `scripts/import-evernote-enex-via-mcp.mjs` 脚本，并按脚本头部注释执行。
+> 手動模式備用：如果不使用 AI 助手，也可以前往 GitHub 倉庫 [EdgeEver GitHub](https://github.com/tianma-if/edgeever) 下載 `scripts/import-evernote-enex-via-mcp.mjs` 指令碼，並按指令碼頭部註釋執行。
 
 ---
 
-### 步骤 3：在网页端验证导入结果
+### 步驟 3：在網頁端驗證匯入結果
 
-1. 导入完成后，回到 EdgeEver 网页端并刷新页面。
-2. 检查左侧栏，确认印象笔记原有的「笔记本组（堆叠）」层级结构已还原。
-3. 打开几篇包含多张图片的笔记，验证其中的图片是否已成功在编辑器中加载并能清晰显示。
+1. 匯入完成後，回到 EdgeEver 網頁端並重新整理頁面。
+2. 檢查左側欄，確認印象筆記原有的「筆記本組（堆疊）」層級結構已還原。
+3. 開啟幾篇包含多張圖片的筆記，驗證其中的圖片是否已成功在編輯器中載入並能清晰顯示。

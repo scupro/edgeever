@@ -25,8 +25,8 @@ export const AccountSecurityPanel = ({
   const passwordMutation = useMutation({
     mutationFn: async () => {
       if (!client) throw new Error("Client is not ready");
-      if (newPassword.length < 8) throw new Error("新密码至少需要 8 个字符。");
-      if (newPassword !== confirmPassword) throw new Error("两次输入的新密码不一致。");
+      if (newPassword.length < 8) throw new Error("新密碼至少需要 8 個字元。");
+      if (newPassword !== confirmPassword) throw new Error("兩次輸入的新密碼不一致。");
       return client.changePassword({ currentPassword, newPassword, confirmPassword });
     },
     onSuccess: () => {
@@ -43,8 +43,8 @@ export const AccountSecurityPanel = ({
   }, [active]);
 
   const errorMessage = (error: unknown) => {
-    if (error instanceof ApiRequestError && error.code === "invalid_current_password") return "当前密码不正确。";
-    return error instanceof Error ? error.message : "操作失败，请稍后再试";
+    if (error instanceof ApiRequestError && error.code === "invalid_current_password") return "當前密碼不正確。";
+    return error instanceof Error ? error.message : "操作失敗，請稍後再試";
   };
 
   return (
@@ -52,18 +52,18 @@ export const AccountSecurityPanel = ({
       <View style={styles.hero}>
         <KeyRound color="#15803d" size={22} />
         <View style={styles.flex}>
-          <Text style={styles.cardTitle}>修改密码</Text>
-          <Text style={styles.help}>修改后会保留当前设备登录，并退出其他设备上的登录会话。</Text>
+          <Text style={styles.cardTitle}>修改密碼</Text>
+          <Text style={styles.help}>修改後會保留當前裝置登入，並退出其他裝置上的登入會話。</Text>
         </View>
       </View>
-      <Field label="当前密码" onChangeText={setCurrentPassword} value={currentPassword} />
-      <Field label="新密码" onChangeText={setNewPassword} value={newPassword} />
-      <Field label="确认新密码" onChangeText={setConfirmPassword} value={confirmPassword} />
+      <Field label="當前密碼" onChangeText={setCurrentPassword} value={currentPassword} />
+      <Field label="新密碼" onChangeText={setNewPassword} value={newPassword} />
+      <Field label="確認新密碼" onChangeText={setConfirmPassword} value={confirmPassword} />
       {passwordMutation.error ? <Text style={styles.error}>{errorMessage(passwordMutation.error)}</Text> : null}
-      {passwordMutation.isSuccess ? <Text accessibilityLiveRegion="polite" style={styles.success}>密码已修改成功。</Text> : null}
+      {passwordMutation.isSuccess ? <Text accessibilityLiveRegion="polite" style={styles.success}>密碼已修改成功。</Text> : null}
       <PrimaryButton
         disabled={passwordMutation.isPending}
-        label={passwordMutation.isPending ? "修改中..." : "修改密码"}
+        label={passwordMutation.isPending ? "修改中..." : "修改密碼"}
         onPress={() => passwordMutation.mutate()}
       />
     </View>

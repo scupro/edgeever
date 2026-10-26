@@ -74,7 +74,7 @@ final class MobileUIParityTests: XCTestCase {
         XCTAssertTrue(AppUILocale.usesEnglish(preferenceCode: "system", systemLanguageCode: "en"))
         XCTAssertTrue(AppUILocale.usesEnglish(preferenceCode: "system", systemLanguageCode: nil))
         XCTAssertFalse(AppUILocale.usesEnglish(preferenceCode: "system", systemLanguageCode: "zh"))
-        XCTAssertFalse(AppUILocale.usesEnglish(preferenceCode: "zh-CN", systemLanguageCode: "ja"))
+        XCTAssertFalse(AppUILocale.usesEnglish(preferenceCode: "zh-TW", systemLanguageCode: "ja"))
         XCTAssertTrue(AppUILocale.usesEnglish(preferenceCode: "en-US", systemLanguageCode: "zh"))
     }
 
@@ -325,7 +325,7 @@ final class MobileUIParityTests: XCTestCase {
 
     func testResourceTargetParseExtractsIdFromBlobPath() {
         let json = """
-        {"kind":"image","href":"/api/v1/resources/res_demo_cat_image/blob","filename":"猫","resourceId":"blob"}
+        {"kind":"image","href":"/api/v1/resources/res_demo_cat_image/blob","filename":"貓","resourceId":"blob"}
         """
         let target = ResourceTarget.parse(json)
         XCTAssertEqual(target?.resourceId, "res_demo_cat_image")

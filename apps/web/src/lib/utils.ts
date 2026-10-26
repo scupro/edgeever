@@ -52,7 +52,7 @@ export const buildNotebookTree = (notebooks: Notebook[], compareNodes: NotebookN
 };
 
 export const formatDateTime = (value: string) =>
-  new Intl.DateTimeFormat("zh-CN", {
+  new Intl.DateTimeFormat("zh-TW", {
     month: "2-digit",
     day: "2-digit",
     hour: "2-digit",

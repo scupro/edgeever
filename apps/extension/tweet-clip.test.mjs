@@ -15,19 +15,19 @@ import {
 
 const labels = {
   capturedAt: "2026-09-26T00:00:00.000Z",
-  sourceLabel: "来源",
-  capturedAtLabel: "抓取时间",
-  timeLabel: "时间",
-  altFallback: "图片",
+  sourceLabel: "來源",
+  capturedAtLabel: "抓取時間",
+  timeLabel: "時間",
+  altFallback: "圖片",
 };
 
 const tweet = {
   displayName: "火山哥",
   handle: "huoshan007",
-  text: "兄弟们，我今天挖到一个真狠活。\n显示更多",
+  text: "兄弟們，我今天挖到一個真狠活。\n顯示更多",
   quotedDisplayName: "Jianying",
   quotedHandle: "jianying",
-  quotedText: "无界面后台版",
+  quotedText: "無介面後臺版",
   datetime: "2026-09-26T01:00:00.000Z",
   statusUrl: "https://x.com/huoshan007/status/123",
   ...labels,
@@ -44,26 +44,26 @@ describe("tweet addresses", () => {
 
 describe("tweet note content", () => {
   test("keeps the visible post, quote, photo, and source link", () => {
-    expect(cleanTweetText(tweet.text)).toBe("兄弟们，我今天挖到一个真狠活。");
+    expect(cleanTweetText(tweet.text)).toBe("兄弟們，我今天挖到一個真狠活。");
     expect(tweetAuthorLine("火山哥", "@huoshan007")).toBe("火山哥 (@huoshan007)");
-    expect(tweetNoteTitle({ ...tweet, fallback: "一条推文" })).toBe("火山哥: 兄弟们，我今天挖到一个真狠活。");
+    expect(tweetNoteTitle({ ...tweet, fallback: "一條推文" })).toBe("火山哥: 兄弟們，我今天挖到一個真狠活。");
     const markdown = tweetNoteMarkdown({
       ...tweet,
       text: cleanTweetText(tweet.text),
-      images: [{ resourceId: "res_1", alt: "卡片]图" }],
+      images: [{ resourceId: "res_1", alt: "卡片]圖" }],
     });
     expect(markdown.startsWith("火山哥 (@huoshan007)")).toBe(true);
-    expect(markdown).toContain("兄弟们，我今天挖到一个真狠活。");
-    expect(markdown).toContain("> Jianying (@jianying)\n> 无界面后台版");
-    expect(markdown).toContain("![卡片 图](/api/v1/resources/res_1/blob)");
+    expect(markdown).toContain("兄弟們，我今天挖到一個真狠活。");
+    expect(markdown).toContain("> Jianying (@jianying)\n> 無介面後臺版");
+    expect(markdown).toContain("![卡片 圖](/api/v1/resources/res_1/blob)");
     expect(markdown).toContain("(https://x.com/huoshan007/status/123)");
-    expect(markdown).toContain("时间: " + clipDateTimeText("2026-09-26T01:00:00.000Z"));
+    expect(markdown).toContain("時間: " + clipDateTimeText("2026-09-26T01:00:00.000Z"));
     expect(markdown).not.toContain("pbs.twimg.com");
   });
 
   test("reads a quote author from the visible name block when it has no links", () => {
     expect(visibleTweetAuthor("yetone\n@yetone\n·\n9月25日")).toEqual({ displayName: "yetone", handle: "yetone" });
-    expect(visibleTweetAuthor("Geek\n@geekbb\n·\n2小时")).toEqual({ displayName: "Geek", handle: "geekbb" });
+    expect(visibleTweetAuthor("Geek\n@geekbb\n·\n2小時")).toEqual({ displayName: "Geek", handle: "geekbb" });
     expect(visibleTweetAuthor("")).toEqual({ displayName: "", handle: "" });
     const page = readFileSync(new URL("./src/capture-tweet.ts", import.meta.url), "utf8");
     const library = readFileSync(new URL("./src/tweet-clip.ts", import.meta.url), "utf8");
@@ -123,14 +123,14 @@ describe("saveCapturedTweetNote", () => {
     const fixture = client();
     const saved = await saveCapturedTweetNote(fixture.api, {
       notebookId: "nb_inbox",
-      title: "火山哥: 兄弟们",
+      title: "火山哥: 兄弟們",
       ...tweet,
       images: [],
     });
     expect(saved).toEqual({ memoId: "memo_1", resourceIds: [] });
     expect(fixture.order).toEqual(["create"]);
     expect(fixture.calls.created.tags).toEqual(["web-clip"]);
-    expect(fixture.calls.created.contentMarkdown).toContain("兄弟们，我今天挖到一个真狠活。");
+    expect(fixture.calls.created.contentMarkdown).toContain("兄弟們，我今天挖到一個真狠活。");
   });
 
   test("keeps the text note when a photo cannot be uploaded", async () => {
@@ -141,7 +141,7 @@ describe("saveCapturedTweetNote", () => {
     });
     const saved = await saveCapturedTweetNote(fixture.api, {
       notebookId: "",
-      title: "火山哥: 兄弟们",
+      title: "火山哥: 兄弟們",
       ...tweet,
       images: [{ bytes: Uint8Array.of(1), mimeType: "image/jpeg", filename: "Abc.jpg", alt: "卡片" }],
     });
@@ -155,7 +155,7 @@ describe("saveCapturedTweetNote", () => {
     const fixture = client();
     const saved = await saveCapturedTweetNote(fixture.api, {
       notebookId: "nb_inbox",
-      title: "火山哥: 兄弟们",
+      title: "火山哥: 兄弟們",
       ...tweet,
       images: [{ bytes: Uint8Array.of(1), mimeType: "image/jpeg", filename: "Abc.jpg", alt: "卡片" }],
     });

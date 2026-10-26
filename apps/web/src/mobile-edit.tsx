@@ -54,18 +54,18 @@ class MobileEditorErrorBoundary extends React.Component<React.PropsWithChildren,
     return (
       <main className="mobile-editor-fatal" role="alert">
         <section className="mobile-editor-fatal-card">
-          <h1>{english ? "The editor encountered an error" : "编辑器出现异常"}</h1>
+          <h1>{english ? "The editor encountered an error" : "編輯器出現異常"}</h1>
           <p>
             {english
               ? "Your note is safe. Retry the editor or return to the note list."
-              : "笔记内容是安全的。你可以重试打开编辑器，或先返回笔记列表。"}
+              : "筆記內容是安全的。你可以重試開啟編輯器，或先返回筆記列表。"}
           </p>
           <div className="mobile-editor-fatal-actions">
             <button type="button" onClick={returnToPreviousPage}>
               {english ? "Back" : "返回"}
             </button>
             <button className="primary" type="button" onClick={() => window.location.reload()}>
-              {english ? "Retry" : "重试"}
+              {english ? "Retry" : "重試"}
             </button>
           </div>
         </section>

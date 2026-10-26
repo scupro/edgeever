@@ -94,11 +94,11 @@ describe("WeChat share handoff", () => {
     const temp = join(root, "temp");
     const batch = join(downloads, WECHAT_INCOMING_DIRECTORY_NAME, "batch");
     await mkdir(batch, { recursive: true });
-    const zipPath = join(batch, "聊天记录_20260922_223222.zip");
+    const zipPath = join(batch, "聊天記錄_20260922_223222.zip");
     await writeFile(zipPath, zipOf(
-      "聊天记录.txt",
-      "·鱼\n2026年9月22日 22:15\n[图片] 微信图片_1.jpg\n",
-      "聊天记录内的图片、视频和文件/微信图片_1.jpg",
+      "聊天記錄.txt",
+      "·魚\n2026年9月22日 22:15\n[圖片] 微信圖片_1.jpg\n",
+      "聊天記錄內的圖片、影片和檔案/微信圖片_1.jpg",
       "jpeg",
     ));
     const sent = [];
@@ -111,8 +111,8 @@ describe("WeChat share handoff", () => {
     await controller.importFromProtocolUrl(url);
     expect(sent).toHaveLength(1);
     expect(sent[0].ok).toBe(true);
-    expect(sent[0].title).toBe("聊天记录_20260922_223222");
-    expect(sent[0].markdown).toContain("![微信图片_1.jpg](edgeever-wechat-media://m1)");
+    expect(sent[0].title).toBe("聊天記錄_20260922_223222");
+    expect(sent[0].markdown).toContain("![微信圖片_1.jpg](edgeever-wechat-media://m1)");
     const media = await controller.readMedia(sent[0].importId, "m1");
     expect(Buffer.from(media.bytes).toString()).toBe("jpeg");
     expect((await stat(zipPath)).isFile()).toBe(true);
@@ -144,12 +144,12 @@ describe("WeChat share handoff", () => {
     const downloads = join(root, "Downloads");
     const batch = join(downloads, WECHAT_INCOMING_DIRECTORY_NAME, "batch");
     await mkdir(batch, { recursive: true });
-    const zipPath = join(batch, "聊天记录.zip");
-    await writeFile(zipPath, zipOf("聊天记录.txt", "·鱼\n2026年9月22日 22:15\n你好\n", "附件/readme.txt", "hello"));
+    const zipPath = join(batch, "聊天記錄.zip");
+    await writeFile(zipPath, zipOf("聊天記錄.txt", "·魚\n2026年9月22日 22:15\n你好\n", "附件/readme.txt", "hello"));
     const sandboxData = join(root, "Library", "Containers", "share", "Data");
     await mkdir(sandboxData, { recursive: true });
     await symlink(downloads, join(sandboxData, "Downloads"));
-    const sandboxPath = join(sandboxData, "Downloads", WECHAT_INCOMING_DIRECTORY_NAME, "batch", "聊天记录.zip");
+    const sandboxPath = join(sandboxData, "Downloads", WECHAT_INCOMING_DIRECTORY_NAME, "batch", "聊天記錄.zip");
     const sent = [];
     const diagnostics = [];
     const controller = createWeChatShareController({
@@ -175,7 +175,7 @@ describe("WeChat share handoff", () => {
     const batch = join(downloads, WECHAT_INCOMING_DIRECTORY_NAME, "batch");
     await mkdir(batch, { recursive: true });
     const outside = join(root, "secret.zip");
-    await writeFile(outside, zipOf("聊天记录.txt", "·鱼\n2026年9月22日 22:15\n你好\n", "附件/readme.txt", "hello"));
+    await writeFile(outside, zipOf("聊天記錄.txt", "·魚\n2026年9月22日 22:15\n你好\n", "附件/readme.txt", "hello"));
     const linked = join(batch, "linked.zip");
     await symlink(outside, linked);
     const sent = [];
@@ -195,8 +195,8 @@ describe("WeChat share handoff", () => {
     const downloads = join(root, "Downloads");
     const batch = join(downloads, WECHAT_INCOMING_DIRECTORY_NAME, "batch");
     await mkdir(batch, { recursive: true });
-    const zipPath = join(batch, "聊天记录.zip");
-    await writeFile(zipPath, zipOf("聊天记录.txt", "·鱼\n2026年9月22日 22:15\n你好\n", "附件/readme.txt", "hello"));
+    const zipPath = join(batch, "聊天記錄.zip");
+    await writeFile(zipPath, zipOf("聊天記錄.txt", "·魚\n2026年9月22日 22:15\n你好\n", "附件/readme.txt", "hello"));
     const sent = [];
     const controller = createWeChatShareController({
       downloadsPath: () => downloads,
@@ -240,9 +240,9 @@ describe("WeChat share handoff", () => {
     const downloads = join(root, "Downloads");
     const batch = join(downloads, WECHAT_INCOMING_DIRECTORY_NAME, "batch");
     await mkdir(batch, { recursive: true });
-    const zipPath = join(batch, "聊天记录.zip");
+    const zipPath = join(batch, "聊天記錄.zip");
     const partialPath = `${zipPath}.partial`;
-    await writeFile(partialPath, zipOf("聊天记录.txt", "·鱼\n2026年9月22日 22:15\n你好\n", "附件/readme.txt", "hello"));
+    await writeFile(partialPath, zipOf("聊天記錄.txt", "·魚\n2026年9月22日 22:15\n你好\n", "附件/readme.txt", "hello"));
     const sent = [];
     const controller = createWeChatShareController({
       downloadsPath: () => downloads,
@@ -277,8 +277,8 @@ describe("WeChat share handoff", () => {
     for (const name of ["first", "second"]) {
       const batch = join(incoming, name);
       await mkdir(batch, { recursive: true });
-      const zipPath = join(batch, "聊天记录.zip");
-      await writeFile(zipPath, zipOf("聊天记录.txt", `·鱼\n2026年9月22日 22:15\n${name}\n`, "附件/readme.txt", "hello"));
+      const zipPath = join(batch, "聊天記錄.zip");
+      await writeFile(zipPath, zipOf("聊天記錄.txt", `·魚\n2026年9月22日 22:15\n${name}\n`, "附件/readme.txt", "hello"));
       await utimes(batch, old, old);
     }
     const prepared = [];
@@ -305,10 +305,10 @@ describe("WeChat share handoff", () => {
     await restarted.importPending();
     expect(resumed).toHaveLength(1);
     for (const name of ["first", "second"]) {
-      expect((await stat(join(incoming, name, "聊天记录.zip"))).isFile()).toBe(true);
+      expect((await stat(join(incoming, name, "聊天記錄.zip"))).isFile()).toBe(true);
     }
     // An explicit handoff can retry a failed share after a restart.
-    const failedZip = join(incoming, "first", "聊天记录.zip");
+    const failedZip = join(incoming, "first", "聊天記錄.zip");
     await restarted.importFromProtocolUrl(`edgeever://wechat-import?path=${encodeURIComponent(failedZip)}`);
     expect(resumed).toHaveLength(2);
     await restarted.finish(resumed[1].importId, false);
@@ -316,7 +316,7 @@ describe("WeChat share handoff", () => {
     expect(resumed).toHaveLength(3);
     await restarted.finish(resumed[2].importId, true);
     await expect(stat(join(incoming, "first"))).rejects.toThrow();
-    await expect(stat(join(incoming, "second", "聊天记录.zip"))).resolves.toBeDefined();
+    await expect(stat(join(incoming, "second", "聊天記錄.zip"))).resolves.toBeDefined();
   });
 
   test("finishing one zip keeps another zip in the same incoming batch", async () => {
@@ -326,7 +326,7 @@ describe("WeChat share handoff", () => {
     const batch = join(downloads, WECHAT_INCOMING_DIRECTORY_NAME, "batch");
     await mkdir(batch, { recursive: true });
     for (const name of ["first", "second"]) {
-      await writeFile(join(batch, `${name}.zip`), zipOf("聊天记录.txt", `·鱼\n2026年9月22日 22:15\n${name}\n`, "附件/readme.txt", "hello"));
+      await writeFile(join(batch, `${name}.zip`), zipOf("聊天記錄.txt", `·魚\n2026年9月22日 22:15\n${name}\n`, "附件/readme.txt", "hello"));
     }
     const sent = [];
     const controller = createWeChatShareController({
@@ -352,7 +352,7 @@ describe("WeChat share handoff", () => {
     const downloads = join(root, "Downloads");
     const batch = join(downloads, WECHAT_INCOMING_DIRECTORY_NAME, "batch");
     await mkdir(batch, { recursive: true });
-    const filePath = join(batch, "云晰科技爆单键盘项目功能梳理表.xlsx");
+    const filePath = join(batch, "雲晰科技爆單鍵盤專案功能梳理表.xlsx");
     await writeFile(filePath, Buffer.from("spreadsheet"));
     const sent = [];
     const controller = createWeChatShareController({
@@ -365,7 +365,7 @@ describe("WeChat share handoff", () => {
     expect(sent[0]).toMatchObject({
       ok: true,
       kind: "file",
-      filename: "云晰科技爆单键盘项目功能梳理表.xlsx",
+      filename: "雲晰科技爆單鍵盤專案功能梳理表.xlsx",
       mimeType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       byteSize: Buffer.byteLength("spreadsheet"),
     });
@@ -381,8 +381,8 @@ describe("WeChat share handoff", () => {
     const downloads = join(root, "Downloads");
     const batch = join(downloads, WECHAT_INCOMING_DIRECTORY_NAME, "batch");
     await mkdir(batch, { recursive: true });
-    const zipPath = join(batch, "聊天记录.zip");
-    await writeFile(zipPath, zipOf("聊天记录.txt", "·鱼\n2026年9月22日 22:15\n你好\n", "附件/readme.txt", "hello"));
+    const zipPath = join(batch, "聊天記錄.zip");
+    await writeFile(zipPath, zipOf("聊天記錄.txt", "·魚\n2026年9月22日 22:15\n你好\n", "附件/readme.txt", "hello"));
     const sent = [];
     const controller = createWeChatShareController({
       downloadsPath: () => downloads,
@@ -402,7 +402,7 @@ describe("WeChat share handoff", () => {
     const downloads = join(root, "Downloads");
     const batch = join(downloads, WECHAT_INCOMING_DIRECTORY_NAME, "batch");
     await mkdir(batch, { recursive: true });
-    const zipPath = join(batch, "聊天记录.zip");
+    const zipPath = join(batch, "聊天記錄.zip");
     const placeholder = Buffer.from("file:///.file/id=6571367.1215912");
     expect(isFileReferencePlaceholder(placeholder)).toBe(true);
     await writeFile(zipPath, placeholder);
@@ -495,8 +495,8 @@ describe("WeChat share handoff", () => {
   test("keeps a local WeChat zip in place after preparing the chat", async () => {
     const root = await mkdtemp(join(tmpdir(), "edgeever-wechat-share-"));
     roots.push(root);
-    const zipPath = join(root, "聊天记录.zip");
-    await writeFile(zipPath, zipOf("聊天记录.txt", "·鱼\n2026年9月22日 22:15\n你好\n", "附件/readme.txt", "hello"));
+    const zipPath = join(root, "聊天記錄.zip");
+    await writeFile(zipPath, zipOf("聊天記錄.txt", "·魚\n2026年9月22日 22:15\n你好\n", "附件/readme.txt", "hello"));
     const sent = [];
     const controller = createWeChatShareController({
       downloadsPath: () => join(root, "Downloads"),

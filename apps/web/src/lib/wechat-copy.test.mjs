@@ -48,24 +48,24 @@ beforeAll(async () => {
 });
 
 const MARKDOWN = `
-> **EdgeEver** 把笔记留在你自己的账号里。
+> **EdgeEver** 把筆記留在你自己的帳號裡。
 
-正文里的行内代码是 \`#memo=<笔记ID>\`，起步价（$10+/月）。
+正文裡的行內程式碼是 \`#memo=<筆記ID>\`，起步價（$10+/月）。
 
-| 成本 | 商业订阅高昂（$10+/月） | 官方云同步收费（$5+/月） |
+| 成本 | 商業訂閱高昂（$10+/月） | 官方雲同步收費（$5+/月） |
 | --- | --- | --- |
 
-- **行内公式**：例如质能方程 $E = mc^2$。
-- **多行独立公式块**：
+- **行內公式**：例如質能方程 $E = mc^2$。
+- **多行獨立公式塊**：
 $$
 \\oint_{\\partial \\Omega} \\mathbf{E} \\cdot d\\mathbf{S} = \\frac{1}{\\varepsilon_0} \\iiint_{\\Omega} \\rho \\, dV
 $$
 
-- [x] 已完成的待办
-- [ ] 未完成的待办
+- [x] 已完成的待辦
+- [ ] 未完成的待辦
 
 \`\`\`sh
-# 官方 GHCR 镜像
+# 官方 GHCR 映象
 curl -fsSL https://edgeever.org/install.sh | bash
 \`\`\`
 `;
@@ -86,7 +86,7 @@ describe("preparePublishArticle", () => {
     try {
       const context = readEditorCopyContext(container);
       expect(context.colors.accent).toBe("#7351CF");
-      const root = preparePublishArticle("<p><strong>重点</strong> <code>Cmd/Ctrl + E</code></p>", container);
+      const root = preparePublishArticle("<p><strong>重點</strong> <code>Cmd/Ctrl + E</code></p>", container);
       expect(css(root.querySelector("strong"))).toContain("color:#7351CF");
       expect(css(root.querySelector("code"))).toContain("color:#3d4450");
       expect(css(root.querySelector("code"))).toContain("background:#e9edf1");
@@ -98,14 +98,14 @@ describe("preparePublishArticle", () => {
   test("matches the light editor instead of the old rose-and-green paste", () => {
     const root = preparePublishArticle([
       "<blockquote><p>引用</p></blockquote>",
-      "<p>正文 <strong>重点</strong> <code>token</code></p>",
-      "<h2>标题</h2>",
+      "<p>正文 <strong>重點</strong> <code>token</code></p>",
+      "<h2>標題</h2>",
       "<hr>",
       "<hr data-edgeever-merge-divider>",
-      "<pre><code class=\"language-sh\"># 官方 GHCR 镜像\\ncurl</code></pre>",
+      "<pre><code class=\"language-sh\"># 官方 GHCR 映象\\ncurl</code></pre>",
       "<ul data-type=\"taskList\"><li data-checked=\"true\"><label><input type=\"checkbox\" checked></label><div><p>已完成</p></div></li></ul>",
       "<span data-type=\"inline-math\" data-latex=\"E = mc^2\"></span>",
-      "<p>#memo 话题</p>",
+      "<p>#memo 話題</p>",
     ].join(""));
 
     const quote = root.querySelector("blockquote");
@@ -179,7 +179,7 @@ describe("prepareMarkdownPublishArticle", () => {
     expect(root.textContent).toContain("☐ ");
     expect(root.textContent).toContain("#\u200bmemo");
     const code = root.querySelector("pre code");
-    expect(code?.textContent).toContain("# 官方 GHCR 镜像");
+    expect(code?.textContent).toContain("# 官方 GHCR 映象");
     expect(code?.textContent).not.toContain("#\u200b");
     expect(code?.querySelector("span[style*='#6a737d']")).toBeTruthy();
     expect(css(root.querySelector("blockquote"))).toContain("background:#f3f5f7");

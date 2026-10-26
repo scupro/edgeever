@@ -230,8 +230,8 @@ describe("public notebook site controls", () => {
     const nextExcluded = await (await manage(f, `/memos?visibility=excluded&limit=1&cursor=${excluded.nextCursor}`)).json();
     expect(nextExcluded.memos.map((memo) => memo.id)).toEqual(["memo_child"]);
     expect(nextExcluded.nextCursor).toBeNull();
-    f.db.run("UPDATE memo_contents SET content_text = 'OwnerBodyNeedle 中文正文检索' WHERE memo_id = 'bulk_075'");
-    for (const q of ["OwnerBodyNeedle", "正文检索"]) {
+    f.db.run("UPDATE memo_contents SET content_text = 'OwnerBodyNeedle 中文正文檢索' WHERE memo_id = 'bulk_075'");
+    for (const q of ["OwnerBodyNeedle", "正文檢索"]) {
       const found = await (await manage(f, `/memos?q=${encodeURIComponent(q)}`)).json();
       expect(found.memos.map((memo) => memo.id)).toEqual(["bulk_075"]);
       const picker = await (await manage(f, `/memos?visibility=public&q=${encodeURIComponent(q)}`)).json();
@@ -248,12 +248,12 @@ describe("public notebook site controls", () => {
   test("body and Chinese search filter before paging and combine with exact tags", async () => {
     const f = fixture();
     for (const id of ["memo_root", "memo_child", "memo_grand"]) {
-      f.db.run("UPDATE memo_contents SET content_text = 'OnlyBodyWord 中文检索内容' WHERE memo_id = ?", [id]);
-      f.db.run("INSERT OR REPLACE INTO memo_search_documents (memo_id, title, content_text, tags) VALUES (?, ?, 'OnlyBodyWord 中文检索内容', '')", [id, id]);
+      f.db.run("UPDATE memo_contents SET content_text = 'OnlyBodyWord 中文檢索內容' WHERE memo_id = ?", [id]);
+      f.db.run("INSERT OR REPLACE INTO memo_search_documents (memo_id, title, content_text, tags) VALUES (?, ?, 'OnlyBodyWord 中文檢索內容', '')", [id, id]);
     }
     f.db.run(`UPDATE memos SET tags_json = '["guide"]' WHERE id = 'memo_root'`);
     await manage(f, "/memos/memo_child", { excluded: true });
-    for (const q of ["OnlyBodyWord", "检索"]) {
+    for (const q of ["OnlyBodyWord", "檢索"]) {
       const result = await (await f.request(`/search?q=${encodeURIComponent(q)}&limit=1`)).json();
       expect(result.memos).toHaveLength(1);
       expect(result.memos[0].excerpt).toContain(q);

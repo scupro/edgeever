@@ -5,7 +5,7 @@ import { applyPosterEdits, compilePosterMemo, posterCapabilities } from "./mcp-p
 test("detailed poster edits preserve unaffected elements and clear optional styles", () => {
   const poster = { ...createPosterDocument("Original"), previewResourceId: "preview" };
   const heading = poster.elements.find(element => element.type === "text");
-  const input = { memoId: "memo", expectedRevision: 1, edits: [{ id: heading.id, patch: { fontFamily: "思源黑体", fontStyle: "italic", underline: true, lineHeight: 1.6, charSpacing: 40, stroke: "#16A06E", strokeWidth: 2, shadow: { color: "#07130B", blur: 8, offsetX: 2, offsetY: 3 }, visible: false } }] };
+  const input = { memoId: "memo", expectedRevision: 1, edits: [{ id: heading.id, patch: { fontFamily: "思源黑體", fontStyle: "italic", underline: true, lineHeight: 1.6, charSpacing: 40, stroke: "#16A06E", strokeWidth: 2, shadow: { color: "#07130B", blur: 8, offsetX: 2, offsetY: 3 }, visible: false } }] };
   const result = applyPosterEdits(input, poster);
   expect(result.document.elements.find(element => element.id === heading.id)).toMatchObject(input.edits[0].patch);
   expect(result.document.elements.filter(element => element.id !== heading.id)).toEqual(poster.elements.filter(element => element.id !== heading.id));
@@ -64,13 +64,13 @@ test("canvas/platform changes scale existing geometry and template replacement i
   const template = applyPosterEdits({ memoId: "memo", expectedRevision: 1, operations: [{ op: "apply_template", template: "bold" }] }, poster);
   expect(template.document).toMatchObject({ templateId: "bold", background: "#07130b", copy: { title: "Original", subtitle: "Subtitle" } });
   const caps = posterCapabilities();
-  expect(caps.fonts.some(font => font.family === "思源黑体")).toBe(true);
+  expect(caps.fonts.some(font => font.family === "思源黑體")).toBe(true);
   expect(caps.operations).toContain("duplicate");
 });
 
 test("poster creation round-trips every template and format with long CJK copy", () => {
   for (const template of POSTER_TEMPLATES) for (const format of POSTER_FORMATS) {
-    const { document } = compilePosterMemo({ notebookId: "inbox", title: "Poster", heading: "精力管理".repeat(20), subtitle: "保护精力".repeat(60), template, format: format.id });
+    const { document } = compilePosterMemo({ notebookId: "inbox", title: "Poster", heading: "精力管理".repeat(20), subtitle: "保護精力".repeat(60), template, format: format.id });
     expect(parsePosterDocument(serializePosterDocument(document))).toEqual(document);
     const texts = document.elements.filter(element => element.type === "text");
     for (const text of texts) {
@@ -80,7 +80,7 @@ test("poster creation round-trips every template and format with long CJK copy",
     }
     expect(texts[0].y + texts[0].height).toBeLessThan(texts[1].y);
   }
-  expect(() => compilePosterMemo({ notebookId: "inbox", title: "Poster", heading: "Title", subtitle: "保护精力\n".repeat(40), format: "wechat" })).toThrow("does not fit");
+  expect(() => compilePosterMemo({ notebookId: "inbox", title: "Poster", heading: "Title", subtitle: "保護精力\n".repeat(40), format: "wechat" })).toThrow("does not fit");
 });
 
 test("poster edits reject locked elements, duplicate IDs, unknown patch keys and invalid geometry", () => {
@@ -108,14 +108,14 @@ test("poster edits update canonical copy, support background changes and retain 
 
 test("informative posters retain each section through editing and source round-trip", () => {
   const sections = [
-    { heading: "社交", body: "连接用户与日常沟通场景" },
-    { heading: "内容", body: "承载资讯、视频与数字阅读" },
-    { heading: "游戏", body: "连接互动娱乐与数字内容" },
-    { heading: "金融科技", body: "服务支付与金融应用场景" },
-    { heading: "企业服务", body: "提供云与企业协作能力" },
+    { heading: "社交", body: "連線使用者與日常溝通場景" },
+    { heading: "內容", body: "承載資訊、影片與數字閱讀" },
+    { heading: "遊戲", body: "連線互動娛樂與數字內容" },
+    { heading: "金融科技", body: "服務支付與金融應用場景" },
+    { heading: "企業服務", body: "提供雲與企業協作能力" },
   ];
   for (const format of POSTER_FORMATS) {
-    const { document } = compilePosterMemo({ notebookId: "inbox", title: "腾讯产业布局", heading: "腾讯产业布局", subtitle: "以连接为核心的数字生态", badge: "产业观察", footer: "从用户连接，延伸到内容与服务", sections, template: "bold", format: format.id });
+    const { document } = compilePosterMemo({ notebookId: "inbox", title: "騰訊產業佈局", heading: "騰訊產業佈局", subtitle: "以連線為核心的數字生態", badge: "產業觀察", footer: "從使用者連線，延伸到內容與服務", sections, template: "bold", format: format.id });
     const restored = parsePosterDocument(serializePosterDocument(document));
     expect(restored).toEqual(document);
     for (const element of document.elements) {
@@ -127,25 +127,25 @@ test("informative posters retain each section through editing and source round-t
     sections.forEach((section, index) => {
       expect(document.elements.find(e => e.id === `section-${index + 1}-body`).text).toBe(section.body);
     });
-    const edited = applyPosterEdits({ memoId: "memo", expectedRevision: 1, edits: [{ id: "section-1-body", patch: { text: "连接人与沟通场景" } }] }, document).document;
-    expect(edited.elements.find(e => e.id === "section-1-body").text).toBe("连接人与沟通场景");
-    expect(edited.copy.title).toBe("腾讯产业布局");
-    expect(edited.copy.subtitle).toBe("以连接为核心的数字生态");
+    const edited = applyPosterEdits({ memoId: "memo", expectedRevision: 1, edits: [{ id: "section-1-body", patch: { text: "連線人與溝通場景" } }] }, document).document;
+    expect(edited.elements.find(e => e.id === "section-1-body").text).toBe("連線人與溝通場景");
+    expect(edited.copy.title).toBe("騰訊產業佈局");
+    expect(edited.copy.subtitle).toBe("以連線為核心的數字生態");
   }
 });
 
 test("content layouts adapt columns, reject overflow and leave headline-only callers compatible", () => {
-  const sections = Array.from({ length: 6 }, (_, i) => ({ heading: `要点 ${i + 1}`, body: "简短说明" }));
-  const build = fields => compilePosterMemo({ notebookId: "inbox", title: "Poster", heading: "知识要点", sections, ...fields }).document;
+  const sections = Array.from({ length: 6 }, (_, i) => ({ heading: `要點 ${i + 1}`, body: "簡短說明" }));
+  const build = fields => compilePosterMemo({ notebookId: "inbox", title: "Poster", heading: "知識要點", sections, ...fields }).document;
   const grid = build({ layout: "grid" });
   const list = build({ layout: "list" });
   expect(grid.elements.find(e => e.id === "section-2-card").y).toBe(grid.elements.find(e => e.id === "section-1-card").y);
   expect(list.elements.find(e => e.id === "section-2-card").y).toBeGreaterThan(list.elements.find(e => e.id === "section-1-card").y);
   expect(build({ format: "story" }).elements.find(e => e.id === "section-2-card").x).toBe(build({ format: "story" }).elements.find(e => e.id === "section-1-card").x);
-  expect(() => build({ format: "wechat", layout: "list", sections: sections.map(section => ({ ...section, body: "说明\n".repeat(30) })) })).toThrow("does not fit");
+  expect(() => build({ format: "wechat", layout: "list", sections: sections.map(section => ({ ...section, body: "說明\n".repeat(30) })) })).toThrow("does not fit");
   expect(() => build({ sections: [sections[0]] })).toThrow();
   expect(() => build({ sections: sections.concat(sections[0]) })).toThrow();
-  const legacy = compilePosterMemo({ notebookId: "inbox", title: "Poster", heading: "一句话" }).document;
+  const legacy = compilePosterMemo({ notebookId: "inbox", title: "Poster", heading: "一句話" }).document;
   expect(legacy.elements).toHaveLength(3);
   expect(() => build({ sections: undefined, footer: "Requires sections" })).toThrow("require sections");
 });

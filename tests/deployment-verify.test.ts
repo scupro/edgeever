@@ -126,14 +126,14 @@ describe("deployment verification", () => {
     })).rejects.toThrow("may differ from the DB binding used by the live Worker");
   });
 
-  test("diagnoses a live Worker without its R2 binding", async () => {
+  test("diagnoses a live Worker without its object storage settings", async () => {
     expect(verifyCloudflareWorkerHealth({
       deploymentUrl: "https://notes.example.com",
       attempts: 1,
       fetchImpl: async () => Response.json({
         error: { code: "object_storage_not_ready" },
       }, { status: 503 }),
-    })).rejects.toThrow("RESOURCES binding points to the configured R2 bucket");
+    })).rejects.toThrow("EDGE_EVER_S3_* deployment variables point to a reachable S3-compatible object storage service");
   });
 
   test("preserves Cloudflare runtime diagnostics for an unknown health failure", async () => {

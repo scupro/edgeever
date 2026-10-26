@@ -42,8 +42,8 @@ for (const { platform, modifier } of [
 
         try {
           await page.goto("/");
-          await page.getByRole("button", { name: "全部笔记", exact: true }).click();
-          await page.getByPlaceholder("搜索笔记").fill(title);
+          await page.getByRole("button", { name: "全部筆記", exact: true }).click();
+          await page.getByPlaceholder("搜尋筆記").fill(title);
           await page.locator(`[data-memo-id="${memo.id}"]`).locator("button").first().click();
           const rich = page.locator(".ProseMirror[contenteditable='true']");
           const source = page.locator(".cm-content");

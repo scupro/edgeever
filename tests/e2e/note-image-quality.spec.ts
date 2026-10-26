@@ -18,7 +18,7 @@ type QualityApi = {
   setMounted: (mounted: boolean) => void;
 };
 type QualityWindow = Window & { imageQuality: QualityApi; copiedImage?: { width: number; height: number; hash: string } };
-const labels = { glass: '透明', quote: '金句', book: '书摘', memo: '备忘录', bento: '便当', 'black-sun': '黑日', frame: '框界', handwritten: '手写', code: '代码' };
+const labels = { glass: '透明', quote: '金句', book: '書摘', memo: '備忘錄', bento: '便當', 'black-sun': '黑日', frame: '框界', handwritten: '手寫', code: '程式碼' };
 const preamble = `<script type="module">import R from '/@react-refresh';R.injectIntoGlobalHook(window);window.$RefreshReg$=()=>{};window.$RefreshSig$=()=>t=>t;window.__vite_plugin_react_preamble_installed__=true;</script>`;
 const fixture = fileURLToPath(new URL('./fixtures/note-image-quality.tsx', import.meta.url));
 
@@ -80,7 +80,7 @@ for (const theme of NOTE_IMAGE_THEME_OPTIONS) {
       } });
     });
     await boot(page);
-    const preview = page.getByAltText('笔记分享图片预览');
+    const preview = page.getByAltText('筆記分享圖片預覽');
     await expect(preview).toBeVisible();
     if (theme !== 'glass') {
       const old = await preview.getAttribute('src');
@@ -103,13 +103,13 @@ for (const theme of NOTE_IMAGE_THEME_OPTIONS) {
       });
       expect(image.density).toBeGreaterThanOrEqual(1.99);
       const downloading = page.waitForEvent('download');
-      await page.getByRole('button', { name: '下载图片', exact: true }).click();
+      await page.getByRole('button', { name: '下載圖片', exact: true }).click();
       const download = await downloading;
       const path = testInfo.outputPath(`${theme}.${format === 'png' ? 'png' : 'jpg'}`);
       await download.saveAs(path);
       expect(createHash('sha256').update(await readFile(path)).digest('hex')).toBe(image.hash);
-      await page.getByRole('button', { name: '复制图片', exact: true }).click();
-      await expect(page.getByRole('button', { name: '已复制到剪贴板', exact: true })).toBeVisible();
+      await page.getByRole('button', { name: '複製圖片', exact: true }).click();
+      await expect(page.getByRole('button', { name: '已複製到剪貼簿', exact: true })).toBeVisible();
       const copied = await page.evaluate(() => (window as QualityWindow).copiedImage!);
       expect([copied.width, copied.height]).toEqual([image.width, image.height]);
       if (format === 'png') expect(copied.hash).toBe(image.hash);
@@ -129,8 +129,8 @@ for (const blockedStorage of [false, true]) {
       api.setSource(api.sources.short);
     });
     await shortSource();
-    const title = page.getByRole('checkbox', { name: '笔记标题', exact: true });
-    const preview = page.getByAltText('笔记分享图片预览');
+    const title = page.getByRole('checkbox', { name: '筆記標題', exact: true });
+    const preview = page.getByAltText('筆記分享圖片預覽');
     const hashPreview = async () => {
       await expect(preview).toBeVisible();
       return preview.evaluate(async node => {
@@ -157,7 +157,7 @@ for (const blockedStorage of [false, true]) {
     const oldUrl = await preview.getAttribute('src');
     await page.evaluate(() => {
       const api = (window as QualityWindow).imageQuality;
-      api.setSource({ ...api.sources.short, title: '切换到另一篇笔记' });
+      api.setSource({ ...api.sources.short, title: '切換到另一篇筆記' });
     });
     await expect(preview).not.toHaveAttribute('src', oldUrl!);
     await expect(title).not.toBeChecked();
@@ -198,11 +198,11 @@ for (const blockedStorage of [false, true]) {
       const api = (window as QualityWindow).imageQuality;
       api.setSource(api.sources.short);
     });
-    const checkboxLabels = ['笔记标题', '笔记本', '标签', '更新时间', '阅读时长与字数', '创作者署名', 'EdgeEver 品牌标识'];
+    const checkboxLabels = ['筆記標題', '筆記本', '標籤', '更新時間', '閱讀時長與字數', '創作者署名', 'EdgeEver 品牌標識'];
     const chosen = [false, true, true, false, true, true, false];
-    const preview = page.getByAltText('笔记分享图片预览');
+    const preview = page.getByAltText('筆記分享圖片預覽');
     const hash = async () => {
-      await expect(page.getByRole('button', { name: '下载图片', exact: true })).toBeEnabled();
+      await expect(page.getByRole('button', { name: '下載圖片', exact: true })).toBeEnabled();
       return preview.evaluate(async node => {
         const image = node as HTMLImageElement;
         await image.decode();
@@ -215,21 +215,21 @@ for (const blockedStorage of [false, true]) {
       for (let i = 0; i < chosen.length; i++) {
         await expect(page.getByRole('checkbox', { name: checkboxLabels[i], exact: true })).toBeChecked({ checked: inverted ? !chosen[i] : chosen[i] });
       }
-      await expect(page.getByRole('button', { name: inverted ? '默认' : '书摘', exact: true })).toHaveAttribute('aria-pressed', 'true');
-      await expect(page.getByRole('button', { name: inverted ? /^跟随主题/ : '文艺衬线' })).toHaveAttribute('aria-pressed', 'true');
-      await expect(page.getByRole('button', { name: inverted ? '舒适' : '标准', exact: true })).toHaveAttribute('aria-pressed', 'true');
-      await expect(page.getByRole('button', { name: inverted ? '宽屏 (800px)' : '紧凑 (560px)', exact: true })).toHaveAttribute('aria-pressed', 'true');
+      await expect(page.getByRole('button', { name: inverted ? '預設' : '書摘', exact: true })).toHaveAttribute('aria-pressed', 'true');
+      await expect(page.getByRole('button', { name: inverted ? /^跟隨主題/ : '文藝襯線' })).toHaveAttribute('aria-pressed', 'true');
+      await expect(page.getByRole('button', { name: inverted ? '舒適' : '標準', exact: true })).toHaveAttribute('aria-pressed', 'true');
+      await expect(page.getByRole('button', { name: inverted ? '寬屏 (800px)' : '緊湊 (560px)', exact: true })).toHaveAttribute('aria-pressed', 'true');
       await expect(page.getByRole('combobox')).toContainText(inverted ? 'PNG' : 'JPEG');
-      if (!inverted) await expect(page.getByPlaceholder('输入署名或昵称')).toHaveValue('持久保存的署名');
+      if (!inverted) await expect(page.getByPlaceholder('輸入署名或暱稱')).toHaveValue('持久儲存的署名');
     };
-    await page.getByRole('button', { name: '书摘', exact: true }).click();
-    await page.getByRole('button', { name: '文艺衬线', exact: true }).click();
-    await page.getByRole('button', { name: '标准', exact: true }).click();
-    await page.getByRole('button', { name: '紧凑 (560px)', exact: true }).click();
+    await page.getByRole('button', { name: '書摘', exact: true }).click();
+    await page.getByRole('button', { name: '文藝襯線', exact: true }).click();
+    await page.getByRole('button', { name: '標準', exact: true }).click();
+    await page.getByRole('button', { name: '緊湊 (560px)', exact: true }).click();
     for (let i = 0; i < chosen.length; i++) {
       await page.getByRole('checkbox', { name: checkboxLabels[i], exact: true }).setChecked(chosen[i]);
     }
-    await page.getByPlaceholder('输入署名或昵称').fill('持久保存的署名');
+    await page.getByPlaceholder('輸入署名或暱稱').fill('持久儲存的署名');
     await page.getByRole('combobox').click();
     await page.getByRole('option').filter({ hasText: /^JPEG/ }).click();
     await assertChoices();
@@ -242,7 +242,7 @@ for (const blockedStorage of [false, true]) {
     expect(await hash()).toBe(expectedHash);
     await page.evaluate(() => {
       const api = (window as QualityWindow).imageQuality;
-      api.setSource({ ...api.sources.short, title: '另一篇笔记' });
+      api.setSource({ ...api.sources.short, title: '另一篇筆記' });
     });
     await assertChoices();
     expect(await hash()).toBe(expectedHash);
@@ -263,7 +263,7 @@ for (const blockedStorage of [false, true]) {
     }
     // Download must use the remembered format and the exact preview image.
     const downloading = page.waitForEvent('download');
-    await page.getByRole('button', { name: '下载图片', exact: true }).click();
+    await page.getByRole('button', { name: '下載圖片', exact: true }).click();
     const download = await downloading;
     expect(download.suggestedFilename()).toMatch(/\.jpe?g$/);
     const path = testInfo.outputPath('remembered-settings.jpg');
@@ -274,10 +274,10 @@ for (const blockedStorage of [false, true]) {
     for (let i = 0; i < chosen.length; i++) {
       await page.getByRole('checkbox', { name: checkboxLabels[i], exact: true }).setChecked(!chosen[i]);
     }
-    await page.getByRole('button', { name: '默认', exact: true }).click();
-    await page.getByRole('button', { name: /^跟随主题/ }).click();
-    await page.getByRole('button', { name: '舒适', exact: true }).click();
-    await page.getByRole('button', { name: '宽屏 (800px)', exact: true }).click();
+    await page.getByRole('button', { name: '預設', exact: true }).click();
+    await page.getByRole('button', { name: /^跟隨主題/ }).click();
+    await page.getByRole('button', { name: '舒適', exact: true }).click();
+    await page.getByRole('button', { name: '寬屏 (800px)', exact: true }).click();
     await page.getByRole('combobox').click();
     await page.getByRole('option').filter({ hasText: /^PNG/ }).click();
     if (!blockedStorage) {
@@ -289,8 +289,8 @@ for (const blockedStorage of [false, true]) {
       await page.evaluate(() => (window as QualityWindow).imageQuality.setMounted(true));
     }
     await assertChoices(true);
-    await expect(page.getByPlaceholder('输入署名或昵称')).toHaveCount(0);
-    await page.getByRole('checkbox', { name: '创作者署名', exact: true }).check();
-    await expect(page.getByPlaceholder('输入署名或昵称')).toHaveValue('持久保存的署名');
+    await expect(page.getByPlaceholder('輸入署名或暱稱')).toHaveCount(0);
+    await page.getByRole('checkbox', { name: '創作者署名', exact: true }).check();
+    await expect(page.getByPlaceholder('輸入署名或暱稱')).toHaveValue('持久儲存的署名');
   });
 }

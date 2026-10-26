@@ -1,4 +1,4 @@
-思源黑体 (Noto Sans SC)
+思源黑體 (Noto Sans SC)
 Source: https://fonts.google.com/noto/specimen/Noto+Sans+SC
 This copy: subset and converted to WOFF2 by Qiaomu Cover Design
 

@@ -9,16 +9,27 @@ import { createS3CompatibleStorageAdapter } from "../apps/api/src/s3-compatible-
 describe("storage adapter", () => {
   test("wraps Cloudflare bindings without changing their identity", () => {
     const db = { prepare: () => undefined, batch: () => undefined };
-    const resources = { get: async () => null, put: async () => undefined, delete: async () => undefined };
-    const adapter = createCloudflareStorageAdapter({ DB: db, RESOURCES: resources } as never);
+    const adapter = createCloudflareStorageAdapter({ DB: db } as never);
 
     expect(adapter.db).toBe(db);
-    expect(adapter.resources).toBe(resources);
+    expect(adapter.resources).toBeUndefined();
     expect(adapter.diagnostics).toEqual({
       database: "d1",
-      resources: "r2",
+      resources: "s3",
       migrationTable: "d1_migrations",
     });
+  });
+
+  test("builds the object store from the configured S3-compatible service", () => {
+    const db = { prepare: () => undefined, batch: () => undefined };
+    const adapter = createCloudflareStorageAdapter({ DB: db } as never, {
+      EDGE_EVER_S3_ENDPOINT: "https://s3.example.invalid",
+      EDGE_EVER_S3_BUCKET: "edgeever-resources",
+      EDGE_EVER_S3_ACCESS_KEY_ID: "test-key",
+      EDGE_EVER_S3_SECRET_ACCESS_KEY: "test-secret",
+    });
+
+    expect(adapter.resources).toBeDefined();
   });
 
   test("keeps the self-hosted database dialect explicit", () => {

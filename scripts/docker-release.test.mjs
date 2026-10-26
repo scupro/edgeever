@@ -111,13 +111,13 @@ describe("Docker release contract", () => {
     expect(readProjectFile("docs/deploy-docker.md")).toContain(
       'Module not found "scripts/self-hosted-server.mjs"',
     );
-    expect(readProjectFile("docs/deploy-docker.zh-CN.md")).toContain(
+    expect(readProjectFile("docs/deploy-docker.zh-TW.md")).toContain(
       'Module not found "scripts/self-hosted-server.mjs"',
     );
     expect(readProjectFile("docs/self-hosting-architecture.md")).toContain(
       "scripts/self-hosted-server.mjs",
     );
-    expect(readProjectFile("docs/self-hosting-architecture.zh-CN.md")).toContain(
+    expect(readProjectFile("docs/self-hosting-architecture.zh-TW.md")).toContain(
       "scripts/self-hosted-server.mjs",
     );
   });
@@ -139,7 +139,7 @@ describe("Docker release contract", () => {
     const selfHosted = readProjectFile("scripts/self-hosted-server.mjs");
     expect(application).toContain("export const fetchEdgeEverApp");
     expect(application).toContain(
-      "storage: createCloudflareStorageAdapter(env)",
+      "storage: createCloudflareStorageAdapter(env, env)",
     );
     expect(selfHosted).toContain(
       "fetchEdgeEverApp(request, env, executionContext)",
@@ -159,12 +159,12 @@ describe("Docker release contract", () => {
     expect(secrets).toContain("edgeever-secrets.json");
     expect(secrets).not.toContain("edgeever.sqlite");
     expect(readProjectFile("docs/deploy-docker.md")).toContain("edgeever-secrets.json");
-    expect(readProjectFile("docs/deploy-docker.zh-CN.md")).toContain("edgeever-secrets.json");
+    expect(readProjectFile("docs/deploy-docker.zh-TW.md")).toContain("edgeever-secrets.json");
     expect(readProjectFile("docs/self-hosting-architecture.md")).toContain(
       "NAS/GUI upgrades that drop container environment variables",
     );
-    expect(readProjectFile("docs/self-hosting-architecture.zh-CN.md")).toContain(
-      "NAS/GUI 升级丢掉容器环境变量",
+    expect(readProjectFile("docs/self-hosting-architecture.zh-TW.md")).toContain(
+      "NAS/GUI 升級丟掉容器環境變數",
     );
   });
 

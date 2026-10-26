@@ -8,35 +8,35 @@ import {
 } from "./SlashCommandMenu.tsx";
 
 const labels = {
-  menu: "插入功能菜单",
-  empty: "没有匹配的功能。",
-  close: "关闭菜单",
-  groups: { suggested: "建议", basic: "基本区块", insert: "插入" },
+  menu: "插入功能選單",
+  empty: "沒有匹配的功能。",
+  close: "關閉選單",
+  groups: { suggested: "建議", basic: "基本區塊", insert: "插入" },
   items: {
-    ai: "用 AI 处理",
+    ai: "用 AI 處理",
     paragraph: "正文",
-    "heading-1": "标题 1",
-    "heading-2": "标题 2",
-    "heading-3": "标题 3",
-    "heading-4": "标题 4",
-    "heading-5": "标题 5",
-    "heading-6": "标题 6",
-    "bullet-list": "无序列表",
+    "heading-1": "標題 1",
+    "heading-2": "標題 2",
+    "heading-3": "標題 3",
+    "heading-4": "標題 4",
+    "heading-5": "標題 5",
+    "heading-6": "標題 6",
+    "bullet-list": "無序列表",
     "ordered-list": "有序列表",
-    "task-list": "任务清单",
+    "task-list": "任務清單",
     blockquote: "引用",
-    "code-block": "代码块",
-    divider: "分割线",
-    fold: "折叠块",
+    "code-block": "程式碼塊",
+    divider: "分割線",
+    fold: "摺疊塊",
     table: "表格",
     "inline-math": "插入公式",
-    "block-math": "块级公式",
-    "current-date": "当前日期",
-    "current-time": "当前时间",
-    "current-date-time": "当前日期和时间",
-    attachment: "上传附件",
-    "note-link": "引用笔记",
-    "external-link": "插入超链接",
+    "block-math": "塊級公式",
+    "current-date": "當前日期",
+    "current-time": "當前時間",
+    "current-date-time": "當前日期和時間",
+    attachment: "上傳附件",
+    "note-link": "引用筆記",
+    "external-link": "插入超連結",
   },
 };
 
@@ -57,7 +57,7 @@ describe("slash command menu", () => {
 
   test("searches localized labels and aliases", () => {
     expect(filterSlashCommandItems(items, "AI").map((item) => item.id)).toEqual(["ai"]);
-    expect(filterSlashCommandItems(items, "待办").map((item) => item.id)).toEqual(["task-list"]);
+    expect(filterSlashCommandItems(items, "待辦").map((item) => item.id)).toEqual(["task-list"]);
     expect(filterSlashCommandItems(items, "h2").map((item) => item.id)).toEqual(["heading-2"]);
     expect(filterSlashCommandItems(items, "h5").map((item) => item.id)).toEqual(["heading-5"]);
     expect(filterSlashCommandItems(items, "今天").map((item) => item.id)).toEqual(["current-date"]);
@@ -93,7 +93,7 @@ describe("slash command menu", () => {
     ]);
     expect(items.every((item) => /^[a-z][a-z0-9]*$/.test(item.command))).toBe(true);
     expect(new Set(items.map((item) => item.command)).size).toBe(items.length);
-    expect(filterSlashCommandItems(items, "折叠").map((item) => item.id)).toEqual(["fold"]);
+    expect(filterSlashCommandItems(items, "摺疊").map((item) => item.id)).toEqual(["fold"]);
     expect(filterSlashCommandItems(items, "collapse").map((item) => item.id)).toEqual(["fold"]);
     expect(filterSlashCommandItems(items, "table").map((item) => item.id)).toEqual(["table"]);
     expect(filterSlashCommandItems(items, "task").map((item) => item.id)).toEqual(["task-list"]);

@@ -14,7 +14,7 @@ describe("mind map outline", () => {
     const draft = formatMindMapOutline(document);
     expect(draft).not.toBeNull();
     expect(draft.text).toStartWith("# \\- Root\\\\name\\nsecond line\\tend ");
-    expect(draft.text).toContain("\n- 采集想法\n  - 快速记录");
+    expect(draft.text).toContain("\n- 採集想法\n  - 快速記錄");
     expect(draft.text).not.toContain("\t");
     const result = project(document, draft);
     expect(result.ok).toBe(true);
@@ -29,12 +29,12 @@ describe("mind map outline", () => {
     const branch = document.edges.find((edge) => edge.target === "topic-1-a");
     branch.label = "context";
     const initial = formatMindMapOutline(document);
-    const edited = updateMindMapOutlineDraft(initial, initial.text.replace("快速记录", "快速记录 2"));
+    const edited = updateMindMapOutlineDraft(initial, initial.text.replace("快速記錄", "快速記錄 2"));
     const result = project(document, edited);
     expect(result.ok).toBe(true);
     if (!result.ok) return;
     expect(result.structureChanged).toBe(false);
-    expect(result.document.nodes.find((node) => node.id === "topic-1-a")?.label).toBe("快速记录 2");
+    expect(result.document.nodes.find((node) => node.id === "topic-1-a")?.label).toBe("快速記錄 2");
     expect(result.document.edges.find((edge) => edge.id === branch.id)).toEqual(branch);
   });
 
@@ -43,14 +43,14 @@ describe("mind map outline", () => {
     const existing = document.nodes.find((node) => node.id === "topic-1-a");
     existing.width = 180;
     const initial = formatMindMapOutline(document);
-    const edited = initial.text.replace("快速记录", "快速记录与整理").concat("\n- 新增主题");
+    const edited = initial.text.replace("快速記錄", "快速記錄與整理").concat("\n- 新增主題");
     const result = project(document, updateMindMapOutlineDraft(initial, edited));
     expect(result.ok).toBe(true);
     if (!result.ok) return;
-    expect(result.document.nodes.find((node) => node.label === "快速记录与整理")).toMatchObject({
+    expect(result.document.nodes.find((node) => node.label === "快速記錄與整理")).toMatchObject({
       id: "topic-1-a", width: 180,
     });
-    expect(result.document.nodes.find((node) => node.label === "新增主题")?.id).toStartWith("new-");
+    expect(result.document.nodes.find((node) => node.label === "新增主題")?.id).toStartWith("new-");
   });
 
   test("pasting and reparenting topics preserves existing IDs and edge labels", () => {
@@ -59,8 +59,8 @@ describe("mind map outline", () => {
     branch.label = "context";
     const initial = formatMindMapOutline(document);
     const lines = initial.text.split("\n");
-    const moved = lines.splice(lines.findIndex((line) => line.endsWith("快速记录")), 1)[0];
-    lines.splice(lines.findIndex((line) => line.endsWith("笔记本")) + 1, 0, moved, "  - 新主题");
+    const moved = lines.splice(lines.findIndex((line) => line.endsWith("快速記錄")), 1)[0];
+    lines.splice(lines.findIndex((line) => line.endsWith("筆記本")) + 1, 0, moved, "  - 新主題");
     const result = project(document, updateMindMapOutlineDraft(initial, lines.join("\n")));
     expect(result.ok).toBe(true);
     if (!result.ok) return;
@@ -69,7 +69,7 @@ describe("mind map outline", () => {
     expect(result.document.edges.find((edge) => edge.id === branch.id)).toMatchObject({
       source: "topic-2", target: "topic-1-a", label: "context",
     });
-    expect(result.document.nodes.find((node) => node.label === "新主题")?.id).toStartWith("new-");
+    expect(result.document.nodes.find((node) => node.label === "新主題")?.id).toStartWith("new-");
   });
 
   test("rejects malformed hierarchy without changing the source", () => {
@@ -91,7 +91,7 @@ describe("mind map outline", () => {
   test("ignores an empty list item without changing the diagram", () => {
     const document = createDefaultDiagramDocument("mind-map");
     const initial = formatMindMapOutline(document);
-    const edited = initial.text.replace("  - 跨设备同步", "  - \n  - 跨设备同步");
+    const edited = initial.text.replace("  - 跨裝置同步", "  - \n  - 跨裝置同步");
     const result = project(document, updateMindMapOutlineDraft(initial, edited));
     expect(result.ok).toBe(true);
     if (!result.ok) return;
@@ -102,7 +102,7 @@ describe("mind map outline", () => {
   test("omits an emptied topic and promotes its nonempty children", () => {
     const document = createDefaultDiagramDocument("mind-map");
     const initial = formatMindMapOutline(document);
-    const edited = initial.text.replace("- 采集想法", "- ");
+    const edited = initial.text.replace("- 採集想法", "- ");
     const result = project(document, updateMindMapOutlineDraft(initial, edited));
     expect(result.ok).toBe(true);
     if (!result.ok) return;
@@ -114,7 +114,7 @@ describe("mind map outline", () => {
   test("keeps the last valid map while the root is empty", () => {
     const document = createDefaultDiagramDocument("mind-map");
     const initial = formatMindMapOutline(document);
-    const result = project(document, updateMindMapOutlineDraft(initial, initial.text.replace("# 核心主题", "# ")));
+    const result = project(document, updateMindMapOutlineDraft(initial, initial.text.replace("# 核心主題", "# ")));
     expect(result).toMatchObject({ ok: false, error: { reason: "empty" } });
     expect(document.nodes).toHaveLength(8);
   });
@@ -122,7 +122,7 @@ describe("mind map outline", () => {
   test("restores identities after an invalid intermediate paste", () => {
     const document = createDefaultDiagramDocument("mind-map");
     const original = formatMindMapOutline(document);
-    const invalid = updateMindMapOutlineDraft(original, "核心主题\n第二根");
+    const invalid = updateMindMapOutlineDraft(original, "核心主題\n第二根");
     expect(project(document, invalid).ok).toBe(false);
     const restored = updateMindMapOutlineDraft(invalid, original.text);
     const result = project(document, restored);
@@ -148,7 +148,7 @@ describe("mind map outline", () => {
     const document = createDefaultDiagramDocument("mind-map");
     document.edges.push({ id: "extra", source: "topic-1-a", target: "topic-3-a", label: "see also" });
     const initial = formatMindMapOutline(document);
-    const draft = updateMindMapOutlineDraft(initial, "# 核心主题\r\n- 采集想法\r\n  - 快速记录\r\n  - 跨设备同步\r\n- 整理结构\r\n  - 笔记本\r\n- 输出分享\r\n  - 公开链接");
+    const draft = updateMindMapOutlineDraft(initial, "# 核心主題\r\n- 採集想法\r\n  - 快速記錄\r\n  - 跨裝置同步\r\n- 整理結構\r\n  - 筆記本\r\n- 輸出分享\r\n  - 公開連結");
     const result = project(document, draft);
     expect(result.ok).toBe(true);
     if (!result.ok) return;
@@ -159,7 +159,7 @@ describe("mind map outline", () => {
   test("still accepts the earlier plain indented outline", () => {
     const document = createDefaultDiagramDocument("mind-map");
     const initial = formatMindMapOutline(document);
-    const plain = "核心主题\n\t采集想法\n\t\t快速记录\n\t\t跨设备同步\n\t整理结构\n\t\t笔记本\n\t输出分享\n\t\t公开链接";
+    const plain = "核心主題\n\t採集想法\n\t\t快速記錄\n\t\t跨裝置同步\n\t整理結構\n\t\t筆記本\n\t輸出分享\n\t\t公開連結";
     const result = project(document, updateMindMapOutlineDraft(initial, plain));
     expect(result.ok).toBe(true);
     if (!result.ok) return;

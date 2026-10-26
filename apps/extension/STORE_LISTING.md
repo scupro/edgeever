@@ -3,7 +3,7 @@
 ## Product details
 
 - Name: `EdgeEver Web Clipper`
-- Primary language: `中文（简体）`
+- Primary language: `中文（簡體）`
 - Category: `Workflow & Planning`
 - Homepage: `https://edgeever.org/`
 - Support URL: `https://github.com/tianma-if/edgeever/issues`
@@ -11,7 +11,7 @@
 
 ## Localized listings
 
-- `中文（简体）`: Primary language
+- `中文（簡體）`: Primary language
 - `English`: Localized listing
 
 Select the matching language in the Chrome Web Store developer dashboard and enter the corresponding copy below. Store listing localization is separate from the extension's packaged `_locales` messages.
@@ -25,36 +25,36 @@ The detailed descriptions below include video notes and Hacker News capture prep
 - Screenshot: `store-assets/screenshot-options-1280x800.jpg`
 - Small promo tile: `store-assets/promo-small-440x280.jpg`
 
-### 中文（简体）
+### 中文（簡體）
 
 #### Summary
 
-将网页、选中文字、图片及 Hacker News 主帖保存到你自托管的 EdgeEver 实例。
+將網頁、選中文字、圖片及 Hacker News 主帖儲存到你自託管的 EdgeEver 實例。
 
 #### Detailed description
 
-EdgeEver Web Clipper 可以把当前网页，或你选中的那一部分，保存到自托管的 EdgeEver 实例。
+EdgeEver Web Clipper 可以把當前網頁，或你選中的那一部分，儲存到自託管的 EdgeEver 實例。
 
 主要功能：
 
-- 自动提取文章正文，并转换为便于搜索和编辑的 Markdown。
-- 选中一段文字后右键，选择“保存所选内容到 EdgeEver”，只保存这段文字。
-- 在图片上右键，选择“保存图片到 EdgeEver”，把图片文件存成一条新笔记。
-- 在 X 上右键推文，保存展开后的全文和已经显示的图片。
-- 在小红书上保存笔记的标题、正文和图片，不写入评论。
-- 在知乎上保存指针下的回答或文章，包括标题、作者、正文和图片，不写入评论。
-- 在 Reddit 上右键帖子，保存标题、作者、社区、正文、链接和图片，不写入评论。
-- 在 GitHub 仓库页上保存地址和简介；页面上有主页、语言、许可证和话题时一并写入。
-- 在 Hacker News 主帖详情页保存标题、作者、原始时间、剪藏时的分数、外部链接和主帖正文，不写入评论。
-- 可以把 YouTube 或哔哩哔哩播放页保存为视频笔记。
-- 这些命令直接出现在右键菜单的第一级。
-- 笔记会保留来源和剪藏时间。
-- 可选择默认笔记本，并自动添加 web-clip 标签。
-- 内容只发送到你配置的 EdgeEver 实例。
+- 自動提取文章正文，並轉換為便於搜尋和編輯的 Markdown。
+- 選中一段文字後右鍵，選擇“儲存所選內容到 EdgeEver”，只儲存這段文字。
+- 在圖片上右鍵，選擇“儲存圖片到 EdgeEver”，把圖片檔案存成一條新筆記。
+- 在 X 上右鍵推文，儲存展開後的全文和已經顯示的圖片。
+- 在小紅書上儲存筆記的標題、正文和圖片，不寫入評論。
+- 在知乎上儲存指標下的回答或文章，包括標題、作者、正文和圖片，不寫入評論。
+- 在 Reddit 上右鍵帖子，儲存標題、作者、社群、正文、連結和圖片，不寫入評論。
+- 在 GitHub 倉庫頁上儲存地址和簡介；頁面上有主頁、語言、許可證和話題時一併寫入。
+- 在 Hacker News 主帖詳情頁儲存標題、作者、原始時間、剪藏時的分數、外部連結和主帖正文，不寫入評論。
+- 可以把 YouTube 或嗶哩嗶哩播放頁儲存為影片筆記。
+- 這些命令直接出現在右鍵選單的第一級。
+- 筆記會保留來源和剪藏時間。
+- 可選擇預設筆記本，並自動新增 web-clip 標籤。
+- 內容只傳送到你配置的 EdgeEver 實例。
 
-使用前，请在插件设置中填写实例地址和 API Token。插件只会在你使用保存命令后读取当前标签页。图片若无法由页面直接交出，才会再请求该图片所在网站的访问权限。
+使用前，請在外掛設定中填寫實例地址和 API Token。外掛只會在你使用儲存命令後讀取當前標籤頁。圖片若無法由頁面直接交出，才會再請求該圖片所在網站的訪問權限。
 
-EdgeEver 是开源、自托管的现代笔记工作区。项目主页与源代码：https://github.com/tianma-if/edgeever
+EdgeEver 是開源、自託管的現代筆記工作區。專案主頁與原始碼：https://github.com/tianma-if/edgeever
 
 ### English
 

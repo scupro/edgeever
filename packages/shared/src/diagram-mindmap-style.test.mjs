@@ -49,15 +49,15 @@ describe("mind map presentation", () => {
   });
 
   test("keeps compact topic sizes while allowing longer labels to grow within a cap", () => {
-    expect(compactMindMapNodeSize("分支主题", false)).toEqual({ width: 96, height: 36 });
-    expect(compactMindMapNodeSize("核心主题", true)).toEqual({ width: 124, height: 46 });
+    expect(compactMindMapNodeSize("分支主題", false)).toEqual({ width: 96, height: 36 });
+    expect(compactMindMapNodeSize("核心主題", true)).toEqual({ width: 124, height: 46 });
     expect(compactMindMapNodeSize("A much longer topic label", false).width).toBeLessThanOrEqual(168);
-    expect(mindMapNodePresentation("核心主题", "root").fontSize).toBe(15);
+    expect(mindMapNodePresentation("核心主題", "root").fontSize).toBe(15);
     expect(MIND_MAP_VERTICAL_GAP).toBe(20);
   });
 
   test("keeps edge annotations visually subordinate to nested topics", () => {
-    const nestedPresentation = mindMapNodePresentation("分支主题", "nested");
+    const nestedPresentation = mindMapNodePresentation("分支主題", "nested");
     const nestedVisual = mindMapNodeVisual("nested", palette);
     expect(MIND_MAP_EDGE_LABEL_FONT_SIZE).toBe(10);
     expect(MIND_MAP_EDGE_LABEL_LINE_HEIGHT).toBe(14);

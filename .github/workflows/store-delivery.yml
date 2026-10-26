@@ -364,7 +364,7 @@ jobs:
             appendFileSync(process.env.GITHUB_OUTPUT, `${key}<<EOF\n${value}\nEOF\n`);
           };
           write("notes_en", join(summary.changes?.["en-US"]));
-          write("notes_zh", join(summary.changes?.["zh-CN"]));
+          write("notes_zh", join(summary.changes?.["zh-TW"]));
           const notesJa = join(summary.changes?.ja || summary.changes?.["ja-JP"]);
           if (!notesJa) {
             throw new Error(

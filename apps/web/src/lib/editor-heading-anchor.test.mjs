@@ -50,8 +50,8 @@ const paragraph = (text, pos) => ({
 
 describe("parseHeadingAnchorHref", () => {
   test("reads a bare heading fragment and decodes it", () => {
-    expect(parseHeadingAnchorHref("#简介")).toBe("简介");
-    expect(parseHeadingAnchorHref("#%E7%AE%80%E4%BB%8B")).toBe("简介");
+    expect(parseHeadingAnchorHref("#簡介")).toBe("簡介");
+    expect(parseHeadingAnchorHref("#%E7%B0%A1%E4%BB%8B")).toBe("簡介");
     expect(parseHeadingAnchorHref("#Hello%20World")).toBe("Hello World");
     expect(parseHeadingAnchorHref("  #hello-world  ")).toBe("hello-world");
   });
@@ -59,8 +59,8 @@ describe("parseHeadingAnchorHref", () => {
   test("leaves note links, web links, and empty hashes alone", () => {
     expect(parseHeadingAnchorHref("#memo=memo_abc")).toBeNull();
     expect(parseHeadingAnchorHref("#memo=")).toBeNull();
-    expect(parseHeadingAnchorHref("https://example.com/docs#简介")).toBeNull();
-    expect(parseHeadingAnchorHref("/docs#简介")).toBeNull();
+    expect(parseHeadingAnchorHref("https://example.com/docs#簡介")).toBeNull();
+    expect(parseHeadingAnchorHref("/docs#簡介")).toBeNull();
     expect(parseHeadingAnchorHref("#")).toBeNull();
     expect(parseHeadingAnchorHref("")).toBeNull();
     expect(parseHeadingAnchorHref(null)).toBeNull();
@@ -69,25 +69,25 @@ describe("parseHeadingAnchorHref", () => {
 
 describe("findHeadingAnchor", () => {
   const headings = collectHeadingAnchors(docWith([
-    heading("简介", 1),
+    heading("簡介", 1),
     paragraph("正文", 8),
     heading("Hello World", 12),
-    heading("1. 安装", 30),
-    heading("简介", 48),
-    heading("  简介： ", 60),
+    heading("1. 安裝", 30),
+    heading("簡介", 48),
+    heading("  簡介： ", 60),
   ]));
 
   test("matches Chinese text, encoded slugs, and punctuation", () => {
-    expect(findHeadingAnchor(headings, "简介")?.pos).toBe(1);
+    expect(findHeadingAnchor(headings, "簡介")?.pos).toBe(1);
     expect(findHeadingAnchor(headings, "hello-world")?.pos).toBe(12);
     expect(findHeadingAnchor(headings, "Hello World")?.pos).toBe(12);
-    expect(findHeadingAnchor(headings, "1-安装")?.pos).toBe(30);
-    expect(findHeadingAnchor(headings, "简介：")?.pos).toBe(1);
+    expect(findHeadingAnchor(headings, "1-安裝")?.pos).toBe(30);
+    expect(findHeadingAnchor(headings, "簡介：")?.pos).toBe(1);
   });
 
   test("uses the first heading when the title is repeated", () => {
-    expect(findHeadingAnchor(headings, "简介")?.pos).toBe(1);
-    expect(findHeadingAnchor(headings, "没有这一节")).toBeNull();
+    expect(findHeadingAnchor(headings, "簡介")?.pos).toBe(1);
+    expect(findHeadingAnchor(headings, "沒有這一節")).toBeNull();
   });
 });
 
@@ -95,7 +95,7 @@ describe("activateHeadingAnchorClick", () => {
   const anchor = (href) => {
     const link = document.createElement("a");
     link.setAttribute("href", href);
-    link.textContent = "跳转";
+    link.textContent = "跳轉";
     return link;
   };
 
@@ -119,14 +119,14 @@ describe("activateHeadingAnchorClick", () => {
     details.append(element);
     const view = {
       state: {
-        doc: docWith([heading("安装", 4)]),
+        doc: docWith([heading("安裝", 4)]),
       },
       nodeDOM: () => element,
       domAtPos: () => ({ node: element }),
       dispatch() {},
       focus() {},
     };
-    const event = click(anchor("#安装"));
+    const event = click(anchor("#安裝"));
     expect(activateHeadingAnchorClick(event, view)).toBe(true);
     expect(event.prevented).toBe(true);
     expect(event.stopped).toBe(true);
@@ -135,18 +135,18 @@ describe("activateHeadingAnchorClick", () => {
   });
 
   test("stays put when the heading is missing", () => {
-    const event = click(anchor("#没有"));
-    const view = { state: { doc: docWith([heading("简介", 1)]) } };
+    const event = click(anchor("#沒有"));
+    const view = { state: { doc: docWith([heading("簡介", 1)]) } };
     expect(activateHeadingAnchorClick(event, view)).toBe(true);
     expect(event.prevented).toBe(true);
   });
 
   test("does not consume note links, web links, or non-primary clicks", () => {
-    const view = { state: { doc: docWith([heading("简介", 1)]) } };
+    const view = { state: { doc: docWith([heading("簡介", 1)]) } };
     for (const event of [
       click(anchor("#memo=memo_abc")),
-      click(anchor("https://example.com/docs#简介")),
-      click(anchor("#简介"), 2),
+      click(anchor("https://example.com/docs#簡介")),
+      click(anchor("#簡介"), 2),
     ]) {
       expect(activateHeadingAnchorClick(event, view)).toBe(false);
       expect(event.prevented).toBe(false);

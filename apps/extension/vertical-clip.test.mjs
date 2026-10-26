@@ -24,9 +24,9 @@ test("vertical detail identities discard tracking but reject foreign hosts, dupl
 test("BOSS real readable job keeps complete requirements, salary, location and company; excludes hidden noise and controls", () => {
   const result = readBoss(fixture("boss"), bossUrl);
   expect(result.ok).toBe(true);
-  expect(result.clip).toMatchObject({ title: "AI平台开发工程师", author: "超聚变技术有限公司", tags: ["web-clip", "boss"] });
-  for (const text of ["25-50K·13薪", "深圳 5-10年 本科", "5、熟悉OCR技术", "130个国家和地区", "深圳福田区博今国际A座", "节日福利", "五险一金"]) expect(result.clip.markdown).toContain(text);
-  for (const text of ["立即沟通", "登录/注册", "竞争力分析", "点击查看地图", "boss", "BOSS直聘描述"]) expect(result.clip.markdown).not.toContain(text);
+  expect(result.clip).toMatchObject({ title: "AI平臺開發工程師", author: "超聚變技術有限公司", tags: ["web-clip", "boss"] });
+  for (const text of ["25-50K·13薪", "深圳 5-10年 本科", "5、熟悉OCR技術", "130個國家和地區", "深圳福田區博今國際A座", "節日福利", "五險一金"]) expect(result.clip.markdown).toContain(text);
+  for (const text of ["立即溝通", "登入/註冊", "競爭力分析", "點選檢視地圖", "boss", "BOSS直聘描述"]) expect(result.clip.markdown).not.toContain(text);
   expect(result.clip.publishedAt).toBeUndefined(); // Page update date is not a publication date.
   expect(isPlatformClip(result.clip, platformTarget(bossUrl))).toBe(true);
 });
@@ -43,10 +43,10 @@ test("BOSS optional metadata and company introduction do not gate an otherwise r
     const doc = fixture("boss"); doc.querySelector(selector).remove();
     const result = readBoss(doc, bossUrl);
     expect(result.ok).toBe(true);
-    expect(result.clip.markdown).toContain("5、熟悉OCR技术");
+    expect(result.clip.markdown).toContain("5、熟悉OCR技術");
   }
-  const doc = fixture("boss"); doc.querySelector('.salary').textContent = "薪资可谈";
-  expect(readBoss(doc, bossUrl).clip.markdown).toContain("薪资可谈");
+  const doc = fixture("boss"); doc.querySelector('.salary').textContent = "薪資可談";
+  expect(readBoss(doc, bossUrl).clip.markdown).toContain("薪資可談");
 });
 
 test("BOSS hides optional company information instead of refusing the complete job", () => {
@@ -55,7 +55,7 @@ test("BOSS hides optional company information instead of refusing the complete j
   doc.querySelector('.job-detail-company').setAttribute('hidden', '');
   const result = readBoss(doc, bossUrl);
   expect(result.ok).toBe(true); expect(result.clip.author).toBeUndefined();
-  expect(result.clip.markdown).not.toContain('超聚变');
+  expect(result.clip.markdown).not.toContain('超聚變');
 });
 
 test("visibility overrides retain readable descendants while hidden text and images stay excluded", () => {
@@ -67,9 +67,9 @@ test("visibility overrides retain readable descendants while hidden text and ima
   const wrapper = restricted.querySelector('.zp-more-info-layer-wrapper'), label = restricted.querySelector('.zp-more-info-layer-text');
   wrapper.style.visibility = 'hidden'; label.style.visibility = 'visible';
   expect(bossLoginRequired(restricted)).toBe(true);
-  label.style.visibility = 'hidden'; label.innerHTML = '<span style="visibility:visible">登录查看完整内容</span>';
+  label.style.visibility = 'hidden'; label.innerHTML = '<span style="visibility:visible">登入檢視完整內容</span>';
   expect(bossLoginRequired(restricted)).toBe(true); expect(readBoss(restricted, bossUrl).ok).toBe(false);
-  label.style.visibility = 'visible'; label.innerHTML = '<span hidden>登录查看完整内容</span>';
+  label.style.visibility = 'visible'; label.innerHTML = '<span hidden>登入檢視完整內容</span>';
   expect(bossLoginRequired(restricted)).toBe(false);
 });
 
@@ -82,7 +82,7 @@ test("the BOSS login hint uses only its visible job-preview layer, not unrelated
   doc.querySelector(".zp-more-info-layer-text").setAttribute("hidden", "");
   expect(bossLoginRequired(doc)).toBe(false);
   const readable = fixture("boss");
-  readable.body.innerHTML += '<aside class="zp-more-info-layer-wrapper">登录查看完整内容</aside>';
+  readable.body.innerHTML += '<aside class="zp-more-info-layer-wrapper">登入檢視完整內容</aside>';
   expect(bossLoginRequired(readable)).toBe(false);
 });
 
@@ -94,10 +94,10 @@ for (const selector of [".job-banner", ".job-sec-text"]) test(`BOSS does not rea
 test("Xueqiu real article keeps author, original post time, all images and only its explicitly linked stock tags", () => {
   const result = readXueqiu(fixture("xueqiu"), platformTarget(xueqiuUrl), xueqiuUrl);
   expect(result.ok).toBe(true);
-  expect(result.clip).toMatchObject({ author: "--大圣--", publishedAt: { value: "2023-06-16T23:54:12.000Z", precision: "datetime" }, tags: ["web-clip", "xueqiu", "投资", "SH600438", "SH601012", "SH688472"] });
-  expect(result.clip.markdown).toContain("及时高效响应全球客户和市场");
+  expect(result.clip).toMatchObject({ author: "--大聖--", publishedAt: { value: "2023-06-16T23:54:12.000Z", precision: "datetime" }, tags: ["web-clip", "xueqiu", "投資", "SH600438", "SH601012", "SH688472"] });
+  expect(result.clip.markdown).toContain("及時高效響應全球客戶和市場");
   expect(result.clip.markdown.match(/!\[/g)).toHaveLength(3);
-  for (const text of ["用的陕汽的重卡送货", "来源：雪球App", "打赏作者", "热门话题"]) expect(result.clip.markdown).not.toContain(text);
+  for (const text of ["用的陝汽的重卡送貨", "來源：雪球App", "打賞作者", "熱門話題"]) expect(result.clip.markdown).not.toContain(text);
   expect(isPlatformClip(result.clip, platformTarget(xueqiuUrl))).toBe(true);
   expect(isPlatformClip({ ...result.clip, tags: [...result.clip.tags, "invented ticker"] }, platformTarget(xueqiuUrl))).toBe(false);
 });
@@ -105,9 +105,9 @@ test("Xueqiu real article keeps author, original post time, all images and only 
 test("stock tags ignore hidden references, plain mentions, comments and unrelated links", () => {
   const doc = fixture("xueqiu"), body = doc.querySelector(".article__bd__detail");
   body.innerHTML += '<p>Plain AAPL and SH999999</p><p hidden><a href="/S/AAPL">AAPL</a></p><p><a href="https://evil.test/S/MSFT">MSFT</a></p>';
-  expect(readXueqiu(doc, platformTarget(xueqiuUrl), xueqiuUrl).clip.tags).toEqual(["web-clip", "xueqiu", "投资", "SH600438", "SH601012", "SH688472"]);
+  expect(readXueqiu(doc, platformTarget(xueqiuUrl), xueqiuUrl).clip.tags).toEqual(["web-clip", "xueqiu", "投資", "SH600438", "SH601012", "SH688472"]);
   body.querySelectorAll("a[href]").forEach((a) => a.removeAttribute("href"));
-  expect(readXueqiu(doc, platformTarget(xueqiuUrl), xueqiuUrl).clip.tags).toEqual(["web-clip", "xueqiu", "投资"]);
+  expect(readXueqiu(doc, platformTarget(xueqiuUrl), xueqiuUrl).clip.tags).toEqual(["web-clip", "xueqiu", "投資"]);
 });
 
 test("Xueqiu stocks cannot come from controls or scripts removed from the saved body", () => {
@@ -127,7 +127,7 @@ test("Xueqiu readable detail does not require author and time links; conflicts a
   doc.querySelectorAll('a.time').forEach(n=>n.remove());
   doc.querySelector('.article__author a.name').removeAttribute('href');
   const result = readXueqiu(doc, target, xueqiuUrl);
-  expect(result.ok).toBe(true); expect(result.clip.author).toBe('--大圣--'); expect(result.clip.publishedAt).toBeUndefined();
+  expect(result.ok).toBe(true); expect(result.clip.author).toBe('--大聖--'); expect(result.clip.publishedAt).toBeUndefined();
   expect(readXueqiu(doc, target, xueqiuUrl.replace('253443400','253443401'))).toEqual({ok:false,reason:'changed'});
 });
 
@@ -162,7 +162,7 @@ test("Xueqiu stays within the persisted tag limit while retaining all explicit s
 test("body links and a mismatched author cannot prove Xueqiu parent identity; modified time is not publication time", () => {
   const doc = fixture("xueqiu"), target = platformTarget(xueqiuUrl);
   const time = doc.querySelector(".article__author a.time");
-  time.firstChild.textContent = "修改于";
+  time.firstChild.textContent = "修改於";
   expect(readXueqiu(doc, target, xueqiuUrl).clip.publishedAt).toBeUndefined();
   time.href = xueqiuUrl.replace("253443400", "253443401");
   doc.querySelector(".article__bd__detail").innerHTML += `<a href="${xueqiuUrl}">Referenced post</a>`;
@@ -205,7 +205,7 @@ test("Xiaoyuzhou real explicit hosts stay with the complete episode timeline and
   const doc = fixture("xiaoyuzhou-hosts");
   const result = readXiaoyuzhou(doc, "https://www.xiaoyuzhoufm.com/episode/612375e57f89405077cbeb3b", { podcast: "Podcast" });
   expect(result.ok).toBe(true);
-  for (const text of ["下课以后", "1:10", "5:16", "7:04", "11:08", "14:56", "16:42", "阿丁、毛毛", "蜻蜓FM等平台收听"]) expect(result.clip.markdown).toContain(text);
+  for (const text of ["下課以後", "1:10", "5:16", "7:04", "11:08", "14:56", "16:42", "阿丁、毛毛", "蜻蜓FM等平臺收聽"]) expect(result.clip.markdown).toContain(text);
   expect(result.clip.author).toBeUndefined(); // Episode hosts are the explicit Show Notes text, not podcast authors.
 });
 

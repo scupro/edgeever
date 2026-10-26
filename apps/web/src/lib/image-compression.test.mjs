@@ -7,7 +7,7 @@ afterEach(() => {
   else delete globalThis.Worker;
 });
 
-const source = () => new File([new Uint8Array(1024)], "截图.png", { type: "image/png", lastModified: 123 });
+const source = () => new File([new Uint8Array(1024)], "截圖.png", { type: "image/png", lastModified: 123 });
 const mockWorker = (blob) => {
   const state = { terminated: false, message: null };
   globalThis.Worker = class {
@@ -25,7 +25,7 @@ test("uses background compression and releases the worker while preserving metad
   const file = source();
   const result = await compressImageForUpload(file);
   expect(result.compressed).toBe(true);
-  expect(result.file.name).toBe("截图.webp");
+  expect(result.file.name).toBe("截圖.webp");
   expect(result.file.lastModified).toBe(123);
   expect(result.file.type).toBe("image/webp");
   expect(state.message).toMatchObject({ file, maxEdge: 2560, quality: 0.82 });

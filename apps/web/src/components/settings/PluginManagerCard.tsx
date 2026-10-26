@@ -304,10 +304,10 @@ export const PluginManagerCard = ({
   const { t, i18n } = useTranslation();
   const queryClient = useQueryClient();
   const developerDocsUrl = i18n.resolvedLanguage?.startsWith("zh")
-    ? "https://github.com/tianma-if/edgeever/blob/main/docs/plugin-development.zh-CN.md"
+    ? "https://github.com/tianma-if/edgeever/blob/main/docs/plugin-development.zh-TW.md"
     : "https://github.com/tianma-if/edgeever/blob/main/docs/plugin-development.md";
   const communityReadmeUrl = i18n.resolvedLanguage?.startsWith("zh")
-    ? `${COMMUNITY_PLUGINS_REPOSITORY_URL}/blob/main/README.zh-CN.md`
+    ? `${COMMUNITY_PLUGINS_REPOSITORY_URL}/blob/main/README.zh-TW.md`
     : COMMUNITY_PLUGINS_README_URL;
   const snapshot = useSyncExternalStore(host.subscribe, host.getSnapshot, host.getSnapshot);
   const [manifestUrl, setManifestUrl] = useState("");

@@ -21,7 +21,7 @@ test('ordinary or malformed notes safely omit optional diagram metadata', () => 
 
 test('preview payload is bounded and prioritizes architecture boundaries', () => {
   const diagram = createDefaultDiagramDocument('architecture');
-  for (const node of diagram.nodes) node.label = '示例主题'.repeat(100);
+  for (const node of diagram.nodes) node.label = '示例主題'.repeat(100);
   const preview = getDiagramSummary(serializeDiagramDocument(diagram)).diagramPreview;
   expect(preview.labels.length).toBeLessThanOrEqual(4);
   expect(preview.labels.every(label => Array.from(label).length <= 48)).toBe(true);

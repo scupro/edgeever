@@ -281,7 +281,7 @@ describe("AI route contracts", () => {
   });
 
   test("requires a user session and valid candidates for the infographic agent", async () => {
-    const payload = { prompt: "做个列表", currentContent: "", candidates: ["list-grid-simple"], history: [] };
+    const payload = { prompt: "做個列表", currentContent: "", candidates: ["list-grid-simple"], history: [] };
     const tokenApp = createApp({ currentAuth: { ...auth, kind: "agent", actorType: "agent" } });
     const forbidden = await tokenApp.request("/api/v1/ai/infographic-agent/prepare", {
       method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(payload),

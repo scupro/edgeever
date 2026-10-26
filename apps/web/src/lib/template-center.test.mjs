@@ -3,7 +3,7 @@ import { DEFAULT_MEMO_TEMPLATE_SEEDS } from "@edgeever/shared/memo-template-seed
 import { createTemplateCards, createTemplateDraft, templateDraftToPayload } from "./template-center.ts";
 
 const quickNote = DEFAULT_MEMO_TEMPLATE_SEEDS.find((seed) => seed.key === "quick-note");
-const chinese = quickNote.translations["zh-CN"];
+const chinese = quickNote.translations["zh-TW"];
 const polish = quickNote.translations.pl;
 const storedChinese = {
   id: "ws_default_template_quick-note",

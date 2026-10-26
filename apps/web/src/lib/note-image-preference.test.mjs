@@ -20,10 +20,10 @@ const withStorage = (entries, run) => {
 };
 
 test('migrates the existing title choice and signature without losing explicit false', () => {
-  withStorage({ edgeever_share_image_show_title: 'false', edgeever_share_author_name: '天马' }, () => {
+  withStorage({ edgeever_share_image_show_title: 'false', edgeever_share_author_name: '天馬' }, () => {
     const migrated = readNoteImagePreferences();
     expect(migrated.showTitle).toBe(false);
-    expect(migrated.author).toBe('天马');
+    expect(migrated.author).toBe('天馬');
     expect(migrated.showAuthor).toBe(true);
     writeNoteImagePreferences({ ...migrated, showAuthor: false, theme: 'book' });
     expect(readNoteImagePreferences()).toEqual({ ...migrated, showAuthor: false, theme: 'book' });

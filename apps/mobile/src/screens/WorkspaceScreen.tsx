@@ -476,10 +476,10 @@ export const WorkspaceScreen = ({
   const openRichEditor = useCallback((memo: MemoDetail, initialFocus: "body" | "title" = "body") => {
     if (hasDiagramDocumentMarker(memo.contentMarkdown)) {
       Alert.alert(
-        resolvedLocale !== "zh-CN" ? "View-only diagram" : "图表暂为只读",
-        resolvedLocale !== "zh-CN"
+        resolvedLocale !== "zh-TW" ? "View-only diagram" : "圖表暫為只讀",
+        resolvedLocale !== "zh-TW"
           ? "Visual diagram editing is currently available on Web and desktop."
-          : "可视化图表目前请在 Web 或桌面端编辑。"
+          : "視覺化圖表目前請在 Web 或桌面端編輯。"
       );
       return;
     }
@@ -514,7 +514,7 @@ export const WorkspaceScreen = ({
   const allVisibleMemosSelected = canToggleVisibleSelection && visibleMemos.every((memo) => selectedMemoIds.has(memo.id));
   const nextSelectionPinValue = selectedMemos.some((memo) => !memo.isPinned);
   const defaultMemoNotebookId = notebooks.find(
-    (notebook) => notebook.id === "nb_inbox" || notebook.slug === "inbox" || notebook.name === "等待分类"
+    (notebook) => notebook.id === "nb_inbox" || notebook.slug === "inbox" || notebook.name === "等待分類"
   )?.id ?? "";
   const createMemoNotebookId =
     activeNotebookId !== ALL_NOTES_ID && notebooks.some((notebook) => notebook.id === activeNotebookId)
@@ -573,8 +573,8 @@ export const WorkspaceScreen = ({
       .then((draft) => {
         openIncomingClipDraft(draft);
         Alert.alert(
-          "正文剪藏失败",
-          `${translate(message)} ${translate("已保留文章链接，你可以稍后重新分享重试。")}`,
+          "正文剪藏失敗",
+          `${translate(message)} ${translate("已保留文章連結，你可以稍後重新分享重試。")}`,
         );
       })
       .finally(finishIncomingShare);
@@ -588,7 +588,7 @@ export const WorkspaceScreen = ({
     if (incomingShareError && incomingSharePayloads.length === 0) {
       if (processedShareUrlRef.current !== "invalid-share-resolution") {
         processedShareUrlRef.current = "invalid-share-resolution";
-        Alert.alert(translate("无法读取分享内容"), translate("请重新分享后再试。"));
+        Alert.alert(translate("無法讀取分享內容"), translate("請重新分享後再試。"));
         onIncomingShareHandledRef.current?.();
       }
       return;
@@ -597,7 +597,7 @@ export const WorkspaceScreen = ({
     if (incomingShareError && sharedImages.some((image) => !image.uri.startsWith("file:"))) {
       if (processedShareUrlRef.current !== "invalid-binary-share") {
         processedShareUrlRef.current = "invalid-binary-share";
-        Alert.alert(translate("无法读取分享图片"), translate("请重新分享后再试。"));
+        Alert.alert(translate("無法讀取分享圖片"), translate("請重新分享後再試。"));
         onIncomingShareHandledRef.current?.();
       }
       return;
@@ -622,7 +622,7 @@ export const WorkspaceScreen = ({
       if (notebooks.length === 0) {
         if (notebooksQuery.isSuccess) {
           processedShareUrlRef.current = shareKey;
-          Alert.alert("无法保存图片", "请先在 EdgeEver 中创建一个笔记本。");
+          Alert.alert("無法儲存圖片", "請先在 EdgeEver 中建立一個筆記本。");
           onIncomingShareHandledRef.current?.();
         }
         return;
@@ -636,7 +636,7 @@ export const WorkspaceScreen = ({
       setCreateSeed({
         contentMarkdown: "",
         tagsText: "",
-        title: translate(sharedImages.length === 1 ? "分享的图片" : `分享的图片（${sharedImages.length} 张）`),
+        title: translate(sharedImages.length === 1 ? "分享的圖片" : `分享的圖片（${sharedImages.length} 張）`),
       });
       setActiveView("notes");
       setMemoView("notebook");
@@ -650,8 +650,8 @@ export const WorkspaceScreen = ({
       if (incomingSharePayloads.length > 0 && processedShareUrlRef.current !== "invalid-share") {
         processedShareUrlRef.current = "invalid-share";
         Alert.alert(
-          "无法读取分享内容",
-          incomingShareError?.message || "分享内容里没有可识别的网页链接或图片。",
+          "無法讀取分享內容",
+          incomingShareError?.message || "分享內容裡沒有可識別的網頁連結或圖片。",
         );
         onIncomingShareHandledRef.current?.();
         return;
@@ -665,7 +665,7 @@ export const WorkspaceScreen = ({
     if (notebooks.length === 0) {
       if (notebooksQuery.isSuccess) {
         processedShareUrlRef.current = sourceUrl;
-        Alert.alert("无法保存剪藏", "请先在 EdgeEver 中创建一个笔记本。");
+        Alert.alert("無法儲存剪藏", "請先在 EdgeEver 中建立一個筆記本。");
         onIncomingShareHandledRef.current?.();
       }
       return;
@@ -691,7 +691,7 @@ export const WorkspaceScreen = ({
       })
       .catch(() => {
         if (isActive()) {
-          Alert.alert("剪藏失败", "无法读取分享的网页，请稍后重试。");
+          Alert.alert("剪藏失敗", "無法讀取分享的網頁，請稍後重試。");
         }
       })
       .finally(() => {
@@ -984,7 +984,7 @@ export const WorkspaceScreen = ({
       if (context?.reopenMemoId) {
         setSelectedMemoId(context.reopenMemoId);
       }
-      Alert.alert("删除失败", error instanceof Error ? error.message : "请检查网络后重试");
+      Alert.alert("刪除失敗", error instanceof Error ? error.message : "請檢查網路後重試");
     },
   });
 
@@ -1020,7 +1020,7 @@ export const WorkspaceScreen = ({
       });
     },
     onError: () => {
-      Alert.alert("分享失败", "无法创建分享链接，请检查网络后重试。");
+      Alert.alert("分享失敗", "無法建立分享連結，請檢查網路後重試。");
     },
   });
 
@@ -1082,7 +1082,7 @@ export const WorkspaceScreen = ({
         context?.previousSelectionMode ?? false,
         context?.previousSelectedMemoIds ?? new Set(),
       );
-      Alert.alert("删除失败", error instanceof Error ? error.message : "请检查网络后重试");
+      Alert.alert("刪除失敗", error instanceof Error ? error.message : "請檢查網路後重試");
     },
   });
 
@@ -1092,10 +1092,10 @@ export const WorkspaceScreen = ({
       deleteMemoMutation.mutate({ memo, permanent: false });
       return;
     }
-    Alert.alert("永久删除笔记", "这个操作不可恢复。", [
+    Alert.alert("永久刪除筆記", "這個操作不可恢復。", [
       { text: "取消", style: "cancel" },
       {
-        text: "永久删除",
+        text: "永久刪除",
         style: "destructive",
         onPress: () => deleteMemoMutation.mutate({ memo, permanent: true }),
       },
@@ -1103,13 +1103,13 @@ export const WorkspaceScreen = ({
   };
 
   const handleRenameResource = async (memo: MemoDetail, target: MobileResourceTarget, filename: string) => {
-    if (!client) throw new Error("当前无法连接实例，请稍后重试");
+    if (!client) throw new Error("當前無法連線實例，請稍後重試");
     const { resource } = await client.renameResource(target.resourceId, filename);
     const contentJson = renameMobileResourceInDoc(
       memo.contentJson,
       target,
       resource.filename || filename,
-      resolvedLocale !== "zh-CN" ? "Attachment: " : "附件："
+      resolvedLocale !== "zh-TW" ? "Attachment: " : "附件："
     );
     await localUpdateMemoMutation.mutateAsync({
       memo,
@@ -1118,7 +1118,7 @@ export const WorkspaceScreen = ({
   };
 
   const handleDeleteResource = async (memo: MemoDetail, target: MobileResourceTarget) => {
-    if (!client) throw new Error("当前无法连接实例，请稍后重试");
+    if (!client) throw new Error("當前無法連線實例，請稍後重試");
     await client.deleteResource(target.resourceId);
     const contentJson = deleteMobileResourceFromDoc(memo.contentJson, target);
     await localUpdateMemoMutation.mutateAsync({
@@ -1131,13 +1131,13 @@ export const WorkspaceScreen = ({
     try {
       const text = await getMobileConflictDraftClipboardText(syncQueueScope, memo.id);
       if (!text?.trim()) {
-        Alert.alert("复制失败", "没有可复制的本地草稿。");
+        Alert.alert("複製失敗", "沒有可複製的本機草稿。");
         return;
       }
       await Clipboard.setStringAsync(text);
-      Alert.alert("已复制", "本地草稿已复制到剪贴板。");
+      Alert.alert("已複製", "本機草稿已複製到剪貼簿。");
     } catch (error) {
-      Alert.alert("复制失败", error instanceof Error ? error.message : "请重试");
+      Alert.alert("複製失敗", error instanceof Error ? error.message : "請重試");
     }
   }, [syncQueueScope]);
 
@@ -1162,25 +1162,25 @@ export const WorkspaceScreen = ({
         queryClient.invalidateQueries({ queryKey: ["mobile", "memo", "trash", memo.id] }),
       ]);
     } catch (error) {
-      Alert.alert("采用云端版本失败", error instanceof Error ? error.message : "请检查网络后重试");
+      Alert.alert("採用雲端版本失敗", error instanceof Error ? error.message : "請檢查網路後重試");
     }
   }, [client, dataScope, queryClient, refreshSyncQueueItems, syncQueueScope]);
 
   const handleMemoSyncConflict = useCallback((memo: MemoDetail) => {
     Alert.alert(
-      "同步冲突",
-      "云端笔记已在其他标签页、设备，或离线期间被更新，本地草稿无法直接覆盖。可先复制本地草稿，再采用云端版本后继续编辑。",
+      "同步衝突",
+      "雲端筆記已在其他標籤頁、裝置，或離線期間被更新，本機草稿無法直接覆蓋。可先複製本機草稿，再採用雲端版本後繼續編輯。",
       [
         { text: "取消", style: "cancel" },
         {
-          text: "复制本地草稿",
+          text: "複製本機草稿",
           onPress: () => {
             void handleCopyConflictDraft(memo);
           },
         },
-        { text: "查看历史", onPress: () => setRevisionMemo(memo) },
+        { text: "檢視歷史", onPress: () => setRevisionMemo(memo) },
         {
-          text: "采用云端并重新加载",
+          text: "採用雲端並重新載入",
           style: "destructive",
           onPress: () => {
             void handleAdoptCloudVersion(memo);
@@ -1196,10 +1196,10 @@ export const WorkspaceScreen = ({
       deleteMemosMutation.mutate({ memoIds: selectedMemoIdList, permanent: false });
       return;
     }
-    Alert.alert(`永久删除 ${selectedMemoIdList.length} 条笔记`, "这个操作不可恢复。", [
+    Alert.alert(`永久刪除 ${selectedMemoIdList.length} 條筆記`, "這個操作不可恢復。", [
       { text: "取消", style: "cancel" },
       {
-        text: "永久删除",
+        text: "永久刪除",
         style: "destructive",
         onPress: () => deleteMemosMutation.mutate({ memoIds: selectedMemoIdList, permanent: true }),
       },
@@ -1355,7 +1355,7 @@ export const WorkspaceScreen = ({
         onClose={() => setNotebookPickerOpen(false)}
         onCreate={async (name, parentId) => {
           if (!client) {
-            throw new Error("连接尚未就绪");
+            throw new Error("連線尚未就緒");
           }
           const { notebook } = await client.createNotebook({ name, parentId });
           queryClient.setQueryData<{ notebooks: Notebook[] }>(["mobile", "notebooks"], (current) => ({
@@ -1365,7 +1365,7 @@ export const WorkspaceScreen = ({
             await upsertLocalNotebook(dataScope, notebook);
             void queryClient.invalidateQueries({ queryKey: ["mobile", "notebooks"] });
           } catch {
-            Alert.alert("笔记本已创建", "本机缓存更新失败，正在重新同步。", [{ text: "好的" }]);
+            Alert.alert("筆記本已建立", "本機快取更新失敗，正在重新同步。", [{ text: "好的" }]);
             void syncMobileLocalMirror(client, dataScope)
               .then(() => queryClient.invalidateQueries({ queryKey: ["mobile", "notebooks"] }))
               .catch(() => undefined);
@@ -1383,7 +1383,7 @@ export const WorkspaceScreen = ({
       {tagFilterPickerOpen ? <TagPickerModal
         allowCreate={false}
         dataScope={dataScope}
-        description="选择一个标签，只查看带有该标签的笔记"
+        description="選擇一個標籤，只檢視帶有該標籤的筆記"
         maxSelections={1}
         onChange={(tags) => {
           setSelectedTag(tags[0] ?? null);
@@ -1396,7 +1396,7 @@ export const WorkspaceScreen = ({
         }}
         onClose={() => setTagFilterPickerOpen(false)}
         selectedTags={selectedTag ? [selectedTag] : []}
-        title="按标签筛选"
+        title="按標籤篩選"
         visible
       /> : null}
 
@@ -1441,7 +1441,7 @@ export const WorkspaceScreen = ({
           <View style={styles.shareImportCard}>
             <ActivityIndicator color="#059669" size="large" />
             <Text style={styles.shareImportTitle}>正在剪藏文章</Text>
-            <Text style={styles.shareImportDescription}>正在提取标题、正文和图片链接…</Text>
+            <Text style={styles.shareImportDescription}>正在提取標題、正文和圖片連結…</Text>
           </View>
           {incomingClipCaptureUrl ? (
             <MobileWebClipCapture
@@ -1469,8 +1469,8 @@ export const WorkspaceScreen = ({
         canEnterSelection={visibleMemos.length > 0}
         memoListDensity={memoListDensity}
         memoSortMode={memoSortMode}
-        listDescription={`${searchActive ? searchQuery.data?.pages[0]?.totalCount ?? searchResults.length : memosQuery.data?.pages[0]?.totalCount ?? memos.length} 条笔记`}
-        listTitle={memoView === "trash" ? "回收站" : selectedTag ? `#${selectedTag}` : activeNotebook?.name ?? "全部笔记"}
+        listDescription={`${searchActive ? searchQuery.data?.pages[0]?.totalCount ?? searchResults.length : memosQuery.data?.pages[0]?.totalCount ?? memos.length} 條筆記`}
+        listTitle={memoView === "trash" ? "回收站" : selectedTag ? `#${selectedTag}` : activeNotebook?.name ?? "全部筆記"}
         onClose={() => setNotesActionsOpen(false)}
         onEnterSelection={() => {
           setNotesActionsOpen(false);
@@ -1515,9 +1515,9 @@ export const WorkspaceScreen = ({
           setSelectionMoreOpen(false);
           toggleVisibleSelection(visibleMemos.map((memo) => memo.id));
         }}
-        pinLabel={nextSelectionPinValue ? "置顶" : "取消置顶"}
+        pinLabel={nextSelectionPinValue ? "置頂" : "取消置頂"}
         selectedCount={selectedMemoIds.size}
-        selectionToggleLabel={allVisibleMemosSelected ? "全不选当前列表" : "全选当前列表"}
+        selectionToggleLabel={allVisibleMemosSelected ? "全不選當前列表" : "全選當前列表"}
         visible
       /> : null}
 
@@ -1541,11 +1541,11 @@ export const WorkspaceScreen = ({
         <BottomNavItem
           active={activeView === "notes"}
           icon={<Home color={activeView === "notes" ? styles.bottomNavIconActive.color : styles.bottomNavText.color} size={20} />}
-          label="首页"
+          label="首頁"
           onPress={showAllNotes}
         />
         <Pressable
-          accessibilityLabel="新建笔记"
+          accessibilityLabel="新建筆記"
           accessibilityRole="button"
           disabled={!canCreateMemo}
           onLongPress={() => {
@@ -1575,7 +1575,7 @@ export const WorkspaceScreen = ({
 
 const BottomNavItem = ({ active = false, badge = false, icon, label, onPress }: { active?: boolean; badge?: boolean; icon: ReactNode; label: string; onPress: () => void }) => (
   <Pressable
-    accessibilityLabel={badge ? `${label}，发现新版本` : label}
+    accessibilityLabel={badge ? `${label}，發現新版本` : label}
     accessibilityRole="button"
     accessibilityState={{ selected: active }}
     onPress={onPress}

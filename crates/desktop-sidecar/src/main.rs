@@ -288,10 +288,10 @@ mod tests {
     #[test]
     fn merge_title_skips_untitled_sources() {
         assert_eq!(
-            resolve_custom_merge_title(["无标题笔记", "  手动标题  ", "另一个标题"]),
-            Some("手动标题".to_owned())
+            resolve_custom_merge_title(["無標題筆記", "  手動標題  ", "另一個標題"]),
+            Some("手動標題".to_owned())
         );
-        assert_eq!(resolve_custom_merge_title(["无标题笔记", "  "]), None);
+        assert_eq!(resolve_custom_merge_title(["無標題筆記", "  "]), None);
     }
 
     #[test]
@@ -877,7 +877,7 @@ mod tests {
                    updated_at TEXT NOT NULL DEFAULT 'now'
                  );
                  INSERT INTO notebooks (id, name, slug, is_deleted)
-                 VALUES ('nb_historical_inbox', '等待分类', 'inbox', 0);
+                 VALUES ('nb_historical_inbox', '等待分類', 'inbox', 0);
                  INSERT INTO memos (
                    id, notebook_id, title, excerpt, tags_json, is_pinned, is_archived, is_deleted,
                    source_memo_ids, merge_source_count, created_at, updated_at
@@ -895,7 +895,7 @@ mod tests {
                 "operation": "upsert",
                 "entityId": "ws_default_inbox",
                 "notebook": {
-                    "name": "等待分类",
+                    "name": "等待分類",
                     "slug": "inbox",
                     "parentId": null,
                     "createdAt": "2026-09-10T00:00:00.000Z",

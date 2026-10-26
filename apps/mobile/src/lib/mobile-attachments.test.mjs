@@ -41,7 +41,7 @@ describe("mobile attachments", () => {
   });
 
   test("recognizes resource links and attachment paragraphs", () => {
-    expect(getMobileAttachmentTarget(href, "📄 报告：report.pdf")).toEqual(attachmentTarget);
+    expect(getMobileAttachmentTarget(href, "📄 報告：report.pdf")).toEqual(attachmentTarget);
     expect(getParagraphAttachmentTarget({
       type: "paragraph",
       children: [{ type: "text", content: "附件：" }, { type: "link", attributes: { href }, children: [{ type: "text", content: "report.pdf" }] }],
@@ -151,8 +151,8 @@ describe("mobile attachments", () => {
 
   test("resolves export mime types and filenames for SAF", () => {
     expect(resolveResourceMimeType("photo.webp", "")).toBe("image/webp");
-    expect(resolveResourceMimeType("EdgeEver 极客猫猫", "image/svg+xml")).toBe("image/svg+xml");
-    expect(resolveExportFilename("EdgeEver 极客猫猫", "image/svg+xml")).toBe("EdgeEver 极客猫猫.svg");
+    expect(resolveResourceMimeType("EdgeEver 極客貓貓", "image/svg+xml")).toBe("image/svg+xml");
+    expect(resolveExportFilename("EdgeEver 極客貓貓", "image/svg+xml")).toBe("EdgeEver 極客貓貓.svg");
     expect(resolveExportFilename("report.pdf", "application/pdf")).toBe("report.pdf");
   });
 

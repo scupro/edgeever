@@ -9,16 +9,16 @@ export type InlineFieldMatch = {
 
 const FIELD_LABELS: Record<string, Record<InlineFieldLanguage, string>> = {
   due: { en: "Due", zh: "截止" },
-  scheduled: { en: "Scheduled", zh: "计划" },
-  start: { en: "Start", zh: "开始" },
+  scheduled: { en: "Scheduled", zh: "計劃" },
+  start: { en: "Start", zh: "開始" },
   completion: { en: "Done", zh: "完成" },
-  created: { en: "Created", zh: "创建" },
+  created: { en: "Created", zh: "建立" },
   cancelled: { en: "Cancelled", zh: "取消" },
-  priority: { en: "Priority", zh: "优先级" },
-  repeat: { en: "Repeat", zh: "重复" },
+  priority: { en: "Priority", zh: "優先順序" },
+  repeat: { en: "Repeat", zh: "重複" },
   id: { en: "ID", zh: "ID" },
-  dependsOn: { en: "Depends", zh: "依赖" },
-  onCompletion: { en: "On completion", zh: "完成后" },
+  dependsOn: { en: "Depends", zh: "依賴" },
+  onCompletion: { en: "On completion", zh: "完成後" },
 };
 
 const PRIORITY_VALUES: Record<string, Record<InlineFieldLanguage, string>> = {
