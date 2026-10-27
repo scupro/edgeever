@@ -25,7 +25,7 @@ Bun 版本。
 
 ## 執行
 
-開啟 https://github.com/tianma-if/edgeever/actions/workflows/extension-store.yml，
+開啟 https://github.com/scupro/edgeever/actions/workflows/extension-store.yml，
 選擇 **Run workflow**。Firefox 更新說明留空時，使用一行版本說明；也可以貼上
 希望 Mozilla 展示的說明。`dry_run` 只構建安裝包，不會呼叫商店。
 

@@ -479,7 +479,7 @@ export const pl = {
     desktopInstanceContinue: "Kontynuuj",
     desktopChangeInstance: "Zmień adres URL instancji",
     desktopInstanceUrlInvalid: "Wpisz prawidłowy adres URL instancji.",
-    instanceUrlPlaceholder: "https://demo.edgeever.org",
+    instanceUrlPlaceholder: "https://demo.dogbro.store",
   },
   nav: {
     mobileMain: "Główna nawigacja mobilna",

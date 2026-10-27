@@ -848,16 +848,16 @@ describe("Cloudflare deployment entrypoints", () => {
 
     expect(englishReadme).not.toContain("deploy.workers.cloudflare.com");
     expect(englishReadme).not.toContain("Option C: Manual Deployment");
-    expect(englishReadme).toContain("Fork https://github.com/tianma-if/edgeever");
+    expect(englishReadme).toContain("Fork https://github.com/scupro/edgeever");
     expect(chineseReadme).not.toContain("deploy.workers.cloudflare.com");
     expect(chineseReadme).not.toContain("方案 C：手動部署");
-    expect(chineseReadme).toContain("Fork https://github.com/tianma-if/edgeever");
+    expect(chineseReadme).toContain("Fork https://github.com/scupro/edgeever");
     expect(traditionalChineseReadme).not.toContain("deploy.workers.cloudflare.com");
     expect(traditionalChineseReadme).not.toContain("方案 C：手動部署");
-    expect(traditionalChineseReadme).toContain("Fork https://github.com/tianma-if/edgeever");
+    expect(traditionalChineseReadme).toContain("Fork https://github.com/scupro/edgeever");
     expect(japaneseReadme).not.toContain("deploy.workers.cloudflare.com");
     expect(japaneseReadme).not.toContain("方案 C：手動匯入");
-    expect(japaneseReadme).toContain("Fork https://github.com/tianma-if/edgeever");
+    expect(japaneseReadme).toContain("Fork https://github.com/scupro/edgeever");
   });
 
   test("product site deployment prompts mirror the root READMEs", () => {

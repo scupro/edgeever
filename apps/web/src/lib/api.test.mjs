@@ -283,9 +283,9 @@ describe("desktop instance setup", () => {
     calls.length = 0;
     const saving = saveDesktopApiBaseUrl("demo");
     await Promise.resolve();
-    expect(calls).toEqual([["bridge:start", "https://demo.edgeever.org"]]);
+    expect(calls).toEqual([["bridge:start", "https://demo.dogbro.store"]]);
     completeSave();
-    await expect(saving).resolves.toBe("https://demo.edgeever.org");
+    await expect(saving).resolves.toBe("https://demo.dogbro.store");
   });
 
   test("prefixes https when the instance host has no protocol", async () => {

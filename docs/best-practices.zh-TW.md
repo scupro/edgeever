@@ -262,8 +262,8 @@ EdgeEver 內建外掛擴充套件管理，支援透過 GitHub 倉庫或 Manifest
 
 - **核心 API 能力**：提供檔案雙向讀寫、自定義 DOM 面板/嵌入塊、統一設定、隔離儲存以及呼叫工作區已配置的 AI 模型。
 - **官方開源參考正規化**：
-  - **待辦任務 ([EdgeEver Tasks](https://github.com/tianma-if/edgeever-tasks))**：跨筆記自動彙總 Markdown 待辦，支援狀態過濾與一鍵定位跳轉。
-  - **AI RSS 訂閱助手 ([EdgeEver AI RSS](https://github.com/tianma-if/edgeever-ai-rss))**：抓取訂閱源並結合 AI 生成分類每日簡報。
+  - **待辦任務 ([EdgeEver Tasks](https://github.com/scupro/edgeever-tasks))**：跨筆記自動彙總 Markdown 待辦，支援狀態過濾與一鍵定位跳轉。
+  - **AI RSS 訂閱助手 ([EdgeEver AI RSS](https://github.com/scupro/edgeever-ai-rss))**：抓取訂閱源並結合 AI 生成分類每日簡報。
 - 更多規範與指南詳見 [EdgeEver 外掛開發指南](plugin-development.zh-TW.md)。
 
 | 1. 外掛與主題管理中心 | 2. 官方 AI RSS 外掛生成的日報筆記效果 |

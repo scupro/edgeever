@@ -10,7 +10,7 @@ describe("desktop cross-version startup origins", () => {
   test("accepts both the legacy file origin and the current app origin for the previous native", () => {
     expect(isPreviousReleaseRendererUrl(`${LEGACY_RENDERER_URL_PREFIX}/Applications/EdgeEver.app/Contents/Resources/web/index.html`)).toBe(true);
     expect(isPreviousReleaseRendererUrl(`${CURRENT_RENDERER_URL_PREFIX}index.html`)).toBe(true);
-    expect(isPreviousReleaseRendererUrl("https://demo.edgeever.org/")).toBe(false);
+    expect(isPreviousReleaseRendererUrl("https://demo.dogbro.store/")).toBe(false);
     expect(isPreviousReleaseRendererUrl("")).toBe(false);
   });
 

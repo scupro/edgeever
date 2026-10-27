@@ -20,7 +20,7 @@ const DEMO_LOGIN_CREDENTIALS = {
 
 const getDefaultLoginCredentials = () => {
   const hostname = window.location.hostname;
-  const isDemoHost = hostname === "demo.edgeever.org" || hostname.startsWith("edgeever-demo.");
+  const isDemoHost = hostname === "demo.dogbro.store" || hostname.startsWith("edgeever-demo.");
 
   return isDemoHost ? DEMO_LOGIN_CREDENTIALS : { username: "", password: "" };
 };

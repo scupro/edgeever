@@ -5,9 +5,9 @@
 - Name: `EdgeEver Web Clipper`
 - Primary language: `中文（簡體）`
 - Category: `Workflow & Planning`
-- Homepage: `https://edgeever.org/`
-- Support URL: `https://github.com/tianma-if/edgeever/issues`
-- Privacy policy: `https://edgeever.org/privacy/`
+- Homepage: `https://dogbro.store/`
+- Support URL: `https://github.com/scupro/edgeever/issues`
+- Privacy policy: `https://dogbro.store/privacy/`
 
 ## Localized listings
 
@@ -54,7 +54,7 @@ EdgeEver Web Clipper 可以把當前網頁，或你選中的那一部分，儲�
 
 使用前，請在外掛設定中填寫實例地址和 API Token。外掛只會在你使用儲存命令後讀取當前標籤頁。圖片若無法由頁面直接交出，才會再請求該圖片所在網站的訪問權限。
 
-EdgeEver 是開源、自託管的現代筆記工作區。專案主頁與原始碼：https://github.com/tianma-if/edgeever
+EdgeEver 是開源、自託管的現代筆記工作區。專案主頁與原始碼：https://github.com/scupro/edgeever
 
 ### English
 
@@ -85,7 +85,7 @@ Key features:
 
 Before using the extension, enter your instance URL and API token in the extension settings. The extension reads the current tab only after you use a save command. It asks for access to an image's site only when that page cannot provide the image file.
 
-EdgeEver is an open-source, self-hosted modern notes workspace. Project homepage and source code: https://github.com/tianma-if/edgeever
+EdgeEver is an open-source, self-hosted modern notes workspace. Project homepage and source code: https://github.com/scupro/edgeever
 
 ## Privacy practices
 

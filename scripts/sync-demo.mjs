@@ -2,7 +2,7 @@ import { spawnSync } from "node:child_process";
 
 const REPOSITORY = "tianma-if/edgeever";
 const WORKFLOW = "deploy-demo.yml";
-const DEFAULT_DEMO_URL = "https://demo.edgeever.org";
+const DEFAULT_DEMO_URL = "https://demo.dogbro.store";
 const DEFAULT_DEMO_USERNAME = "ee-demo";
 const DEFAULT_DEMO_PASSWORD = "demo#dZ6Q29Zjfor%";
 const RUN_DISCOVERY_ATTEMPTS = 30;

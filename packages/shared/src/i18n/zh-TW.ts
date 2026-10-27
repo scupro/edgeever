@@ -490,7 +490,7 @@ export const zhTW = {
     desktopInstanceContinue: "繼續",
     desktopChangeInstance: "更換實例地址",
     desktopInstanceUrlInvalid: "請輸入有效的實例地址。",
-    instanceUrlPlaceholder: "https://demo.edgeever.org",
+    instanceUrlPlaceholder: "https://demo.dogbro.store",
   },
   nav: {
     mobileMain: "移動端主導航",

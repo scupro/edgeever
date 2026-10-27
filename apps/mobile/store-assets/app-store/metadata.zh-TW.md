@@ -7,7 +7,7 @@
 - 主要類別：效率
 - 次要類別：工具
 - 內容版權：EdgeEver 預設不包含、展示或訪問第三方內容；使用者將 App 連線到自己控制的 EdgeEver 實例。
-- 隱私政策網址：https://edgeever.org/privacy
+- 隱私政策網址：https://dogbro.store/privacy
 
 ## 版本 1.0
 
@@ -32,7 +32,7 @@ EdgeEver 是一款開源、自託管的筆記工作區，適合希望兼顧快�
 • 會話憑據安全儲存在裝置上
 • 無廣告、無分析、無追蹤、無遙測
 
-EdgeEver 執行在你自己的 Cloudflare 帳號中，不存在集中儲存或中轉使用者筆記與憑據的 EdgeEver 中央服務。使用本 App 前，請按照 edgeever.org 的說明部署 EdgeEver 實例，或連線由你的組織提供的實例。
+EdgeEver 執行在你自己的 Cloudflare 帳號中，不存在集中儲存或中轉使用者筆記與憑據的 EdgeEver 中央服務。使用本 App 前，請按照 dogbro.store 的說明部署 EdgeEver 實例，或連線由你的組織提供的實例。
 
 EdgeEver 是獨立專案，與 Evernote Corporation 及其關聯公司無隸屬、授權、贊助或背書關係。
 
@@ -42,8 +42,8 @@ EdgeEver 是獨立專案，與 Evernote Corporation 及其關聯公司無隸屬�
 
 ### 網址
 
-- 技術支援網址：https://edgeever.org/contact
-- 營銷網址：https://edgeever.org
+- 技術支援網址：https://dogbro.store/contact
+- 營銷網址：https://dogbro.store
 
 ### 版權
 
@@ -51,7 +51,7 @@ EdgeEver 是獨立專案，與 Evernote Corporation 及其關聯公司無隸屬�
 
 ## App 稽核資訊
 
-- 演示實例網址：https://demo.edgeever.org
+- 演示實例網址：https://demo.dogbro.store
 - 使用者名稱：ee-demo
 - 密碼：demo#dZ6Q29Zjfor%
 - 聯絡人名字：Shihao
@@ -64,14 +64,14 @@ EdgeEver 是獨立專案，與 Evernote Corporation 及其關聯公司無隸屬�
 請先按下面的值登入，不要只輸入 demo。
 
 演示實例網址（請完整填入「實例地址」，必須是 HTTPS）：
-https://demo.edgeever.org
+https://demo.dogbro.store
 
 使用者名稱：ee-demo
 密碼：demo#dZ6Q29Zjfor%
 
 登入步驟：
 1. 開啟 EdgeEver。
-2. 在「實例地址」中輸入 https://demo.edgeever.org
+2. 在「實例地址」中輸入 https://demo.dogbro.store
 3. 輸入上方使用者名稱和密碼。
 4. 點選登入，應進入帶有示例內容的筆記工作區。
 

@@ -16,7 +16,7 @@ Deploy EdgeEver through GitHub and Cloudflare in your browser, without installin
 
 ### Step 1: Fork the Repository
 
-1. Visit the official EdgeEver repository: `https://github.com/tianma-if/edgeever`.
+1. Visit the official EdgeEver repository: `https://github.com/scupro/edgeever`.
 2. Click the **Fork** button at the top right to fork the repository into your GitHub account.
 
 ---

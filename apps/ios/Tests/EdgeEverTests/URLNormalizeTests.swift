@@ -20,13 +20,13 @@ final class URLNormalizeTests: XCTestCase {
     }
 
     func testAddsHTTPS() throws {
-        let url = try EdgeEverURLNormalizer.normalizeInstanceURL("demo.edgeever.org")
-        XCTAssertEqual(url.absoluteString, "https://demo.edgeever.org")
+        let url = try EdgeEverURLNormalizer.normalizeInstanceURL("demo.dogbro.store")
+        XCTAssertEqual(url.absoluteString, "https://demo.dogbro.store")
     }
 
     func testStripsTrailingSlash() throws {
-        let url = try EdgeEverURLNormalizer.normalizeInstanceURL("https://demo.edgeever.org/")
-        XCTAssertEqual(url.absoluteString, "https://demo.edgeever.org")
+        let url = try EdgeEverURLNormalizer.normalizeInstanceURL("https://demo.dogbro.store/")
+        XCTAssertEqual(url.absoluteString, "https://demo.dogbro.store")
     }
 
     func testRejectsEmpty() {

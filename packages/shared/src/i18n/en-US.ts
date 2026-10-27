@@ -490,7 +490,7 @@ export const enUS = {
     desktopInstanceContinue: "Continue",
     desktopChangeInstance: "Change instance URL",
     desktopInstanceUrlInvalid: "Enter a valid instance URL.",
-    instanceUrlPlaceholder: "https://demo.edgeever.org",
+    instanceUrlPlaceholder: "https://demo.dogbro.store",
   },
   nav: {
     mobileMain: "Mobile primary navigation",

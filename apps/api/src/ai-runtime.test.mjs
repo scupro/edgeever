@@ -5,7 +5,7 @@ import { parseAiTagSuggestionNames } from "@edgeever/shared";
 describe("OpenAI-compatible provider headers", () => {
   test("identifies OpenRouter so rankings and tool routes stay attributed", () => {
     expect(openaiCompatibleHeaders("https://openrouter.ai/api/v1")).toEqual({
-      "HTTP-Referer": "https://edgeever.org",
+      "HTTP-Referer": "https://dogbro.store",
       "X-Title": "EdgeEver",
     });
     expect(openaiCompatibleHeaders("https://api.openai.com/v1")).toBeUndefined();

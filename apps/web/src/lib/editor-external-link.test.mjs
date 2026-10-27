@@ -13,9 +13,9 @@ describe("normalizeExternalLinkHref", () => {
   });
 
   test("accepts https URLs", () => {
-    expect(normalizeExternalLinkHref("https://www.edgeever.org/docs")).toEqual({
+    expect(normalizeExternalLinkHref("https://www.dogbro.store/docs")).toEqual({
       ok: true,
-      href: "https://www.edgeever.org/docs",
+      href: "https://www.dogbro.store/docs",
     });
   });
 
@@ -87,8 +87,8 @@ describe("link href classifiers", () => {
 
 describe("markdown helpers", () => {
   test("formats a markdown link", () => {
-    expect(formatMarkdownLink("EdgeEver", "https://www.edgeever.org")).toBe(
-      "[EdgeEver](https://www.edgeever.org)"
+    expect(formatMarkdownLink("EdgeEver", "https://www.dogbro.store")).toBe(
+      "[EdgeEver](https://www.dogbro.store)"
     );
   });
 

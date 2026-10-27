@@ -20,7 +20,7 @@ Cloudflare 使用 Workers + D1 + 外部 S3 相容物件儲存。
 已安裝 Docker Compose v2 的主機可直接執行：
 
 ```sh
-curl -fsSL https://edgeever.org/install.sh | bash
+curl -fsSL https://dogbro.store/install.sh | bash
 ```
 
 指令碼會建立 `~/edgeever`、生成管理員密碼、拉取 `latest`、啟動容器並等待健康
@@ -41,7 +41,7 @@ curl -fsSL https://edgeever.org/install.sh | bash
 可檢視全部引數：
 
 ```sh
-curl -fsSL https://edgeever.org/install.sh | bash -s -- --help
+curl -fsSL https://dogbro.store/install.sh | bash -s -- --help
 ```
 
 ## 手動使用 Compose

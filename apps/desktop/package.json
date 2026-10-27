@@ -4,7 +4,7 @@
   "desktopName": "EdgeEver",
   "private": true,
   "description": "Native EdgeEver desktop client",
-  "author": "EdgeEver contributors",
+  "author": "Dogbro LLC",
   "type": "module",
   "main": "src/main/index.mjs",
   "scripts": {

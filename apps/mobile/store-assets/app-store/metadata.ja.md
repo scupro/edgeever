@@ -11,7 +11,7 @@ English and Traditional Chinese "What's New" during binary review.
 - Primary category: 仕事効率化
 - Secondary category: ユーティリティ
 - Content rights: EdgeEver は初期状態で第三者のコンテンツを含みません。ユーザーは自分で管理する EdgeEver インスタンスにアプリを接続します。
-- Privacy policy URL: https://edgeever.org/en/privacy
+- Privacy policy URL: https://dogbro.store/en/privacy
 
 ## Version listing
 
@@ -36,7 +36,7 @@ EdgeEver は、オープンソースでセルフホストできるノートワ�
 • 端末内に安全に保存されるログイン情報
 • 広告、解析、追跡、テレメトリーなし
 
-EdgeEver は、あなた自身の Cloudflare アカウント上で動作します。ノートや認証情報を保管・中継する EdgeEver の中央サービスはありません。利用するには、edgeever.org の案内に従ってインスタンスを導入するか、所属組織が用意したインスタンスに接続してください。
+EdgeEver は、あなた自身の Cloudflare アカウント上で動作します。ノートや認証情報を保管・中継する EdgeEver の中央サービスはありません。利用するには、dogbro.store の案内に従ってインスタンスを導入するか、所属組織が用意したインスタンスに接続してください。
 
 EdgeEver は独立したプロジェクトであり、Evernote Corporation およびその関連会社とは提携、後援、承認の関係にありません。
 
@@ -46,8 +46,8 @@ EdgeEver は独立したプロジェクトであり、Evernote Corporation お�
 
 ### URLs
 
-- Support URL: https://edgeever.org/en/contact
-- Marketing URL: https://edgeever.org/en/
+- Support URL: https://dogbro.store/en/contact
+- Marketing URL: https://dogbro.store/en/
 
 ### Copyright
 
@@ -59,7 +59,7 @@ EdgeEver は独立したプロジェクトであり、Evernote Corporation お�
 
 ## App Review information
 
-- Demo instance URL: https://demo.edgeever.org
+- Demo instance URL: https://demo.dogbro.store
 - Username: ee-demo
 - Password: demo#dZ6Q29Zjfor%
 - Contact first name: Shihao
@@ -72,14 +72,14 @@ EdgeEver は独立したプロジェクトであり、Evernote Corporation お�
 APP REVIEW LOGIN — paste these values into the sign-in form.
 
 Demo Instance URL (type this exact HTTPS URL into Instance URL; do not type "demo"):
-https://demo.edgeever.org
+https://demo.dogbro.store
 
 Username: ee-demo
 Password: demo#dZ6Q29Zjfor%
 
 How to sign in:
 1. Launch EdgeEver.
-2. In Instance URL, enter https://demo.edgeever.org
+2. In Instance URL, enter https://demo.dogbro.store
 3. Enter the username and password above.
 4. Tap Sign in. You should land in a notes workspace with sample content.
 

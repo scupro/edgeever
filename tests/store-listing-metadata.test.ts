@@ -56,16 +56,16 @@ describe("App Store listing copy", () => {
   });
 
   test("points Japanese listing URLs at the English site and keeps the Evernote disclaimer", () => {
-    expect(field(japanese, "Privacy policy URL")).toBe("https://edgeever.org/en/privacy");
-    expect(japanese).toContain("https://edgeever.org/en/contact");
-    expect(japanese).toContain("https://edgeever.org/en/");
+    expect(field(japanese, "Privacy policy URL")).toBe("https://dogbro.store/en/privacy");
+    expect(japanese).toContain("https://dogbro.store/en/contact");
+    expect(japanese).toContain("https://dogbro.store/en/");
     expect(headingBlock(japanese, "Description")).toContain("Evernote Corporation");
     expect(headingBlock(japanese, "Keywords")).not.toContain("Evernote");
   });
 
   test("keeps App Review demo credentials in every App Store locale file", () => {
     for (const source of [english, chinese, japanese]) {
-      expect(source).toContain("https://demo.edgeever.org");
+      expect(source).toContain("https://demo.dogbro.store");
       expect(source).toContain("ee-demo");
       expect(source).toContain("demo#dZ6Q29Zjfor%");
       expect(source).not.toContain("notes.example.com");
@@ -96,6 +96,6 @@ describe("Google Play listing copy", () => {
 
   test("tells Japanese Play users that a self-hosted instance is required", () => {
     expect(headingBlock(japanese, "Full description")).toContain("セルフホスト");
-    expect(headingBlock(japanese, "Full description")).toContain("edgeever.org");
+    expect(headingBlock(japanese, "Full description")).toContain("dogbro.store");
   });
 });

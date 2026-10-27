@@ -5,9 +5,9 @@
 - Name: EdgeEver Web Clipper
 - Summary: Save webpages, selections, images, and Hacker News posts to your self-hosted EdgeEver instance.
 - Category: Bookmarks
-- Homepage: https://edgeever.org
-- Support: https://github.com/tianma-if/edgeever/issues
-- Privacy policy: https://edgeever.org/en/privacy
+- Homepage: https://dogbro.store
+- Support: https://github.com/scupro/edgeever/issues
+- Privacy policy: https://dogbro.store/en/privacy
 
 ## Description
 

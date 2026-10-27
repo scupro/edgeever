@@ -236,7 +236,7 @@ final class MobileUIParityTests: XCTestCase {
     }
 
     func testResourcePathNormalizationAddsBlob() {
-        let base = URL(string: "https://demo.edgeever.org")!
+        let base = URL(string: "https://demo.dogbro.store")!
         XCTAssertEqual(
             ResourceCache.normalizeProtectedResourcePath("/api/v1/resources/abc123", baseURL: base),
             "/api/v1/resources/abc123/blob"
@@ -246,12 +246,12 @@ final class MobileUIParityTests: XCTestCase {
             "/api/v1/resources/abc123/blob"
         )
         XCTAssertEqual(
-            ResourceCache.normalizeProtectedResourcePath("https://demo.edgeever.org/api/v1/resources/xyz", baseURL: base),
+            ResourceCache.normalizeProtectedResourcePath("https://demo.dogbro.store/api/v1/resources/xyz", baseURL: base),
             "/api/v1/resources/xyz/blob"
         )
         XCTAssertTrue(ResourceCache.isProtectedResourceSource("/api/v1/resources/x", baseURL: base))
         XCTAssertTrue(
-            ResourceCache.isProtectedResourceSource("https://demo.edgeever.org/api/v1/resources/x/blob", baseURL: base)
+            ResourceCache.isProtectedResourceSource("https://demo.dogbro.store/api/v1/resources/x/blob", baseURL: base)
         )
         XCTAssertFalse(ResourceCache.isProtectedResourceSource("https://cdn.example/img.png", baseURL: base))
     }
@@ -261,7 +261,7 @@ final class MobileUIParityTests: XCTestCase {
         let dataURL = "data:image/png;base64,iVBORw0KGgo="
         let loaded = await TipTapWebView.Coordinator.loadResourceDataURL(
             source: dataURL,
-            baseURL: URL(string: "https://demo.edgeever.org"),
+            baseURL: URL(string: "https://demo.dogbro.store"),
             token: "tok",
             resourceCache: cache
         )
@@ -279,7 +279,7 @@ final class MobileUIParityTests: XCTestCase {
         // loadResourceDataURL should hit cache and return edgeever-res:// scheme URL for WKWebView.
         let loaded = await TipTapWebView.Coordinator.loadResourceDataURL(
             source: "/api/v1/resources/res-test-1/blob",
-            baseURL: URL(string: "https://demo.edgeever.org"),
+            baseURL: URL(string: "https://demo.dogbro.store"),
             token: "tok",
             resourceCache: cache
         )
@@ -372,7 +372,7 @@ final class MobileUIParityTests: XCTestCase {
     }
 
     func testIsProtectedResourceSourceMatchesAbsoluteAPIPath() {
-        let base = URL(string: "https://demo.edgeever.org")!
+        let base = URL(string: "https://demo.dogbro.store")!
         XCTAssertTrue(
             ResourceCache.isProtectedResourceSource(
                 "https://other.example/api/v1/resources/abc/blob",

@@ -28,10 +28,10 @@ final class SyncProtocolTests: XCTestCase {
     }
 
     func testDataScope() throws {
-        let url = try EdgeEverURLNormalizer.normalizeInstanceURL("https://demo.edgeever.org/")
+        let url = try EdgeEverURLNormalizer.normalizeInstanceURL("https://demo.dogbro.store/")
         XCTAssertEqual(
             SyncProtocol.createDataScope(baseURL: url, userId: "u1"),
-            "https://demo.edgeever.org|u1"
+            "https://demo.dogbro.store|u1"
         )
     }
 }

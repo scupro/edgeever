@@ -29,4 +29,4 @@ Połącz aplikację bezpośrednio z własną instancją EdgeEver i zachowaj kont
 
 EdgeEver nie zawiera reklam, analityki, śledzenia ani telemetrii. Aplikacja łączy się bezpośrednio z wybraną przez Ciebie instancją; twórcy projektu nie prowadzą serwera pośredniczącego, który odbierałby lub przechowywał Twoje notatki.
 
-Wymagana jest samodzielnie hostowana instancja EdgeEver. Więcej informacji i instrukcję wdrożenia znajdziesz na edgeever.org.
+Wymagana jest samodzielnie hostowana instancja EdgeEver. Więcej informacji i instrukcję wdrożenia znajdziesz na dogbro.store.

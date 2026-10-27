@@ -16,7 +16,7 @@
 
 ### 步驟 1：Fork 倉庫
 
-1. 訪問 EdgeEver 官方倉庫：`https://github.com/tianma-if/edgeever`。
+1. 訪問 EdgeEver 官方倉庫：`https://github.com/scupro/edgeever`。
 2. 點選右上角 **Fork** 按鈕，將倉庫 Fork 到您的個人 GitHub 賬戶下。
 
 ---

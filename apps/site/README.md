@@ -4,9 +4,9 @@
 
 > **EdgeEver：基於 Cloudflare 自託管的免費開源『印象筆記』，原生支援 AI Agent 接入。**
 >
-> 核心專案倉庫：[GitHub - tianma-if/edgeever](https://github.com/tianma-if/edgeever)
+> 核心專案倉庫：[GitHub - tianma-if/edgeever](https://github.com/scupro/edgeever)
 > 
-> 官方網站地址：[https://edgeever.org](https://edgeever.org) (演示環境：[https://demo.edgeever.org](https://demo.edgeever.org))
+> 官方網站地址：[https://dogbro.store](https://dogbro.store) (演示環境：[https://demo.dogbro.store](https://demo.dogbro.store))
 
 ---
 

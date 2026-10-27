@@ -51,7 +51,7 @@ describe("Markdown mode cursor mapping", () => {
   });
 
   test("declines unsafe positions inside Markdown syntax", () => {
-    const editor = createEditor("[EdgeEver](https://edgeever.org)");
+    const editor = createEditor("[EdgeEver](https://dogbro.store)");
     const source = docToEditableMarkdown(editor.getJSON());
 
     expect(markdownOffsetToRichPosition(editor.schema, editor.state.doc, source, source.indexOf("https") + 2)).toBeNull();

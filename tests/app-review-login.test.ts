@@ -24,19 +24,19 @@ describe("App Review login", () => {
   });
 
   test("uses the public demo instance as the login placeholder", () => {
-    expect(read("packages/shared/src/public-demo.ts")).toContain('export const PUBLIC_DEMO_INSTANCE_URL = "https://demo.edgeever.org"');
-    expect(read("apps/ios/EdgeEver/Supporting/URL+Normalize.swift")).toContain('static let instanceURLString = "https://demo.edgeever.org"');
+    expect(read("packages/shared/src/public-demo.ts")).toContain('export const PUBLIC_DEMO_INSTANCE_URL = "https://demo.dogbro.store"');
+    expect(read("apps/ios/EdgeEver/Supporting/URL+Normalize.swift")).toContain('static let instanceURLString = "https://demo.dogbro.store"');
     expect(read("apps/ios/EdgeEver/Features/Auth/LoginView.swift")).toContain("EdgeEverPublicDemo.instanceURLString");
     expect(read("apps/mobile/src/screens/LoginScreen.tsx")).toContain("PUBLIC_DEMO_INSTANCE_URL");
     expect(read("apps/mobile/src/screens/LoginScreen.tsx")).toContain("placeholder={PUBLIC_DEMO_INSTANCE_URL}");
-    expect(read("packages/shared/src/i18n/en-US.ts")).toContain('instanceUrlPlaceholder: "https://demo.edgeever.org"');
-    expect(read("packages/shared/src/i18n/zh-TW.ts")).toContain('instanceUrlPlaceholder: "https://demo.edgeever.org"');
+    expect(read("packages/shared/src/i18n/en-US.ts")).toContain('instanceUrlPlaceholder: "https://demo.dogbro.store"');
+    expect(read("packages/shared/src/i18n/zh-TW.ts")).toContain('instanceUrlPlaceholder: "https://demo.dogbro.store"');
     expect(read("apps/web/src/components/LoginScreen.tsx")).toContain('placeholder={t("login.instanceUrlPlaceholder")}');
   });
 
   test("puts the public demo URL and credentials in App Review notes", () => {
     for (const path of reviewNotes) {
-      expect(read(path), path).toContain("https://demo.edgeever.org");
+      expect(read(path), path).toContain("https://demo.dogbro.store");
     }
     expect(read("apps/mobile/store-assets/app-store/metadata.en-US.md")).toContain("Username: ee-demo");
     expect(read("apps/mobile/store-assets/app-store/metadata.zh-TW.md")).toContain("使用者名稱：ee-demo");

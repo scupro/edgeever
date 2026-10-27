@@ -7,7 +7,7 @@
 - Primary category: Productivity
 - Secondary category: Utilities
 - Content rights: EdgeEver does not contain, show, or access third-party content by default. Users connect the app to an EdgeEver instance they control.
-- Privacy policy URL: https://edgeever.org/en/privacy
+- Privacy policy URL: https://dogbro.store/en/privacy
 
 ## Version 1.0
 
@@ -32,7 +32,7 @@ Highlights:
 • Secure on-device session storage
 • No ads, analytics, tracking, or telemetry
 
-EdgeEver runs on your own Cloudflare account. There is no central EdgeEver service that stores or relays your notes or credentials. To use the app, deploy an EdgeEver instance by following the guide at edgeever.org, or connect to an instance provided by your organization.
+EdgeEver runs on your own Cloudflare account. There is no central EdgeEver service that stores or relays your notes or credentials. To use the app, deploy an EdgeEver instance by following the guide at dogbro.store, or connect to an instance provided by your organization.
 
 EdgeEver is independent and is not affiliated with or endorsed by Evernote Corporation or its affiliates.
 
@@ -42,8 +42,8 @@ notes,notebook,self-hosted,markdown,writing,knowledge,Cloudflare,open source,syn
 
 ### URLs
 
-- Support URL: https://edgeever.org/en/contact
-- Marketing URL: https://edgeever.org
+- Support URL: https://dogbro.store/en/contact
+- Marketing URL: https://dogbro.store
 
 ### Copyright
 
@@ -51,7 +51,7 @@ notes,notebook,self-hosted,markdown,writing,knowledge,Cloudflare,open source,syn
 
 ## App Review information
 
-- Demo instance URL: https://demo.edgeever.org
+- Demo instance URL: https://demo.dogbro.store
 - Username: ee-demo
 - Password: demo#dZ6Q29Zjfor%
 - Contact first name: Shihao
@@ -64,14 +64,14 @@ notes,notebook,self-hosted,markdown,writing,knowledge,Cloudflare,open source,syn
 APP REVIEW LOGIN — paste these values into the sign-in form.
 
 Demo Instance URL (type this exact HTTPS URL into Instance URL; do not type "demo"):
-https://demo.edgeever.org
+https://demo.dogbro.store
 
 Username: ee-demo
 Password: demo#dZ6Q29Zjfor%
 
 How to sign in:
 1. Launch EdgeEver.
-2. In Instance URL, enter https://demo.edgeever.org
+2. In Instance URL, enter https://demo.dogbro.store
 3. Enter the username and password above.
 4. Tap Sign in. You should land in a notes workspace with sample content.
 

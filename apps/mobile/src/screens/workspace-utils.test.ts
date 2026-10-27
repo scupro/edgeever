@@ -48,7 +48,7 @@ describe("mobile workspace utilities", () => {
 
   test("normalizes tags, markdown preview text, and search matches", () => {
     expect(parseTags(" one，two, one\nthree ")).toEqual(["one", "two", "three"]);
-    expect(markdownToLocalText("## Hello [EdgeEver](https://edgeever.org) ![logo](logo.png)")).toBe("Hello EdgeEver");
+    expect(markdownToLocalText("## Hello [EdgeEver](https://dogbro.store) ![logo](logo.png)")).toBe("Hello EdgeEver");
     expect(getTextSearchMatches("One one none", "one")).toEqual([
       { start: 0, end: 3 },
       { start: 4, end: 7 },

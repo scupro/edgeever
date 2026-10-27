@@ -28,4 +28,4 @@ Connect the app directly to your own EdgeEver instance and keep control of where
 
 EdgeEver contains no ads, analytics, tracking, or telemetry. The app connects directly to the instance you choose; the project maintainers do not operate a relay that receives or stores your notes.
 
-An EdgeEver self-hosted instance is required. Learn more and deploy your own workspace at edgeever.org.
+An EdgeEver self-hosted instance is required. Learn more and deploy your own workspace at dogbro.store.

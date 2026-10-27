@@ -479,7 +479,7 @@ export const ja = {
     desktopInstanceContinue: "続ける",
     desktopChangeInstance: "インスタンス URL を変更",
     desktopInstanceUrlInvalid: "有効なインスタンス URL を入力してください。",
-    instanceUrlPlaceholder: "https://demo.edgeever.org",
+    instanceUrlPlaceholder: "https://demo.dogbro.store",
   },
   nav: {
     mobileMain: "モバイルのメインナビゲーション",

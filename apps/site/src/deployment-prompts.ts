@@ -1,6 +1,6 @@
 export const deploymentPrompts = {
   "en-US": `Deploy EdgeEver entirely through GitHub and Cloudflare:
-1. Fork https://github.com/tianma-if/edgeever.
+1. Fork https://github.com/scupro/edgeever.
 2. Create D1 \`edgeever\` in Cloudflare and prepare an S3-compatible object storage bucket for attachments.
 3. In Workers & Pages, create a Worker named \`edgeever\` from the Fork's \`main\` branch.
    Use the repository root, keep Cloudflare's default Workers Builds deploy command,
@@ -15,7 +15,7 @@ export const deploymentPrompts = {
 6. Enable and manually run the GitHub Actions workflow named \`Update deployed EdgeEver\`
    once so the Fork can automatically receive future stable releases and fixes.`,
   "zh-TW": `請全程透過 GitHub 和 Cloudflare 線上部署 EdgeEver：
-1. Fork https://github.com/tianma-if/edgeever。
+1. Fork https://github.com/scupro/edgeever。
 2. 在 Cloudflare 中建立 D1 \`edgeever\`，並準備一個存放附件的 S3 相容物件儲存桶。
 3. 在 Workers & Pages 中從 Fork 的 \`main\` 分支建立名為 \`edgeever\` 的 Worker。
    使用儲存庫根目錄，保留 Cloudflare Workers Builds 的預設部署指令，確認其 API Token

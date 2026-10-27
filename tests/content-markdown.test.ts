@@ -7,7 +7,7 @@ describe("shared Markdown conversion", () => {
 * **公司中文全稱**：鄭州市冰矽網路科技有限公司
 * **公司英文名稱**：Example Co., Ltd.
 ## 2. 聯絡方式 (Domain & Contact)
-* **專案官方網站**：[EdgeEver](https://www.edgeever.org)
+* **專案官方網站**：[EdgeEver](https://www.dogbro.store)
 > [!WARNING]
 > 請勿繫結其他帳號。`);
 
@@ -32,7 +32,7 @@ describe("shared Markdown conversion", () => {
     expect(linkText).toMatchObject({
       type: "text",
       text: "EdgeEver",
-      marks: [{ type: "link", attrs: { href: "https://www.edgeever.org" } }],
+      marks: [{ type: "link", attrs: { href: "https://www.dogbro.store" } }],
     });
   });
 

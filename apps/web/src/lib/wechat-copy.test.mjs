@@ -66,7 +66,7 @@ $$
 
 \`\`\`sh
 # 官方 GHCR 映象
-curl -fsSL https://edgeever.org/install.sh | bash
+curl -fsSL https://dogbro.store/install.sh | bash
 \`\`\`
 `;
 

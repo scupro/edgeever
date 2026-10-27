@@ -6,8 +6,8 @@
     <b>Natywna dla AI baza wiedzy oraz alternatywa dla Evernote/Obsidian z błyskawiczną synchronizacją i natywnym MCP. Bezpłatnie na Cloudflare lub self-hosted przez Docker.</b>
   </p>
   <p>
-    <a href="https://github.com/tianma-if/edgeever/stargazers"><img src="https://img.shields.io/github/stars/tianma-if/edgeever?style=social" alt="Gwiazdki na GitHubie" /></a>
-    <a href="https://github.com/tianma-if/edgeever/network/members"><img src="https://img.shields.io/github/forks/tianma-if/edgeever?style=social" alt="Forki na GitHubie" /></a>
+    <a href="https://github.com/scupro/edgeever/stargazers"><img src="https://img.shields.io/github/stars/scupro/edgeever?style=social" alt="Gwiazdki na GitHubie" /></a>
+    <a href="https://github.com/scupro/edgeever/network/members"><img src="https://img.shields.io/github/forks/scupro/edgeever?style=social" alt="Forki na GitHubie" /></a>
     <a href="https://github.com/tianma-if/edgeever/pkgs/container/edgeever"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fghcr-badge.elias.eu.org%2Fapi%2Ftianma-if%2Fedgeever%2Fedgeever&query=downloadCount&style=social&logo=docker&label=Docker%20Pulls" alt="Pobrania obrazu Docker" /></a>
     <a href="https://www.producthunt.com/products/edgeever?utm_source=other&utm_medium=social"><img src="https://img.shields.io/badge/Product%20Hunt-ea532a?style=social&logo=product-hunt" alt="Product Hunt" /></a>
     <a href="https://hellogithub.com/repository/tianma-if/edgeever" target="_blank"><img src="https://api.hellogithub.com/v1/widgets/recommend.svg?rid=150fee4403f6433880bda91e9576ac06&claim_uid=TWNAjisURpnhL1l&theme=small" alt="Wyróżnienie HelloGitHub" /></a>
@@ -18,7 +18,7 @@
   </p>
   <p>
     <a href="https://t.me/+wwUx1BYLrIdiZjY1"><img src="assets/readme/community/telegram.svg" alt="Telegram" width="16" height="16" align="absmiddle" /> Grupa na Telegramie</a> &nbsp;|&nbsp;
-    <a href="https://demo.edgeever.org">🌐 Demo na żywo</a> &nbsp;|&nbsp;
+    <a href="https://demo.dogbro.store">🌐 Demo na żywo</a> &nbsp;|&nbsp;
     <a href="#aplikacje-i-rozszerzenia">📱 Aplikacje i rozszerzenia</a> &nbsp;|&nbsp;
     <a href="#features">Macierz funkcji i zastosowań</a>
   </p>
@@ -47,7 +47,7 @@ Wielu użytkowników **aplikacji do notatek i osobistych baz wiedzy** szuka po p
 
 ## Demo online
 
-- Demo: [https://demo.edgeever.org](https://demo.edgeever.org)
+- Demo: [https://demo.dogbro.store](https://demo.dogbro.store)
 
 Publiczne demo resetuje się codziennie o 3:00 czasu chińskiego (UTC+8) i przywraca przykładowe notatki. Nie zapisuj w nim prywatnych danych.
 
@@ -56,9 +56,9 @@ Publiczne demo resetuje się codziennie o 3:00 czasu chińskiego (UTC+8) i przyw
 ### Pobierz aplikacje
 
 <p>
-  <a href="https://github.com/tianma-if/edgeever/releases/latest"><img src="assets/readme/platforms/macos.svg" alt="Pobierz EdgeEver na macOS" width="40" height="40" /></a>&nbsp;&nbsp;
-  <a href="https://github.com/tianma-if/edgeever/releases/latest"><img src="assets/readme/platforms/windows.svg" alt="Pobierz EdgeEver na Windows" width="40" height="40" /></a>&nbsp;&nbsp;
-  <a href="https://github.com/tianma-if/edgeever/releases/latest"><img src="assets/readme/platforms/tux.svg" alt="Pobierz wersję Preview EdgeEver AppImage na Linux x86_64" width="40" height="40" /></a>&nbsp;&nbsp;
+  <a href="https://github.com/scupro/edgeever/releases/latest"><img src="assets/readme/platforms/macos.svg" alt="Pobierz EdgeEver na macOS" width="40" height="40" /></a>&nbsp;&nbsp;
+  <a href="https://github.com/scupro/edgeever/releases/latest"><img src="assets/readme/platforms/windows.svg" alt="Pobierz EdgeEver na Windows" width="40" height="40" /></a>&nbsp;&nbsp;
+  <a href="https://github.com/scupro/edgeever/releases/latest"><img src="assets/readme/platforms/tux.svg" alt="Pobierz wersję Preview EdgeEver AppImage na Linux x86_64" width="40" height="40" /></a>&nbsp;&nbsp;
   <a href="https://play.google.com/store/apps/details?id=org.edgeever.mobile&hl=pl"><img src="assets/readme/platforms/google-play.svg" alt="Pobierz EdgeEver na Androida z Google Play" width="40" height="40" /></a>&nbsp;&nbsp;
   <a href="https://apps.apple.com/pl/app/edgeever/id6792625631"><img src="assets/readme/platforms/app-store.svg" alt="Pobierz EdgeEver na iOS z App Store" width="40" height="40" /></a>
 </p>
@@ -104,7 +104,7 @@ Skopiuj poniższe polecenie do agenta AI, na przykład Codex, Claude, Cursor, Wo
 
 ```text
 Wdróż EdgeEver przez GitHub i Cloudflare:
-1. Utwórz Fork repozytorium https://github.com/tianma-if/edgeever.
+1. Utwórz Fork repozytorium https://github.com/scupro/edgeever.
 2. Utwórz bazę D1 `edgeever` w Cloudflare i przygotuj zasobnik obiektów zgodny z S3 na załączniki.
 3. W Workers & Pages utwórz Worker o nazwie `edgeever` z gałęzi `main` Forka.
    Użyj katalogu głównego repozytorium, zachowaj domyślne polecenie wdrożenia
@@ -156,7 +156,7 @@ Wariant Docker używa tego samego interfejsu, tras API, usług, uwierzytelniania
 Użyj instalatora hostowanego w GitHubie i oficjalnego obrazu GHCR:
 
 ```sh
-curl -fsSL https://edgeever.org/install.sh | bash
+curl -fsSL https://dogbro.store/install.sh | bash
 ```
 
 Polecenie pobiera najnowszy obraz, generuje hasło administratora i uruchamia EdgeEver przez Docker Compose.
@@ -281,7 +281,7 @@ Serdecznie zapraszamy społeczność do współtworzenia projektu! Przed przesł
 
 ## Społeczność i opinie
 
-- **Zgłaszanie uwag i propozycji**: Błędy, propozycje funkcji i pytania dotyczące wdrożenia zgłaszaj przez [GitHub Issues](https://github.com/tianma-if/edgeever/issues).
+- **Zgłaszanie uwag i propozycji**: Błędy, propozycje funkcji i pytania dotyczące wdrożenia zgłaszaj przez [GitHub Issues](https://github.com/scupro/edgeever/issues).
 
 ### Społeczność na Telegramie
 

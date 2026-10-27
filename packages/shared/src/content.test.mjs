@@ -154,7 +154,7 @@ describe("file attachment Markdown compatibility", () => {
   });
 
   test("keeps an ordinary standalone web link as text", () => {
-    const doc = markdownToDoc("[EdgeEver](https://edgeever.org)");
+    const doc = markdownToDoc("[EdgeEver](https://dogbro.store)");
     expect(doc.content[0]?.content?.[0]?.type).toBe("text");
   });
 

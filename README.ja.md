@@ -6,8 +6,8 @@
     <b>AI ネイティブ知識ベース、瞬時マルチデバイス同期＆ネイティブ MCP を備えた Evernote / Obsidian 代替ツール。Cloudflare 無料運用または Docker 自前運用</b>
   </p>
   <p>
-    <a href="https://github.com/tianma-if/edgeever/stargazers"><img src="https://img.shields.io/github/stars/tianma-if/edgeever?style=social" alt="GitHub Stars" /></a>
-    <a href="https://github.com/tianma-if/edgeever/network/members"><img src="https://img.shields.io/github/forks/tianma-if/edgeever?style=social" alt="GitHub Forks" /></a>
+    <a href="https://github.com/scupro/edgeever/stargazers"><img src="https://img.shields.io/github/stars/scupro/edgeever?style=social" alt="GitHub Stars" /></a>
+    <a href="https://github.com/scupro/edgeever/network/members"><img src="https://img.shields.io/github/forks/scupro/edgeever?style=social" alt="GitHub Forks" /></a>
     <a href="https://github.com/tianma-if/edgeever/pkgs/container/edgeever"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fghcr-badge.elias.eu.org%2Fapi%2Ftianma-if%2Fedgeever%2Fedgeever&query=downloadCount&style=social&logo=docker&label=Docker%20Pulls" alt="Docker Pulls" /></a>
     <a href="https://www.producthunt.com/products/edgeever?utm_source=other&utm_medium=social"><img src="https://img.shields.io/badge/Product%20Hunt-ea532a?style=social&logo=product-hunt" alt="Product Hunt" /></a>
     <a href="https://hellogithub.com/repository/tianma-if/edgeever" target="_blank"><img src="https://api.hellogithub.com/v1/widgets/recommend.svg?rid=150fee4403f6433880bda91e9576ac06&claim_uid=TWNAjisURpnhL1l&theme=small" alt="Featured｜HelloGitHub" /></a>
@@ -18,7 +18,7 @@
   </p>
   <p>
     <a href="https://t.me/+wwUx1BYLrIdiZjY1"><img src="assets/readme/community/telegram.svg" alt="Telegram" width="16" height="16" align="absmiddle" /> Telegram グループ</a> &nbsp;|&nbsp;
-    <a href="https://demo.edgeever.org">🌐 オンラインデモ</a> &nbsp;|&nbsp;
+    <a href="https://demo.dogbro.store">🌐 オンラインデモ</a> &nbsp;|&nbsp;
     <a href="#全プラットフォームクライアントと拡張機能">📱 クライアントと拡張機能</a> &nbsp;|&nbsp;
     <a href="#features">機能とワークフローマトリクス</a>
   </p>
@@ -47,7 +47,7 @@ EdgeEver は、オープンソースのノートと知識ベースの作業領�
 
 ## オンラインデモ
 
-- Demo: [https://demo.edgeever.org](https://demo.edgeever.org)
+- Demo: [https://demo.dogbro.store](https://demo.dogbro.store)
 
 公開デモは毎日 3:00（中国標準時）にリセットされ、サンプルノートが戻ります。非公開の内容は置かないでください。
 
@@ -56,9 +56,9 @@ EdgeEver は、オープンソースのノートと知識ベースの作業領�
 ### クライアントのダウンロード
 
 <p>
-  <a href="https://github.com/tianma-if/edgeever/releases/latest"><img src="assets/readme/platforms/macos.svg" alt="macOS 向け EdgeEver をダウンロード" width="40" height="40" /></a>&nbsp;&nbsp;
-  <a href="https://github.com/tianma-if/edgeever/releases/latest"><img src="assets/readme/platforms/windows.svg" alt="Windows 向け EdgeEver をダウンロード" width="40" height="40" /></a>&nbsp;&nbsp;
-  <a href="https://github.com/tianma-if/edgeever/releases/latest"><img src="assets/readme/platforms/tux.svg" alt="Linux x86_64 AppImage Preview をダウンロード" width="40" height="40" /></a>&nbsp;&nbsp;
+  <a href="https://github.com/scupro/edgeever/releases/latest"><img src="assets/readme/platforms/macos.svg" alt="macOS 向け EdgeEver をダウンロード" width="40" height="40" /></a>&nbsp;&nbsp;
+  <a href="https://github.com/scupro/edgeever/releases/latest"><img src="assets/readme/platforms/windows.svg" alt="Windows 向け EdgeEver をダウンロード" width="40" height="40" /></a>&nbsp;&nbsp;
+  <a href="https://github.com/scupro/edgeever/releases/latest"><img src="assets/readme/platforms/tux.svg" alt="Linux x86_64 AppImage Preview をダウンロード" width="40" height="40" /></a>&nbsp;&nbsp;
   <a href="https://play.google.com/store/apps/details?id=org.edgeever.mobile&hl=ja"><img src="assets/readme/platforms/google-play.svg" alt="Google Play から Android 向け EdgeEver をダウンロード" width="40" height="40" /></a>&nbsp;&nbsp;
   <a href="https://apps.apple.com/jp/app/edgeever/id6792625631"><img src="assets/readme/platforms/app-store.svg" alt="App Store から iOS 向け EdgeEver をダウンロード" width="40" height="40" /></a>
 </p>
@@ -104,7 +104,7 @@ Cloudflare のオンライン導入は、次のいずれかです。
 
 ```text
 GitHub と Cloudflare のオンライン操作だけで EdgeEver を導入してください:
-1. Fork https://github.com/tianma-if/edgeever。
+1. Fork https://github.com/scupro/edgeever。
 2. Cloudflare で D1 `edgeever` を作成し、添付ファイル用に S3 互換のオブジェクトストレージを準備します。
 3. Workers & Pages で Fork の `main` ブランチから `edgeever` という名前の Worker を作成します。
    リポジトリのルートを使い、Cloudflare Workers Builds の既定のデプロイコマンドを維持します。
@@ -155,7 +155,7 @@ Docker は Cloudflare と同じフロントエンド、API、サービス、認�
 GitHub ホストのインストーラと公式 GHCR イメージを使います。
 
 ```sh
-curl -fsSL https://edgeever.org/install.sh | bash
+curl -fsSL https://dogbro.store/install.sh | bash
 ```
 
 このコマンドは最新イメージを引き、管理者パスワードを生成し、Docker Compose で EdgeEver を起動します。
@@ -280,7 +280,7 @@ content_text      全文検索、要約生成、索引
 
 ## コミュニティとフィードバック
 
-- **不具合報告と機能要望**：不具合や機能要望、導入に関する疑問は [GitHub Issues](https://github.com/tianma-if/edgeever/issues) へ投稿してください。
+- **不具合報告と機能要望**：不具合や機能要望、導入に関する疑問は [GitHub Issues](https://github.com/scupro/edgeever/issues) へ投稿してください。
 
 ### Telegram コミュニティ
 

@@ -2,7 +2,7 @@
 
 ## 分發狀態
 
-EdgeEver 透過官方 [GitHub Releases](https://github.com/tianma-if/edgeever/releases/latest)
+EdgeEver 透過官方 [GitHub Releases](https://github.com/scupro/edgeever/releases/latest)
 頁面分發 Windows x64 預覽版。當前安裝包與應用內可執行檔案尚未使用
 Authenticode 簽名，因此 Windows SmartScreen、防毒軟體或組織策略可能提示風險或
 直接阻止安裝。這類提示是預覽階段的預期現象，但並不表示任意來源的副本都安全。

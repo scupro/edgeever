@@ -22,7 +22,7 @@
 ```sh
 git clone https://github.com/<您的帳號>/edgeever.git
 cd edgeever
-git remote add upstream https://github.com/tianma-if/edgeever.git
+git remote add upstream https://github.com/scupro/edgeever.git
 git fetch upstream
 ```
 

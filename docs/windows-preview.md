@@ -3,7 +3,7 @@
 ## Distribution status
 
 EdgeEver distributes a Windows x64 Preview from the official
-[GitHub Releases](https://github.com/tianma-if/edgeever/releases/latest) page.
+[GitHub Releases](https://github.com/scupro/edgeever/releases/latest) page.
 The current installer and packaged executables are not Authenticode-signed.
 Windows SmartScreen, antivirus software, or organization policy may therefore
 warn about or block the installer. This warning is expected for the Preview,

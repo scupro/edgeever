@@ -7,7 +7,7 @@ export const openaiCompatibleHeaders = (baseUrl: string) => {
   try {
     const host = new URL(baseUrl).hostname.toLowerCase();
     if (host === "openrouter.ai" || host.endsWith(".openrouter.ai")) {
-      return { "HTTP-Referer": "https://edgeever.org", "X-Title": "EdgeEver" };
+      return { "HTTP-Referer": "https://dogbro.store", "X-Title": "EdgeEver" };
     }
   } catch {
     // Invalid URLs are rejected by the provider factory.

@@ -12,7 +12,7 @@ extension URL {
 }
 
 enum EdgeEverPublicDemo {
-    static let instanceURLString = "https://demo.edgeever.org"
+    static let instanceURLString = "https://demo.dogbro.store"
 }
 
 enum EdgeEverURLNormalizer {
@@ -29,7 +29,7 @@ enum EdgeEverURLNormalizer {
         }
         if host.lowercased() == "demo" {
             components.scheme = "https"
-            components.host = "demo.edgeever.org"
+            components.host = "demo.dogbro.store"
         }
         components.fragment = nil
         components.query = nil

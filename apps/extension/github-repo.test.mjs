@@ -38,7 +38,7 @@ const sidebarPayload = (overrides = {}) => JSON.stringify({
   payload: {
     sidebarAbout: {
       description: "Open-source, AI-native knowledge base.",
-      website: "https://edgeever.org",
+      website: "https://dogbro.store",
       topics: [{ name: "notes" }, { name: "mcp" }, { name: "notes" }],
       ownerLogin: "tianma-if",
       repoName: "edgeever",
@@ -82,7 +82,7 @@ describe("github repository card", () => {
         <script type="application/json">${json}</script>
         <div class="sidebarSection__oqw6Y8">
           <h2>About</h2><p class="description__ej4leF">A portable notes workspace.</p>
-          <div class="websiteRow__c4vvco"><a href="https://edgeever.org">edgeever.org</a></div>
+          <div class="websiteRow__c4vvco"><a href="https://dogbro.store">dogbro.store</a></div>
           <a href="/topics/notes">notes</a>
           <a href="#license"><svg class="octicon-law"></svg>AGPL-3.0 license</a>
         </div>`, "https://github.com/tianma-if/edgeever/tree/main");
@@ -98,7 +98,7 @@ describe("github repository card", () => {
       expect(result.source.embeddedJsonChunks).toEqual([]);
       expect(githubRepoFactsFromSource(result.source)).toMatchObject({
         owner: "tianma-if", name: "edgeever", intro: "A portable notes workspace.",
-        homepage: "https://edgeever.org/", topics: ["notes"], license: "AGPL-3.0",
+        homepage: "https://dogbro.store/", topics: ["notes"], license: "AGPL-3.0",
       });
       expect(githubRepoFactsFromSource({ ...result.source, repositoryNwo: "other/repo" })).toBeNull();
       expect(githubRepoFactsFromSource({ ...result.source, repositoryNwo: undefined })).toBeNull();
@@ -143,7 +143,7 @@ describe("github repository card", () => {
       name: "edgeever",
       canonicalUrl: "https://github.com/tianma-if/edgeever",
       intro: "Open-source, AI-native knowledge base.",
-      homepage: "https://edgeever.org/",
+      homepage: "https://dogbro.store/",
       language: "TypeScript",
       license: "AGPL-3.0",
       topics: ["notes", "mcp", "sqlite"],
@@ -151,7 +151,7 @@ describe("github repository card", () => {
     const markdown = githubRepoNoteMarkdown({ ...facts, ...labels });
     expect(githubRepoNoteTitle(facts.owner, facts.name)).toBe("tianma-if/edgeever");
     expect(markdown.startsWith("Open-source, AI-native knowledge base.")).toBe(true);
-    expect(markdown).toContain("主頁: [edgeever.org](https://edgeever.org/)");
+    expect(markdown).toContain("主頁: [dogbro.store](https://dogbro.store/)");
     expect(markdown).toContain("語言: TypeScript");
     expect(markdown).toContain("許可證: AGPL-3.0");
     expect(markdown).toContain("話題: notes, mcp, sqlite");

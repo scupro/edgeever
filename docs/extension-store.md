@@ -29,7 +29,7 @@ Both workflows use the Bun version from the checked-out root `package.json`.
 
 ## Run it
 
-On https://github.com/tianma-if/edgeever/actions/workflows/extension-store.yml,
+On https://github.com/scupro/edgeever/actions/workflows/extension-store.yml,
 choose **Run workflow**. Leave the Firefox notes empty for a one-line version
 note, or paste the notes Mozilla should show. `dry_run` builds the packages
 and stops before calling either store.

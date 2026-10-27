@@ -22,7 +22,7 @@ Clone your Fork and add the official repository as `upstream`:
 ```sh
 git clone https://github.com/<your-account>/edgeever.git
 cd edgeever
-git remote add upstream https://github.com/tianma-if/edgeever.git
+git remote add upstream https://github.com/scupro/edgeever.git
 git fetch upstream
 ```
 
