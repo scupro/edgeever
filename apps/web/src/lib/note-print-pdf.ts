@@ -19,7 +19,11 @@ export const buildPdfFilename = (title: string, fallback: string) =>
   buildMarkdownFilename(title, fallback).replace(/\.md$/i, ".pdf");
 
 export const downloadPdfBytes = (bytes: Uint8Array, filename: string) => {
-  const blob = new Blob([bytes], { type: "application/pdf" });
+  // Copy into a fresh, non-shared buffer: BlobPart no longer accepts a
+  // Uint8Array backed by a possibly-shared ArrayBufferLike.
+  const buffer = new Uint8Array(bytes.byteLength);
+  buffer.set(bytes);
+  const blob = new Blob([buffer.buffer], { type: "application/pdf" });
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;

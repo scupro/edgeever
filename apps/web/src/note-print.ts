@@ -169,7 +169,9 @@ printButton?.addEventListener("click", () => {
   if (!preview || !printButton || printButton.disabled) return;
   printButton.disabled = true;
   setText(status, printPreparingLabel);
-  void downloadNotePrintPdf(preview, printTitle, "EdgeEver").then(() => {
+  // `@cloudflare/workers-types` augments Element.append, so an HTMLElement no
+  // longer structurally matches the DOM lib's ParentNode; the runtime is unchanged.
+  void downloadNotePrintPdf(preview as unknown as ParentNode, printTitle, "EdgeEver").then(() => {
     setText(status, printReadyLabel);
     printButton.disabled = false;
   }).catch((error) => {
