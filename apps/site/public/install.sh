@@ -5,7 +5,7 @@ umask 077
 
 readonly GHCR_IMAGE="ghcr.io/tianma-if/edgeever"
 readonly TCR_IMAGE="ccr.ccs.tencentyun.com/edgeever/edgeever"
-readonly GLOBAL_COMPOSE_URL="https://edgeever.org/compose.yaml"
+readonly GLOBAL_COMPOSE_URL="https://dogbro.store/compose.yaml"
 readonly TENCENT_COMPOSE_URL="https://edgeever-installer-1256854452.cos.ap-guangzhou.myqcloud.com/compose.yaml"
 
 install_dir="${EDGE_EVER_INSTALL_DIR:-${HOME:-}/edgeever}"
@@ -107,7 +107,7 @@ usage() {
 Install or upgrade EdgeEver with Docker Compose.
 
 Usage:
-  curl -fsSL https://edgeever.org/install.sh | bash
+  curl -fsSL https://dogbro.store/install.sh | bash
 
 Options:
   --image IMAGE      Use a custom image repository
