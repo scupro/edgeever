@@ -579,15 +579,15 @@
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					06BD8BFE81996E1AAAACD634 = {
-						DevelopmentTeam = 9KA3NM38B6;
+						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
 					};
 					7B4AF236874DD8459683F02B = {
-						DevelopmentTeam = 9KA3NM38B6;
+						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
 					};
 					E55B18ED6114D23320B85FA0 = {
-						DevelopmentTeam = 9KA3NM38B6;
+						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -751,7 +751,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9KA3NM38B6;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = ShareExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -800,7 +800,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 49;
-				DEVELOPMENT_TEAM = 9KA3NM38B6;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -831,7 +831,7 @@
 				CODE_SIGN_ENTITLEMENTS = EdgeEver/Resources/EdgeEver.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9KA3NM38B6;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_TESTABILITY = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = EdgeEver/Resources/Info.plist;
@@ -884,7 +884,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 49;
-				DEVELOPMENT_TEAM = 9KA3NM38B6;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -919,7 +919,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9KA3NM38B6;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = ShareExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -973,7 +973,7 @@
 				CODE_SIGN_ENTITLEMENTS = EdgeEver/Resources/EdgeEver.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9KA3NM38B6;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_TESTABILITY = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = EdgeEver/Resources/Info.plist;

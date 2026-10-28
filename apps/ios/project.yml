@@ -23,10 +23,9 @@ settings:
     # MARKETING_VERSION and CURRENT_PROJECT_VERSION live only in
     # Config/Version.xcconfig. Hardcoding them here makes xcodegen overwrite
     # the Release tag during ci_post_clone.
-    # Automatic signing: required for Xcode Cloud (managed certs/profiles for
-    # App Store + Development exports). Local ExportOptions.plist still pins
-    # App Store profiles for Scripts/archive-app-store.sh export.
-    DEVELOPMENT_TEAM: 9KA3NM38B6
+    # No signing team is pinned: set your own team in Xcode for local device
+    # builds. This repository ships no App Store export configuration.
+    DEVELOPMENT_TEAM: ""
     CODE_SIGN_STYLE: Automatic
 configs:
   Debug: debug
@@ -74,10 +73,8 @@ targets:
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         SWIFT_STRICT_CONCURRENCY: complete
         ENABLE_TESTABILITY: true
-        # Always Automatic: Xcode Cloud needs managed Development + Distribution
-        # profiles. Local App Store export still uses ExportOptions.plist (manual
-        # profiles) in Scripts/archive-app-store.sh.
-        DEVELOPMENT_TEAM: 9KA3NM38B6
+        # Set your own signing team for device builds.
+        DEVELOPMENT_TEAM: ""
         CODE_SIGN_STYLE: Automatic
     info:
       path: EdgeEver/Resources/Info.plist
@@ -132,7 +129,7 @@ targets:
         GENERATE_INFOPLIST_FILE: false
         SKIP_INSTALL: true
         LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks"
-        DEVELOPMENT_TEAM: 9KA3NM38B6
+        DEVELOPMENT_TEAM: ""
         CODE_SIGN_STYLE: Automatic
     entitlements:
       path: ShareExtension/ShareExtension.entitlements

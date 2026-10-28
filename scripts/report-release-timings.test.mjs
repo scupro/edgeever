@@ -64,12 +64,6 @@ describe("release timing report", () => {
           step("Build and publish image", start, 240),
         ]),
       ]),
-      store: payload("Store", start, 660, [
-        job("Deliver Google Play", start, 660, [
-          step("Build and verify signed Play bundle", start, 180),
-          step("Upload bundle to Google Play", start, 240),
-        ]),
-      ]),
       cloudflare: payload("Cloudflare", start, 120, [
         job("Build and deploy Demo Worker", start, 120, [
           step("Deploy Demo Worker", start, 60),
@@ -93,7 +87,6 @@ describe("release timing report", () => {
       "Windows x64 Preview",
       "Linux x64 Preview",
       "Android arm64",
-      "Google Play signed APK",
     ]);
     const markdown = renderReleaseTimingMarkdown(report);
     expect(markdown).toContain(
@@ -110,9 +103,6 @@ describe("release timing report", () => {
     );
     expect(markdown).toContain(
       "| Linux x64 Preview | rebuild | success | 6m 00s | package 2m 00s |",
-    );
-    expect(markdown).toContain(
-      "| Google Play signed APK | build + deliver | success | 11m 00s | AAB build 3m 00s; Play upload 4m 00s |",
     );
   });
 
@@ -188,7 +178,7 @@ describe("release timing report", () => {
     );
   });
 
-  test("reports every Draft attempt and distinguishes Play APK recovery", () => {
+  test("reports every Draft attempt across retries", () => {
     const start = "2026-08-25T00:00:00Z";
     const attempts = [
       payload("Desktop failed", start, 420, []),
@@ -211,12 +201,6 @@ describe("release timing report", () => {
       mobile: payload("Mobile", start, 30, [job("Plan Android release asset", start, 30)]),
       mobileMode: "rebuild",
       docker: payload("Docker", start, 60, [job("Publish official multi-platform image", start, 60)]),
-      store: payload("Store recovery", start, 120, [
-        job("Deliver Google Play", start, 120, [
-          step("Download Play-signed universal APK", start, 45),
-        ]),
-      ]),
-      storeMode: "recover",
       attempts,
       cloudflare: payload("Cloudflare", start, 60, [job("Build and deploy Demo Worker", start, 60)]),
       tcrSource: payload("TCR", start, 15, [job("Trigger asynchronous Tencent-side image build", start, 15)]),
@@ -224,11 +208,7 @@ describe("release timing report", () => {
       tcrStatus: "success",
     };
     const report = createReleaseTimingReport(common);
-    expect(report.rows.at(-1)).toMatchObject({
-      target: "Google Play signed APK",
-      mode: "recover",
-      detail: "recovered existing Play-signed APK 45s",
-    });
+    expect(report.rows.at(-1)).toMatchObject({ target: "Android arm64" });
     const markdown = renderReleaseTimingMarkdown(report);
     expect(markdown).toContain("across **2 workflow runs** and **2 release target(s)**");
     expect(markdown).toContain("1 run(s) failed or were cancelled");

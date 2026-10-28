@@ -28,8 +28,6 @@ const RUN_DISCOVERY_TIMEOUT_MS = 60_000;
 export const RELEASE_WORKFLOWS = {
   desktop: "desktop-build.yml",
   mobile: "mobile-build.yml",
-  androidPlaySignature: "android-play-signature-audit.yml",
-  storeDelivery: "store-delivery.yml",
   docker: "docker-image.yml",
   demo: "deploy-demo.yml",
   timings: "release-timings.yml",
@@ -48,10 +46,6 @@ export const RELEASE_VALIDATIONS = [
       "scripts/check-native-release-assets.test.mjs",
       "scripts/windows-update-metadata.test.mjs",
       "scripts/release.test.mjs",
-      "scripts/validate-store-delivery.test.mjs",
-      "scripts/store-delivery.test.mjs",
-      "scripts/xcode-cloud-control.test.mjs",
-      "scripts/download-play-universal-apk.test.mjs",
       "scripts/desktop-icns.test.mjs",
       "scripts/verify-desktop-cross-version-startup.test.mjs",
       "apps/web/src/lib/version-check.test.mjs",
@@ -195,7 +189,7 @@ export const parseReleaseArgs = (argv) => {
   }
   if (!localizedChanges.ja && !localizedChanges["ja-JP"]) {
     throw new Error(
-      "--change-locale ja is required because the App Store listing includes Japanese What's New.",
+      "--change-locale ja is required because the site publishes localized release notes.",
     );
   }
   options.localizedChanges = localizedChanges;
@@ -400,7 +394,7 @@ export const buildIssueBody = ({ changesEn, changesZh, commitCoverageAudit }) =>
   "## Acceptance criteria",
   "",
   "- Required type checks, Web build, and native release planning tests pass.",
-  "- The Draft Release contains audited macOS arm64/x64 DMGs, an unsigned Windows x64 Preview with an independently signed update manifest, a Linux x64 AppImage Preview with verified updater metadata, checksum, and cross-version installation, and a Play-signed Android arm64 APK.",
+  "- The Draft Release contains audited macOS arm64/x64 DMGs, an unsigned Windows x64 Preview with an independently signed update manifest, a Linux x64 AppImage Preview with verified updater metadata, checksum, and cross-version installation, and a signed Android arm64 APK.",
   "- Post-publication native asset audits pass.",
 ].join("\n");
 
@@ -569,38 +563,10 @@ const assertReleasePreconditions = ({ repository, previousTag }) => {
   }
 };
 
-export const updateIosMarketingVersion = (contents, nextVersion) => {
-  const updated = String(contents).replace(
-    /^MARKETING_VERSION\s*=\s*.+$/m,
-    `MARKETING_VERSION = ${nextVersion}`,
-  );
-  if (!new RegExp(`^MARKETING_VERSION\\s*=\\s*${nextVersion}$`, "m").test(updated)) {
-    throw new Error("Unable to update apps/ios/Config/Version.xcconfig MARKETING_VERSION.");
-  }
-  return updated;
-};
-
-export const updateIosProjectMarketingVersion = (contents, nextVersion) => {
-  const updated = String(contents).replace(
-    /MARKETING_VERSION = [^;]+;/g,
-    `MARKETING_VERSION = ${nextVersion};`,
-  );
-  const matches = updated.match(
-    new RegExp(`MARKETING_VERSION = ${nextVersion.replaceAll(".", "\\.")};`, "g"),
-  );
-  if (!matches || matches.length < 2) {
-    throw new Error(
-      "Unable to update apps/ios/EdgeEver.xcodeproj/project.pbxproj MARKETING_VERSION.",
-    );
-  }
-  return updated;
-};
-
 const updateReleaseVersions = ({
   nextVersion,
   desktopRebuild,
   mobileRebuild,
-  iosRebuild,
   changesEn,
   changesZh,
   localizedChanges,
@@ -631,22 +597,6 @@ const updateReleaseVersions = ({
     changedPaths.push("apps/mobile/app.json");
   }
 
-  if (iosRebuild) {
-    const iosVersionPath = "apps/ios/Config/Version.xcconfig";
-    const iosProjectPath = "apps/ios/EdgeEver.xcodeproj/project.pbxproj";
-    writeFileSync(
-      iosVersionPath,
-      updateIosMarketingVersion(readFileSync(iosVersionPath, "utf8"), nextVersion),
-    );
-    writeFileSync(
-      iosProjectPath,
-      updateIosProjectMarketingVersion(
-        readFileSync(iosProjectPath, "utf8"),
-        nextVersion,
-      ),
-    );
-    changedPaths.push(iosVersionPath, iosProjectPath);
-  }
   return changedPaths;
 };
 
@@ -726,18 +676,12 @@ const CHECKPOINT_RUN_FIELDS = [
   "desktopRunId",
   "mobileRunId",
   "dockerRunId",
-  "storeRunId",
-  "storeRecoveryRunId",
-  "iosStoreRunId",
-  "androidPlaySignatureRunId",
   "windowsUpdateAuditRunId",
 ];
 const CANCELLABLE_CHECKPOINT_RUN_FIELDS = new Set([
   "desktopRunId",
   "mobileRunId",
   "dockerRunId",
-  "iosStoreRunId",
-  "androidPlaySignatureRunId",
   "windowsUpdateAuditRunId",
 ]);
 
@@ -762,7 +706,7 @@ export const checkpointRunIds = (checkpoint) => [...new Set([
   ...CHECKPOINT_RUN_FIELDS.map((field) => Number(checkpoint[field])),
 ].filter((runId) => Number.isInteger(runId) && runId > 0))];
 
-export const prepareReleaseCheckpoint = ({ storedState, releaseSha, preserveIosStoreRun = false }) => {
+export const prepareReleaseCheckpoint = ({ storedState, releaseSha }) => {
   if (storedState.releaseSha === releaseSha) return storedState;
   const legacyHistory = CHECKPOINT_RUN_FIELDS.flatMap((field) => {
     const runId = Number(storedState[field]);
@@ -777,22 +721,7 @@ export const prepareReleaseCheckpoint = ({ storedState, releaseSha, preserveIosS
   return {
     releaseSha,
     ...(runHistory.length > 0 ? { runHistory } : {}),
-    ...(storedState.playDelivery ? { playDelivery: storedState.playDelivery } : {}),
-    ...(preserveIosStoreRun && storedState.iosStoreRunId
-      ? { iosStoreRunId: storedState.iosStoreRunId }
-      : {}),
   };
-};
-
-export const playDeliveryResumeAction = ({
-  playDelivery,
-  tag,
-  headSha,
-  mobileInputsChanged = false,
-}) => {
-  if (!playDelivery || playDelivery.tag !== tag) return "upload";
-  if (playDelivery.releaseSha === headSha) return "verify";
-  return mobileInputsChanged ? "block" : "verify";
 };
 
 export const shouldCancelSupersededRun = ({ runView, headSha }) =>
@@ -868,12 +797,11 @@ const viewWorkflowRun = ({ repository, runId }) => ghJson([
   "status,conclusion,url,headSha,jobs",
 ]);
 
-const cancelSupersededCheckpointRuns = ({ repository, checkpoint, headSha, preserveIosStoreRun = false }) => {
+const cancelSupersededCheckpointRuns = ({ repository, checkpoint, headSha }) => {
   const candidates = CHECKPOINT_RUN_FIELDS.flatMap((field) => checkpoint[field]
     ? [{ field, runId: checkpoint[field] }]
     : []).filter(({ field }, index, entries) =>
     CANCELLABLE_CHECKPOINT_RUN_FIELDS.has(field) &&
-    !(preserveIosStoreRun && field === "iosStoreRunId") &&
     entries.findIndex((candidate) => Number(candidate.runId) === Number(entries[index].runId)) === index
   );
   for (const { field, runId } of candidates) {
@@ -943,19 +871,6 @@ const resumeDraftWorkflowRun = async ({ repository, runId, headSha, label }) => 
   return Number(runId);
 };
 
-export const playDeliveryFailureStrategy = (runView) => {
-  const androidJob = runView.jobs?.find(
-    (job) => job.name === "Deliver Google Play",
-  );
-  const uploadStep = androidJob?.steps?.find(
-    (step) => step.name === "Upload bundle to Google Play",
-  );
-  if (!uploadStep || ["skipped", null, undefined].includes(uploadStep.conclusion)) {
-    return "rerun";
-  }
-  return "recover";
-};
-
 const dispatchReleaseWorkflow = async ({
   repository,
   workflow,
@@ -1006,226 +921,6 @@ const dispatchReleaseWorkflow = async ({
     await wait(2_000);
   }
   throw new Error(`Timed out discovering dispatched ${workflow} run for ${tag}.`);
-};
-
-const dispatchStoreDeliveryWorkflow = ({
-  repository,
-  tag,
-  headSha,
-  recoverPlayApk = false,
-  platform = "android",
-  androidTrack = "production",
-  iosBuildNumber = "",
-}) => dispatchReleaseWorkflow({
-  repository,
-  workflow: RELEASE_WORKFLOWS.storeDelivery,
-  tag,
-  headSha,
-  inputs: {
-    release_tag: tag,
-    platform,
-    android_track: androidTrack,
-    recover_play_apk: recoverPlayApk,
-    ios_build_number: iosBuildNumber,
-  },
-});
-
-const dispatchAndWaitForPlayRecovery = async ({
-  repository,
-  tag,
-  headSha,
-  checkpoint,
-  persistCheckpoint,
-}) => {
-  const recoveryRunId = await dispatchStoreDeliveryWorkflow({
-    repository,
-    tag,
-    headSha,
-    recoverPlayApk: true,
-  });
-  recordCheckpointRun(checkpoint, "storeRecoveryRunId", recoveryRunId);
-  persistCheckpoint();
-  await waitForRun({
-    repository,
-    runId: recoveryRunId,
-    label: "Recover Play-signed Draft APK",
-  });
-  return recoveryRunId;
-};
-
-const ensurePlayDelivery = async ({
-  repository,
-  tag,
-  headSha,
-  checkpoint,
-  persistCheckpoint,
-  resumeAction = "upload",
-}) => {
-  const recordCompletedDelivery = ({ storeRunId = null, recoveryRunId = null }) => {
-    checkpoint.playDelivery = {
-      tag,
-      releaseSha: headSha,
-      ...(storeRunId ? { storeRunId: Number(storeRunId) } : {}),
-      ...(recoveryRunId ? { recoveryRunId: Number(recoveryRunId) } : {}),
-    };
-    persistCheckpoint();
-  };
-
-  if (resumeAction === "verify") {
-    console.log(
-      "[release] mobile inputs are unchanged since Play delivery; skipping upload and verifying the existing Play-signed APK",
-    );
-    return checkpoint.playDelivery?.recoveryRunId ?? checkpoint.playDelivery?.storeRunId ?? null;
-  }
-
-  let storeRunId = checkpoint.storeRunId;
-  if (!storeRunId) {
-    storeRunId = await dispatchStoreDeliveryWorkflow({
-      repository,
-      tag,
-      headSha,
-      recoverPlayApk: false,
-    });
-    recordCheckpointRun(checkpoint, "storeRunId", storeRunId);
-    persistCheckpoint();
-  } else {
-    const existing = viewWorkflowRun({ repository, runId: storeRunId });
-    if (existing.headSha !== headSha) {
-      throw new Error("Stored Play delivery Run targets a different commit.");
-    }
-    console.log(`[release] reusing Google Play delivery: ${existing.url}`);
-  }
-
-  try {
-    await waitForRun({
-      repository,
-      runId: storeRunId,
-      label: "Google Play delivery",
-    });
-    recordCompletedDelivery({ storeRunId });
-    return storeRunId;
-  } catch (error) {
-    const failedRun = viewWorkflowRun({ repository, runId: storeRunId });
-    if (playDeliveryFailureStrategy(failedRun) === "recover") {
-      console.log(
-        "[release] Play upload may have completed; recovering its signed APK without re-uploading",
-      );
-      const recoveryRunId = await dispatchAndWaitForPlayRecovery({
-        repository,
-        tag,
-        headSha,
-        checkpoint,
-        persistCheckpoint,
-      });
-      recordCompletedDelivery({ storeRunId, recoveryRunId });
-      return storeRunId;
-    }
-
-    console.log("[release] Play upload did not start; dispatching a clean delivery retry");
-    storeRunId = await dispatchStoreDeliveryWorkflow({
-      repository,
-      tag,
-      headSha,
-      recoverPlayApk: false,
-    });
-    recordCheckpointRun(checkpoint, "storeRunId", storeRunId);
-    persistCheckpoint();
-    await waitForRun({
-      repository,
-      runId: storeRunId,
-      label: "Google Play delivery retry",
-    });
-    recordCompletedDelivery({ storeRunId });
-    return storeRunId;
-  }
-};
-
-const startIosStoreDelivery = async ({
-  repository,
-  tag,
-  headSha,
-  checkpoint,
-  persistCheckpoint,
-  allowPriorIosRun = false,
-}) => {
-  let iosStoreRunId = checkpoint.iosStoreRunId;
-  if (iosStoreRunId) {
-    const existing = viewWorkflowRun({ repository, runId: iosStoreRunId });
-    if (existing.headSha === headSha || allowPriorIosRun) {
-      if (existing.status !== "completed") {
-        console.log(`[release] reusing App Store delivery: ${existing.url}`);
-        return iosStoreRunId;
-      }
-      if (existing.conclusion === "success") {
-        console.log(`[release] App Store delivery already succeeded: ${existing.url}`);
-        return iosStoreRunId;
-      }
-      console.log(`[release] rerunning failed App Store delivery: ${existing.url}`);
-      run("gh", [
-        "run",
-        "rerun",
-        String(iosStoreRunId),
-        "--repo",
-        repository,
-        "--failed",
-      ]);
-      await waitForRerunStart({ repository, runId: iosStoreRunId });
-      return iosStoreRunId;
-    }
-  }
-
-  iosStoreRunId = await dispatchStoreDeliveryWorkflow({
-    repository,
-    tag,
-    headSha,
-    platform: "ios",
-  });
-  recordCheckpointRun(checkpoint, "iosStoreRunId", iosStoreRunId);
-  persistCheckpoint();
-  console.log("[release] started App Store delivery");
-  return iosStoreRunId;
-};
-
-const requirePlaySignedDraftApk = async ({
-  repository,
-  tag,
-  headSha,
-  checkpoint,
-  persistCheckpoint,
-  allowRecovery,
-}) => {
-  const dispatchGate = async () => {
-    const runId = await dispatchReleaseWorkflow({
-      repository,
-      workflow: RELEASE_WORKFLOWS.androidPlaySignature,
-      tag,
-      headSha,
-    });
-    recordCheckpointRun(checkpoint, "androidPlaySignatureRunId", runId);
-    persistCheckpoint();
-    await waitForRun({
-      repository,
-      runId,
-      label: "Draft Android Play signature gate",
-    });
-  };
-
-  try {
-    await dispatchGate();
-  } catch (error) {
-    if (!allowRecovery) throw error;
-    console.log(
-      "[release] restoring the already delivered Play-signed APK before retrying its signature gate",
-    );
-    await dispatchAndWaitForPlayRecovery({
-      repository,
-      tag,
-      headSha,
-      checkpoint,
-      persistCheckpoint,
-    });
-    await dispatchGate();
-  }
 };
 
 const findReleaseRun = async ({
@@ -1535,12 +1230,10 @@ const releaseMain = async (options) => {
   printReleaseCoverageAudit({ audit: commitCoverageAudit, changesEn: options.changesEn });
   const desktopPlan = planNativeRelease("desktop", changedFiles);
   const mobilePlan = planNativeRelease("mobile", changedFiles);
-  const iosPlan = planNativeRelease("ios", changedFiles);
 
   console.log(`[release] ${releaseBaseTag} -> ${tag}`);
   console.log(`[release] desktop: ${desktopPlan.rebuild ? "rebuild" : "reuse"}`);
   console.log(`[release] Android: ${mobilePlan.rebuild ? "rebuild" : "reuse"}`);
-  console.log(`[release] iOS: ${iosPlan.rebuild ? "rebuild" : "reuse"}`);
 
   if (options.dryRun) {
     console.log(buildReleaseNotes({
@@ -1595,7 +1288,6 @@ const releaseMain = async (options) => {
       nextVersion: releaseVersion,
       desktopRebuild: desktopPlan.rebuild,
       mobileRebuild: mobilePlan.rebuild,
-      iosRebuild: iosPlan.rebuild,
       changesEn: options.changesEn,
       changesZh: options.changesZh,
       localizedChanges: options.localizedChanges,
@@ -1636,27 +1328,16 @@ const releaseMain = async (options) => {
   });
   let checkpointCommentId = storedCheckpoint.commentId;
   const priorReleaseSha = storedCheckpoint.state.releaseSha;
-  const preserveIosStoreRun = Boolean(
-    storedCheckpoint.state.iosStoreRunId &&
-    priorReleaseSha &&
-    priorReleaseSha !== releaseSha &&
-    run("git", ["merge-base", "--is-ancestor", priorReleaseSha, releaseSha], {
-      allowFailure: true,
-    }).status === 0 &&
-    !planNativeRelease("ios", changedFilesBetween(priorReleaseSha, releaseSha)).rebuild
-  );
   if (storedCheckpoint.state.releaseSha && storedCheckpoint.state.releaseSha !== releaseSha) {
     cancelSupersededCheckpointRuns({
       repository: options.repository,
       checkpoint: storedCheckpoint.state,
       headSha: releaseSha,
-      preserveIosStoreRun,
     });
   }
   const checkpoint = prepareReleaseCheckpoint({
     storedState: storedCheckpoint.state,
     releaseSha,
-    preserveIosStoreRun,
   });
   const persistCheckpoint = () => {
     checkpointCommentId = saveReleaseCheckpoint({
@@ -1668,34 +1349,6 @@ const releaseMain = async (options) => {
     });
   };
   persistCheckpoint();
-
-  let playDeliveryAction = "upload";
-  if (mobilePlan.rebuild && checkpoint.playDelivery?.tag === tag) {
-    const deliveredSha = checkpoint.playDelivery.releaseSha;
-    const deliveredTargetIsAncestor = run(
-      "git",
-      ["merge-base", "--is-ancestor", deliveredSha, releaseSha],
-      { allowFailure: true },
-    ).status === 0;
-    if (!deliveredTargetIsAncestor) {
-      throw new Error("Stored Play delivery is not an ancestor of the current Draft target.");
-    }
-    const mobileInputsChanged = planNativeRelease(
-      "mobile",
-      changedFilesBetween(deliveredSha, releaseSha),
-    ).rebuild;
-    playDeliveryAction = playDeliveryResumeAction({
-      playDelivery: checkpoint.playDelivery,
-      tag,
-      headSha: releaseSha,
-      mobileInputsChanged,
-    });
-    if (playDeliveryAction === "block") {
-      throw new Error(
-        "Mobile release inputs changed after this versionCode was delivered to Google Play. Withdraw this Draft and prepare a new version/versionCode instead of re-uploading the immutable Play version.",
-      );
-    }
-  }
 
   const resolveDraftRun = async (field, workflow, label) => {
     const reusableRunId = resumedDraft
@@ -1723,40 +1376,11 @@ const releaseMain = async (options) => {
     resolveDraftRun("dockerRunId", RELEASE_WORKFLOWS.docker, "Draft Docker image"),
   ]);
 
-  if (iosPlan.rebuild) {
-    await startIosStoreDelivery({
-      repository: options.repository,
-      tag,
-      headSha: releaseSha,
-      checkpoint,
-      persistCheckpoint,
-      allowPriorIosRun: preserveIosStoreRun,
-    });
-  }
-
   const androidReleaseReady = (async () => {
     await waitForRun({
       repository: options.repository,
       runId: mobileRunId,
       label: "Draft Android assets",
-    });
-    if (mobilePlan.rebuild) {
-      await ensurePlayDelivery({
-        repository: options.repository,
-        tag,
-        headSha: releaseSha,
-        checkpoint,
-        persistCheckpoint,
-        resumeAction: playDeliveryAction,
-      });
-    }
-    await requirePlaySignedDraftApk({
-      repository: options.repository,
-      tag,
-      headSha: releaseSha,
-      checkpoint,
-      persistCheckpoint,
-      allowRecovery: mobilePlan.rebuild,
     });
   })();
 
@@ -1920,11 +1544,6 @@ const releaseMain = async (options) => {
   if (releaseComment.status !== 0) {
     console.warn(`[release] failed to comment on Issue #${issueNumber} before closing it`);
   }
-  const timingStoreRunId =
-    checkpoint.storeRecoveryRunId ??
-    checkpoint.storeRunId ??
-    checkpoint.playDelivery?.recoveryRunId ??
-    checkpoint.playDelivery?.storeRunId;
   const timingAttemptRunIds = checkpointRunIds(checkpoint).join(",");
   const timingDispatch = run("gh", [
     "workflow",
@@ -1950,12 +1569,6 @@ const releaseMain = async (options) => {
     `mobile_mode=${mobilePlan.rebuild ? "rebuild" : "reuse"}`,
     "-f",
     `docker_run_id=${dockerRunId}`,
-    ...(timingStoreRunId
-      ? [
-          "-f",
-          `store_run_id=${timingStoreRunId}`,
-        ]
-      : []),
     ...(timingAttemptRunIds
       ? ["-f", `attempt_run_ids=${timingAttemptRunIds}`]
       : []),
@@ -1977,22 +1590,6 @@ const releaseMain = async (options) => {
     "completed",
   ]);
   console.log(`[release] closed Issue #${issueNumber}`);
-
-  if (iosPlan.rebuild) {
-    try {
-      await waitForRun({
-        repository: options.repository,
-        runId: checkpoint.iosStoreRunId,
-        label: "App Store delivery",
-      });
-    } catch (error) {
-      console.error(
-        `[release] GitHub Release is published and Issue #${issueNumber} is closed; App Store delivery failed and must be retried with bun run publish:stores -- --release `
-        + `${tag} --platform ios`,
-      );
-      throw error;
-    }
-  }
 
   console.log(`[release] ${tag} is complete; Demo deployment is not blocking completion`);
 

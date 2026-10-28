@@ -93,76 +93,12 @@ audited range includes mobile runtime code, shared mobile packages,
 dependencies, native configuration, Android build tooling, or signer
 verification.
 
-This locally signed APK is only a temporary Draft asset and is never accepted
-for formal publication. After the matching AAB is delivered, the store-delivery workflow
-downloads Google Play's signed universal APK and replaces the GitHub Release
-asset under the established filename. Because the uploaded AAB contains only
-`arm64-v8a`, the Play-generated APK also remains arm64-only. Publishing the
-Play-signed APK lets Play and GitHub installations update each other without
-uninstalling the app. The workflow pins and verifies the Play app-signing
-certificate before replacing the asset. An independent pre-publication gate
-then verifies that the Draft APK uses only that Play app-signing certificate.
-
-### Recommended local Play build
-
-Routine Google Play bundles should be built on the release Mac instead of in
-GitHub Actions. Keep the upload keystore and signing environment outside the
-repository:
-
-```sh
-mkdir -p "$HOME/.config/edgeever/android"
-cp .env.android.local.example "$HOME/.config/edgeever/android/signing.env"
-chmod 600 "$HOME/.config/edgeever/android/signing.env"
-```
-
-Fill in the existing upload key's absolute path and credentials. Android
-keystore formats and local environment files are ignored by Git.
-
-```sh
-bun run build:android:play:local
-```
-
-This produces:
-
-```text
-apps/mobile/android/app/build/outputs/bundle/release/app-release.aab
-apps/mobile/android/app/build/outputs/mapping/release/mapping.txt
-```
-
-The command builds `arm64-v8a` by default, verifies the AAB signature, and
-requires a non-empty R8 mapping file. This keeps the Play-generated universal
-APK suitable for the arm64 GitHub Release asset instead of bundling unused
-32-bit ARM and x86 native libraries. Keep an encrypted backup of `signing.env`
-and the upload keystore outside the repository. Do not replace or regenerate
-the upload key for an existing Play app unless the key reset has been completed
-in Play Console.
-
-Set `EDGE_EVER_ANDROID_ENV_FILE` to use a different secure environment file.
-
-### Automated store delivery
-
-The GitHub Release workflow never builds or uploads a Play bundle. Before a
-Draft that contains mobile changes can be published, use the separate
-store-delivery workflow. It builds a signed AAB from the immutable Release tag,
-preserves the AAB and R8 mapping as Actions artifacts, and uploads the bundle
-through EAS Submit. It then replaces the GitHub APK with the Play-signed
-universal APK. Rerun the release command after that workflow succeeds; it
-audits the Play signer and resumes publication. See
-[Mobile Store Delivery](store-delivery.md).
-
-The upload keystore is only used to prove ownership when uploading bundles;
-Google Play App Signing manages the app signing key delivered to users. Keep an
-encrypted backup of the upload keystore and its credentials outside the
-repository.
-
-### iOS App Store build
-
-iOS is a SwiftUI app in `apps/ios`, using the same bundle identifier
-`org.edgeever.mobile`. Do not build or submit iOS from `apps/mobile` or EAS.
-On macOS beta hosts, archives must go through Xcode Cloud. Formal Releases
-start that Archive and submit App Review automatically when iOS runtime
-changes are in the audited range. See
-[iOS Xcode Cloud](ios-xcode-cloud.md) and [Mobile Store Delivery](store-delivery.md).
+The release APK is signed with the operator's upload keystore and verified
+against the pinned certificate before it is attached to a GitHub Release. Keep
+the keystore and its credentials outside the repository, and make sure every
+release is signed with the same key so installed clients keep updating in
+place. Google Play bundles, App Review submission and other store delivery are
+intentionally not part of this repository.
 
 ## EAS
 

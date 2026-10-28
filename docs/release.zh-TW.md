@@ -23,8 +23,8 @@ bun run release -- \
 ```
 
 多項變化需要按組重複傳入 `--change-en`、`--change-zh`、
-`--change-locale ja:` 和 `--change-commit`。App Store 列表含日文，因此必須提供
-日文 What’s New。一項變化可以關聯多個以逗號分隔的提交：
+`--change-locale ja:` 和 `--change-commit`。站點會發布日文版發布摘要，因此必須提供
+日文說明。一項變化可以關聯多個以逗號分隔的提交：
 
 ```bash
 --change-commit "abcdef1,1234567"
@@ -70,20 +70,6 @@ bun run release -- \
 - 獨立工作流會把同一個已驗證 Git 提交傳送到 CNB；正式 Release 釋出後，CNB
   在騰訊雲側非同步構建並審計 TCR 公共映象。其耗時或失敗不會阻塞 GitHub
   Release，也不會把已釋出版本恢復為 Draft。
-- Draft 原生資產準備完成後，釋出命令會強制核驗 Android APK 是否使用
-  Google Play 應用簽名證書；未透過時保持 Draft 並停止。此時先針對同一 Draft
-  執行
-  `bun run publish:stores -- --release vX.Y.Z --platform android --android-track production`，
-  再重新執行原發布命令續跑。當審計範圍內包含 iOS 執行時變化時，同一條命令
-  會在 GitHub 公開發布之後啟動 Xcode Cloud 並提交 App Review。釋出後審計
-  透過後，指令碼會關閉跟蹤 Issue，然後再等待 App Store 投遞。iOS 失敗時，
-  GitHub Release 保持已釋出，跟蹤 Issue 保持已關閉；用
-  `bun run publish:stores -- --release vX.Y.Z --platform ios` 重試即可。詳見
-  [移動端商店交付](store-delivery.zh-TW.md)。
-- 網頁剪藏外掛的商店提交是官方倉庫裡的獨立工作流。提高
-  `apps/extension/package.json` 的版本後，執行 **Submit Web Clipper**。
-  它不屬於 `bun run release`，稽核結果也不會改變 GitHub Release。詳見
-  [網頁剪藏外掛商店提交](extension-store.zh-TW.md)。
 - 公開發布後的桌面和 Android 審計透過 Release API URL 讀取檔名並下載安裝包。
   Draft 剛公開時，`gh release view --json assets` 和 `gh release download`
   可能持續看不到這些檔案；如果把空列表當成資產缺失，釋出會被退回 Draft。
@@ -110,6 +96,5 @@ GitHub 官方倉庫必須配置 `CNB_TCR_BUILD_PUSH_TOKEN` Actions Secret，該�
   Release。
 - 釋出後的原生資產或 GHCR 映象審計失敗時，指令碼會嘗試將 Release 恢復為
   Draft，並保留 Issue。
-- 這些審計透過後，指令碼會先關閉跟蹤 Issue，再等待 App Store 投遞。之後的
-  App Store 失敗會讓該 Issue 維持關閉。
+- 這些審計透過後，指令碼會關閉跟蹤 Issue。
 - 顯式安裝時若替換應用失敗，指令碼會儘可能從 macOS 廢紙簍備份恢復上一版應用。

@@ -10,11 +10,7 @@ import {
   draftRunResumeAction,
   nextVersion,
   parseReleaseCheckpoint,
-  updateIosMarketingVersion,
-  updateIosProjectMarketingVersion,
   parseReleaseArgs,
-  playDeliveryResumeAction,
-  playDeliveryFailureStrategy,
   prepareReleaseCheckpoint,
   recordCheckpointRun,
   RELEASE_WORKFLOWS,
@@ -38,19 +34,8 @@ describe("release automation", () => {
     expect(releaseSource).toContain("desktop_run_id=\${desktopRunId}");
     expect(releaseSource).toContain("mobile_run_id=\${mobileRunId}");
     expect(releaseSource).toContain("docker_run_id=\${dockerRunId}");
-    expect(releaseSource).toContain("store_run_id=\${timingStoreRunId}");
     expect(releaseSource).toContain("attempt_run_ids=\${timingAttemptRunIds}");
     expect(releaseSource).toContain("endpoint timing report continues in background");
-  });
-
-  test("blocks publication until the Draft Android APK passes the Play signature gate", () => {
-    const releaseSource = readFileSync(new URL("./release.mjs", import.meta.url), "utf8");
-    const signatureGate = releaseSource.indexOf('label: "Draft Android Play signature gate"');
-    const publication = releaseSource.indexOf('"--draft=false"');
-
-    expect(RELEASE_WORKFLOWS.androidPlaySignature).toBe("android-play-signature-audit.yml");
-    expect(signatureGate).toBeGreaterThanOrEqual(0);
-    expect(publication).toBeGreaterThan(signatureGate);
   });
 
   test("blocks publication until the offline-signed Windows update passes an independent audit", () => {
@@ -84,63 +69,6 @@ describe("release automation", () => {
     expect(issueCreation).toBeGreaterThan(keyCheck);
   });
 
-  test("starts Play delivery as soon as Android preparation finishes", () => {
-    const releaseSource = readFileSync(new URL("./release.mjs", import.meta.url), "utf8");
-    const androidReady = releaseSource.lastIndexOf("const androidReleaseReady");
-    const mobileWait = releaseSource.indexOf('label: "Draft Android assets"', androidReady);
-    const playDelivery = releaseSource.indexOf("await ensurePlayDelivery", androidReady);
-    const allDraftGates = releaseSource.indexOf("await Promise.all", androidReady);
-
-    expect(RELEASE_WORKFLOWS.storeDelivery).toBe("store-delivery.yml");
-    expect(mobileWait).toBeGreaterThan(androidReady);
-    expect(playDelivery).toBeGreaterThan(mobileWait);
-    expect(playDelivery).toBeLessThan(allDraftGates);
-  });
-
-  test("starts App Store delivery from the native iOS tree without blocking GitHub publication", () => {
-    const releaseSource = readFileSync(new URL("./release.mjs", import.meta.url), "utf8");
-    const iosPlan = releaseSource.indexOf('planNativeRelease("ios"');
-    const iosDispatch = releaseSource.indexOf("startIosStoreDelivery(");
-    const publication = releaseSource.indexOf('"--draft=false"');
-    const iosWait = releaseSource.indexOf('label: "App Store delivery"');
-    const restoreDraft = releaseSource.lastIndexOf('"--draft=true"');
-    const issueClose = releaseSource.indexOf('"issue",\n    "close"', publication);
-
-    expect(iosPlan).toBeGreaterThan(0);
-    expect(iosDispatch).toBeGreaterThan(iosPlan);
-    expect(iosDispatch).toBeLessThan(publication);
-    expect(iosWait).toBeGreaterThan(publication);
-    expect(iosWait).toBeGreaterThan(restoreDraft);
-    expect(issueClose).toBeGreaterThan(restoreDraft);
-    expect(issueClose).toBeLessThan(iosWait);
-    expect(releaseSource).toContain("is closed; App Store delivery failed");
-    expect(releaseSource).toContain('platform: "ios"');
-    expect(releaseSource).toContain("iosRebuild: iosPlan.rebuild");
-    expect(releaseSource).toContain("updateIosMarketingVersion");
-  });
-
-  test("rewrites the iOS marketing version onto the Release tag", () => {
-    expect(
-      updateIosMarketingVersion(
-        "// comment\nMARKETING_VERSION = 1.74.0\nCURRENT_PROJECT_VERSION = 49\n",
-        "1.79.0",
-      ),
-    ).toContain("MARKETING_VERSION = 1.79.0");
-  });
-
-  test("keeps the generated iOS project aligned with the Release tag", () => {
-    const updated = updateIosProjectMarketingVersion(
-      [
-        "MARKETING_VERSION = 1.79.0;",
-        "MARKETING_VERSION = 1.79.0;",
-      ].join("\n"),
-      "1.80.0",
-    );
-
-    expect(updated.match(/MARKETING_VERSION = 1\.80\.0;/g)).toHaveLength(2);
-    expect(updated).not.toContain("MARKETING_VERSION = 1.79.0;");
-  });
-
   test("restores an exact Draft checkpoint without exposing it in Issue text", () => {
     const checkpoint = { releaseSha: "abc", desktopRunId: 123 };
     const body = `<!-- edgeever-release-checkpoint:v1.42.0\n${JSON.stringify(checkpoint)}\n-->`;
@@ -149,72 +77,24 @@ describe("release automation", () => {
     expect(parseReleaseCheckpoint("malformed", "v1.42.0")).toBeNull();
   });
 
-  test("preserves Play delivery and Run history when a Draft target advances", () => {
+  test("carries Run history into the checkpoint when a Draft target advances", () => {
     const storedState = {
       releaseSha: "old",
       desktopRunId: 11,
-      storeRunId: 12,
-      playDelivery: { tag: "v1.42.0", releaseSha: "old", storeRunId: 12 },
+      mobileRunId: 12,
     };
     const checkpoint = prepareReleaseCheckpoint({ storedState, releaseSha: "new" });
     expect(checkpoint).toMatchObject({
       releaseSha: "new",
-      playDelivery: storedState.playDelivery,
       runHistory: [
         { field: "desktopRunId", runId: 11, releaseSha: "old" },
-        { field: "storeRunId", runId: 12, releaseSha: "old" },
+        { field: "mobileRunId", runId: 12, releaseSha: "old" },
       ],
     });
     expect(checkpoint.desktopRunId).toBeUndefined();
     recordCheckpointRun(checkpoint, "mobileRunId", 13);
     recordCheckpointRun(checkpoint, "mobileRunId", 13);
     expect(checkpointRunIds(checkpoint)).toEqual([11, 12, 13]);
-  });
-
-  test("keeps an active App Store delivery when a Draft advances without iOS changes", () => {
-    const storedState = {
-      releaseSha: "old",
-      desktopRunId: 11,
-      iosStoreRunId: 12,
-    };
-    const checkpoint = prepareReleaseCheckpoint({
-      storedState,
-      releaseSha: "new",
-      preserveIosStoreRun: true,
-    });
-    expect(checkpoint.iosStoreRunId).toBe(12);
-    expect(checkpoint.desktopRunId).toBeUndefined();
-    expect(checkpoint.runHistory).toContainEqual({
-      field: "iosStoreRunId",
-      runId: 12,
-      releaseSha: "old",
-    });
-  });
-
-  test("verifies an immutable Play delivery without uploading across mobile-compatible fixes", () => {
-    const playDelivery = { tag: "v1.42.0", releaseSha: "old" };
-    expect(playDeliveryResumeAction({
-      playDelivery,
-      tag: "v1.42.0",
-      headSha: "old",
-    })).toBe("verify");
-    expect(playDeliveryResumeAction({
-      playDelivery,
-      tag: "v1.42.0",
-      headSha: "new",
-      mobileInputsChanged: false,
-    })).toBe("verify");
-    expect(playDeliveryResumeAction({
-      playDelivery,
-      tag: "v1.42.0",
-      headSha: "new",
-      mobileInputsChanged: true,
-    })).toBe("block");
-    expect(playDeliveryResumeAction({
-      playDelivery,
-      tag: "v1.43.0",
-      headSha: "new",
-    })).toBe("upload");
   });
 
   test("cancels only active Runs from superseded release targets", () => {
@@ -249,18 +129,6 @@ describe("release automation", () => {
       runView: { headSha: "different", status: "completed", conclusion: "success" },
       headSha,
     })).toBe("dispatch");
-  });
-
-  test("only retries a Play delivery when upload definitely did not start", () => {
-    const run = (conclusion) => ({
-      jobs: [{
-        name: "Deliver Google Play",
-        steps: [{ name: "Upload bundle to Google Play", conclusion }],
-      }],
-    });
-    expect(playDeliveryFailureStrategy(run("skipped"))).toBe("rerun");
-    expect(playDeliveryFailureStrategy(run("success"))).toBe("recover");
-    expect(playDeliveryFailureStrategy(run("failure"))).toBe("recover");
   });
 
   test("runs the complete project regression suite before release", () => {
@@ -368,7 +236,7 @@ describe("release automation", () => {
       .toThrow("--contributor requires a value");
   });
 
-  test("requires Japanese App Store What's New", () => {
+  test("requires Japanese localized release notes", () => {
     expect(() =>
       parseReleaseArgs([
         "--issue-title",
@@ -599,7 +467,7 @@ describe("release automation", () => {
     expect(body).toContain("## 中文說明");
     expect(body).toContain("- 並行檢查。");
     expect(body).toContain("## Commit coverage audit");
-    expect(body).toContain("Play-signed Android arm64 APK");
+    expect(body).toContain("signed Android arm64 APK");
     expect(body).toContain("unsigned Windows x64 Preview");
     expect(body).toContain("Linux x64 AppImage Preview");
     expect(body).toContain("- Change 1: `aaaaaaaa`");

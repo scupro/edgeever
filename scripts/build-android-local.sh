@@ -7,8 +7,8 @@ MOBILE_DIR="$PROJECT_ROOT/apps/mobile"
 ANDROID_DIR="$MOBILE_DIR/android"
 MODE="${1:-fast}"
 
-if [[ "$MODE" != "fast" && "$MODE" != "apk" && "$MODE" != "play" ]]; then
-  echo "用法: $0 [fast|apk|play]" >&2
+if [[ "$MODE" != "fast" && "$MODE" != "apk" ]]; then
+  echo "用法: $0 [fast|apk]" >&2
   exit 2
 fi
 
@@ -91,7 +91,6 @@ run_timed "重新整理生產 JavaScript 與 DOM 資源" ./gradlew \
   :app:createBundleReleaseJsAndAssets --rerun --no-build-cache "${COMMON_ARGS[@]:1}"
 
 
-PLAY_ARCHS="${EDGE_EVER_ANDROID_PLAY_ARCHS:-arm64-v8a}"
 APK_ARCHS="${EDGE_EVER_ANDROID_APK_ARCHS:-arm64-v8a}"
 KEYSTORE_FILE="$(cd "$(dirname "$ANDROID_KEYSTORE_FILE")" && pwd)/$(basename "$ANDROID_KEYSTORE_FILE")"
 APK_PATH="$ANDROID_DIR/app/build/outputs/apk/release/app-release.apk"
@@ -141,31 +140,3 @@ if [[ "$MODE" == "apk" ]]; then
   echo "完成: $APK_PATH"
   exit 0
 fi
-
-echo "構建 Play 簽名 AAB（${PLAY_ARCHS}）..."
-run_timed "Gradle 生產 AAB 構建" ./gradlew bundleRelease \
-  "${COMMON_ARGS[@]}" \
-  -PreactNativeArchitectures="$PLAY_ARCHS" \
-  -Pandroid.injected.signing.store.file="$KEYSTORE_FILE" \
-  -Pandroid.injected.signing.store.password="$ANDROID_KEYSTORE_PASSWORD" \
-  -Pandroid.injected.signing.key.alias="$ANDROID_KEY_ALIAS" \
-  -Pandroid.injected.signing.key.password="$ANDROID_KEY_PASSWORD" \
-  -Pandroid.injected.signing.store.type=PKCS12
-
-AAB_PATH="app/build/outputs/bundle/release/app-release.aab"
-PACKAGED_MANIFEST="app/build/intermediates/packaged_manifests/release/processReleaseManifestForPackage/AndroidManifest.xml"
-test -s "$PACKAGED_MANIFEST"
-if grep -q "android.permission.REQUEST_INSTALL_PACKAGES" "$PACKAGED_MANIFEST"; then
-  echo "Play AAB 的最終合併清單仍包含 REQUEST_INSTALL_PACKAGES，停止釋出。" >&2
-  exit 1
-fi
-ACTUAL_PLAY_ARCHS="$(unzip -Z1 "$AAB_PATH" | sed -n 's#^base/lib/\([^/]*\)/.*#\1#p' | sort -u | paste -sd, -)"
-if [[ "$ACTUAL_PLAY_ARCHS" != "$PLAY_ARCHS" ]]; then
-  echo "AAB 架構不符合預期：期望 ${PLAY_ARCHS}，實際 ${ACTUAL_PLAY_ARCHS:-無原生庫}。" >&2
-  exit 1
-fi
-
-run_timed "校驗 AAB 簽名" jarsigner -verify "$AAB_PATH"
-test -s app/build/outputs/mapping/release/mapping.txt
-echo "完成: $ANDROID_DIR/$AAB_PATH"
-echo "反混淆檔案: $ANDROID_DIR/app/build/outputs/mapping/release/mapping.txt"

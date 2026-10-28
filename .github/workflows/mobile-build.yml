@@ -20,7 +20,6 @@ on:
       - ".github/workflows/mobile-build.yml"
       - "scripts/build-android-local.sh"
       - "scripts/verify-android-apk-signature.mjs"
-      - "scripts/download-play-universal-apk.mjs"
 
 permissions:
   actions: read

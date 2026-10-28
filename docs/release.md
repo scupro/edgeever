@@ -23,7 +23,7 @@ bun run release -- \
 ```
 
 Repeat `--change-en`, `--change-zh`, `--change-locale ja:`, and `--change-commit` as matching groups.
-Japanese What's New is required because the App Store listing includes Japanese.
+Japanese release notes are required because the site publishes a Japanese release summary.
 One change may cover multiple comma-separated commits:
 
 ```bash
@@ -82,22 +82,6 @@ notes; edit the Draft directly to adjust credits.
   audits the public Tencent TCR image inside Tencent Cloud after the formal
   Release is published. Its duration or failure does not block the GitHub
   Release or return a published version to Draft.
-- After Draft native assets are prepared, publication is blocked unless the
-  Android APK uses the Google Play app-signing certificate. If that gate fails,
-  the Release remains a Draft. Run
-  `bun run publish:stores -- --release vX.Y.Z --platform android --android-track production`
-  for that Draft, then rerun the original release command to resume. When the
-  audited range includes iOS runtime changes, the same command starts Xcode
-  Cloud and submits App Review after GitHub publication. Once post-publication
-  audits pass, the script closes the tracking Issue and then waits for App
-  Store delivery. An iOS failure leaves the GitHub Release published and that
-  Issue closed; retry with
-  `bun run publish:stores -- --release vX.Y.Z --platform ios`. See
-  [Mobile Store Delivery](store-delivery.md).
-- Web Clipper store submission is a separate official-repository workflow.
-  Run **Submit Web Clipper** after increasing `apps/extension/package.json`.
-  It does not run as part of `bun run release`, and its review does not change
-  a GitHub Release. See [Web Clipper store submission](extension-store.md).
 - Published desktop and Android audits read asset names and download
   installers through the release API URL. `gh release view --json assets` and
   `gh release download` can stay empty after a draft is published, and treating
@@ -130,7 +114,6 @@ Independent builds are not required to have the same registry digest.
   run instead of creating another Issue, commit, or Release.
 - A failed post-publication native or GHCR audit attempts to return the Release to
   Draft and leaves the Issue open.
-- After those audits pass, the script closes the tracking Issue before waiting
-  for App Store delivery. A later App Store failure leaves that Issue closed.
+- After those audits pass, the script closes the tracking Issue.
 - If an explicit application installation fails, the script restores the previous
   app from its macOS Trash backup when possible.

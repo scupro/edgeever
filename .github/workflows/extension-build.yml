@@ -15,11 +15,7 @@ on:
       - "patches/**"
       - "package.json"
       - "bun.lock"
-      - "scripts/publish-web-clipper.mjs"
-      - "scripts/publish-web-clipper.test.mjs"
-      - "scripts/verify-extension-source.mjs"
       - ".github/workflows/extension-build.yml"
-      - ".github/workflows/extension-store.yml"
   push:
     branches:
       - main
@@ -36,11 +32,7 @@ on:
       - "patches/**"
       - "package.json"
       - "bun.lock"
-      - "scripts/publish-web-clipper.mjs"
-      - "scripts/publish-web-clipper.test.mjs"
-      - "scripts/verify-extension-source.mjs"
       - ".github/workflows/extension-build.yml"
-      - ".github/workflows/extension-store.yml"
   workflow_dispatch:
 
 permissions:
@@ -76,9 +68,6 @@ jobs:
       - name: Test extension manifests
         run: bun run test:extension
 
-      - name: Test store submission
-        run: bun test scripts/publish-web-clipper.test.mjs
-
       - name: Build Chromium extension
         run: bun run build:extension
 
@@ -87,6 +76,3 @@ jobs:
 
       - name: Lint Firefox extension
         run: bun run lint:extension:firefox
-
-      - name: Rebuild Firefox from the review source archive
-        run: bun scripts/verify-extension-source.mjs

@@ -26,9 +26,6 @@ describe("native release planning", () => {
       "scripts/build-android-local.sh",
       "scripts/verify-android-apk-signature.mjs",
       ".github/workflows/mobile-build.yml",
-      ".github/workflows/android-play-signature-audit.yml",
-      ".github/workflows/store-delivery.yml",
-      "scripts/download-play-universal-apk.mjs",
     ];
     expect(planNativeRelease("mobile", changedFiles)).toEqual({
       rebuild: true,
