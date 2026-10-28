@@ -236,7 +236,7 @@ const copy = isEnglish
           <button
             type="button"
             class="agent-install-copy group inline-flex cursor-pointer items-center gap-1.5 rounded-lg border border-slate-700/80 bg-slate-800 px-3 py-1 text-xs text-slate-300 transition-all hover:border-emerald-500/50 hover:bg-emerald-950/90 hover:text-emerald-300"
-            data-copy-text="curl -fsSL https://dogbro.store/install.sh | bash"
+            data-copy-text="docker pull ghcr.io/scupro/edgeever:latest"
             data-copy-default={copy.copyCommand}
             data-copy-copying={copy.copying}
             data-copy-copied={copy.copied}
@@ -247,7 +247,7 @@ const copy = isEnglish
           </button>
         </div>
         <div class="rounded-b-2xl bg-slate-950/95 p-4 text-slate-200 sm:p-6">
-          <pre class="m-0 whitespace-pre-wrap break-all font-mono text-xs leading-relaxed sm:text-sm">curl -fsSL https://dogbro.store/install.sh | bash</pre>
+          <pre class="m-0 whitespace-pre-wrap break-all font-mono text-xs leading-relaxed sm:text-sm">docker pull ghcr.io/scupro/edgeever:latest</pre>
         </div>
       </div>
 

@@ -606,7 +606,7 @@ export const siteCopy = {
       items: [
         {
           title: "Choose how to deploy EdgeEver",
-          summary: "Use an AI Agent or manual setup for Cloudflare, or run a one-line Docker installer on a VPS or NAS.",
+          summary: "Use an AI Agent or manual setup for Cloudflare, or pull the Docker image on a VPS or NAS.",
           href: "/blog/ai-agent-deploy-cloudflare",
           cta: "Read deployment guide",
         },

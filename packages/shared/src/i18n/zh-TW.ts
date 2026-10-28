@@ -1928,7 +1928,7 @@ export const zhTW = {
     copyValueLabel: "資訊",
     clientAheadOfInstanceByPlatform: {
       cloudflare: "當前客戶端版本高於雲端實例。可等待每天自動更新，或手動執行 Update deployed EdgeEver 工作流。",
-      docker: "當前客戶端版本高於雲端實例。可等待每天自動更新，或在安裝目錄執行 ./update.sh（預設 ~/edgeever）。",
+      docker: "當前客戶端版本高於雲端實例。可等待每天自動更新，或拉取較新映像後重新啟動容器。",
       unknown: "當前客戶端版本高於雲端實例。可等待每天自動更新，也可手動更新實例。",
     },
     deployedUpdateTitle: "您的雲端實例已自動更新至 v{{version}}",

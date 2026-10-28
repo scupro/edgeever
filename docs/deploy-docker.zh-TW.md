@@ -15,34 +15,23 @@ Cloudflare 使用 Workers + D1 + 外部 S3 相容物件儲存。
   不要先修改 `/data` 權限或替換應用資料。
 - 實例離開可信區域網時，必須使用帶 HTTPS 的反向代理。
 
-## 一鍵安裝
+## 直接用 Docker 執行
 
-已安裝 Docker Compose v2 的主機可直接執行：
-
-```sh
-curl -fsSL https://dogbro.store/install.sh | bash
-```
-
-指令碼會建立 `~/edgeever`、生成管理員密碼、拉取 `latest`、啟動容器並等待健康
-檢查透過。安裝指令碼和 Compose 配置使用官方 GHCR 映象。再次執行同一命令即可
-升級，已有密碼和 `/data` 卷保持不變。
-
-> 💡 **網路提示**：官方映象託管於 GitHub（GHCR）。若在部分網路環境下遇到拉取緩慢或超時，請在部署前自行配置可用的網路代理或可信的映象加速服務。
-
-預設情況下，指令碼會透過當前使用者的 crontab 設定每日自動更新，於伺服器本機時間
-04:17 執行 `~/edgeever/update.sh`。更新程式會重新整理 Compose 配置、拉取已配置的
-映象標籤、按需重建服務並驗證容器健康狀態，執行記錄追加到
-`~/edgeever/update.log`。預設的 `latest` 標籤會自動獲得新版本；透過 `--version`
-指定的版本保持固定。使用 `--no-auto-update` 或
-`EDGE_EVER_AUTO_UPDATE=false` 可關閉自動更新。如果系統沒有 `crontab`，安裝指令碼
-會保留 `update.sh`，並提示透過 NAS 的任務計劃程式執行。
-
-按需使用 `--version vX.Y.Z`、`--port PORT` 或 `--install-dir DIR`；執行以下命令
-可檢視全部引數：
+不需要安裝指令碼，直接拉取官方映像執行：
 
 ```sh
-curl -fsSL https://dogbro.store/install.sh | bash -s -- --help
+docker pull ghcr.io/scupro/edgeever:latest
+docker run -d --name edgeever -p 8787:8787 \
+  -e AUTH_USER=admin \
+  -e AUTH_PASSWORD='請換成高強度密碼' \
+  -v edgeever-data:/data \
+  ghcr.io/scupro/edgeever:latest
 ```
+
+容器把 SQLite 資料庫與附件放在 `edgeever-data` 磁碟區，並在 `8787` 埠監聽。升級時
+拉取新標籤、停止並移除容器，再執行同一段 `docker run`；磁碟區會保留資料。
+
+需要把設定寫成檔案（也較容易做自動更新）時，改用下方的 Compose 方式。
 
 ## 手動使用 Compose
 

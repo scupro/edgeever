@@ -143,17 +143,20 @@ Complete setup in 6 web steps:
 
 Docker runs the same frontend, API routes, services, authentication, MCP implementation, and migrations as Cloudflare. The container uses SQLite with local files or S3-compatible attachment storage and supports `amd64` and `arm64`. See [Deploy EdgeEver with Docker](docs/deploy-docker.md) and [Self-hosting and Docker architecture](docs/self-hosting-architecture.md).
 
-Use the GitHub-hosted installer and the official GHCR image:
+Pull the published image and start it directly:
 
 ```sh
-curl -fsSL https://dogbro.store/install.sh | bash
+docker pull ghcr.io/scupro/edgeever:latest
+docker run -d --name edgeever -p 8787:8787 \
+  -e AUTH_USER=admin \
+  -e AUTH_PASSWORD='choose-a-strong-password' \
+  -v edgeever-data:/data \
+  ghcr.io/scupro/edgeever:latest
 ```
 
-The command pulls the latest image, generates an administrator password, and starts EdgeEver with Docker Compose.
+Then open `http://localhost:8787` and sign in with the credentials above. To update, `docker pull ghcr.io/scupro/edgeever:latest`, remove the container, and run the same `docker run` again; the `edgeever-data` volume keeps your notes.
 
-See the [Docker deployment guide](docs/deploy-docker.md) for manual deployment and configuration.
-
-After installation, updates run automatically each day by default. To update manually, run `~/edgeever/update.sh` on the deployment server.
+See the [Docker deployment guide](docs/deploy-docker.md) for Compose, TLS, backups and configuration.
 
 ---
 

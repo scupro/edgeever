@@ -251,7 +251,7 @@ export const jaSiteCopy = {
     items: [
       {
         title: "EdgeEver の導入方法を選ぶ",
-        summary: "Cloudflare は AI Agent か手動セットアップ。VPS や NAS なら Docker の一行インストーラ。",
+        summary: "Cloudflare は AI Agent か手動セットアップ。VPS や NAS なら Docker イメージを取得して起動。",
         href: "/blog/ai-agent-deploy-cloudflare",
         cta: "導入ガイドを読む",
       },

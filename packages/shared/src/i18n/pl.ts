@@ -1917,7 +1917,7 @@ export const pl = {
     copyValueLabel: "Wartość",
     clientAheadOfInstanceByPlatform: {
       cloudflare: "Ten klient jest nowszy niż połączona instancja w chmurze. Możesz poczekać na codzienną automatyczną aktualizację instancji lub uruchomić workflow Update deployed EdgeEver.",
-      docker: "Ten klient jest nowszy niż połączona instancja w chmurze. Możesz poczekać na codzienną automatyczną aktualizację instancji lub uruchomić ./update.sh w katalogu instalacji (domyślnie ~/edgeever).",
+      docker: "Ten klient jest nowszy niż połączona instancja w chmurze. Możesz poczekać na codzienną automatyczną aktualizację instancji lub pobrać nowszy obraz i uruchomić kontener ponownie.",
       unknown: "Ten klient jest nowszy niż połączona instancja w chmurze. Możesz poczekać na codzienną automatyczną aktualizację instancji lub zaktualizować instancję ręcznie.",
     },
     deployedUpdateTitle: "Twoja instancja w chmurze została automatycznie zaktualizowana do v{{version}}",

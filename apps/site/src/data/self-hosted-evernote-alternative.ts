@@ -69,7 +69,7 @@ export const alternativePageCopy = {
       {
         question: "可以用 Docker 跑嗎？",
         answer:
-          "可以。官方提供一行安裝指令碼和完整 Docker 指南，支援 amd64 / arm64，以及本地儲存或 S3 相容物件儲存。Cloudflare 與 Docker 跑的是同一套應用。",
+          "可以。官方提供 Docker 映像與完整部署指南，支援 amd64 / arm64，以及本地儲存或 S3 相容物件儲存。Cloudflare 與 Docker 跑的是同一套應用。",
       },
       {
         question: "能匯入印象筆記嗎？",
@@ -163,7 +163,7 @@ export const alternativePageCopy = {
       {
         question: "Can I run it with Docker?",
         answer:
-          "Yes. There is a one-line installer and a full Docker guide for amd64 and arm64, with local files or S3-compatible object storage. Cloudflare and Docker run the same application.",
+          "Yes. There is a published Docker image and a full deployment guide for amd64 and arm64, with local files or S3-compatible object storage. Cloudflare and Docker run the same application.",
       },
       {
         question: "Can I import Evernote notes?",
@@ -257,7 +257,7 @@ export const alternativePageCopy = {
       {
         question: "Docker で動かせますか？",
         answer:
-          "できます。一行インストーラと、amd64 / arm64、ローカル保存または S3 互換オブジェクトストレージの Docker ガイドがあります。Cloudflare と Docker は同じアプリです。",
+          "できます。公開 Docker イメージと、amd64 / arm64、ローカル保存または S3 互換オブジェクトストレージのデプロイガイドがあります。Cloudflare と Docker は同じアプリです。",
       },
       {
         question: "Evernote を取り込めますか？",
@@ -351,7 +351,7 @@ export const alternativePageCopy = {
       {
         question: "Czy mogę uruchomić go w Dockerze?",
         answer:
-          "Tak. Dostępny jest instalator w jednej linii i pełny poradnik Dockera dla amd64 i arm64, z plikami lokalnymi lub magazynem obiektów zgodnym z S3. Cloudflare i Docker uruchamiają tę samą aplikację.",
+          "Tak. Dostępny jest opublikowany obraz Dockera i pełny poradnik wdrożenia dla amd64 i arm64, z plikami lokalnymi lub magazynem obiektów zgodnym z S3. Cloudflare i Docker uruchamiają tę samą aplikację.",
       },
       {
         question: "Czy mogę zaimportować notatki z Evernote?",

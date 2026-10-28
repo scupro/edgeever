@@ -251,7 +251,7 @@ export const plSiteCopy = {
     items: [
       {
         title: "Wybierz sposób wdrożenia EdgeEver",
-        summary: "Użyj agenta AI lub ręcznej konfiguracji dla Cloudflare albo uruchom instalator Dockera w jednej linii na VPS lub NAS.",
+        summary: "Użyj agenta AI lub ręcznej konfiguracji dla Cloudflare albo uruchom obraz Dockera na VPS lub NAS.",
         href: "/blog/ai-agent-deploy-cloudflare",
         cta: "Przeczytaj poradnik wdrożenia",
       },

@@ -20,29 +20,23 @@ Cloudflare uses Workers with D1 and external S3-compatible object storage.
 
 ## One-command install
 
-With Docker Compose v2 already installed:
+Run the published image directly; no installer script is needed:
 
 ```sh
-curl -fsSL https://dogbro.store/install.sh | bash
+docker pull ghcr.io/scupro/edgeever:latest
+docker run -d --name edgeever -p 8787:8787 \
+  -e AUTH_USER=admin \
+  -e AUTH_PASSWORD='replace-with-a-long-random-password' \
+  -v edgeever-data:/data \
+  ghcr.io/scupro/edgeever:latest
 ```
 
-The installer creates `~/edgeever`, generates an administrator password, pulls
-`latest`, starts the container, and waits for it to become healthy. Run the same
-command again to upgrade without replacing the password or `/data` volume. The
-installer and Compose configuration use the official GHCR image.
+The container stores its SQLite database and attachments in the `edgeever-data`
+volume and listens on port `8787`. To upgrade, pull the new tag, stop and remove
+the container, then run the same `docker run` again; the volume preserves data.
 
-By default, the installer schedules `~/edgeever/update.sh` with the current
-user's crontab at 04:17 server time every day. The updater refreshes the Compose
-configuration, pulls the configured image tag, restarts the service when needed,
-and verifies container health. Output is appended to `~/edgeever/update.log`.
-The default `latest` tag receives new releases automatically; a version supplied
-with `--version` remains pinned. Use `--no-auto-update` or
-`EDGE_EVER_AUTO_UPDATE=false` to disable the schedule. If `crontab` is unavailable,
-the installer keeps `update.sh` and prints instructions for adding it to the NAS
-task scheduler.
-
-Use `--version vX.Y.Z`, `--port PORT`, or `--install-dir DIR` when needed. Run
-`curl -fsSL https://dogbro.store/install.sh | bash -s -- --help` for all options.
+Use a Compose file (below) when you want the configuration kept in a file, which
+is also the easier path for automatic updates.
 
 ## Manual Compose
 

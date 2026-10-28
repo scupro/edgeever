@@ -142,17 +142,20 @@ GitHub と Cloudflare のオンライン操作だけで EdgeEver を導入して
 
 Docker は Cloudflare と同じフロントエンド、API、サービス、認証、MCP、migration です。コンテナは SQLite と、ローカルファイルまたは S3 互換の添付保存を使い、`amd64` と `arm64` に対応します。 [Deploy EdgeEver with Docker](docs/deploy-docker.md) と [Self-hosting and Docker architecture](docs/self-hosting-architecture.md) を見てください。
 
-GitHub ホストのインストーラと公式 GHCR イメージを使います。
+公開イメージを取得してそのまま起動します。
 
 ```sh
-curl -fsSL https://dogbro.store/install.sh | bash
+docker pull ghcr.io/scupro/edgeever:latest
+docker run -d --name edgeever -p 8787:8787 \
+  -e AUTH_USER=admin \
+  -e AUTH_PASSWORD='十分に強いパスワードに変更' \
+  -v edgeever-data:/data \
+  ghcr.io/scupro/edgeever:latest
 ```
 
-このコマンドは最新イメージを引き、管理者パスワードを生成し、Docker Compose で EdgeEver を起動します。
+`http://localhost:8787` を開き、上の認証情報でサインインします。更新時は `docker pull ghcr.io/scupro/edgeever:latest` の後にコンテナを削除し、同じ `docker run` を実行してください。データは `edgeever-data` ボリュームに残ります。
 
-手動導入と設定は [Docker deployment guide](docs/deploy-docker.md) を見てください。
-
-インストール後は既定で毎日自動更新されます。手動で更新する場合は、導入先のサーバーで `~/edgeever/update.sh` を実行してください。
+Compose、TLS、バックアップ、詳細設定は [Docker deployment guide](docs/deploy-docker.md) を参照してください。
 
 ---
 

@@ -1173,9 +1173,10 @@ sequenceDiagram
 2. **Docker 一鍵自建（VPS / NAS / 家用伺服器）**：
    \`\`\`sh
    # 官方 GHCR 映象
-   curl -fsSL https://dogbro.store/install.sh | bash
+   docker pull ghcr.io/scupro/edgeever:latest
+   docker run -d --name edgeever -p 8787:8787 -e AUTH_PASSWORD='強密碼' -v edgeever-data:/data ghcr.io/scupro/edgeever:latest
    \`\`\`
-   單命令自動配置 Docker Compose 環境，並內建每日定時自動更新。部分中國大陸網路環境可能需要自行配置可用的網路代理或可信的映象加速服務，才能正常訪問 GHCR。
+   映像自帶前端、API 與 SQLite，資料保存在 \`edgeever-data\` 磁碟區；Compose 與自動更新見部署指南。部分中國大陸網路環境可能需要自行配置可用的網路代理或可信的映象加速服務，才能正常訪問 GHCR。
 
 ### 絕對的資料自由：無損 ZIP 匯入與匯出
 在**個人中心 → 匯入與匯出**中，可隨時將完整筆記庫打包匯出為結構清晰的 ZIP 壓縮包。解壓後即為包含標準 YAML Front Matter、相對路徑附件圖片與完整修訂版本的純 Markdown 檔案樹，隨時可在 Obsidian、VS Code 等任意工具中無縫開啟，永不擔心平臺繫結！
@@ -1524,9 +1525,10 @@ Embed Word documents, PDFs, spreadsheets, archives, and multimedia files directl
 2. **Docker One-Command Deployment (VPS / NAS / Home Server)**:
    \`\`\`sh
    # Official GHCR image
-   curl -fsSL https://dogbro.store/install.sh | bash
+   docker pull ghcr.io/scupro/edgeever:latest
+   docker run -d --name edgeever -p 8787:8787 -e AUTH_PASSWORD='strong-password' -v edgeever-data:/data ghcr.io/scupro/edgeever:latest
    \`\`\`
-   Configures Docker Compose and automated daily background updates with one command. Some network environments in mainland China may require an available network proxy or a trusted registry mirror to access GHCR.
+   The image bundles the web client, API and SQLite; data lives in the \`edgeever-data\` volume. See the deployment guide for Compose and automatic updates. Some network environments in mainland China may require an available network proxy or a trusted registry mirror to access GHCR.
 
 ### Complete Data Freedom: Lossless ZIP Portability
 Export your entire library at any time from **Profile → Import and export**. The archive contains pure Markdown files with standard YAML Front Matter, relative media paths, and full revision histories—compatible with Obsidian, VS Code, and any plain text editor.

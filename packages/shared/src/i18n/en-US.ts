@@ -1928,7 +1928,7 @@ export const enUS = {
     copyValueLabel: "Value",
     clientAheadOfInstanceByPlatform: {
       cloudflare: "This client is newer than the connected cloud instance. You can wait for the daily automatic instance update, or run the Update deployed EdgeEver workflow.",
-      docker: "This client is newer than the connected cloud instance. You can wait for the daily automatic instance update, or run ./update.sh in the install directory (default ~/edgeever).",
+      docker: "This client is newer than the connected cloud instance. You can wait for the daily automatic instance update, or pull the newer image and restart the container.",
       unknown: "This client is newer than the connected cloud instance. You can wait for the daily automatic instance update, or update the instance manually.",
     },
     deployedUpdateTitle: "Your cloud instance was automatically updated to v{{version}}",

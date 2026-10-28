@@ -66,7 +66,7 @@ $$
 
 \`\`\`sh
 # 官方 GHCR 映象
-curl -fsSL https://dogbro.store/install.sh | bash
+docker pull ghcr.io/scupro/edgeever:latest
 \`\`\`
 `;
 

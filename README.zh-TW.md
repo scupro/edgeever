@@ -141,15 +141,20 @@ Cloudflare 線上部署可以選擇以下兩種方式之一：
 
 Docker 與 Cloudflare 共用同一套前端、API 路由、業務服務、鑑權、MCP 實作和 migration。容器使用 SQLite，並支援本機檔案或 S3 相容附件儲存，提供 `amd64` 與 `arm64` 映像。詳見[使用 Docker 部署 EdgeEver](docs/deploy-docker.zh-TW.md)和[自行託管與 Docker 架構](docs/self-hosting-architecture.zh-TW.md)。
 
-使用 GitHub 託管的安裝指令碼和官方 GHCR 映像：
+直接拉取官方映像並啟動：
 
 ```sh
-curl -fsSL https://dogbro.store/install.sh | bash
+docker pull ghcr.io/scupro/edgeever:latest
+docker run -d --name edgeever -p 8787:8787 \
+  -e AUTH_USER=admin \
+  -e AUTH_PASSWORD='請換成高強度密碼' \
+  -v edgeever-data:/data \
+  ghcr.io/scupro/edgeever:latest
 ```
 
-此指令會自動拉取最新映像、產生管理員密碼，並使用 Docker Compose 啟動 EdgeEver。手動部署與設定說明見 [Docker 部署檔案](docs/deploy-docker.zh-TW.md)。
+接著打開 `http://localhost:8787`，用上面的帳密登入。更新時重新 `docker pull ghcr.io/scupro/edgeever:latest`、移除容器再跑同一段 `docker run`；資料保存在 `edgeever-data` 磁碟區，不會遺失。
 
-安裝後預設每日自動更新。如需手動更新，請在部署伺服器上執行 `~/edgeever/update.sh`。
+Compose、TLS、備份與完整設定見 [Docker 部署文件](docs/deploy-docker.zh-TW.md)。
 
 > 💡 **網路提示**：官方映像檔託管於 GitHub（GHCR）。若在部分網路環境下遇到拉取緩慢或逾時，請在部署前自行設定可用的網路代理或可信的映像檔加速服務。
 
