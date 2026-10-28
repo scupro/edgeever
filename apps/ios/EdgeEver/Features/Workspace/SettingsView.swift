@@ -841,7 +841,7 @@ struct SettingsView: View {
         \(info)
         ```
         """
-        var components = URLComponents(string: "https://github.com/tianma-if/edgeever/issues/new")
+        var components = URLComponents(string: "https://github.com/scupro/edgeever/issues/new")
         components?.queryItems = [
             URLQueryItem(name: "title", value: english ? "[Feedback] " : "[反饋] "),
             URLQueryItem(name: "body", value: body),

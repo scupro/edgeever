@@ -25,7 +25,7 @@ struct LoginView: View {
             AppTheme.accentSoft
                 .ignoresSafeArea()
 
-            Link(destination: URL(string: "https://github.com/tianma-if/edgeever")!) {
+            Link(destination: URL(string: "https://github.com/scupro/edgeever")!) {
                 Image(systemName: "arrow.up.right.square")
                     .font(.system(size: 18, weight: .semibold))
                     .foregroundStyle(AppTheme.slate)

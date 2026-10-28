@@ -1,4 +1,4 @@
-const GITHUB_NEW_ISSUE_URL = "https://github.com/tianma-if/edgeever/issues/new";
+const GITHUB_NEW_ISSUE_URL = "https://github.com/scupro/edgeever/issues/new";
 
 export type GitHubFeedbackSystemInfoItem = {
   label: string;

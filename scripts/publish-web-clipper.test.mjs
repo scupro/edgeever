@@ -390,7 +390,7 @@ describe("web clipper store command", () => {
     const build = readFileSync(new URL("../.github/workflows/extension-build.yml", import.meta.url), "utf8");
     expect(build.match(/"apps\/web\/src\/components\/ui\/\*\*"/g)).toHaveLength(2);
     expect(build.match(/"apps\/web\/src\/lib\/utils.ts"/g)).toHaveLength(2);
-    expect(build).toContain("if: github.repository == 'tianma-if/edgeever'");
+    expect(build).toContain("if: github.repository == 'scupro/edgeever'");
     expect(build).toContain("run: bun scripts/verify-extension-source.mjs");
     expect(build).toContain("bun-version-file: package.json");
   });

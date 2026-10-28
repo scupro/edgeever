@@ -3,7 +3,7 @@
 set -Eeuo pipefail
 umask 077
 
-readonly GHCR_IMAGE="ghcr.io/tianma-if/edgeever"
+readonly GHCR_IMAGE="ghcr.io/scupro/edgeever"
 readonly TCR_IMAGE="ccr.ccs.tencentyun.com/edgeever/edgeever"
 readonly GLOBAL_COMPOSE_URL="https://dogbro.store/compose.yaml"
 readonly TENCENT_COMPOSE_URL="https://edgeever-installer-1256854452.cos.ap-guangzhou.myqcloud.com/compose.yaml"
@@ -142,7 +142,7 @@ print_diagnostics() {
     printf '  docker compose --project-name %q --env-file .env --file compose.yaml ps -a\n' "$project_name" >&2
     printf '  docker compose --project-name %q --env-file .env --file compose.yaml logs --tail 200 edgeever\n' "$project_name" >&2
   fi
-  log INFO "Deployment guide: https://github.com/tianma-if/edgeever/blob/main/docs/deploy-docker.md"
+  log INFO "Deployment guide: https://github.com/scupro/edgeever/blob/main/docs/deploy-docker.md"
 }
 
 fail() {

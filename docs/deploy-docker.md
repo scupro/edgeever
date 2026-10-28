@@ -62,7 +62,7 @@ storage are ready.
 
 ### Image registry
 
-The official image is `ghcr.io/tianma-if/edgeever` and supports `linux/amd64`
+The official image is `ghcr.io/scupro/edgeever` and supports `linux/amd64`
 and `linux/arm64`. Pin `EDGE_EVER_VERSION` to a release tag in production.
 
 Compose creates one named volume. Everything that must survive a container

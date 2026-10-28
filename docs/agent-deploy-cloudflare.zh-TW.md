@@ -9,7 +9,7 @@
 ## 自動化部署標準步驟
 
 1. **Fork 倉庫**
-   - Fork `tianma-if/edgeever` 到目標 GitHub 賬戶。
+   - Fork `scupro/edgeever` 到目標 GitHub 賬戶。
 
 2. **建立 Cloudflare 資源**
    - 建立名稱嚴格為 `edgeever` 的 D1 資料庫。
@@ -40,7 +40,7 @@
 7. **驗證上游更新通道**
    - 在 Fork 倉庫的 **Actions** 標籤頁中啟用 **Update deployed EdgeEver**（公共 Fork 上定時任務預設關閉，必須手動啟用）。
    - 普通 Fork 預設作為部署映象，無需配置任何更新變數：工作流會把所選上游 Release 的產品程式碼快照應用到 `main`，再觸發 Cloudflare。
-   - 更新器會把 Fork 自己的完整 `.github/workflows/**` 目錄及兩個更新輔助指令碼作為穩定的本機引導層保留。官方打包、簽名、測試與 Release 工作流繼續透過 `tianma-if/edgeever` 倉庫門禁限制執行，也不會被下游產品更新改寫。
+   - 更新器會把 Fork 自己的完整 `.github/workflows/**` 目錄及兩個更新輔助指令碼作為穩定的本機引導層保留。官方打包、簽名、測試與 Release 工作流繼續透過 `scupro/edgeever` 倉庫門禁限制執行，也不會被下游產品更新改寫。
    - 只有明確維護了應用程式碼修改的 Fork，才應建立 Actions 倉庫變數 `EDGE_EVER_PRESERVE_FORK_CHANGES=true`。啟用後改為 merge，並由倉庫所有者處理未來衝突；普通部署無需設定。
    - 在 Fork 的 **Actions** 中手動執行一次 **Update deployed EdgeEver**。即使 Fork 已對齊，手動執行也會重新發布所選版本，確保 Cloudflare 收到新的構建事件。
    - 開啟 Job **Summary**，確認 Fork mode 為 `mirror`，並顯示上游目標（stable Release 或 edge `main`），以及「已釋出更新」或明確的「已對齊」結果。

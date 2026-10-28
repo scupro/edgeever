@@ -3,7 +3,7 @@ productName: EdgeEver
 executableName: EdgeEver
 publish:
   provider: github
-  owner: tianma-if
+  owner: scupro
   repo: edgeever
   releaseType: release
 protocols:

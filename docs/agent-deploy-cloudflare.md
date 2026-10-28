@@ -9,7 +9,7 @@ This document defines the standard operating specifications and conventions for 
 ## Standard Automated Deployment Steps
 
 1. **Fork Repository**
-   - Fork `tianma-if/edgeever` to the target GitHub account.
+   - Fork `scupro/edgeever` to the target GitHub account.
 
 2. **Create Cloudflare Resources**
    - Create a D1 database named exactly `edgeever`.
@@ -40,7 +40,7 @@ This document defines the standard operating specifications and conventions for 
 7. **Verify Upstream Update Channel**
    - In the Fork's **Actions** tab, enable **Update deployed EdgeEver** (required on public forks: scheduled workflows are disabled by default).
    - An ordinary Fork is a deployment mirror by default. No update variable is required: the workflow applies the selected upstream Release's product snapshot to `main` before triggering Cloudflare.
-   - The updater preserves the Fork's complete `.github/workflows/**` directory and its two updater helper scripts as a stable local bootstrap layer. Official packaging, signing, testing, and Release workflows remain guarded to `tianma-if/edgeever` and are never rewritten by downstream product updates.
+   - The updater preserves the Fork's complete `.github/workflows/**` directory and its two updater helper scripts as a stable local bootstrap layer. Official packaging, signing, testing, and Release workflows remain guarded to `scupro/edgeever` and are never rewritten by downstream product updates.
    - Only a Fork that intentionally maintains application-code changes should create the Actions repository variable `EDGE_EVER_PRESERVE_FORK_CHANGES=true`. This opts into merges and requires the owner to resolve future conflicts; it is not needed for normal deployments.
    - Manually trigger **Update deployed EdgeEver** once in the Fork's **Actions** tab. A manual run republishes the selected version even when the Fork is already aligned, ensuring Cloudflare receives a fresh build event.
    - Open the job **Summary** and confirm it reports Fork mode `mirror`, the upstream target (stable Release or edge `main`), and either an update publish or an explicit *already aligned* result.

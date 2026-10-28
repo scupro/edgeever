@@ -274,7 +274,7 @@ describe("release automation", () => {
     let attempts = 0;
     let polls = 0;
     const result = await waitForRun({
-      repository: "tianma-if/edgeever",
+      repository: "scupro/edgeever",
       runId: 123,
       label: "Draft assets",
       viewRun: () => {

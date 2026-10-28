@@ -24,7 +24,7 @@ const releaseAssetUrl = (version, name) => {
   if (!STABLE_VERSION.test(version)) {
     throw new Error(`Windows update version must be stable X.Y.Z: ${version}`);
   }
-  return `https://github.com/tianma-if/edgeever/releases/download/v${version}/${name}`;
+  return `https://github.com/scupro/edgeever/releases/download/v${version}/${name}`;
 };
 
 const responseBytes = async (response, label) => {

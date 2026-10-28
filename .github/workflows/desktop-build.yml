@@ -18,7 +18,7 @@ jobs:
   release-plan:
     if: >-
       ${{
-        github.repository == 'tianma-if/edgeever' &&
+        github.repository == 'scupro/edgeever' &&
         (
           github.event_name == 'release' ||
           (github.event_name == 'workflow_dispatch' && inputs.release_tag != '')
@@ -98,7 +98,7 @@ jobs:
     needs: release-plan
     if: >-
       ${{
-        github.repository == 'tianma-if/edgeever' &&
+        github.repository == 'scupro/edgeever' &&
         github.event_name == 'workflow_dispatch' &&
         inputs.release_tag != '' &&
         needs.release-plan.result == 'success' &&
@@ -145,7 +145,7 @@ jobs:
     if: >-
       ${{
         always() &&
-        github.repository == 'tianma-if/edgeever' &&
+        github.repository == 'scupro/edgeever' &&
         (
           (github.event_name == 'workflow_dispatch' && inputs.release_tag == '') ||
           (
@@ -396,7 +396,7 @@ jobs:
     if: >-
       ${{
         always() &&
-        github.repository == 'tianma-if/edgeever' &&
+        github.repository == 'scupro/edgeever' &&
         (
           (github.event_name == 'workflow_dispatch' && inputs.release_tag == '') ||
           (
@@ -560,7 +560,7 @@ jobs:
     if: >-
       ${{
         always() &&
-        github.repository == 'tianma-if/edgeever' &&
+        github.repository == 'scupro/edgeever' &&
         (
           (github.event_name == 'workflow_dispatch' && inputs.release_tag == '') ||
           (
@@ -751,7 +751,7 @@ jobs:
     if: >-
       ${{
         always() &&
-        github.repository == 'tianma-if/edgeever' &&
+        github.repository == 'scupro/edgeever' &&
         (needs.desktop.result != 'skipped' || needs.windows.result != 'skipped' || needs.linux.result != 'skipped')
       }}
     name: Report desktop build timings
@@ -787,7 +787,7 @@ jobs:
     if: >-
       ${{
         always() &&
-        github.repository == 'tianma-if/edgeever' &&
+        github.repository == 'scupro/edgeever' &&
         needs.desktop.result == 'success' &&
         needs.windows.result == 'success' &&
         needs.linux.result == 'success' &&
@@ -849,7 +849,7 @@ jobs:
     if: >-
       ${{
         always() &&
-        github.repository == 'tianma-if/edgeever' &&
+        github.repository == 'scupro/edgeever' &&
         needs.release-plan.result == 'success' &&
         needs.release-plan.outputs.asset_ready == 'true' &&
         (
@@ -887,7 +887,7 @@ jobs:
     if: >-
       ${{
         always() &&
-        github.repository == 'tianma-if/edgeever' &&
+        github.repository == 'scupro/edgeever' &&
         needs.release-plan.result == 'success' &&
         needs.release-plan.outputs.asset_ready == 'true' &&
         (

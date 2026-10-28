@@ -22,8 +22,8 @@ const isReleaseUrl = (value) => {
   try {
     const url = new URL(value);
     return url.protocol === "https:" && (
-      (url.hostname === "github.com" && /^\/tianma-if\/edgeever\/releases(?:[/.]|$)/.test(url.pathname))
-      || (url.hostname === "api.github.com" && /^\/repos\/tianma-if\/edgeever\/releases(?:\/|$)/.test(url.pathname))
+      (url.hostname === "github.com" && /^\/scupro\/edgeever\/releases(?:[/.]|$)/.test(url.pathname))
+      || (url.hostname === "api.github.com" && /^\/repos\/scupro\/edgeever\/releases(?:\/|$)/.test(url.pathname))
     );
   } catch { return false; }
 };
@@ -60,7 +60,7 @@ export const createUpdateNetworkDiagnostics = ({ now = Date.now, write = () => {
     if (attached.has(ses)) return;
     attached.add(ses);
     observedSessions.push(name);
-    const filter = { urls: ["https://github.com/tianma-if/edgeever/releases*", "https://api.github.com/repos/tianma-if/edgeever/releases*", ...[...ASSET_HOSTS].map((host) => `https://${host}/*`)] };
+    const filter = { urls: ["https://github.com/scupro/edgeever/releases*", "https://api.github.com/repos/scupro/edgeever/releases*", ...[...ASSET_HOSTS].map((host) => `https://${host}/*`)] };
     const key = (id) => `${name}:${id}`;
     ses.webRequest.onBeforeRequest(filter, (details, callback) => {
       // Always release the request immediately; proxy inspection runs separately.

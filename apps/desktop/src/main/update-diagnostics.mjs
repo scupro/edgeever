@@ -17,7 +17,7 @@ export const createUpdateDiagnostic = (error, { stage, version, platform, arch, 
     at: now.toISOString(), stage, version, platform, arch,
     code: /^[A-Z0-9_-]{1,80}$/.test(rawCode) ? rawCode : null,
     message,
-    source: "https://github.com/tianma-if/edgeever/releases",
+    source: "https://github.com/scupro/edgeever/releases",
     ...(network ? { network } : {}),
   };
 };

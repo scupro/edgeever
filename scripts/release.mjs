@@ -21,7 +21,7 @@ import {
   signWindowsUpdateManifest,
 } from "./sign-windows-update-manifest.mjs";
 
-const DEFAULT_REPOSITORY = "tianma-if/edgeever";
+const DEFAULT_REPOSITORY = "scupro/edgeever";
 const VERSION_BUMPS = new Set(["patch", "minor", "major"]);
 const POLL_INTERVAL_MS = 10_000;
 const RUN_DISCOVERY_TIMEOUT_MS = 60_000;

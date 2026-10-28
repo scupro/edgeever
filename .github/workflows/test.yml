@@ -27,7 +27,7 @@ jobs:
   checks:
     # Forks that deploy their own copy do not spend runners on this; pull
     # requests opened against this repository still run here.
-    if: github.repository == 'tianma-if/edgeever'
+    if: github.repository == 'scupro/edgeever'
     name: Type check and build
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -65,7 +65,7 @@ jobs:
         run: bun run build:web
 
   tests:
-    if: github.repository == 'tianma-if/edgeever'
+    if: github.repository == 'scupro/edgeever'
     name: Regression tests
     runs-on: ubuntu-latest
     timeout-minutes: 30

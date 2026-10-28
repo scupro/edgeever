@@ -512,7 +512,7 @@ describe("Cloudflare deployment entrypoints", () => {
       for (const [index, match] of jobStarts.entries()) {
         const nextJob = jobStarts[index + 1];
         const job = jobs.slice(match.index, nextJob?.index);
-        expect(job).toContain("github.repository == 'tianma-if/edgeever'");
+        expect(job).toMatch(/github\.repository == '(?:scupro|tianma-if)\/edgeever'/);
       }
     }
   });

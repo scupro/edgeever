@@ -421,8 +421,8 @@ export const SystemInfoPanel = ({ active = true }: { active?: boolean }) => {
   ]);
   const releaseTag = release ? getReleaseTagForVersion(release.version) : null;
   const releaseUrl = releaseTag
-    ? `https://github.com/tianma-if/edgeever/releases/tag/${encodeURIComponent(releaseTag)}`
-    : "https://github.com/tianma-if/edgeever/releases/latest";
+    ? `https://github.com/scupro/edgeever/releases/tag/${encodeURIComponent(releaseTag)}`
+    : "https://github.com/scupro/edgeever/releases/latest";
 
   const handleCopy = async () => {
     const clipboard = formatSystemInfoClipboard({
@@ -569,7 +569,7 @@ export const SystemInfoPanel = ({ active = true }: { active?: boolean }) => {
                   variant="outline"
                   className="h-7 bg-card px-2.5 text-xs shadow-xs hover:bg-slate-50"
                 >
-                  <a href="https://github.com/tianma-if/edgeever/releases/latest" target="_blank" rel="noreferrer">
+                  <a href="https://github.com/scupro/edgeever/releases/latest" target="_blank" rel="noreferrer">
                     <ExternalLink className="h-3.5 w-3.5" />
                     {t("systemInfo.desktopDownloadLatest")}
                   </a>
@@ -623,7 +623,7 @@ export const SystemInfoPanel = ({ active = true }: { active?: boolean }) => {
                     {updateDiagnosticCopyState === "copied" ? t("systemInfo.desktopUpdateDiagnosticCopied") : t("systemInfo.desktopCopyUpdateDiagnostic")}
                   </Button>
                   {updateDiagnosticCopyState === "error" ? <span role="status">{t("systemInfo.copyFailed")}</span> : null}
-                  <a className="underline underline-offset-2" href="https://github.com/tianma-if/edgeever/releases/latest" target="_blank" rel="noreferrer">
+                  <a className="underline underline-offset-2" href="https://github.com/scupro/edgeever/releases/latest" target="_blank" rel="noreferrer">
                     {t("systemInfo.desktopUpdateManualDownload")}
                   </a>
                 </div>

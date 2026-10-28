@@ -61,11 +61,11 @@ permissions:
   contents: read
 
 env:
-  GHCR_IMAGE_NAME: ghcr.io/tianma-if/edgeever
+  GHCR_IMAGE_NAME: ghcr.io/scupro/edgeever
 
 jobs:
   container-test:
-    if: github.repository == 'tianma-if/edgeever' && github.event_name != 'release'
+    if: github.repository == 'scupro/edgeever' && github.event_name != 'release'
     name: Build and verify container
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -146,7 +146,7 @@ jobs:
 
   publish:
     if: >-
-      github.repository == 'tianma-if/edgeever' &&
+      github.repository == 'scupro/edgeever' &&
       github.event_name != 'pull_request' &&
       github.event_name != 'release'
     needs: container-test
@@ -282,7 +282,7 @@ jobs:
           trap - EXIT
 
   release-audit:
-    if: github.repository == 'tianma-if/edgeever' && github.event_name == 'release'
+    if: github.repository == 'scupro/edgeever' && github.event_name == 'release'
     name: Audit published Docker image
     runs-on: ubuntu-latest
     timeout-minutes: 10

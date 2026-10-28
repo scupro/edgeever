@@ -128,7 +128,7 @@ describe("Docker release contract", () => {
       'EDGE_EVER_AUTH_PASSWORD: "${EDGE_EVER_AUTH_PASSWORD:?',
     );
     expect(compose).toContain(
-      'EDGE_EVER_CONTAINER_IMAGE: "${EDGE_EVER_IMAGE:-ghcr.io/tianma-if/edgeever}"',
+      'EDGE_EVER_CONTAINER_IMAGE: "${EDGE_EVER_IMAGE:-ghcr.io/scupro/edgeever}"',
     );
     expect(compose).toContain("edgeever-data:/data");
     expect(compose).toContain("no-new-privileges:true");
@@ -176,7 +176,7 @@ describe("Docker release contract", () => {
     const cnbWorkflow = readProjectFile(".cnb.yml");
     const tcrPublisher = readProjectFile("scripts/publish-tcr-image.sh");
     expect(
-      workflow.match(/github\.repository == 'tianma-if\/edgeever'/g)?.length,
+      workflow.match(/github\.repository == 'scupro\/edgeever'/g)?.length,
     ).toBeGreaterThanOrEqual(2);
     expect(workflow).toContain("release_tag");
     expect(workflow).toContain("contents: write\n      packages: write");

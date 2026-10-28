@@ -4,7 +4,7 @@ export type ContainerImageSource =
   | "custom"
   | "unknown";
 
-const OFFICIAL_GHCR_IMAGE = "ghcr.io/tianma-if/edgeever";
+const OFFICIAL_GHCR_IMAGE = "ghcr.io/scupro/edgeever";
 const OFFICIAL_CN_MIRROR_IMAGE = "ccr.ccs.tencentyun.com/edgeever/edgeever";
 
 const matchesImageRepository = (reference: string, repository: string) =>

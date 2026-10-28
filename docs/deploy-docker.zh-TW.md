@@ -60,7 +60,7 @@ docker compose ps
 
 ### 映象地址
 
-官方映象為 `ghcr.io/tianma-if/edgeever`，支援 `linux/amd64` 與 `linux/arm64`。
+官方映象為 `ghcr.io/scupro/edgeever`，支援 `linux/amd64` 與 `linux/arm64`。
 生產環境應透過 `EDGE_EVER_VERSION` 固定正式版本標籤。
 
 Compose 會建立一個命名卷。所有需要在容器替換後保留的資料都位於 `/data`：

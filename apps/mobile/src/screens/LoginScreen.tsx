@@ -16,7 +16,7 @@ import { useMobileLocale } from "../lib/mobile-locale";
 import { resolveMobileThemeStyles, useMobileTheme, type MobileResolvedTheme } from "../lib/mobile-theme";
 import { useSession } from "../lib/session";
 
-const GITHUB_REPOSITORY_URL = "https://github.com/tianma-if/edgeever";
+const GITHUB_REPOSITORY_URL = "https://github.com/scupro/edgeever";
 
 export const LoginScreen = () => {
   const { resolvedTheme } = useMobileTheme();
