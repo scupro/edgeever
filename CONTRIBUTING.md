@@ -1,6 +1,6 @@
 # Contributing to EdgeEver
 
-[繁體中文](CONTRIBUTING.zh-TW.md) | English
+[正體中文](CONTRIBUTING.zh-TW.md) | English
 
 Thank you for contributing to EdgeEver. A Fork used for Cloudflare deployment can also be used for code contributions, but deployment and development must use different branches.
 

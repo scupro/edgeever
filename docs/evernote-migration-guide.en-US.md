@@ -1,6 +1,6 @@
 # Minimal Evernote Migration Guide
 
-[繁體中文](evernote-migration-guide.md) | [English](evernote-migration-guide.en-US.md)
+[正體中文](evernote-migration-guide.md) | [English](evernote-migration-guide.en-US.md)
 
 We strongly recommend using an AI coding assistant, such as Codex, Antigravity, Claude Code, Cursor, WorkBuddy, OpenClaw, or Hermes Agent, to run the migration automatically. The current migration flow is optimized for streaming large archives and preprocessing empty text, and can handle multi-GB note libraries while preserving created/updated timestamps and nested notebook hierarchy.
 

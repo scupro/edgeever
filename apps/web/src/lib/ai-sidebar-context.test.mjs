@@ -56,7 +56,7 @@ describe("AI sidebar note context", () => {
     expect(sidebarLocalContextText(note, false, conversation("Translate this note", [], "zh-TW"))).toContain("English (current request)");
     expect(sidebarLocalContextText(note, false, conversation("🔄", ["このノートを読んで"], "zh-TW"))).toContain("Japanese (recent conversation)");
     expect(sidebarLocalContextText(note, false, conversation("請翻譯我正在看的內容，並把譯文作為回覆寫給我。", ["このノートを読んで"], "zh-TW"))).toContain("Japanese (recent conversation)");
-    expect(sidebarLocalContextText(note, false, conversation("請翻譯下面這段文字：如果原文是繁體中文，譯成英文；否則譯成繁體中文。\n\nEnglish source", ["このノートを読んで"], "zh-TW"))).toContain("Japanese (recent conversation)");
+    expect(sidebarLocalContextText(note, false, conversation("請翻譯下面這段文字：如果原文是正體中文，譯成英文；否則譯成正體中文。\n\nEnglish source", ["このノートを読んで"], "zh-TW"))).toContain("Japanese (recent conversation)");
     expect(sidebarLocalContextText(note, false, conversation("請翻譯下面這段文字。按當前對話的語言選擇目標語言。\n\nEnglish source", ["このノートを読んで"], "zh-TW"))).toContain("Japanese (recent conversation)");
     expect(sidebarLocalContextText(note, false, conversation("下の文章をこの会話の言語に翻訳してください。\n\nEnglish source", ["請讀這篇筆記"], "ja"))).toContain("Traditional Chinese (recent conversation)");
     expect(sidebarLocalContextText(note, false, conversation("🔄", [], "zh-TW"))).toContain("Traditional Chinese (interface)");

@@ -1,6 +1,6 @@
 # 為 EdgeEver 貢獻程式碼
 
-繁體中文 | [English](CONTRIBUTING.md)
+正體中文 | [English](CONTRIBUTING.md)
 
 感謝您為 EdgeEver 貢獻程式碼。用於 Cloudflare 部署的 Fork 也可以提交程式碼貢獻，但部署與開發必須使用不同的分支。
 

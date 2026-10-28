@@ -39,9 +39,9 @@ describe("Markdown mode cursor mapping", () => {
   });
 
   test("keeps UTF-16 positions after Chinese text and emoji", () => {
-    const editor = createEditor("繁體中文🙂 [ ] & 後文");
+    const editor = createEditor("正體中文🙂 [ ] & 後文");
     const source = docToEditableMarkdown(editor.getJSON());
-    const prefix = "繁體中文🙂 [ ] &";
+    const prefix = "正體中文🙂 [ ] &";
     const richPosition = 1 + prefix.length;
     const sourceOffset = richPositionToMarkdownOffset(editor.state.doc, source, richPosition);
 

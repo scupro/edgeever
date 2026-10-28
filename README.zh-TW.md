@@ -14,7 +14,7 @@
     <a href="#贊助與支援"><img src="https://img.shields.io/badge/Sponsor-支援專案-ea4aaa?logo=github-sponsors" alt="贊助與支援" /></a>
   </p>
   <p>
-    <b>繁體中文</b> | <a href="README.md">English</a> | <a href="README.ja.md">日本語</a> | <a href="README.pl-PL.md">Polski</a>
+    <b>正體中文</b> | <a href="README.md">English</a> | <a href="README.ja.md">日本語</a> | <a href="README.pl-PL.md">Polski</a>
   </p>
   <p>
     <a href="#wechat-group"><img src="assets/readme/community/wechat.svg" alt="WeChat" width="16" height="16" align="absmiddle" /> 微信交流群</a> &nbsp;|&nbsp;

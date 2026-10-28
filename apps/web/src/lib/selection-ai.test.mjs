@@ -60,7 +60,7 @@ describe("selection user message", () => {
 
   test("stays inside the companion message limit for a full clip", () => {
     const message = selectionAiUserMessage({
-      instruction: "請翻譯下面這段文字：如果原文是繁體中文，譯成英文；否則譯成繁體中文。只輸出譯文。",
+      instruction: "請翻譯下面這段文字：如果原文是正體中文，譯成英文；否則譯成正體中文。只輸出譯文。",
       notice: "只傳送了選區的前 2000 個字元。",
       quote: "字".repeat(SELECTION_AI_SEND_LIMIT),
     });

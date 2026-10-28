@@ -1,6 +1,6 @@
 # EdgeEver Plugin Marketplace Submission Policy
 
-[繁體中文](plugin-marketplace-policy.zh-TW.md)
+[正體中文](plugin-marketplace-policy.zh-TW.md)
 
 The official EdgeEver Plugin Marketplace only lists free and open-source plugins. This policy applies to admission to and continued distribution through the official marketplace. It does not restrict users from installing other plugins directly from GitHub or a Manifest URL.
 

@@ -1,6 +1,6 @@
 # Notion Migration Guide
 
-[繁體中文](notion-migration-guide.md) | [English](notion-migration-guide.en-US.md)
+[正體中文](notion-migration-guide.md) | [English](notion-migration-guide.en-US.md)
 
 Thanks to EdgeEver's native support for AI Agent and Model Context Protocol (MCP), if you want to migrate your Notion workspace to EdgeEver, the most elegant way is to use your AI assistant as a bridge. By mounting both the **Notion MCP** and **EdgeEver MCP** servers, you can achieve fully automatic cloud-to-cloud page migration.
 

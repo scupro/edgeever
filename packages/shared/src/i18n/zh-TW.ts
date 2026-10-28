@@ -1572,7 +1572,7 @@ export const zhTW = {
     targetLanguage: "目標語言",
     targetLanguages: {
       en: "英語",
-      "zh-TW": "繁體中文",
+      "zh-TW": "正體中文",
       ja: "日語",
       ko: "韓語",
       es: "西班牙語",
@@ -1675,7 +1675,7 @@ export const zhTW = {
           pl: "Polski",
         },
         languageNames: {
-          "zh-TW": "繁體中文",
+          "zh-TW": "正體中文",
           en: "英文",
           ja: "日文",
           pl: "波蘭語",

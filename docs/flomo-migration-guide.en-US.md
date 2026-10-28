@@ -1,6 +1,6 @@
 # flomo Migration Guide
 
-[繁體中文](flomo-migration-guide.md) | [English](flomo-migration-guide.en-US.md)
+[正體中文](flomo-migration-guide.md) | [English](flomo-migration-guide.en-US.md)
 
 ### Step 1: Export flomo
 

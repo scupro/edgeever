@@ -25,7 +25,7 @@ The development build also includes dedicated detail-page capture for Hacker New
 
 The extension does not use a central relay service. The page content is sent directly to the EdgeEver instance configured by the user.
 
-HN usage and verification limits are documented in [English](../../docs/browser-clipper-hacker-news.md) and [繁體中文](../../docs/browser-clipper-hacker-news.zh-TW.md).
+HN usage and verification limits are documented in [English](../../docs/browser-clipper-hacker-news.md) and [正體中文](../../docs/browser-clipper-hacker-news.zh-TW.md).
 
 ## UI architecture
 

@@ -1,6 +1,6 @@
 # EdgeEver Plugin Development Guide
 
-[繁體中文](plugin-development.zh-TW.md)
+[正體中文](plugin-development.zh-TW.md)
 
 EdgeEver provides client plugin and no-code theme extension capabilities. Users can install extensions from the official marketplace, public GitHub repositories, or manifest URLs. Installed extensions sync across Web and desktop platforms with the current workspace and run while EdgeEver is open; The Android native app does not run plugins.
 

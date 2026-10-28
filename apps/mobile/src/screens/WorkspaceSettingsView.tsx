@@ -49,7 +49,7 @@ const formatExecutionEnvironment = (environment: string | null | undefined, loca
 };
 const MOBILE_LOCALE_OPTIONS: Array<{ label: string; value: MobileLocalePreference }> = [
   { label: "跟隨系統", value: "system" },
-  { label: "繁體中文", value: "zh-TW" },
+  { label: "正體中文", value: "zh-TW" },
   { label: "English", value: "en-US" },
   { label: "日本語", value: "ja" },
   { label: "Polski", value: "pl" },
