@@ -103,7 +103,7 @@ describe("demo seed catalog", () => {
       const memo = DEMO_SEED_MEMOS.find((candidate) => candidate.id === memoId);
       const diagram = parseDiagramDocument(memo?.markdown);
       expect(diagram).toMatchObject({ kind: "architecture" });
-      expect(diagram?.nodes).toHaveLength(20);
+      expect(diagram?.nodes).toHaveLength(19);
       expect(diagram?.edges).toHaveLength(9);
 
       const boundaries = new Map(

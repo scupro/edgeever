@@ -31,17 +31,16 @@ export const DEMO_ARCHITECTURE_DIAGRAM_ZH: DiagramDocument = {
   schemaVersion: 2,
   kind: "architecture",
   nodes: [
-    { id: "boundary-clients", label: "全端體驗層", x: 32, y: 32, width: 260, height: 694, shape: "boundary" },
+    { id: "boundary-clients", label: "全端體驗層", x: 32, y: 32, width: 260, height: 584, shape: "boundary" },
     { id: "boundary-platform", label: "可移植應用平臺 · Cloudflare Workers / Docker 共用業務核心", x: 380, y: 179, width: 732, height: 400, shape: "boundary" },
     { id: "boundary-data", label: "資料與檔案層 · 可替換基礎設施轉接器", x: 1200, y: 390, width: 260, height: 380, shape: "boundary" },
     { id: "boundary-ecosystem", label: "AI 與自動化生態", x: 1200, y: 62, width: 260, height: 272, shape: "boundary" },
 
     { id: "client-web", label: "Web / PWA\n離線優先", x: 68, y: 88, width: 156, height: 64, shape: "frontend", resourceIcon: "webApp", parentId: "boundary-clients" },
     { id: "client-desktop", label: "macOS / Windows\n桌面端", x: 68, y: 192, width: 156, height: 70, shape: "client", resourceIcon: "client", parentId: "boundary-clients" },
-    { id: "client-ios", label: "iOS\nSwiftUI 原生端", x: 68, y: 302, width: 156, height: 70, shape: "client", resourceIcon: "mobileApp", parentId: "boundary-clients" },
-    { id: "client-android", label: "Android\nExpo 原生端", x: 68, y: 412, width: 156, height: 64, shape: "client", resourceIcon: "mobileApp", parentId: "boundary-clients" },
-    { id: "client-clipper", label: "瀏覽器剪藏\nChrome / Edge", x: 68, y: 516, width: 156, height: 70, shape: "client", resourceIcon: "website", parentId: "boundary-clients" },
-    { id: "client-sync", label: "全端共享同步通道", x: 68, y: 626, width: 156, height: 64, shape: "service", resourceIcon: "apiClient", parentId: "boundary-clients" },
+    { id: "client-android", label: "Android\nExpo 原生端", x: 68, y: 302, width: 156, height: 64, shape: "client", resourceIcon: "mobileApp", parentId: "boundary-clients" },
+    { id: "client-clipper", label: "瀏覽器剪藏\nChrome / Edge", x: 68, y: 412, width: 156, height: 70, shape: "client", resourceIcon: "website", parentId: "boundary-clients" },
+    { id: "client-sync", label: "全端共享同步通道", x: 68, y: 516, width: 156, height: 64, shape: "service", resourceIcon: "apiClient", parentId: "boundary-clients" },
 
     { id: "platform-api", label: "統一 API 入口\n認證 · 限流 · 路由", x: 416, y: 363, width: 156, height: 70, shape: "service", resourceIcon: "apiGateway", parentId: "boundary-platform" },
     { id: "platform-core", label: "共享業務核心\nHono · 領域服務", x: 668, y: 304, width: 156, height: 70, shape: "service", resourceIcon: "service", parentId: "boundary-platform" },
@@ -73,17 +72,16 @@ export const DEMO_ARCHITECTURE_DIAGRAM_EN: DiagramDocument = {
   schemaVersion: 2,
   kind: "architecture",
   nodes: [
-    { id: "boundary-clients", label: "Cross-Platform Experience", x: 32, y: 43, width: 260, height: 694, shape: "boundary" },
+    { id: "boundary-clients", label: "Cross-Platform Experience", x: 32, y: 43, width: 260, height: 584, shape: "boundary" },
     { id: "boundary-platform", label: "Portable Application Platform · Shared Core on Cloudflare Workers or Docker", x: 380, y: 181, width: 732, height: 418, shape: "boundary" },
     { id: "boundary-data", label: "Data & Files · Replaceable Infrastructure Adapters", x: 1200, y: 396, width: 260, height: 436, shape: "boundary" },
     { id: "boundary-ecosystem", label: "AI & Automation Ecosystem", x: 1200, y: 32, width: 260, height: 308, shape: "boundary" },
 
     { id: "client-web", label: "Web / PWA\nOffline First", x: 68, y: 99, width: 156, height: 64, shape: "frontend", resourceIcon: "webApp", parentId: "boundary-clients" },
     { id: "client-desktop", label: "macOS / Windows\nDesktop", x: 68, y: 203, width: 156, height: 70, shape: "client", resourceIcon: "client", parentId: "boundary-clients" },
-    { id: "client-ios", label: "iOS\nNative SwiftUI", x: 68, y: 313, width: 156, height: 70, shape: "client", resourceIcon: "mobileApp", parentId: "boundary-clients" },
-    { id: "client-android", label: "Android\nNative Expo", x: 68, y: 423, width: 156, height: 64, shape: "client", resourceIcon: "mobileApp", parentId: "boundary-clients" },
-    { id: "client-clipper", label: "Web Clipper\nChrome / Edge", x: 68, y: 527, width: 156, height: 70, shape: "client", resourceIcon: "website", parentId: "boundary-clients" },
-    { id: "client-sync", label: "Shared Cross-Client Sync", x: 68, y: 637, width: 156, height: 64, shape: "service", resourceIcon: "apiClient", parentId: "boundary-clients" },
+    { id: "client-android", label: "Android\nNative Expo", x: 68, y: 313, width: 156, height: 64, shape: "client", resourceIcon: "mobileApp", parentId: "boundary-clients" },
+    { id: "client-clipper", label: "Web Clipper\nChrome / Edge", x: 68, y: 423, width: 156, height: 70, shape: "client", resourceIcon: "website", parentId: "boundary-clients" },
+    { id: "client-sync", label: "Shared Cross-Client Sync", x: 68, y: 527, width: 156, height: 64, shape: "service", resourceIcon: "apiClient", parentId: "boundary-clients" },
 
     { id: "platform-api", label: "Unified API Entry\nAuth · Limits · Routing", x: 416, y: 365, width: 156, height: 88, shape: "service", resourceIcon: "apiGateway", parentId: "boundary-platform" },
     { id: "platform-core", label: "Shared Business Core\nHono · Domain Services", x: 668, y: 301, width: 156, height: 88, shape: "service", resourceIcon: "service", parentId: "boundary-platform" },
@@ -496,7 +494,7 @@ export const DEMO_POSTER_DOCUMENT_ZH: PosterDocument = {
       id: "section-3-body",
       name: "section-3-body",
       type: "text",
-      text: "macOS、Windows、Linux、iOS 與 Android 覆蓋，支援一鍵將筆記本釋出為知識庫網站。",
+      text: "macOS、Windows、Linux 與 Android 覆蓋，支援一鍵將筆記本釋出為知識庫網站。",
       x: 136,
       y: 1195,
       width: 808,
@@ -735,7 +733,7 @@ export const DEMO_POSTER_DOCUMENT_EN: PosterDocument = {
       id: "section-3-body",
       name: "section-3-body",
       type: "text",
-      text: "Native coverage on macOS, Windows, Linux, iOS & Android; publish entire notebooks as standalone sites.",
+      text: "Native coverage on macOS, Windows, Linux & Android; publish entire notebooks as standalone sites.",
       x: 136,
       y: 1195,
       width: 808,
@@ -800,7 +798,7 @@ export const DEMO_TABLE_DOCUMENT_ZH: TableDocument = {
     {
       id: "rec_platforms",
       cells: {
-        fld_feature: "全平臺客戶端 (macOS / Win / Linux / iOS / Android)",
+        fld_feature: "全平臺客戶端 (macOS / Win / Linux / Android)",
         fld_category: "多端客戶端",
         fld_status: "已正式釋出",
         fld_verified: true,
@@ -906,7 +904,7 @@ export const DEMO_TABLE_DOCUMENT_EN: TableDocument = {
     {
       id: "rec_platforms",
       cells: {
-        fld_feature: "Full-Platform Apps (macOS / Win / Linux / iOS / Android)",
+        fld_feature: "Full-Platform Apps (macOS / Win / Linux / Android)",
         fld_category: "Cross-Platform",
         fld_status: "Released",
         fld_verified: true,
@@ -990,7 +988,7 @@ export const DEMO_SEED_MEMOS_ZH = [
 | **自媒體排版分發** | 無樣式最佳化，格式丟失 | 需藉助外部排版擴充套件或工具 | **一鍵複製到微信公眾號 / Substack / Medium / WordPress** |
 | **社交卡片分享** | 截圖粗糙或無排版設計 | 需第三方外掛實現 | **內建 8 款精美海報主題，支援自定義字型與 PNG/JPEG 匯出** |
 | **AI 原生整合生態** | 封閉收費，僅限特定功能 | 需配置複雜的第三方外掛 | **原生內建 MCP 服務端點 (\`/mcp\`)、桌面端 ACP 本機智慧體協同與行內 AI 助手** |
-| **全平臺多端覆蓋** | 限制免費裝置登入數量 | 多端同步與移動端體驗門檻高 | **Web / PWA / Android / iOS / macOS / Windows / Linux AppImage** |
+| **全平臺多端覆蓋** | 限制免費裝置登入數量 | 多端同步與移動端體驗門檻高 | **Web / PWA / Android / macOS / Windows / Linux AppImage** |
 
 ---
 
@@ -1005,7 +1003,6 @@ flowchart TD
         C2["macOS 桌面端 (Electron + Rust Sidecar)"]
         C3["Windows / Linux 桌面端 (ACP 智慧體整合)"]
         C4["Android 原生 App (Expo + SQLite)"]
-        C5["iOS 原生 App (SwiftUI + GRDB)"]
         C6["瀏覽器剪藏外掛 (Chrome / Edge / Firefox)"]
     end
 
@@ -1146,7 +1143,6 @@ sequenceDiagram
 - **多端原生支援**：
   - **Web / PWA**：支援現代瀏覽器全功能執行與離線安裝；
   - **Android 原生客戶端**：基於 Expo 與 SQLite 構建，已上架 Google Play，並提供簽名 APK 下載；
-  - **iOS 原生客戶端**：基於 Swift / SwiftUI 與 GRDB 原生實現，流暢細膩，已上架 App Store（可使用非大陸區 Apple ID 下載）；
   - **macOS 桌面端**：Electron + Rust 高效能 Sidecar，支援 Apple Silicon 和 Intel Mac，內建靜默後臺更新；
   - **Windows 桌面端**：已正式推出 x64 Preview 版本，支援開機啟動、全域性快捷鍵與系統右鍵上下文選單將檔案一鍵傳送至筆記。
 - **瀏覽器網頁剪藏 (Web Clipper)**：已在 Chrome、Edge 和 Firefox 官方擴充套件商店釋出，支援頁面純淨剪藏、右鍵選單一鍵剪藏選中文字/高畫質圖片、以及一鍵提取 X (Twitter) 完整推文。
@@ -1343,7 +1339,7 @@ export const DEMO_MEMO_ENGLISH = {
 | **Publishing Ready** | No typography styling, loses format | Requires 3rd-party plugins or scripts | **One-Click Rich Copy for WeChat, Substack, Medium & WordPress** |
 | **Social Poster Cards** | Basic screenshots without styling | Requires external tools or plugins | **8 Built-in Exquisite Poster Themes with Typography Options & PNG/JPEG Export** |
 | **Native AI Ecosystem** | Paywalled, limited features | Heavy plugin setup required | **Native MCP Server (\`/mcp\`), Desktop ACP Local Agent Integration & Inline AI** |
-| **Cross-Platform Matrix** | Restricts active free devices | Complex setup across platforms | **Web / PWA / Android / iOS / macOS / Windows / Linux AppImage** |
+| **Cross-Platform Matrix** | Restricts active free devices | Complex setup across platforms | **Web / PWA / Android / macOS / Windows / Linux AppImage** |
 
 ---
 
@@ -1358,7 +1354,6 @@ flowchart TD
         C2["macOS Desktop (Electron + Rust Sidecar)"]
         C3["Windows / Linux Desktop (ACP Agent Integration)"]
         C4["Android Native App (Expo + SQLite)"]
-        C5["iOS Native App (SwiftUI + GRDB)"]
         C6["Web Clipper (Chrome / Edge / Firefox)"]
     end
 
@@ -1499,7 +1494,6 @@ Generate an API token in **Settings → MCP Settings** to connect EdgeEver direc
 - **Cross-Platform Native Apps**:
   - **Web / PWA**: Full-featured in modern browsers with offline installation support;
   - **Android Native App**: Built with Expo & SQLite, available on Google Play and GitHub Releases;
-  - **iOS Native App**: Native Swift / SwiftUI with GRDB local mirror, available on the App Store (requires a non-mainland China Apple ID);
   - **macOS Desktop App**: Electron + Rust Sidecar for Apple Silicon & Intel Mac with silent background updates;
   - **Windows Desktop App**: Official x64 Preview released, featuring auto-launch, global hotkeys, and Windows Explorer context menu integration to send files to notes with one click.
 - **Browser Web Clipper**: Available on Chrome, Edge, and Firefox extension stores to extract clean, ad-free Markdown articles, selected text, high-res images, and full X (Twitter) posts directly from context menus.
