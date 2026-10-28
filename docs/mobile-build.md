@@ -166,4 +166,14 @@ changes are in the audited range. See
 
 ## EAS
 
-The project is linked to Expo/EAS for optional future use, but routine CI builds should use GitHub Actions local Android builds to avoid consuming EAS monthly build quota.
+EAS is optional; routine CI builds use GitHub Actions local Android builds to avoid consuming EAS monthly build quota.
+
+`apps/mobile/app.json` ships without an Expo project link: the `owner` field names the Expo account that publishes the app, and no `extra.eas.projectId` or `updates.url` is committed. Before running EAS builds or EAS Update for the first time, sign in to your own Expo account and link the app once:
+
+```sh
+cd apps/mobile
+eas init                  # creates the project and writes extra.eas.projectId
+eas update:configure      # writes updates.url for the project
+```
+
+Commit the resulting `app.json` changes on your own fork. Until then, GitHub Actions Android builds and the GitHub release feed remain the supported update path; EAS Update stays inactive because no update URL is configured.
