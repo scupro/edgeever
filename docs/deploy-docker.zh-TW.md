@@ -31,6 +31,8 @@ docker run -d --name edgeever -p 8787:8787 \
 容器把 SQLite 資料庫與附件放在 `edgeever-data` 磁碟區，並在 `8787` 埠監聽。升級時
 拉取新標籤、停止並移除容器，再執行同一段 `docker run`；磁碟區會保留資料。
 
+在第一個 `vX.Y.Z` 正式版本發布前，映像倉庫只有 `main` 與 `sha-<commit>` 標籤，請先使用 `:main`；發布版本後會產生版本標籤並更新 `:latest`。
+
 需要把設定寫成檔案（也較容易做自動更新）時，改用下方的 Compose 方式。
 
 ## 手動使用 Compose

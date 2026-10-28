@@ -35,6 +35,10 @@ The container stores its SQLite database and attachments in the `edgeever-data`
 volume and listens on port `8787`. To upgrade, pull the new tag, stop and remove
 the container, then run the same `docker run` again; the volume preserves data.
 
+Until the first `vX.Y.Z` release is published the registry only holds `main` and
+`sha-<commit>` tags; use `:main` for now. Publishing a release pushes the
+version tag and moves `:latest`.
+
 Use a Compose file (below) when you want the configuration kept in a file, which
 is also the easier path for automatic updates.
 

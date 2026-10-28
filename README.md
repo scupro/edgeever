@@ -156,6 +156,8 @@ docker run -d --name edgeever -p 8787:8787 \
 
 Then open `http://localhost:8787` and sign in with the credentials above. To update, `docker pull ghcr.io/scupro/edgeever:latest`, remove the container, and run the same `docker run` again; the `edgeever-data` volume keeps your notes.
 
+Until the first release is published, pull `ghcr.io/scupro/edgeever:main` instead of `:latest`; publishing a `vX.Y.Z` release publishes that tag and moves `:latest`.
+
 See the [Docker deployment guide](docs/deploy-docker.md) for Compose, TLS, backups and configuration.
 
 ---

@@ -155,6 +155,8 @@ docker run -d --name edgeever -p 8787:8787 \
 
 `http://localhost:8787` を開き、上の認証情報でサインインします。更新時は `docker pull ghcr.io/scupro/edgeever:latest` の後にコンテナを削除し、同じ `docker run` を実行してください。データは `edgeever-data` ボリュームに残ります。
 
+最初のリリースを公開するまでは `ghcr.io/scupro/edgeever:main` を指定してください。`vX.Y.Z` リリースを公開するとそのタグが追加され、`:latest` も更新されます。
+
 Compose、TLS、バックアップ、詳細設定は [Docker deployment guide](docs/deploy-docker.md) を参照してください。
 
 ---

@@ -156,6 +156,8 @@ docker run -d --name edgeever -p 8787:8787 \
 
 Otwórz `http://localhost:8787` i zaloguj się podanymi danymi. Aktualizacja: `docker pull ghcr.io/scupro/edgeever:latest`, usuń kontener i uruchom to samo `docker run`; wolumen `edgeever-data` zachowuje notatki.
 
+Do czasu publikacji pierwszego wydania używaj `ghcr.io/scupro/edgeever:main` zamiast `:latest`; wydanie `vX.Y.Z` publikuje ten tag i przesuwa `:latest`.
+
 Compose, TLS, kopie zapasowe i konfigurację opisuje [przewodnik po Dockerze](docs/deploy-docker.md).
 
 ---

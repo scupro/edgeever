@@ -154,6 +154,8 @@ docker run -d --name edgeever -p 8787:8787 \
 
 接著打開 `http://localhost:8787`，用上面的帳密登入。更新時重新 `docker pull ghcr.io/scupro/edgeever:latest`、移除容器再跑同一段 `docker run`；資料保存在 `edgeever-data` 磁碟區，不會遺失。
 
+在發布第一個正式版本前，請改用 `ghcr.io/scupro/edgeever:main`；發布 `vX.Y.Z` 版本後才會有該標籤，並同步更新 `:latest`。
+
 Compose、TLS、備份與完整設定見 [Docker 部署文件](docs/deploy-docker.zh-TW.md)。
 
 > 💡 **網路提示**：官方映像檔託管於 GitHub（GHCR）。若在部分網路環境下遇到拉取緩慢或逾時，請在部署前自行設定可用的網路代理或可信的映像檔加速服務。
