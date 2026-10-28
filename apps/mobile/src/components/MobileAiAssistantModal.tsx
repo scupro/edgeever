@@ -99,6 +99,7 @@ export const MobileAiAssistantModal = ({
 
   const languageLabels: Record<TargetLanguage, string> = {
     en: tr("英語", "English"),
+    "zh-CN": tr("簡體中文", "Simplified Chinese"),
     "zh-TW": tr("繁體中文", "Traditional Chinese"),
     ja: tr("日語", "Japanese"),
     ko: tr("韓語", "Korean"),
