@@ -21,7 +21,7 @@
    - 點選 **Save and Deploy** 建立 Worker。首次構建可能因為尚未新增管理員 Secret 而失敗；完成下一步配置後重試。
 
 4. **配置登入憑據與實例引數**
-   - **Worker Secret**：Worker 建立後，新增執行時金鑰 `EDGE_EVER_AUTH_PASSWORD`，值為初始管理員登入密碼；建議使用至少 32 個字元的強密碼。
+   - **Worker Secret**：Worker 建立後，新增執行時金鑰 `AUTH_PASSWORD`，值為初始管理員登入密碼；建議使用至少 32 個字元的強密碼。
    - 該密碼只配置為 Worker 執行時 Secret，不要複製到 Workers Builds 構建變數；標準部署入口會複用並驗證已存在的 Secret。
    - 不要修改 `wrangler.toml`，也不要在控制檯重複新增 binding。部署命令會根據標準資源名稱生成 `DB` binding。
    - 對按舊版檔案部署的已有 Worker，不要要求使用者重新命名管理員帳號。沒有顯式覆蓋時，部署會自動保留線上管理員使用者名稱；物件儲存一律透過 `EDGE_EVER_S3_*` 部署變數設定。
@@ -35,7 +35,7 @@
    - 新增執行時 Secret 及使用者要求的使用者名稱覆蓋後，重試構建。部署完成後進行如下自動化驗證：
      - 檢查 `https://<你的 Worker 域名>/api/health` 返回 `200` 狀態碼且 JSON 內容為 `{"ok": true}`。
      - 檢查 `https://<你的 Worker 域名>/api/openapi.json` 可以訪問，且 JSON 含 `"ok": true`。
-     - 使用配置的管理員使用者名稱（預設 `admin`）和 `EDGE_EVER_AUTH_PASSWORD` 驗證登入 API。
+     - 使用配置的管理員使用者名稱（預設 `admin`）和 `AUTH_PASSWORD` 驗證登入 API。
 
 7. **驗證上游更新通道**
    - 在 Fork 倉庫的 **Actions** 標籤頁中啟用 **Update deployed EdgeEver**（公共 Fork 上定時任務預設關閉，必須手動啟用）。
@@ -49,4 +49,4 @@
 
 ## 可選：自定義初始管理員使用者名稱
 
-普通部署直接使用預設使用者名稱 `admin`，不要主動詢問使用者是否需要修改。僅當使用者明確要求自定義管理員使用者名稱時，才在重試首次構建前透過 Workers Builds 構建變數設定 `EDGE_EVER_AUTH_USERNAME`，並在登入驗證時使用該使用者名稱。管理員帳號已建立後，僅修改該變數不會重新命名現有帳號。
+普通部署直接使用預設使用者名稱 `admin`，不要主動詢問使用者是否需要修改。僅當使用者明確要求自定義管理員使用者名稱時，才在重試首次構建前透過 Workers Builds 構建變數設定 `AUTH_USER`，並在登入驗證時使用該使用者名稱。管理員帳號已建立後，僅修改該變數不會重新命名現有帳號。

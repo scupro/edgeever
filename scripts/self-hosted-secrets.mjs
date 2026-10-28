@@ -3,8 +3,8 @@ import { chmod, readFile, rename, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 
 const FILE_SECRET_NAMES = [
-  "EDGE_EVER_AUTH_PASSWORD",
-  "EDGE_EVER_AUTH_PASSWORD_HASH",
+  "AUTH_PASSWORD",
+  "AUTH_PASSWORD_HASH",
   // Legacy decryption fallback for credentials saved by older releases.
   "EDGE_EVER_STORAGE_ENCRYPTION_KEY",
   "EDGE_EVER_CREDENTIALS_ENCRYPTION_KEY",
@@ -44,8 +44,8 @@ export const loadSelfHostedEnvironment = async (environment = process.env) => {
 
 export const hasSelfHostedCredentialSeed = (environment) => Boolean(
   trimSecret(environment.EDGE_EVER_CREDENTIALS_ENCRYPTION_KEY)
-  || trimSecret(environment.EDGE_EVER_AUTH_PASSWORD)
-  || trimSecret(environment.EDGE_EVER_AUTH_PASSWORD_HASH),
+  || trimSecret(environment.AUTH_PASSWORD)
+  || trimSecret(environment.AUTH_PASSWORD_HASH),
 );
 
 const corruptSecretsMessage = (filePath) => (
@@ -119,16 +119,16 @@ const fillMissingSecrets = (stored, envSecrets) => {
 
 const applyPersistedSecrets = (environment, stored, envSecrets) => {
   if (!envSecrets.authPassword && stored.authPassword) {
-    environment.EDGE_EVER_AUTH_PASSWORD = stored.authPassword;
+    environment.AUTH_PASSWORD = stored.authPassword;
   }
   if (!envSecrets.authPasswordHash && stored.authPasswordHash) {
-    environment.EDGE_EVER_AUTH_PASSWORD_HASH = stored.authPasswordHash;
+    environment.AUTH_PASSWORD_HASH = stored.authPasswordHash;
   }
   if (!envSecrets.credentialsEncryptionKey && stored.credentialsEncryptionKey) {
     environment.EDGE_EVER_CREDENTIALS_ENCRYPTION_KEY = stored.credentialsEncryptionKey;
   }
   if (stored.authPassword && envSecrets.authPassword && stored.authPassword !== envSecrets.authPassword) {
-    environment.EDGE_EVER_AUTH_PASSWORD_FALLBACK = stored.authPassword;
+    environment.AUTH_PASSWORD_FALLBACK = stored.authPassword;
   }
   if (
     stored.credentialsEncryptionKey
@@ -153,8 +153,8 @@ export const ensureSelfHostedCredentialSecrets = async (
   const generateIfMissing = options.generateIfMissing === true;
   const filePath = resolveSelfHostedSecretsPath(dataDirectory);
   const envSecrets = {
-    authPassword: trimSecret(environment.EDGE_EVER_AUTH_PASSWORD),
-    authPasswordHash: trimSecret(environment.EDGE_EVER_AUTH_PASSWORD_HASH),
+    authPassword: trimSecret(environment.AUTH_PASSWORD),
+    authPasswordHash: trimSecret(environment.AUTH_PASSWORD_HASH),
     credentialsEncryptionKey: trimSecret(environment.EDGE_EVER_CREDENTIALS_ENCRYPTION_KEY),
   };
   let stored = await readPersistedSecrets(filePath);

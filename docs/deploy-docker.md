@@ -51,7 +51,7 @@ strong instance password:
 
 ```sh
 export EDGE_EVER_VERSION=vX.Y.Z
-export EDGE_EVER_AUTH_PASSWORD='replace-with-a-long-random-password'
+export AUTH_PASSWORD='replace-with-a-long-random-password'
 docker compose up -d
 docker compose ps
 ```
@@ -89,16 +89,16 @@ Common environment variables:
 
 | Variable                               | Default | Purpose                                                     |
 | -------------------------------------- | ------- | ----------------------------------------------------------- |
-| `EDGE_EVER_AUTH_USERNAME`              | `admin` | Initial administrator username                              |
-| `EDGE_EVER_AUTH_PASSWORD`              | none    | Initial password; required for a new database               |
-| `EDGE_EVER_AUTH_PASSWORD_HASH`         | none    | PBKDF2 hash alternative to the plaintext bootstrap password |
+| `AUTH_USER`              | `admin` | Initial administrator username                              |
+| `AUTH_PASSWORD`              | none    | Initial password; required for a new database               |
+| `AUTH_PASSWORD_HASH`         | none    | PBKDF2 hash alternative to the plaintext bootstrap password |
 | `EDGE_EVER_SESSION_TTL_DAYS`           | `400`   | Login session lifetime                                      |
 | `EDGE_EVER_IDLE_TIMEOUT_SECONDS`       | `120`   | Bun streaming idle timeout, from 10 to 255 seconds          |
 | `EDGE_EVER_CREDENTIALS_ENCRYPTION_KEY` | persisted on `/data` | Optional independent AI credential encryption key. If unset, Docker stores the authentication secret or a generated key in `/data/edgeever-secrets.json`. |
 | `EDGE_EVER_COMMUNITY_REGISTRY_URL` | unset | Optional HTTPS URL of the signed community plugin catalog. Leave it unset to show only the built-in official plugins. |
 
 For secrets, append `_FILE` to a supported variable and point it at a Docker
-secret, for example `EDGE_EVER_AUTH_PASSWORD_FILE=/run/secrets/auth_password`.
+secret, for example `AUTH_PASSWORD_FILE=/run/secrets/auth_password`.
 The password/hash and S3 access credentials support this form. Do not set both
 the direct variable and its `_FILE` counterpart.
 
@@ -183,7 +183,7 @@ restore flow. Do not copy a live D1 database file or rewrite migration history.
 ```sh
 docker build --tag edgeever:local .
 docker run --rm -p 8787:8787 \
-  -e EDGE_EVER_AUTH_PASSWORD='replace-with-a-long-random-password' \
+  -e AUTH_PASSWORD='replace-with-a-long-random-password' \
   -v edgeever-data:/data \
   edgeever:local
 ```
@@ -220,7 +220,7 @@ docker build \
   --build-arg EDGE_EVER_BUILD_METHOD=local_cli \
   --tag edgeever:local .
 docker run --rm -p 8787:8787 \
-  -e EDGE_EVER_AUTH_PASSWORD='replace-with-a-long-random-password' \
+  -e AUTH_PASSWORD='replace-with-a-long-random-password' \
   -e EDGE_EVER_CONTAINER_IMAGE=edgeever:local \
   -e EDGE_EVER_DEPLOYMENT_TRIGGER=manual \
   -e EDGE_EVER_DEPLOYMENT_METHOD=docker \

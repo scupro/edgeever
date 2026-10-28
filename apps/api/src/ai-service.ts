@@ -81,9 +81,9 @@ export type AiCredentialEnvironment = {
   EDGE_EVER_CREDENTIALS_ENCRYPTION_KEY?: string;
   EDGE_EVER_CREDENTIALS_ENCRYPTION_KEY_PREVIOUS?: string;
   EDGE_EVER_STORAGE_ENCRYPTION_KEY?: string;
-  EDGE_EVER_AUTH_PASSWORD?: string;
-  EDGE_EVER_AUTH_PASSWORD_HASH?: string;
-  EDGE_EVER_AUTH_PASSWORD_FALLBACK?: string;
+  AUTH_PASSWORD?: string;
+  AUTH_PASSWORD_HASH?: string;
+  AUTH_PASSWORD_FALLBACK?: string;
 };
 
 const uniqueKeys = (values: Array<string | undefined>) => Array.from(new Set(values.filter(Boolean) as string[]));
@@ -99,17 +99,17 @@ const deriveAiCredentialKey = (value: string | undefined) => value
  */
 export const resolveAiCredentialEncryptionKeys = (environment: AiCredentialEnvironment) => uniqueKeys([
   deriveAiCredentialKey(resolveCredentialEncryptionKey(environment.EDGE_EVER_CREDENTIALS_ENCRYPTION_KEY)),
-  deriveAiCredentialKey(resolveCredentialEncryptionKey(environment.EDGE_EVER_AUTH_PASSWORD)),
-  deriveAiCredentialKey(resolveCredentialEncryptionKey(environment.EDGE_EVER_AUTH_PASSWORD_HASH)),
+  deriveAiCredentialKey(resolveCredentialEncryptionKey(environment.AUTH_PASSWORD)),
+  deriveAiCredentialKey(resolveCredentialEncryptionKey(environment.AUTH_PASSWORD_HASH)),
   deriveAiCredentialKey(resolveCredentialEncryptionKey(environment.EDGE_EVER_CREDENTIALS_ENCRYPTION_KEY_PREVIOUS)),
-  deriveAiCredentialKey(resolveCredentialEncryptionKey(environment.EDGE_EVER_AUTH_PASSWORD_FALLBACK)),
+  deriveAiCredentialKey(resolveCredentialEncryptionKey(environment.AUTH_PASSWORD_FALLBACK)),
   resolveCredentialEncryptionKey(environment.EDGE_EVER_STORAGE_ENCRYPTION_KEY),
 ]);
 
 export const resolvePrimaryAiCredentialEncryptionKey = (environment: AiCredentialEnvironment) => [
   deriveAiCredentialKey(resolveCredentialEncryptionKey(environment.EDGE_EVER_CREDENTIALS_ENCRYPTION_KEY)),
-  deriveAiCredentialKey(resolveCredentialEncryptionKey(environment.EDGE_EVER_AUTH_PASSWORD)),
-  deriveAiCredentialKey(resolveCredentialEncryptionKey(environment.EDGE_EVER_AUTH_PASSWORD_HASH)),
+  deriveAiCredentialKey(resolveCredentialEncryptionKey(environment.AUTH_PASSWORD)),
+  deriveAiCredentialKey(resolveCredentialEncryptionKey(environment.AUTH_PASSWORD_HASH)),
 ].find(Boolean);
 
 export const decryptAiCredential = async (

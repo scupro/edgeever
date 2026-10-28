@@ -169,9 +169,9 @@ esac
       );
       expect(firstEnvironment).toContain("EDGE_EVER_VERSION='latest'");
       expect(firstEnvironment).toContain("EDGE_EVER_PORT='18789'");
-      expect(firstEnvironment).toMatch(/EDGE_EVER_AUTH_PASSWORD='[a-f0-9]{32}'/);
+      expect(firstEnvironment).toMatch(/AUTH_PASSWORD='[a-f0-9]{32}'/);
       const generatedPassword = firstEnvironment.match(
-        /EDGE_EVER_AUTH_PASSWORD='([a-f0-9]{32})'/,
+        /AUTH_PASSWORD='([a-f0-9]{32})'/,
       )?.[1];
       if (!generatedPassword) {
         throw new Error("installer did not generate a password");
@@ -304,7 +304,7 @@ exit 1
         {
           ...process.env,
           PATH: `${fakeBin}:${process.env.PATH}`,
-          EDGE_EVER_AUTH_PASSWORD: secret,
+          AUTH_PASSWORD: secret,
           EDGE_EVER_INSTALL_DIR: installDirectory,
           EDGE_EVER_TEST_COMPOSE_SOURCE: composePath,
         },

@@ -2,9 +2,9 @@
 
 筆記和筆記本分享密碼複用現有 AES-GCM Secret 加密元件。資料庫保留 PBKDF2 雜湊用於驗證訪客輸入，同時儲存密文，供登入後的單個分享管理介面讀取密碼。公開介面、分享列表和審計記錄不返回密碼。Web 客戶端展示服務端響應，不再把新密碼儲存在 localStorage 或 sessionStorage 中。
 
-優先使用 `EDGE_EVER_CREDENTIALS_ENCRYPTION_KEY` 作為根金鑰，未配置獨立根金鑰時使用 `EDGE_EVER_AUTH_PASSWORD` 或 `EDGE_EVER_AUTH_PASSWORD_HASH`。分享加密使用獨立的用途字首，並與分享 token 繫結。本機開發已提供憑據金鑰；Docker 將其持久化到 `/data/edgeever-secrets.json`。Docker 和 Cloudflare 共用此業務邏輯。
+優先使用 `EDGE_EVER_CREDENTIALS_ENCRYPTION_KEY` 作為根金鑰，未配置獨立根金鑰時使用 `AUTH_PASSWORD` 或 `AUTH_PASSWORD_HASH`。分享加密使用獨立的用途字首，並與分享 token 繫結。本機開發已提供憑據金鑰；Docker 將其持久化到 `/data/edgeever-secrets.json`。Docker 和 Cloudflare 共用此業務邏輯。
 
-請在資料庫之外單獨備份根金鑰。輪換時，把舊獨立根金鑰保留在 `EDGE_EVER_CREDENTIALS_ENCRYPTION_KEY_PREVIOUS`，或把舊認證根金鑰保留在 `EDGE_EVER_AUTH_PASSWORD_FALLBACK`。所有匹配金鑰丟失後，密碼無法顯示，但訪客仍可透過雜湊驗證原密碼。重新生成會使用當前根金鑰儲存新密文，並立即使舊密碼和解鎖 Cookie 失效。缺少根金鑰時，會在修改密碼前阻止生成，不會退回明文儲存。
+請在資料庫之外單獨備份根金鑰。輪換時，把舊獨立根金鑰保留在 `EDGE_EVER_CREDENTIALS_ENCRYPTION_KEY_PREVIOUS`，或把舊認證根金鑰保留在 `AUTH_PASSWORD_FALLBACK`。所有匹配金鑰丟失後，密碼無法顯示，但訪客仍可透過雜湊驗證原密碼。重新生成會使用當前根金鑰儲存新密文，並立即使舊密碼和解鎖 Cookie 失效。缺少根金鑰時，會在修改密碼前阻止生成，不會退回明文儲存。
 
 Migration `0069` 新增可空的密文列，不改寫已有雜湊或連結。只有雜湊的舊密碼仍可使用，但無法從服務端恢復；重新生成一次後即可跨裝置檢視。舊客戶端的瀏覽器快取不再作為顯示密碼的來源。表單提交密碼不在此次變更範圍內。
 

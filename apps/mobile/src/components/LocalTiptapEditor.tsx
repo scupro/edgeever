@@ -1857,7 +1857,6 @@ const MobileSelectionAiPanel = ({
   const languageLabels: Record<AiTargetLanguage, string> = {
     en: english ? "English" : "英語",
     "zh-TW": english ? "Traditional Chinese" : "繁體中文",
-    "zh-TW": english ? "Traditional Chinese" : "繁體中文",
     ja: english ? "Japanese" : "日語",
     ko: english ? "Korean" : "韓語",
     es: english ? "Spanish" : "西班牙語",

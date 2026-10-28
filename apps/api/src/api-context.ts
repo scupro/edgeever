@@ -7,7 +7,7 @@ export type Bindings = {
   publicNetworkFetch?: (input: string, init: RequestInit) => Promise<Response>;
   /** The only persistence dependency exposed to application code. */
   storage: StorageAdapter;
-  EDGE_EVER_AUTH_USERNAME?: string;
+  AUTH_USER?: string;
   EDGE_EVER_RUNTIME?: string;
   EDGE_EVER_CONTAINER_IMAGE?: string;
   EDGE_EVER_DEPLOYMENT_TRIGGER?: string;
@@ -17,15 +17,15 @@ export type Bindings = {
   EDGE_EVER_BUILD_METHOD?: string;
   /** Creation time of the active deployment version, supplied by a runtime adapter. */
   deploymentVersionCreatedAt?: string;
-  EDGE_EVER_AUTH_PASSWORD?: string;
-  EDGE_EVER_AUTH_PASSWORD_HASH?: string;
-  EDGE_EVER_AUTH_PASSWORD_FALLBACK?: string;
+  AUTH_PASSWORD?: string;
+  AUTH_PASSWORD_HASH?: string;
+  AUTH_PASSWORD_FALLBACK?: string;
   EDGE_EVER_SESSION_TTL_DAYS?: string;
-  EDGE_EVER_AUTH_LOGIN_WINDOW_SECONDS?: string;
-  EDGE_EVER_AUTH_LOGIN_USERNAME_MAX_ATTEMPTS?: string;
-  EDGE_EVER_AUTH_LOGIN_USERNAME_COOLDOWN_SECONDS?: string;
-  EDGE_EVER_AUTH_LOGIN_IP_MAX_ATTEMPTS?: string;
-  EDGE_EVER_AUTH_LOGIN_IP_COOLDOWN_SECONDS?: string;
+  AUTH_LOGIN_WINDOW_SECONDS?: string;
+  AUTH_LOGIN_USERNAME_MAX_ATTEMPTS?: string;
+  AUTH_LOGIN_USERNAME_COOLDOWN_SECONDS?: string;
+  AUTH_LOGIN_IP_MAX_ATTEMPTS?: string;
+  AUTH_LOGIN_IP_COOLDOWN_SECONDS?: string;
   /** S3-compatible object storage used for attachments and imported files. */
   EDGE_EVER_S3_ENDPOINT?: string;
   EDGE_EVER_S3_REGION?: string;

@@ -29,10 +29,10 @@ describe("self-hosted runtime configuration", () => {
     try {
       await writeFile(secretPath, "secret-from-file\n");
       const environment = await loadSelfHostedEnvironment({
-        EDGE_EVER_AUTH_PASSWORD_FILE: secretPath,
+        AUTH_PASSWORD_FILE: secretPath,
       });
-      expect(environment.EDGE_EVER_AUTH_PASSWORD).toBe("secret-from-file");
-      expect(environment.EDGE_EVER_AUTH_PASSWORD_FILE).toBeUndefined();
+      expect(environment.AUTH_PASSWORD).toBe("secret-from-file");
+      expect(environment.AUTH_PASSWORD_FILE).toBeUndefined();
     } finally {
       await rm(directory, { recursive: true, force: true });
     }
@@ -125,7 +125,7 @@ describe("Docker release contract", () => {
   test("keeps authentication explicit in Compose", () => {
     const compose = readProjectFile("compose.yaml");
     expect(compose).toContain(
-      'EDGE_EVER_AUTH_PASSWORD: "${EDGE_EVER_AUTH_PASSWORD:?',
+      'AUTH_PASSWORD: "${AUTH_PASSWORD:?',
     );
     expect(compose).toContain(
       'EDGE_EVER_CONTAINER_IMAGE: "${EDGE_EVER_IMAGE:-ghcr.io/scupro/edgeever}"',

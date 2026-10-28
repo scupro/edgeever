@@ -54,8 +54,8 @@ export const getInstanceAuthMode = async (
 
   const allowUnauthenticated = isUnauthenticatedAccessEnabled(env.EDGE_EVER_ALLOW_UNAUTHENTICATED);
   const bootstrapCredentialConfigured = hasBootstrapCredential(
-    env.EDGE_EVER_AUTH_PASSWORD,
-    env.EDGE_EVER_AUTH_PASSWORD_HASH,
+    env.AUTH_PASSWORD,
+    env.AUTH_PASSWORD_HASH,
   );
 
   if (!verifyDatabase) {
@@ -131,14 +131,14 @@ export const verifyLogin = async (env: Bindings, username: string, password: str
     return null;
   }
 
-  const configuredHash = env.EDGE_EVER_AUTH_PASSWORD_HASH?.trim();
-  const configuredPassword = env.EDGE_EVER_AUTH_PASSWORD;
+  const configuredHash = env.AUTH_PASSWORD_HASH?.trim();
+  const configuredPassword = env.AUTH_PASSWORD;
 
   if (!configuredHash && !configuredPassword) {
     return null;
   }
 
-  const configuredUsername = env.EDGE_EVER_AUTH_USERNAME?.trim() || "admin";
+  const configuredUsername = env.AUTH_USER?.trim() || "admin";
 
   if (normalizedUsername !== configuredUsername) {
     return null;

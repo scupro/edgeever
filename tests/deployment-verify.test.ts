@@ -40,11 +40,11 @@ describe("deployment verification", () => {
   });
 
   test("parses current and wrapped Wrangler secret output", () => {
-    expect(parseSecretNames(JSON.stringify([{ name: "EDGE_EVER_AUTH_PASSWORD" }]))).toContain(
-      "EDGE_EVER_AUTH_PASSWORD",
+    expect(parseSecretNames(JSON.stringify([{ name: "AUTH_PASSWORD" }]))).toContain(
+      "AUTH_PASSWORD",
     );
-    expect(parseSecretNames(JSON.stringify({ result: [{ name: "EDGE_EVER_AUTH_PASSWORD_HASH" }] }))).toContain(
-      "EDGE_EVER_AUTH_PASSWORD_HASH",
+    expect(parseSecretNames(JSON.stringify({ result: [{ name: "AUTH_PASSWORD_HASH" }] }))).toContain(
+      "AUTH_PASSWORD_HASH",
     );
   });
 

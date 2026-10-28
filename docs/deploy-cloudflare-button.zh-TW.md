@@ -55,10 +55,10 @@
 
 | 型別 (Type) | 名稱 (Name) | 值 (Value) | 說明 |
 | :--- | :--- | :--- | :--- |
-| **Secret** | `EDGE_EVER_AUTH_PASSWORD` | 建議至少 32 個字元的強密碼 | 管理員登入密碼 |
+| **Secret** | `AUTH_PASSWORD` | 建議至少 32 個字元的強密碼 | 管理員登入密碼 |
 | **Secret** | `EDGE_EVER_S3_SECRET_ACCESS_KEY` | 物件儲存帳戶的存取金鑰 | 物件儲存憑證 |
 
-`EDGE_EVER_AUTH_PASSWORD` 是變數名，值是管理員登入密碼。它屬於 Worker 執行時 Secret，不是 Workers Builds 構建變數。
+`AUTH_PASSWORD` 是變數名，值是管理員登入密碼。它屬於 Worker 執行時 Secret，不是 Workers Builds 構建變數。
 
 返回構建記錄並重試，確認構建及線上健康檢查成功。
 
@@ -71,7 +71,7 @@
    ```json
    { "ok": true }
    ```
-3. 開啟主站首頁，輸入您配置的管理員使用者名稱（預設是 `admin`）和密碼（`EDGE_EVER_AUTH_PASSWORD`）測試登入並開始使用。
+3. 開啟主站首頁，輸入您配置的管理員使用者名稱（預設是 `admin`）和密碼（`AUTH_PASSWORD`）測試登入並開始使用。
 4. 返回 Fork 的 GitHub 倉庫 **Actions** 頁面，點選 **I understand my workflows, go ahead and enable them** 啟用工作流。
 5. 手動執行一次 **Update deployed EdgeEver**，確保未來可自動跟進上游更新，並確認 Cloudflare 收到這次構建事件。
 
@@ -93,7 +93,7 @@ EDGE_EVER_UPDATE_CHANNEL=edge
 
 | 構建變數 | 用途 |
 | :--- | :--- |
-| `EDGE_EVER_AUTH_USERNAME` | 管理員使用者名稱，預設為 `admin` |
+| `AUTH_USER` | 管理員使用者名稱，預設為 `admin` |
 | `EDGE_EVER_WORKER_NAME` | Worker 名稱 |
 | `EDGE_EVER_D1_DATABASE_NAME` | D1 資料庫名稱，UUID 會自動查詢 |
 | `EDGE_EVER_D1_DATABASE_ID` | 自動查詢不可用時的可選 UUID 兜底值 |

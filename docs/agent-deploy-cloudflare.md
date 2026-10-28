@@ -21,7 +21,7 @@ This document defines the standard operating specifications and conventions for 
    - Select **Save and Deploy** to create the Worker. The initial build may fail because the administrator Secret has not been added yet; configure it in the next step, then retry.
 
 4. **Configure Login Credentials & Instance Settings**
-   - **Worker Secret**: After the Worker exists, add the runtime Secret `EDGE_EVER_AUTH_PASSWORD` for the initial administrator password. Prefer a strong password of at least 32 characters.
+   - **Worker Secret**: After the Worker exists, add the runtime Secret `AUTH_PASSWORD` for the initial administrator password. Prefer a strong password of at least 32 characters.
    - Keep this password only as a Worker runtime Secret; do not copy it into Workers Builds variables. The standard deploy entrypoint reuses and verifies the existing Secret.
    - Do not edit `wrangler.toml` or add duplicate bindings in the Dashboard. The deployment command generates the `DB` binding from these standard resource names.
    - For an existing Worker deployed from older instructions, do not ask the user to rename the administrator account. With no explicit override, deployment automatically preserves the live administrator username; object storage is always configured through the `EDGE_EVER_S3_*` deployment variables.
@@ -35,7 +35,7 @@ This document defines the standard operating specifications and conventions for 
    - Retry the build after adding the runtime Secret and any requested username override. Once deployed, run the following automated verifications:
      - Check `https://<your-worker-domain>/api/health` returns HTTP `200` with JSON `{"ok": true}`.
      - Check `https://<your-worker-domain>/api/openapi.json` is reachable and returns JSON `{"ok": true}`.
-     - Verify login API using the configured administrator username (default: `admin`) and `EDGE_EVER_AUTH_PASSWORD`.
+     - Verify login API using the configured administrator username (default: `admin`) and `AUTH_PASSWORD`.
 
 7. **Verify Upstream Update Channel**
    - In the Fork's **Actions** tab, enable **Update deployed EdgeEver** (required on public forks: scheduled workflows are disabled by default).
@@ -49,4 +49,4 @@ This document defines the standard operating specifications and conventions for 
 
 ## Optional: Customize the Initial Administrator Username
 
-Ordinary deployments use the default username `admin`; do not proactively ask the user whether to change it. Only when the user explicitly requests a custom administrator username, set `EDGE_EVER_AUTH_USERNAME` in Workers Builds variables before retrying the initial build and use that username during login verification. Changing only this variable after the administrator account exists does not rename that account.
+Ordinary deployments use the default username `admin`; do not proactively ask the user whether to change it. Only when the user explicitly requests a custom administrator username, set `AUTH_USER` in Workers Builds variables before retrying the initial build and use that username during login verification. Changing only this variable after the administrator account exists does not rename that account.

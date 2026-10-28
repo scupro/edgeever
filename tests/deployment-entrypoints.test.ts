@@ -186,10 +186,10 @@ describe("Cloudflare deployment entrypoints", () => {
 
   test("online deployment declares the required authentication Secret", () => {
     const example = readRepositoryFile(".dev.vars.example");
-    expect(example).toMatch(/^EDGE_EVER_AUTH_PASSWORD=\s*$/m);
+    expect(example).toMatch(/^AUTH_PASSWORD=\s*$/m);
 
     const packageJson = JSON.parse(readRepositoryFile("package.json"));
-    expect(packageJson.cloudflare.bindings.EDGE_EVER_AUTH_PASSWORD.description).toBeTruthy();
+    expect(packageJson.cloudflare.bindings.AUTH_PASSWORD.description).toBeTruthy();
 
     const englishGuide = readRepositoryFile("docs/deploy-cloudflare-button.md");
     const chineseGuide = readRepositoryFile("docs/deploy-cloudflare-button.zh-TW.md");
@@ -204,7 +204,7 @@ describe("Cloudflare deployment entrypoints", () => {
     expect(setup).toContain('"AUTH_LOGIN_WINDOW_SECONDS"');
     expect(setup).not.toContain('"AUTH_PASSWORD",');
     expect(setup).not.toContain('"AUTH_PASSWORD_HASH",');
-    expect(setup).not.toContain("Missing EDGE_EVER_AUTH_PASSWORD");
+    expect(setup).not.toContain("Missing AUTH_PASSWORD");
     expect(setup).toContain("is_secret: isSecret");
     expect(setup).toContain('new Set(["S3_SECRET_ACCESS_KEY"])');
   });
@@ -238,7 +238,7 @@ describe("Cloudflare deployment entrypoints", () => {
         'database_id = "11111111-1111-1111-1111-111111111111"',
       ),
       repositoryConfig.replace('compatibility_date = "2026-06-26"', 'compatibility_date = "2026-08-17"'),
-      `${repositoryConfig}\n[vars]\nEDGE_EVER_AUTH_USERNAME = "owner"\n`,
+      `${repositoryConfig}\n[vars]\nAUTH_USER = "owner"\n`,
       `${repositoryConfig}\n[[routes]]\npattern = "notes.example.com"\ncustom_domain = true\n`,
     ];
 
@@ -394,7 +394,7 @@ describe("Cloudflare deployment entrypoints", () => {
           '  process.stdout.write(JSON.stringify({ versions: [{ version_id: "legacy-version", percentage: 100 }] }));',
           '} else if (process.argv.includes("versions")) {',
           '  process.stdout.write(JSON.stringify({ resources: { bindings: [',
-          '    { name: "EDGE_EVER_AUTH_USERNAME", type: "plain_text", text: "legacy-owner" }',
+          '    { name: "AUTH_USER", type: "plain_text", text: "legacy-owner" }',
           '  ] } }));',
           '} else if (process.argv.includes("deploy")) {',
           '  process.stdout.write("Uploaded edgeever\\nDeployed edgeever triggers (0.4 sec)\\n  https://edgeever.example.workers.dev\\nCurrent Version ID: version-1\\n");',
@@ -412,7 +412,7 @@ describe("Cloudflare deployment entrypoints", () => {
           env: {
             ...inheritedEnvironment,
             CI: "true",
-            EDGE_EVER_AUTH_PASSWORD: "test-password",
+            AUTH_PASSWORD: "test-password",
             EDGE_EVER_S3_BUCKET: "legacy-user-resources",
             EDGE_EVER_INSTANCE: "",
             WRANGLER_CONFIG: resolve(workingDirectory, "wrangler.external.toml"),
@@ -433,7 +433,7 @@ describe("Cloudflare deployment entrypoints", () => {
         "utf8",
       );
       expect(generatedConfig).toContain('EDGE_EVER_S3_BUCKET = "legacy-user-resources"');
-      expect(generatedConfig).toContain('EDGE_EVER_AUTH_USERNAME = "legacy-owner"');
+      expect(generatedConfig).toContain('AUTH_USER = "legacy-owner"');
     } finally {
       rmSync(workingDirectory, { force: true, recursive: true });
     }

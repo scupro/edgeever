@@ -69,7 +69,7 @@ ambiguous.
 - Keep the production entry at `scripts/self-hosted-server.js`, and keep
   `scripts/self-hosted-server.mjs` as an alias for NAS/GUI command overrides
   saved from v1.62 and earlier.
-- Support `EDGE_EVER_AUTH_USERNAME`, `EDGE_EVER_AUTH_PASSWORD`, and session
+- Support `AUTH_USER`, `AUTH_PASSWORD`, and session
   settings without Cloudflare-specific naming assumptions in the container
   entrypoint.
 - Keep login brute-force protection in the application layer with SQLite/D1-
@@ -85,7 +85,7 @@ The Docker image and local development use the same Bun runtime:
 
 ```sh
 bun run build:web
-EDGE_EVER_AUTH_PASSWORD='<strong-password>' bun run start:self-hosted
+AUTH_PASSWORD='<strong-password>' bun run start:self-hosted
 ```
 
 Set `EDGE_EVER_DATA_DIR` to the directory that should be persisted by Docker

@@ -314,7 +314,7 @@ describe("database write optimizations", () => {
       new Request("https://notes.example.com/api/v1/notebooks", {
         headers: { Authorization: `Bearer ${token}` },
       }),
-      { storage: { db: database, resources: {} }, EDGE_EVER_AUTH_PASSWORD: "configured" },
+      { storage: { db: database, resources: {} }, AUTH_PASSWORD: "configured" },
       executionContext,
     );
 
@@ -351,7 +351,7 @@ describe("database write optimizations", () => {
       new Request("https://notes.example.com/api/v1/notebooks", {
         headers: { Authorization: `Bearer ${token}` },
       }),
-      { storage: { db: database, resources: {} }, EDGE_EVER_AUTH_PASSWORD: "configured" },
+      { storage: { db: database, resources: {} }, AUTH_PASSWORD: "configured" },
       executionContext,
     );
 

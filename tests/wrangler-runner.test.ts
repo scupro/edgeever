@@ -72,8 +72,8 @@ describe("cross-platform Wrangler runner", () => {
     expect(envFile).toContain(
       `EDGE_EVER_CREDENTIALS_ENCRYPTION_KEY=${LOCAL_DEV_CREDENTIALS_ENCRYPTION_KEY}`,
     );
-    expect(envFile).not.toContain("EDGE_EVER_AUTH_PASSWORD=");
-    expect(envFile).not.toContain("EDGE_EVER_AUTH_PASSWORD_HASH=");
+    expect(envFile).not.toContain("AUTH_PASSWORD=");
+    expect(envFile).not.toContain("AUTH_PASSWORD_HASH=");
   });
 
   test("resolves the configured assets directory so local dev can create it", () => {
@@ -166,7 +166,7 @@ describe("cross-platform Wrangler runner", () => {
     expect(deployedWorkerSettings(JSON.stringify({
       resources: {
         bindings: [
-          { name: "EDGE_EVER_AUTH_USERNAME", type: "plain_text", text: "owner" },
+          { name: "AUTH_USER", type: "plain_text", text: "owner" },
         ],
       },
     }))).toEqual({

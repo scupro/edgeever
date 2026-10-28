@@ -6,9 +6,9 @@ export const deploymentPrompts = {
    Use the repository root, keep Cloudflare's default Workers Builds deploy command,
    and ensure its API token can read and edit D1. Select Save and Deploy.
 4. After the Worker is created, add the user's chosen password as the runtime Secret
-   \`EDGE_EVER_AUTH_PASSWORD\` (preferably at least 32 characters).
+   \`AUTH_PASSWORD\` (preferably at least 32 characters).
    The username defaults to \`admin\`.
-   If the user specifies another, set \`EDGE_EVER_AUTH_USERNAME\` as a Workers Builds
+   If the user specifies another, set \`AUTH_USER\` as a Workers Builds
    variable before the next build.
 5. Run the build again, verify \`/api/health\` and \`/api/openapi.json\`, then log in
    with that administrator username and password.
@@ -20,9 +20,9 @@ export const deploymentPrompts = {
 3. 在 Workers & Pages 中從 Fork 的 \`main\` 分支建立名為 \`edgeever\` 的 Worker。
    使用儲存庫根目錄，保留 Cloudflare Workers Builds 的預設部署指令，確認其 API Token
    具備 D1 讀取及編輯權限，然後儲存並部署。
-4. Worker 建立後，設定執行時 Secret \`EDGE_EVER_AUTH_PASSWORD\`，值為使用者指定的密碼
+4. Worker 建立後，設定執行時 Secret \`AUTH_PASSWORD\`，值為使用者指定的密碼
    （建議至少 32 個字元）。管理員使用者名稱預設為 \`admin\`；如需自訂，請在再次建置前
-   設定 Workers Builds 建置變數 \`EDGE_EVER_AUTH_USERNAME\`。
+   設定 Workers Builds 建置變數 \`AUTH_USER\`。
 5. 再次建置，驗證 \`/api/health\` 和 \`/api/openapi.json\`，再用該管理員
    使用者名稱和密碼驗證登入。
 6. 啟用並手動執行一次名為 \`Update deployed EdgeEver\` 的 GitHub Actions 工作流程，
@@ -47,11 +47,11 @@ export const manualDeploymentCopy = {
       },
       {
         title: "Choose the Administrator Password",
-        body: "Choose an administrator password, preferably at least 32 characters. Once the Worker is created, save it as the runtime Secret EDGE_EVER_AUTH_PASSWORD.",
+        body: "Choose an administrator password, preferably at least 32 characters. Once the Worker is created, save it as the runtime Secret AUTH_PASSWORD.",
       },
       {
         title: "Build & Verify",
-        body: "Save and Deploy creates the Worker and starts a build. The initial build primarily initializes the Worker instance; if it fails due to missing administrator Secret, this is expected behavior. Simply add the runtime Secret EDGE_EVER_AUTH_PASSWORD from Step 4 and click retry. The username defaults to admin; to use another, set EDGE_EVER_AUTH_USERNAME as a Workers Builds variable before retrying. Once deployed, confirm /api/health returns 200, then log in with the configured username and password.",
+        body: "Save and Deploy creates the Worker and starts a build. The initial build primarily initializes the Worker instance; if it fails due to missing administrator Secret, this is expected behavior. Simply add the runtime Secret AUTH_PASSWORD from Step 4 and click retry. The username defaults to admin; to use another, set AUTH_USER as a Workers Builds variable before retrying. Once deployed, confirm /api/health returns 200, then log in with the configured username and password.",
       },
       {
         title: "Enable Automatic Updates",
@@ -76,11 +76,11 @@ export const manualDeploymentCopy = {
       },
       {
         title: "準備管理員密碼",
-        body: "準備管理員登入密碼，建議至少 32 個字元。Worker 建立後，將它儲存為執行時 Secret EDGE_EVER_AUTH_PASSWORD。",
+        body: "準備管理員登入密碼，建議至少 32 個字元。Worker 建立後，將它儲存為執行時 Secret AUTH_PASSWORD。",
       },
       {
         title: "首次建置與驗證",
-        body: "儲存並部署會建立 Worker 並啟動建置。首次建置主要用於初始化實例，若因尚未配置管理員 Secret 而報錯屬於預期行為，只需在第 4 步新增執行時 Secret EDGE_EVER_AUTH_PASSWORD 後點選重試建置即可透過。管理員使用者名稱預設為 admin；如需使用其他名稱，請在重試建置前設定 Workers Builds 建置變數 EDGE_EVER_AUTH_USERNAME。部署完成後造訪 /api/health，確認回傳 200，再用設定的管理員使用者名稱和密碼登入。",
+        body: "儲存並部署會建立 Worker 並啟動建置。首次建置主要用於初始化實例，若因尚未配置管理員 Secret 而報錯屬於預期行為，只需在第 4 步新增執行時 Secret AUTH_PASSWORD 後點選重試建置即可透過。管理員使用者名稱預設為 admin；如需使用其他名稱，請在重試建置前設定 Workers Builds 建置變數 AUTH_USER。部署完成後造訪 /api/health，確認回傳 200，再用設定的管理員使用者名稱和密碼登入。",
       },
       {
         title: "啟用自動更新",

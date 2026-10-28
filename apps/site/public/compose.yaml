@@ -6,8 +6,8 @@ services:
     ports:
       - "${EDGE_EVER_PORT:-8787}:8787"
     environment:
-      EDGE_EVER_AUTH_USERNAME: "${EDGE_EVER_AUTH_USERNAME:-admin}"
-      EDGE_EVER_AUTH_PASSWORD: "${EDGE_EVER_AUTH_PASSWORD:?Set EDGE_EVER_AUTH_PASSWORD before starting EdgeEver}"
+      AUTH_USER: "${AUTH_USER:-admin}"
+      AUTH_PASSWORD: "${AUTH_PASSWORD:?Set AUTH_PASSWORD before starting EdgeEver}"
       EDGE_EVER_CONTAINER_IMAGE: "${EDGE_EVER_IMAGE:-ghcr.io/scupro/edgeever}"
     volumes:
       - edgeever-data:/data

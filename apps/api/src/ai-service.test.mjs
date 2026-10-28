@@ -208,14 +208,14 @@ describe("AI model service", () => {
 
   test("derives an AI-specific key from the existing authentication secret", () => {
     expect(resolveCredentialEncryptionKey("  instance-password  ")).toBe("instance-password");
-    expect(resolveAiCredentialEncryptionKeys({ EDGE_EVER_AUTH_PASSWORD: "instance-password" })[0])
+    expect(resolveAiCredentialEncryptionKeys({ AUTH_PASSWORD: "instance-password" })[0])
       .toBe("edgeever:ai-credentials:v1:instance-password");
   });
 
   test("decrypts credentials saved with the legacy object-storage key", async () => {
     const encrypted = await encryptSecret("provider-key", "legacy-storage-key");
     await expect(decryptAiCredential(encrypted, {
-      EDGE_EVER_AUTH_PASSWORD: "current-auth-secret",
+      AUTH_PASSWORD: "current-auth-secret",
       EDGE_EVER_STORAGE_ENCRYPTION_KEY: "legacy-storage-key",
     })).resolves.toBe("provider-key");
   });
@@ -229,11 +229,11 @@ describe("AI model service", () => {
   test("decrypts credentials with persisted fallback secrets after rotation", async () => {
     const passwordEncrypted = await encryptSecret(
       "provider-key",
-      resolvePrimaryAiCredentialEncryptionKey({ EDGE_EVER_AUTH_PASSWORD: "original-password" }),
+      resolvePrimaryAiCredentialEncryptionKey({ AUTH_PASSWORD: "original-password" }),
     );
     await expect(decryptAiCredential(passwordEncrypted, {
-      EDGE_EVER_AUTH_PASSWORD: "rotated-password",
-      EDGE_EVER_AUTH_PASSWORD_FALLBACK: "original-password",
+      AUTH_PASSWORD: "rotated-password",
+      AUTH_PASSWORD_FALLBACK: "original-password",
     })).resolves.toBe("provider-key");
 
     const credentialsEncrypted = await encryptSecret(

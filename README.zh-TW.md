@@ -18,7 +18,6 @@
   </p>
   <p>
     <a href="#wechat-group"><img src="assets/readme/community/wechat.svg" alt="WeChat" width="16" height="16" align="absmiddle" /> 微信交流群</a> &nbsp;|&nbsp;
-    <a href="https://demo.dogbro.store">🌐 線上展示</a> &nbsp;|&nbsp;
     <a href="#全平臺使用者端與瀏覽器外掛">📱 使用者端與外掛下載</a> &nbsp;|&nbsp;
     <a href="#features">核心功能與場景矩陣</a>
   </p>
@@ -44,12 +43,6 @@ EdgeEver 是一款現代化的開源筆記與個人知識庫工作區。它延�
 * **思源筆記等區塊級知識庫**：功能深厚且支援開源自託管，但全盤的「區塊級（Block）」架構使得日常隨手記錄與連續排版書寫的心智負擔偏重；且缺少零伺服器成本的 Serverless 部署型態，多端同步主要依賴官方付費訂閱，或需額外付費解鎖 S3/WebDAV 同步特性並自備儲存。
 
 **EdgeEver 恰好填補了這一空白**：全端開源，提供真正**零感知、低延遲的多端瞬時雲端同步**，且全部服務均可免費自行託管；同時保留經典三欄版面與流暢排版，萬條筆記常駐依然輕盈絲滑，原生支援接入 AI Agent，部署維護零門檻、零費用。
-
-## 線上展示
-
-- Demo 網址：[https://demo.dogbro.store](https://demo.dogbro.store)
-
-公開展示環境會在每天凌晨 3:00（北京時間）自動重設並還原範例筆記，請不要儲存私密內容。
 
 ## 全平臺使用者端與瀏覽器外掛
 
@@ -106,9 +99,9 @@ Cloudflare 線上部署可以選擇以下兩種方式之一：
 3. 在 Workers & Pages 中從 Fork 的 `main` 分支建立名為 `edgeever` 的 Worker。
    使用儲存庫根目錄，保留 Cloudflare Workers Builds 的預設部署指令，確認其 API Token
    具備 D1 讀取及編輯權限，然後儲存並部署。
-4. Worker 建立後，設定執行時 Secret `EDGE_EVER_AUTH_PASSWORD`，值為使用者指定的密碼
+4. Worker 建立後，設定執行時 Secret `AUTH_PASSWORD`，值為使用者指定的密碼
    （建議至少 32 個字元）。管理員使用者名稱預設為 `admin`；如需自訂，請在再次建置前
-   設定 Workers Builds 建置變數 `EDGE_EVER_AUTH_USERNAME`。
+   設定 Workers Builds 建置變數 `AUTH_USER`。
 5. 再次建置，驗證 `/api/health` 和 `/api/openapi.json`，再用該管理員
    使用者名稱和密碼驗證登入。
 6. 啟用並手動執行一次名為 `Update deployed EdgeEver` 的 GitHub Actions 工作流程，
@@ -127,8 +120,8 @@ Cloudflare 線上部署可以選擇以下兩種方式之一：
 1. **Fork 儲存庫**：在 GitHub 點選右上角 **Fork**，將專案 Fork 到您的個人帳戶下。
 2. **建立 Cloudflare 資源**：建立 D1 `edgeever`，並準備 S3 相容的物件儲存（例如 Backblaze B2、騰訊雲 COS、阿里雲 OSS、MinIO 或 Wasabi）。
 3. **匯入並設定專案**：在 Cloudflare **Workers & Pages** 中從 Fork 的 `main` 分支建立名為 `edgeever` 的 Worker。使用儲存庫根目錄，保留由 Cloudflare 線上執行的 Workers Builds 預設部署指令，並確認其 API Token 具備 D1 讀取及編輯權限。binding 由部署指令產生，不要修改 Fork 中的檔案。
-4. **準備管理員密碼**：準備管理員登入密碼，建議至少 32 個字元。Worker 建立後，將它儲存為執行時 Secret `EDGE_EVER_AUTH_PASSWORD`。
-5. **首次建置與驗證**：儲存並部署會建立 Worker 並啟動建置。首次建置主要用於初始化實例，若因尚未配置管理員 Secret 而報錯屬於預期行為，只需在第 4 步新增執行時 Secret `EDGE_EVER_AUTH_PASSWORD` 後點選重試建置即可透過。管理員使用者名稱預設為 `admin`；如需使用其他名稱，請在重試建置前設定 Workers Builds 建置變數 `EDGE_EVER_AUTH_USERNAME`。部署完成後造訪 `/api/health`，確認回傳 `200`，再用設定的管理員使用者名稱和密碼登入。
+4. **準備管理員密碼**：準備管理員登入密碼，建議至少 32 個字元。Worker 建立後，將它儲存為執行時 Secret `AUTH_PASSWORD`。
+5. **首次建置與驗證**：儲存並部署會建立 Worker 並啟動建置。首次建置主要用於初始化實例，若因尚未配置管理員 Secret 而報錯屬於預期行為，只需在第 4 步新增執行時 Secret `AUTH_PASSWORD` 後點選重試建置即可透過。管理員使用者名稱預設為 `admin`；如需使用其他名稱，請在重試建置前設定 Workers Builds 建置變數 `AUTH_USER`。部署完成後造訪 `/api/health`，確認回傳 `200`，再用設定的管理員使用者名稱和密碼登入。
 6. **啟用自動更新**：進入 Fork 的 **Actions** 分頁，點選 **I understand my workflows, go ahead and enable them**，然後手動執行一次 **Update deployed EdgeEver**，確保後續能夠自動獲得正式版本的功能更新與修復。
 
 > 📖 包含具體引數與建置指令的詳細步驟，請檢視 [線上部署完整檔案](docs/deploy-cloudflare-button.zh-TW.md)。

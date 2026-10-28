@@ -119,7 +119,6 @@ export const siteCopy = {
       backToBlog: "返回部落格",
       contact: "聯絡我們",
       privacy: "隱私政策",
-      demo: "線上演示",
       language: "語言",
       languageMenu: "切換語言",
       tagAll: "全部",
@@ -131,7 +130,6 @@ export const siteCopy = {
     hero: {
       slogan: siteTaglines["zh-TW"],
       popHighlight: "經典三欄現代化知識庫 · 原生 AI 協同 · 全平臺客戶端覆蓋",
-      demo: "線上演示",
       agentInstall: "一鍵 AI 部署",
       getApps: "獲取客戶端：",
       clipper: "剪藏外掛",
@@ -387,7 +385,6 @@ export const siteCopy = {
       backToBlog: "Back to blog",
       contact: "Contact",
       privacy: "Privacy",
-      demo: "Demo",
       language: "Language",
       languageMenu: "Change language",
       tagAll: "All",
@@ -399,7 +396,6 @@ export const siteCopy = {
     hero: {
       slogan: siteTaglines["en-US"],
       popHighlight: "Classic Three-Pane AI Workspace · Native AI Synergy · Multi-Platform Apps",
-      demo: "Live demo",
       agentInstall: "Deploy with AI",
       getApps: "Get Apps:",
       clipper: "Clipper",

@@ -29,7 +29,6 @@ export const RELEASE_WORKFLOWS = {
   desktop: "desktop-build.yml",
   mobile: "mobile-build.yml",
   docker: "docker-image.yml",
-  demo: "deploy-demo.yml",
   timings: "release-timings.yml",
 };
 
@@ -1488,20 +1487,6 @@ const releaseMain = async (options) => {
       publishedAfter: publishedAt,
     }),
   ]);
-  const demoRuns = listWorkflowRuns({
-    repository: options.repository,
-    workflow: RELEASE_WORKFLOWS.demo,
-    event: "release",
-  });
-  const demoRun = demoRuns.find((candidate) =>
-    candidate.displayTitle === tag && candidate.headSha === releaseSha
-  );
-  console.log(
-    demoRun
-      ? `[release] Demo deployment continues in background: ${demoRun.url}`
-      : `[release] Demo deployment continues in background: https://github.com/${options.repository}/actions/workflows/${RELEASE_WORKFLOWS.demo}`,
-  );
-
   try {
     await Promise.all([
       waitForRun({

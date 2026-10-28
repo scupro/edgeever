@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { LockKeyhole } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { normalizeInstanceUrl } from "@edgeever/shared/public-demo";
+import { normalizeInstanceUrl } from "@edgeever/shared/instance-url";
 import { Button } from "@/components/ui/button";
 import { GitHubRepositoryLink } from "@/components/GitHubRepositoryLink";
 import { Input } from "@/components/ui/input";
@@ -13,17 +13,7 @@ interface LoginScreenProps {
   onSubmit: (payload: { instanceUrl?: string; username: string; password: string }) => void;
 }
 
-const DEMO_LOGIN_CREDENTIALS = {
-  username: "ee-demo",
-  password: "demo#dZ6Q29Zjfor%",
-};
-
-const getDefaultLoginCredentials = () => {
-  const hostname = window.location.hostname;
-  const isDemoHost = hostname === "demo.dogbro.store" || hostname.startsWith("edgeever-demo.");
-
-  return isDemoHost ? DEMO_LOGIN_CREDENTIALS : { username: "", password: "" };
-};
+const getDefaultLoginCredentials = () => ({ username: "", password: "" });
 
 export const LoginScreen = ({ error, instanceUrl: initialInstanceUrl, isSubmitting, onSubmit }: LoginScreenProps) => {
   const { t } = useTranslation();

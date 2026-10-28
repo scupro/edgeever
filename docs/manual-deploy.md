@@ -44,15 +44,15 @@ EDGE_EVER_S3_REGION=us-east-1
 EDGE_EVER_S3_BUCKET=edgeever-resources
 EDGE_EVER_S3_ACCESS_KEY_ID=<access_key_id>
 EDGE_EVER_S3_SECRET_ACCESS_KEY=<secret_access_key>
-EDGE_EVER_AUTH_USERNAME=admin
-EDGE_EVER_AUTH_PASSWORD=<strong password>
+AUTH_USER=admin
+AUTH_PASSWORD=<strong password>
 EDGE_EVER_SESSION_TTL_DAYS=400
 # Optional portable application-level login protection. These also work with Docker + SQLite.
-EDGE_EVER_AUTH_LOGIN_WINDOW_SECONDS=900
-EDGE_EVER_AUTH_LOGIN_USERNAME_MAX_ATTEMPTS=5
-EDGE_EVER_AUTH_LOGIN_USERNAME_COOLDOWN_SECONDS=900
-EDGE_EVER_AUTH_LOGIN_IP_MAX_ATTEMPTS=30
-EDGE_EVER_AUTH_LOGIN_IP_COOLDOWN_SECONDS=300
+AUTH_LOGIN_WINDOW_SECONDS=900
+AUTH_LOGIN_USERNAME_MAX_ATTEMPTS=5
+AUTH_LOGIN_USERNAME_COOLDOWN_SECONDS=900
+AUTH_LOGIN_IP_MAX_ATTEMPTS=30
+AUTH_LOGIN_IP_COOLDOWN_SECONDS=300
 ```
 
 Then run:
@@ -76,7 +76,7 @@ it up; changing or losing it makes saved external credentials unusable.
 ## Recovery
 
 - Database not ready: confirm the D1 binding is `DB`, then run `bun run deploy:manual`.
-- Authentication not configured: set `EDGE_EVER_AUTH_PASSWORD` in `.env.local`, then redeploy.
+- Authentication not configured: set `AUTH_PASSWORD` in `.env.local`, then redeploy.
 - Forgotten admin password:
 
   ```sh

@@ -7,7 +7,7 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-import { PUBLIC_DEMO_INSTANCE_URL } from "@edgeever/shared";
+import { normalizeInstanceUrl } from "@edgeever/shared";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ActivityIndicator, GitHub, LockKeyhole } from "../components/icons";
 import { Pressable, Text, TextInput } from "../components/LocalizedText";
@@ -76,7 +76,7 @@ export const LoginScreen = () => {
                 autoCorrect={false}
                 keyboardType="url"
                 onChangeText={setBaseUrl}
-                placeholder={PUBLIC_DEMO_INSTANCE_URL}
+                placeholder={normalizeInstanceUrl("notes.example.com")}
                 placeholderTextColor="#94a3b8"
                 style={styles.input}
                 value={baseUrl}

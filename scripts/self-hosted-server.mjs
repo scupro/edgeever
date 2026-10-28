@@ -54,13 +54,13 @@ for (const name of migrationFiles) {
 const existingUser = sqlite.query("SELECT id FROM users WHERE is_disabled = 0 LIMIT 1").get();
 if (
   !existingUser
-  && !hasBootstrapCredential(runtimeEnvironment.EDGE_EVER_AUTH_PASSWORD, runtimeEnvironment.EDGE_EVER_AUTH_PASSWORD_HASH)
+  && !hasBootstrapCredential(runtimeEnvironment.AUTH_PASSWORD, runtimeEnvironment.AUTH_PASSWORD_HASH)
   && !isUnauthenticatedAccessEnabled(runtimeEnvironment.EDGE_EVER_ALLOW_UNAUTHENTICATED)
 ) {
   sqlite.close();
   throw new Error(
-    "Authentication is not configured. Set EDGE_EVER_AUTH_PASSWORD (recommended), "
-    + "EDGE_EVER_AUTH_PASSWORD_HASH, or explicitly set EDGE_EVER_ALLOW_UNAUTHENTICATED=true.",
+    "Authentication is not configured. Set AUTH_PASSWORD (recommended), "
+    + "AUTH_PASSWORD_HASH, or explicitly set EDGE_EVER_ALLOW_UNAUTHENTICATED=true.",
   );
 }
 
@@ -83,7 +83,7 @@ const storage = config.storageBackend === "s3"
 const env = {
   storage,
   publicNetworkFetch: nodePublicFetch,
-  EDGE_EVER_AUTH_USERNAME: runtimeEnvironment.EDGE_EVER_AUTH_USERNAME ?? "admin",
+  AUTH_USER: runtimeEnvironment.AUTH_USER ?? "admin",
   EDGE_EVER_RUNTIME: "self-hosted-bun",
   EDGE_EVER_CONTAINER_IMAGE: runtimeEnvironment.EDGE_EVER_CONTAINER_IMAGE,
   EDGE_EVER_DEPLOYMENT_TRIGGER: runtimeEnvironment.EDGE_EVER_DEPLOYMENT_TRIGGER,
@@ -91,15 +91,15 @@ const env = {
   EDGE_EVER_BUILD_CREATED_AT: runtimeEnvironment.EDGE_EVER_BUILD_CREATED_AT,
   EDGE_EVER_BUILD_TRIGGER: runtimeEnvironment.EDGE_EVER_BUILD_TRIGGER,
   EDGE_EVER_BUILD_METHOD: runtimeEnvironment.EDGE_EVER_BUILD_METHOD,
-  EDGE_EVER_AUTH_PASSWORD: runtimeEnvironment.EDGE_EVER_AUTH_PASSWORD,
-  EDGE_EVER_AUTH_PASSWORD_HASH: runtimeEnvironment.EDGE_EVER_AUTH_PASSWORD_HASH,
-  EDGE_EVER_AUTH_PASSWORD_FALLBACK: runtimeEnvironment.EDGE_EVER_AUTH_PASSWORD_FALLBACK,
+  AUTH_PASSWORD: runtimeEnvironment.AUTH_PASSWORD,
+  AUTH_PASSWORD_HASH: runtimeEnvironment.AUTH_PASSWORD_HASH,
+  AUTH_PASSWORD_FALLBACK: runtimeEnvironment.AUTH_PASSWORD_FALLBACK,
   EDGE_EVER_SESSION_TTL_DAYS: runtimeEnvironment.EDGE_EVER_SESSION_TTL_DAYS ?? "400",
-  EDGE_EVER_AUTH_LOGIN_WINDOW_SECONDS: runtimeEnvironment.EDGE_EVER_AUTH_LOGIN_WINDOW_SECONDS,
-  EDGE_EVER_AUTH_LOGIN_USERNAME_MAX_ATTEMPTS: runtimeEnvironment.EDGE_EVER_AUTH_LOGIN_USERNAME_MAX_ATTEMPTS,
-  EDGE_EVER_AUTH_LOGIN_USERNAME_COOLDOWN_SECONDS: runtimeEnvironment.EDGE_EVER_AUTH_LOGIN_USERNAME_COOLDOWN_SECONDS,
-  EDGE_EVER_AUTH_LOGIN_IP_MAX_ATTEMPTS: runtimeEnvironment.EDGE_EVER_AUTH_LOGIN_IP_MAX_ATTEMPTS,
-  EDGE_EVER_AUTH_LOGIN_IP_COOLDOWN_SECONDS: runtimeEnvironment.EDGE_EVER_AUTH_LOGIN_IP_COOLDOWN_SECONDS,
+  AUTH_LOGIN_WINDOW_SECONDS: runtimeEnvironment.AUTH_LOGIN_WINDOW_SECONDS,
+  AUTH_LOGIN_USERNAME_MAX_ATTEMPTS: runtimeEnvironment.AUTH_LOGIN_USERNAME_MAX_ATTEMPTS,
+  AUTH_LOGIN_USERNAME_COOLDOWN_SECONDS: runtimeEnvironment.AUTH_LOGIN_USERNAME_COOLDOWN_SECONDS,
+  AUTH_LOGIN_IP_MAX_ATTEMPTS: runtimeEnvironment.AUTH_LOGIN_IP_MAX_ATTEMPTS,
+  AUTH_LOGIN_IP_COOLDOWN_SECONDS: runtimeEnvironment.AUTH_LOGIN_IP_COOLDOWN_SECONDS,
   // Legacy decryption fallback for credentials saved by older releases.
   EDGE_EVER_STORAGE_ENCRYPTION_KEY: runtimeEnvironment.EDGE_EVER_STORAGE_ENCRYPTION_KEY,
   EDGE_EVER_CREDENTIALS_ENCRYPTION_KEY: runtimeEnvironment.EDGE_EVER_CREDENTIALS_ENCRYPTION_KEY,

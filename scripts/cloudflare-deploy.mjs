@@ -69,13 +69,16 @@ const envValue = (name, values) => {
   const scoped = scopedKey(name, values);
   return (
     (scoped ? values.get(scoped) || process.env[scoped] : undefined) ||
+    values.get(name) ||
+    process.env[name] ||
     values.get(`EDGE_EVER_${name}`) ||
     process.env[`EDGE_EVER_${name}`] ||
     ""
   ).trim();
 };
 
-const targetKey = (name, values) => scopedKey(name, values) || `EDGE_EVER_${name}`;
+const targetKey = (name, values) =>
+  scopedKey(name, values) || (name.startsWith("AUTH_") ? name : `EDGE_EVER_${name}`);
 
 const upsertEnv = (key, value) => {
   const content = existsSync(envPath) ? readFileSync(envPath, "utf8") : "";
@@ -255,7 +258,7 @@ const ensureAuthPassword = (values) => {
     : check(
         "auth password",
         false,
-        "set EDGE_EVER_PASSWORD and rerun setup, or set EDGE_EVER_AUTH_PASSWORD",
+        "set EDGE_EVER_PASSWORD and rerun setup, or set AUTH_PASSWORD",
       );
 };
 

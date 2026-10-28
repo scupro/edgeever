@@ -921,10 +921,10 @@ const resetDemoData = async (
 
   const now = isoNow();
   try {
-    const demoUsername = env.EDGE_EVER_AUTH_USERNAME?.trim() || "admin";
+    const demoUsername = env.AUTH_USER?.trim() || "admin";
     const demoPasswordHash = await resolveDemoPasswordHash(
-      env.EDGE_EVER_AUTH_PASSWORD,
-      env.EDGE_EVER_AUTH_PASSWORD_HASH,
+      env.AUTH_PASSWORD,
+      env.AUTH_PASSWORD_HASH,
       hashPassword,
     );
     const resourceRows = await db.prepare(`SELECT object_key, storage_config_id FROM resources`).all<{ object_key: string; storage_config_id: string }>();

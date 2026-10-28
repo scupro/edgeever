@@ -43,7 +43,7 @@ describe("production authentication guard", () => {
     expect(await response.json()).toEqual({
       error: {
         code: "auth_not_configured",
-        message: "Authentication is not configured. Set EDGE_EVER_AUTH_PASSWORD as a Worker Secret and redeploy.",
+        message: "Authentication is not configured. Set AUTH_PASSWORD as a Worker Secret and redeploy.",
       },
     });
   });
@@ -51,7 +51,7 @@ describe("production authentication guard", () => {
   test("reports unapplied D1 migrations as database_not_ready", async () => {
     const response = await fetchApi("/api/health", {
       DB: createDatabase({ error: new Error("D1_ERROR: no such table: users") }),
-      EDGE_EVER_AUTH_PASSWORD: "configured-secret",
+      AUTH_PASSWORD: "configured-secret",
     });
 
     expect(response.status).toBe(503);
@@ -63,7 +63,7 @@ describe("production authentication guard", () => {
   test("reports missing object storage as object_storage_not_ready", async () => {
     const response = await fetchApi("/api/health", {
       DB: createDatabase({ userId: "owner" }),
-      EDGE_EVER_AUTH_PASSWORD: "configured-secret",
+      AUTH_PASSWORD: "configured-secret",
     });
 
     expect(response.status).toBe(503);
@@ -79,7 +79,7 @@ describe("production authentication guard", () => {
     const response = await fetchApi("/api/health", {
       DB: createDatabase({ userId: "owner" }),
       ...objectStorageEnvironment,
-      EDGE_EVER_AUTH_PASSWORD: "configured-secret",
+      AUTH_PASSWORD: "configured-secret",
     });
 
     expect(response.status).toBe(200);
@@ -97,7 +97,7 @@ describe("production authentication guard", () => {
     const response = await fetchApi("/api/health", {
       DB: createDatabase({ userId: "owner" }),
       ...objectStorageEnvironment,
-      EDGE_EVER_AUTH_PASSWORD: "configured-secret",
+      AUTH_PASSWORD: "configured-secret",
       EDGE_EVER_DEPLOYMENT_TRIGGER: "github_release",
       EDGE_EVER_DEPLOYMENT_METHOD: "github_actions",
     });
@@ -112,7 +112,7 @@ describe("production authentication guard", () => {
     const response = await fetchApi("/api/health", {
       DB: createDatabase({ userId: "owner" }),
       ...objectStorageEnvironment,
-      EDGE_EVER_AUTH_PASSWORD: "configured-secret",
+      AUTH_PASSWORD: "configured-secret",
       EDGE_EVER_BUILD_CREATED_AT: "2026-01-02T03:04:05Z",
       EDGE_EVER_BUILD_TRIGGER: "main_push",
       EDGE_EVER_BUILD_METHOD: "github_actions",
@@ -130,7 +130,7 @@ describe("production authentication guard", () => {
     const response = await fetchApi("/api/health", {
       DB: createDatabase({ userId: "owner" }),
       ...objectStorageEnvironment,
-      EDGE_EVER_AUTH_PASSWORD: "configured-secret",
+      AUTH_PASSWORD: "configured-secret",
       EDGE_EVER_RUNTIME: "self-hosted-bun",
       EDGE_EVER_BUILD_CREATED_AT: "2026-01-02T03:04:05Z",
       EDGE_EVER_BUILD_TRIGGER: "github_release",
@@ -155,7 +155,7 @@ describe("production authentication guard", () => {
       const response = await fetchApi(path, {
         DB: createDatabase({ userId: "owner" }),
         ...objectStorageEnvironment,
-        EDGE_EVER_AUTH_PASSWORD: "configured-secret",
+        AUTH_PASSWORD: "configured-secret",
       });
 
       expect(response.status).toBe(404);
@@ -192,7 +192,7 @@ describe("production authentication guard", () => {
   test("keeps first-login bootstrap protected when the users table is empty", async () => {
     const response = await fetchApi("/api/v1/auth/session", {
       DB: createDatabase(),
-      EDGE_EVER_AUTH_PASSWORD: "admin123",
+      AUTH_PASSWORD: "admin123",
     });
 
     expect(response.status).toBe(200);

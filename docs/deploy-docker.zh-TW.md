@@ -50,7 +50,7 @@ curl -fsSL https://dogbro.store/install.sh | bash -s -- --help
 
 ```sh
 export EDGE_EVER_VERSION=vX.Y.Z
-export EDGE_EVER_AUTH_PASSWORD='請替換為足夠長的隨機密碼'
+export AUTH_PASSWORD='請替換為足夠長的隨機密碼'
 docker compose up -d
 docker compose ps
 ```
@@ -83,16 +83,16 @@ Compose 會建立一個命名卷。所有需要在容器替換後保留的資料
 
 | 變數                                   | 預設值   | 用途                                      |
 | -------------------------------------- | -------- | ----------------------------------------- |
-| `EDGE_EVER_AUTH_USERNAME`              | `admin`  | 初始管理員使用者名稱                          |
-| `EDGE_EVER_AUTH_PASSWORD`              | 無       | 初始密碼；新資料庫必須提供                |
-| `EDGE_EVER_AUTH_PASSWORD_HASH`         | 無       | 可替代明文引導密碼的 PBKDF2 hash          |
+| `AUTH_USER`              | `admin`  | 初始管理員使用者名稱                          |
+| `AUTH_PASSWORD`              | 無       | 初始密碼；新資料庫必須提供                |
+| `AUTH_PASSWORD_HASH`         | 無       | 可替代明文引導密碼的 PBKDF2 hash          |
 | `EDGE_EVER_SESSION_TTL_DAYS`           | `400`    | 登入會話有效期                            |
 | `EDGE_EVER_IDLE_TIMEOUT_SECONDS`       | `120`    | Bun 流式響應空閒超時，可設為 10 到 255 秒 |
 | `EDGE_EVER_CREDENTIALS_ENCRYPTION_KEY` | 寫入 `/data` | 可選的獨立 AI 憑據加密金鑰。未設定時，Docker 會把認證 Secret 或自動生成的金鑰寫入 `/data/edgeever-secrets.json`。 |
 | `EDGE_EVER_COMMUNITY_REGISTRY_URL` | 不設定 | 可選。簽名社群外掛目錄的 HTTPS 地址。不設定時，市場只顯示內建官方外掛。 |
 
 Secret 可在受支援的變數名後追加 `_FILE`，並指向 Docker secret，例如
-`EDGE_EVER_AUTH_PASSWORD_FILE=/run/secrets/auth_password`。密碼/hash 和 S3
+`AUTH_PASSWORD_FILE=/run/secrets/auth_password`。密碼/hash 和 S3
 訪問憑據均支援這種形式。同一個 Secret 不得同時設定直接變數與
 對應的 `_FILE` 變數。
 
@@ -171,7 +171,7 @@ docker compose ps
 ```sh
 docker build --tag edgeever:local .
 docker run --rm -p 8787:8787 \
-  -e EDGE_EVER_AUTH_PASSWORD='請替換為足夠長的隨機密碼' \
+  -e AUTH_PASSWORD='請替換為足夠長的隨機密碼' \
   -v edgeever-data:/data \
   edgeever:local
 ```
@@ -205,7 +205,7 @@ docker build \
   --build-arg EDGE_EVER_BUILD_METHOD=local_cli \
   --tag edgeever:local .
 docker run --rm -p 8787:8787 \
-  -e EDGE_EVER_AUTH_PASSWORD='請替換為足夠長的隨機密碼' \
+  -e AUTH_PASSWORD='請替換為足夠長的隨機密碼' \
   -e EDGE_EVER_CONTAINER_IMAGE=edgeever:local \
   -e EDGE_EVER_DEPLOYMENT_TRIGGER=manual \
   -e EDGE_EVER_DEPLOYMENT_METHOD=docker \

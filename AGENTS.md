@@ -63,7 +63,6 @@ Related Issue: #<issue-number>
 - **跨執行時架構**：專案未來將正式支援 Docker 自託管；實現新功能時必須保持業務邏輯與 Cloudflare 解耦，併為其他執行時預留擴充套件邊界。Cloudflare 與 Docker 必須共用同一套業務程式碼，僅允許保留薄且穩定、不包含業務判斷的執行入口和基礎設施驅動轉接器。
 - **資料庫 Migration**：資料庫或種子變化時，在 `migrations/` 下新增遞增編號 SQL，禁止修改已執行的舊 Migration。
 - **本機啟動**：預設 `bun run dev`（純本機環境）。使用者要求“啟動/重啟 Web 端”時，預設含 Web 與 API，必須使用 `bun run dev`；只有使用者明確要求“純前端”或明確指定 `dev:web` 時，才使用 `bun run dev:web`。指定遠端實例用 `EDGE_EVER_INSTANCE=<實例名> bun run dev:remote`。
-- **Demo 示例同步**：修改示例筆記後，在 `main` 分支幹淨狀態下執行 `bun run demo:sync` 重置公開 Demo。
 - **禁止重複造輪子**：嚴禁重複實現已有成熟方案；優先採用維護活躍、廣泛驗證的開源元件與依賴，並優先複用 `shadcn/ui`；複雜或重複模組封裝為獨立元件。
 - UI和互動的原則是，產品始終表現得可靠、可預測、確定、被接住。
 - **懸停提示**：所有懸停或聚焦提示嚴禁使用 HTML 原生 `title`；Web 端必須統一使用 shadcn/ui 的 Tooltip 元件，並確保鍵盤聚焦時同樣可見。

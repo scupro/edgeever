@@ -72,7 +72,7 @@ describe("object storage route contracts", () => {
 
 const FAKE_AUTH_PASSWORD = "fake-instance-auth-password";
 const FAKE_SECRET = "FAKE-secret-access-key-do-not-use";
-const authEnvironment = { EDGE_EVER_AUTH_PASSWORD: FAKE_AUTH_PASSWORD };
+const authEnvironment = { AUTH_PASSWORD: FAKE_AUTH_PASSWORD };
 const primaryKey = resolvePrimaryObjectStorageEncryptionKey(authEnvironment);
 
 const originalFetch = globalThis.fetch;

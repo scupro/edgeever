@@ -38,7 +38,7 @@ afterEach(async () => {
 describe("web repository offline boundaries", () => {
   test("empty trash records the removed memo ids for conflict cleanup after sync", async () => {
     const restoreWindow = installTestWindow();
-    const scope = "https://demo.dogbro.store|user-1";
+    const scope = "https://notes.example.com|user-1";
     const trashed = await createLocalMemo(scope, { notebookId: "nb-1" });
     const active = await createLocalMemo(scope, { notebookId: "nb-1" });
     await putLocalMemo(scope, { ...trashed, isDeleted: true });
@@ -58,7 +58,7 @@ describe("web repository offline boundaries", () => {
     const previousOnline = globalThis.navigator?.onLine;
     if (globalThis.navigator) Object.defineProperty(globalThis.navigator, "onLine", { configurable: true, value: true });
     const restoreWindow = installTestWindow();
-    const scope = "https://demo.dogbro.store|user-1";
+    const scope = "https://notes.example.com|user-1";
     const template = (id, name, updatedAt) => ({
       id,
       name,
@@ -116,7 +116,7 @@ describe("web repository offline boundaries", () => {
     });
 
     try {
-      const scope = "https://demo.dogbro.store|user-1";
+      const scope = "https://notes.example.com|user-1";
       const memo = await createLocalMemo(scope, { notebookId: "nb-1" });
       const repository = createWebRepository(scope);
       const contentJson = {
@@ -144,7 +144,7 @@ describe("web repository offline boundaries", () => {
 
   test("rolls back the local memo when queuing its sync update fails", async () => {
     const restoreWindow = installTestWindow();
-    const scope = "https://demo.dogbro.store|user-1";
+    const scope = "https://notes.example.com|user-1";
     const memo = await createLocalMemo(scope, { notebookId: "nb-1", contentMarkdown: "Original" });
     const failQueueWrite = () => { throw new Error("queue unavailable"); };
     localDb.syncQueue.hook("creating", failQueueWrite);
@@ -173,7 +173,7 @@ describe("web repository offline boundaries", () => {
   test("uses the remote detail when the local database is blocked and navigator falsely reports offline", async () => {
     const previousOnline = globalThis.navigator?.onLine;
     if (globalThis.navigator) Object.defineProperty(globalThis.navigator, "onLine", { configurable: true, value: false });
-    const scope = "https://demo.dogbro.store|user-1";
+    const scope = "https://notes.example.com|user-1";
     const remoteMemo = {
       id: "memo-blocked",
       notebookId: "nb-1",
@@ -217,7 +217,7 @@ describe("web repository offline boundaries", () => {
     const previousOnline = globalThis.navigator?.onLine;
     if (globalThis.navigator) Object.defineProperty(globalThis.navigator, "onLine", { configurable: true, value: true });
     const restoreWindow = installTestWindow();
-    const scope = "https://demo.dogbro.store|user-1";
+    const scope = "https://notes.example.com|user-1";
     const localMemo = {
       id: "memo-1",
       notebookId: "nb-1",
@@ -268,7 +268,7 @@ describe("web repository offline boundaries", () => {
       refreshEvents += 1;
     });
 
-    const scope = "https://demo.dogbro.store|user-1";
+    const scope = "https://notes.example.com|user-1";
     const localMemo = {
       id: "memo-stale-remote",
       notebookId: "nb-1",
@@ -348,7 +348,7 @@ describe("web repository offline boundaries", () => {
     if (globalThis.navigator) Object.defineProperty(globalThis.navigator, "onLine", { configurable: true, value: true });
     const restoreWindow = installTestWindow();
 
-    const scope = "https://demo.dogbro.store|user-1";
+    const scope = "https://notes.example.com|user-1";
     const localMemo = {
       id: "memo-race",
       notebookId: "nb-1",
@@ -406,8 +406,8 @@ describe("web repository offline boundaries", () => {
     const previousOnline = globalThis.navigator?.onLine;
     if (globalThis.navigator) Object.defineProperty(globalThis.navigator, "onLine", { configurable: true, value: false });
     // Non-loopback host so navigator.onLine=false is treated as offline.
-    const restoreWindow = installTestWindow({ hostname: "demo.dogbro.store" });
-    const scope = "https://demo.dogbro.store|user-1";
+    const restoreWindow = installTestWindow({ hostname: "notes.example.com" });
+    const scope = "https://notes.example.com|user-1";
     await localDb.syncMeta.put({ scope, key: "identity", value: "sync-1", updatedAt: new Date().toISOString() });
     const original = {
       listTags: api.listTags,
@@ -479,7 +479,7 @@ describe("note duplication in the Web repository", () => {
     const restoreWindow = installTestWindow();
     const duplicate = api.duplicateMemo;
     const calls = [];
-    const scope = "https://demo.dogbro.store|user-1";
+    const scope = "https://notes.example.com|user-1";
     const copy = { ...(await createLocalMemo(scope, { notebookId: "nb-1" })), id: "memo_copy", title: "Plan (copy)" };
     api.duplicateMemo = async (memoId, input) => {
       calls.push({ memoId, input });
@@ -506,7 +506,7 @@ describe("note duplication in the Web repository", () => {
       calls.push(memoId);
       return { memo: { id: "memo_copy" } };
     };
-    const scope = "https://demo.dogbro.store|user-1";
+    const scope = "https://notes.example.com|user-1";
     try {
       await localDb.syncQueue.put({
         id: "memo.update:memo_conflicted",
@@ -539,7 +539,7 @@ describe("note duplication in the Web repository", () => {
       calls.push(memoId);
       return { memo: { id: "memo_copy" } };
     };
-    const scope = "https://demo.dogbro.store|user-1";
+    const scope = "https://notes.example.com|user-1";
     try {
       const memo = await createLocalMemo(scope, { notebookId: "nb-1" });
       const repository = createWebRepository(scope);

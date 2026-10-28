@@ -6,7 +6,7 @@
 >
 > 核心專案倉庫：[GitHub - scupro/edgeever](https://github.com/scupro/edgeever)
 > 
-> 官方網站地址：[https://dogbro.store](https://dogbro.store) (演示環境：[https://demo.dogbro.store](https://demo.dogbro.store))
+> 官方網站地址：[https://dogbro.store](https://dogbro.store)
 
 ---
 

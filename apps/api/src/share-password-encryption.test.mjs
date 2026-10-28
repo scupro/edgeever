@@ -23,10 +23,10 @@ describe("recoverable share passwords", () => {
     await expect(encryptSharePassword("secret12", "token", {})).rejects.toMatchObject({ code: "share_encryption_unavailable" });
   });
   test("supports existing deployment authentication secrets and their fallback", async () => {
-    const encrypted = await encryptSharePassword("secret12", "token", { EDGE_EVER_AUTH_PASSWORD: "old-auth" });
+    const encrypted = await encryptSharePassword("secret12", "token", { AUTH_PASSWORD: "old-auth" });
     expect(await readSharePassword(encrypted, "token", {
-      EDGE_EVER_AUTH_PASSWORD_HASH: "new-auth-hash",
-      EDGE_EVER_AUTH_PASSWORD_FALLBACK: "old-auth",
+      AUTH_PASSWORD_HASH: "new-auth-hash",
+      AUTH_PASSWORD_FALLBACK: "old-auth",
     })).toBe("secret12");
   });
 });

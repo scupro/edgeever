@@ -242,7 +242,7 @@ const main = async () => {
   console.log(`[ok] remote D1 schema: ${REQUIRED_TABLES.length} required tables`);
 
   const secretNames = parseSecretNames(runWrangler(["secret", "list", "--format", "json"]));
-  if (!secretNames.has("EDGE_EVER_AUTH_PASSWORD") && !secretNames.has("EDGE_EVER_AUTH_PASSWORD_HASH")) {
+  if (!secretNames.has("AUTH_PASSWORD") && !secretNames.has("AUTH_PASSWORD_HASH")) {
     throw new Error("The deployed Worker has no EdgeEver authentication Secret.");
   }
   console.log("[ok] Worker authentication Secret is deployed");

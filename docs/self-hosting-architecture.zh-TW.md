@@ -52,7 +52,7 @@ S3 相容物件儲存兩種後端。
 - 生產入口保持 `scripts/self-hosted-server.js`，並保留
   `scripts/self-hosted-server.mjs` 別名，以便 NAS/GUI 繼續使用 v1.62 及更早版本
   儲存的啟動命令。
-- 容器入口需要支援 `EDGE_EVER_AUTH_USERNAME`、`EDGE_EVER_AUTH_PASSWORD` 和
+- 容器入口需要支援 `AUTH_USER`、`AUTH_PASSWORD` 和
   會話配置，同時不能把 Cloudflare 專有配置當作前置條件。
 - 登入暴力破解防護必須使用應用層的 SQLite/D1 相容儲存實現；Cloudflare
   Rate Limiting 和 WAF 只能作為部署層的可選增強，不能作為執行前提。
@@ -65,7 +65,7 @@ Docker 映象與本機開發共用同一個 Bun 執行入口：
 
 ```sh
 bun run build:web
-EDGE_EVER_AUTH_PASSWORD='<強密碼>' bun run start:self-hosted
+AUTH_PASSWORD='<強密碼>' bun run start:self-hosted
 ```
 
 可透過 `EDGE_EVER_DATA_DIR` 指定需要由 Docker 或 NAS 卷持久化的目錄。

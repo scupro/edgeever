@@ -5,20 +5,20 @@ import { decryptSecret, encryptSecret } from "./secret-encryption";
 
 type Environment = Pick<Bindings,
   "EDGE_EVER_CREDENTIALS_ENCRYPTION_KEY" | "EDGE_EVER_CREDENTIALS_ENCRYPTION_KEY_PREVIOUS" |
-  "EDGE_EVER_AUTH_PASSWORD" | "EDGE_EVER_AUTH_PASSWORD_HASH" | "EDGE_EVER_AUTH_PASSWORD_FALLBACK">;
+  "AUTH_PASSWORD" | "AUTH_PASSWORD_HASH" | "AUTH_PASSWORD_FALLBACK">;
 
 // Bind the ciphertext to its share, and separate it from AI/storage credentials.
 const keys = (env: Environment, token: string) => [
   env.EDGE_EVER_CREDENTIALS_ENCRYPTION_KEY,
-  env.EDGE_EVER_AUTH_PASSWORD,
-  env.EDGE_EVER_AUTH_PASSWORD_HASH,
+  env.AUTH_PASSWORD,
+  env.AUTH_PASSWORD_HASH,
   env.EDGE_EVER_CREDENTIALS_ENCRYPTION_KEY_PREVIOUS,
-  env.EDGE_EVER_AUTH_PASSWORD_FALLBACK,
+  env.AUTH_PASSWORD_FALLBACK,
 ].flatMap((value) => value?.trim() ? [`edgeever:share-password:v1:${token}:${value.trim()}`] : []);
 
 export const encryptSharePassword = async (password: string, token: string, env: Environment) => {
   const key = keys({ ...env, EDGE_EVER_CREDENTIALS_ENCRYPTION_KEY_PREVIOUS: undefined,
-    EDGE_EVER_AUTH_PASSWORD_FALLBACK: undefined }, token)[0];
+    AUTH_PASSWORD_FALLBACK: undefined }, token)[0];
   if (!key) throw new AppError("share_encryption_unavailable", "Configure a deployment credential encryption key before generating a share password.", 503);
   return encryptSecret(password, key);
 };

@@ -160,7 +160,9 @@ const tomlString = (value) => JSON.stringify(value);
 
 const envValue = (name) => {
   const scopedName = instanceKey ? `EDGE_EVER_${instanceKey}_${name}` : undefined;
+  const unprefixed = name.startsWith("AUTH_") ? process.env[name]?.trim() : undefined;
   return (scopedName ? process.env[scopedName] : undefined)?.trim()
+    || unprefixed
     || process.env[`EDGE_EVER_${name}`]?.trim();
 };
 
@@ -309,13 +311,13 @@ const resolvedAuthUsername = explicitAuthUsername || inheritedAuthUsername || "a
 const runtimeVars = {
   // Keep the login identifier explicit in generated online deployments so
   // users can discover and override the default without changing code.
-  EDGE_EVER_AUTH_USERNAME: resolvedAuthUsername,
+  AUTH_USER: resolvedAuthUsername,
   EDGE_EVER_SESSION_TTL_DAYS: envValue("SESSION_TTL_DAYS"),
-  EDGE_EVER_AUTH_LOGIN_WINDOW_SECONDS: envValue("AUTH_LOGIN_WINDOW_SECONDS"),
-  EDGE_EVER_AUTH_LOGIN_USERNAME_MAX_ATTEMPTS: envValue("AUTH_LOGIN_USERNAME_MAX_ATTEMPTS"),
-  EDGE_EVER_AUTH_LOGIN_USERNAME_COOLDOWN_SECONDS: envValue("AUTH_LOGIN_USERNAME_COOLDOWN_SECONDS"),
-  EDGE_EVER_AUTH_LOGIN_IP_MAX_ATTEMPTS: envValue("AUTH_LOGIN_IP_MAX_ATTEMPTS"),
-  EDGE_EVER_AUTH_LOGIN_IP_COOLDOWN_SECONDS: envValue("AUTH_LOGIN_IP_COOLDOWN_SECONDS"),
+  AUTH_LOGIN_WINDOW_SECONDS: envValue("AUTH_LOGIN_WINDOW_SECONDS"),
+  AUTH_LOGIN_USERNAME_MAX_ATTEMPTS: envValue("AUTH_LOGIN_USERNAME_MAX_ATTEMPTS"),
+  AUTH_LOGIN_USERNAME_COOLDOWN_SECONDS: envValue("AUTH_LOGIN_USERNAME_COOLDOWN_SECONDS"),
+  AUTH_LOGIN_IP_MAX_ATTEMPTS: envValue("AUTH_LOGIN_IP_MAX_ATTEMPTS"),
+  AUTH_LOGIN_IP_COOLDOWN_SECONDS: envValue("AUTH_LOGIN_IP_COOLDOWN_SECONDS"),
   EDGE_EVER_S3_ENDPOINT: envValue("S3_ENDPOINT"),
   EDGE_EVER_S3_REGION: envValue("S3_REGION"),
   EDGE_EVER_S3_BUCKET: envValue("S3_BUCKET"),
@@ -418,8 +420,8 @@ const hasEnvFileArg = wranglerArgs.some((arg) => arg === "--env-file" || arg.sta
 const authPassword = envValue("AUTH_PASSWORD");
 const authPasswordHash = envValue("AUTH_PASSWORD_HASH");
 const authSecrets = {
-  ...(authPassword ? { EDGE_EVER_AUTH_PASSWORD: authPassword } : {}),
-  ...(authPasswordHash ? { EDGE_EVER_AUTH_PASSWORD_HASH: authPasswordHash } : {}),
+  ...(authPassword ? { AUTH_PASSWORD: authPassword } : {}),
+  ...(authPasswordHash ? { AUTH_PASSWORD_HASH: authPasswordHash } : {}),
 };
 // The object storage secret never belongs in a plain [vars] entry.
 const objectStorageSecret = envValue("S3_SECRET_ACCESS_KEY");
@@ -432,7 +434,7 @@ const useExistingAuthSecret = process.env.EDGE_EVER_USE_EXISTING_AUTH_SECRET?.tr
 
 if (isDeployCommand && Object.keys(authSecrets).length === 0 && !useExistingAuthSecret) {
   console.error(
-    "Refusing to deploy without EDGE_EVER_AUTH_PASSWORD or EDGE_EVER_AUTH_PASSWORD_HASH. Run bun run deploy:setup first, or use the Cloudflare one-click deploy entrypoint.",
+    "Refusing to deploy without AUTH_PASSWORD or AUTH_PASSWORD_HASH. Run bun run deploy:setup first, or use the Cloudflare one-click deploy entrypoint.",
   );
   process.exit(1);
 }

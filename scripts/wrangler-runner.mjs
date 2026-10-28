@@ -185,7 +185,7 @@ export const deployedWorkerSettings = (json) => {
     );
   }
   const usernames = bindings.filter((binding) =>
-    binding?.name === "EDGE_EVER_AUTH_USERNAME" && binding?.type === "plain_text"
+    binding?.name === "AUTH_USER" && binding?.type === "plain_text"
   );
   return {
     authUsername: usernames.length === 1 && typeof usernames[0].text === "string"

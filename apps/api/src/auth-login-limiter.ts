@@ -16,11 +16,11 @@ export type LoginRateLimitConfig = {
 };
 
 export type LoginRateLimitEnv = {
-  EDGE_EVER_AUTH_LOGIN_WINDOW_SECONDS?: string;
-  EDGE_EVER_AUTH_LOGIN_USERNAME_MAX_ATTEMPTS?: string;
-  EDGE_EVER_AUTH_LOGIN_USERNAME_COOLDOWN_SECONDS?: string;
-  EDGE_EVER_AUTH_LOGIN_IP_MAX_ATTEMPTS?: string;
-  EDGE_EVER_AUTH_LOGIN_IP_COOLDOWN_SECONDS?: string;
+  AUTH_LOGIN_WINDOW_SECONDS?: string;
+  AUTH_LOGIN_USERNAME_MAX_ATTEMPTS?: string;
+  AUTH_LOGIN_USERNAME_COOLDOWN_SECONDS?: string;
+  AUTH_LOGIN_IP_MAX_ATTEMPTS?: string;
+  AUTH_LOGIN_IP_COOLDOWN_SECONDS?: string;
 };
 
 export type LoginRateLimitResult = {
@@ -50,27 +50,27 @@ export const resolveLoginRateLimitConfig = (
   env: LoginRateLimitEnv,
 ): LoginRateLimitConfig => ({
   windowSeconds: parsePositiveInteger(
-    env.EDGE_EVER_AUTH_LOGIN_WINDOW_SECONDS,
+    env.AUTH_LOGIN_WINDOW_SECONDS,
     DEFAULT_LOGIN_RATE_LIMIT_CONFIG.windowSeconds,
     24 * 60 * 60,
   ),
   usernameMaxAttempts: parsePositiveInteger(
-    env.EDGE_EVER_AUTH_LOGIN_USERNAME_MAX_ATTEMPTS,
+    env.AUTH_LOGIN_USERNAME_MAX_ATTEMPTS,
     DEFAULT_LOGIN_RATE_LIMIT_CONFIG.usernameMaxAttempts,
     100,
   ),
   usernameCooldownSeconds: parsePositiveInteger(
-    env.EDGE_EVER_AUTH_LOGIN_USERNAME_COOLDOWN_SECONDS,
+    env.AUTH_LOGIN_USERNAME_COOLDOWN_SECONDS,
     DEFAULT_LOGIN_RATE_LIMIT_CONFIG.usernameCooldownSeconds,
     24 * 60 * 60,
   ),
   ipMaxAttempts: parsePositiveInteger(
-    env.EDGE_EVER_AUTH_LOGIN_IP_MAX_ATTEMPTS,
+    env.AUTH_LOGIN_IP_MAX_ATTEMPTS,
     DEFAULT_LOGIN_RATE_LIMIT_CONFIG.ipMaxAttempts,
     1_000,
   ),
   ipCooldownSeconds: parsePositiveInteger(
-    env.EDGE_EVER_AUTH_LOGIN_IP_COOLDOWN_SECONDS,
+    env.AUTH_LOGIN_IP_COOLDOWN_SECONDS,
     DEFAULT_LOGIN_RATE_LIMIT_CONFIG.ipCooldownSeconds,
     24 * 60 * 60,
   ),

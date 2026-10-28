@@ -98,7 +98,6 @@
     "deploy:worker": "bun scripts/run-wrangler.mjs deploy",
     "deploy:cloudflare-builds": "EDGE_EVER_USE_EXISTING_AUTH_SECRET=true bun run deploy:ci",
     "deploy:verify": "bun scripts/verify-deployment.mjs",
-    "demo:sync": "bun scripts/sync-demo.mjs",
     "deploy:builds:setup": "bun scripts/cloudflare-workers-builds.mjs setup",
     "deploy:site": "bun run build:site && wrangler pages deploy apps/site/dist --project-name=edgeever-official",
     "verify:acp-npm-upgrade": "bun scripts/verify-acp-npm-upgrade.mjs"
@@ -108,7 +107,7 @@
       "DB": {
         "description": "EdgeEver 的 D1 資料庫。用於儲存 notebooks、memos、memo_contents、resources 後設資料、全文搜尋索引、修訂記錄和審計事件。"
       },
-      "EDGE_EVER_AUTH_PASSWORD": {
+      "AUTH_PASSWORD": {
         "description": "首次登入密碼，必填。請設定一個僅用於此實例的強密碼；部署後可在個人設定中修改。"
       },
       "EDGE_EVER_CREDENTIALS_ENCRYPTION_KEY": {

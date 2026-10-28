@@ -27,7 +27,6 @@ export const jaSiteCopy = {
     backToBlog: "ブログ一覧へ",
     contact: "お問い合わせ",
     privacy: "プライバシー",
-    demo: "デモ",
     language: "言語",
     languageMenu: "言語を切り替える",
     tagAll: "すべて",
@@ -39,7 +38,6 @@ export const jaSiteCopy = {
   hero: {
     slogan: jaSiteTagline,
     popHighlight: "クラシックな三ペインの現代的知識ベース · ネイティブ AI 連携 · 全プラットフォーム対応",
-    demo: "ライブデモ",
     agentInstall: "AI で導入",
     getApps: "アプリ：",
     clipper: "Web Clipper",

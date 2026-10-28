@@ -22,7 +22,7 @@ export const authNotConfigured = (c: Context) =>
   apiError(
     c,
     "auth_not_configured",
-    "Authentication is not configured. Set EDGE_EVER_AUTH_PASSWORD as a Worker Secret and redeploy.",
+    "Authentication is not configured. Set AUTH_PASSWORD as a Worker Secret and redeploy.",
     503,
   );
 

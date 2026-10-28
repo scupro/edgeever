@@ -44,7 +44,7 @@ const migrationDatabase = () => {
 
 describe("object storage credential encryption", () => {
   test("derives a purpose-specific key from instance authentication", () => {
-    const environment = { EDGE_EVER_AUTH_PASSWORD: "instance-auth-secret" };
+    const environment = { AUTH_PASSWORD: "instance-auth-secret" };
 
     expect(resolvePrimaryObjectStorageEncryptionKey(environment))
       .toBe("edgeever:object-storage:v1:instance-auth-secret");
@@ -60,8 +60,8 @@ describe("object storage credential encryption", () => {
 
   test("decrypts rotated object-storage secrets with the persisted auth fallback", () => {
     const environment = {
-      EDGE_EVER_AUTH_PASSWORD: "rotated-password",
-      EDGE_EVER_AUTH_PASSWORD_FALLBACK: "original-password",
+      AUTH_PASSWORD: "rotated-password",
+      AUTH_PASSWORD_FALLBACK: "original-password",
     };
 
     expect(resolvePrimaryObjectStorageEncryptionKey(environment))
@@ -75,7 +75,7 @@ describe("object storage credential encryption", () => {
     const plaintext = "legacy-secret-access-key";
     const legacyKey = "legacy-storage-key";
     const environment = {
-      EDGE_EVER_AUTH_PASSWORD: "instance-auth-secret",
+      AUTH_PASSWORD: "instance-auth-secret",
       EDGE_EVER_STORAGE_ENCRYPTION_KEY: legacyKey,
     };
     const row = objectStorageRow(await encryptSecret(plaintext, legacyKey));
@@ -92,7 +92,7 @@ describe("object storage credential encryption", () => {
   });
 
   test("does not rewrite a credential already encrypted with the auth-derived key", async () => {
-    const environment = { EDGE_EVER_AUTH_PASSWORD_HASH: "stable-auth-hash" };
+    const environment = { AUTH_PASSWORD_HASH: "stable-auth-hash" };
     const encrypted = await encryptSecret(
       "current-secret-access-key",
       resolvePrimaryObjectStorageEncryptionKey(environment),
@@ -109,7 +109,7 @@ describe("object storage credential encryption", () => {
 });
 
 const FAKE_SECRET = "FAKE-secret-access-key-do-not-use";
-const authEnvironment = { EDGE_EVER_AUTH_PASSWORD: "fake-instance-auth-password" };
+const authEnvironment = { AUTH_PASSWORD: "fake-instance-auth-password" };
 const primaryKey = resolvePrimaryObjectStorageEncryptionKey(authEnvironment);
 
 const originalFetch = globalThis.fetch;
@@ -286,7 +286,7 @@ describe("object storage resolution on a migrated database", () => {
   ]) {
     test(`fails with 503 without leaking when the credential is ${label}`, async () => {
       const { sqlite, environment } = installation({
-        env: { ...authEnvironment, EDGE_EVER_AUTH_PASSWORD_FALLBACK: "fake-old-password" },
+        env: { ...authEnvironment, AUTH_PASSWORD_FALLBACK: "fake-old-password" },
       });
       const ciphertext = encryptedSecret ?? await encryptSecret(FAKE_SECRET, "fake-key-from-another-instance");
       await insertS3Config(sqlite, { encryptedSecret: ciphertext, isActive: true });
@@ -302,8 +302,8 @@ describe("object storage resolution on a migrated database", () => {
 
   test("re-encrypts a credential saved under the rotated-password fallback with the primary key once", async () => {
     const environmentKeys = {
-      EDGE_EVER_AUTH_PASSWORD: "fake-new-password",
-      EDGE_EVER_AUTH_PASSWORD_FALLBACK: "fake-old-password",
+      AUTH_PASSWORD: "fake-new-password",
+      AUTH_PASSWORD_FALLBACK: "fake-old-password",
     };
     const { sqlite, environment } = installation({ env: environmentKeys });
     const fallbackCiphertext = await encryptSecret(FAKE_SECRET, "edgeever:object-storage:v1:fake-old-password");
@@ -321,7 +321,7 @@ describe("object storage resolution on a migrated database", () => {
     expect(storedSecret(sqlite)).toBe(migrated);
 
     // Once migrated, the credential no longer depends on the fallback secret.
-    const { EDGE_EVER_AUTH_PASSWORD_FALLBACK: _removed, ...withoutFallback } = environment;
+    const { AUTH_PASSWORD_FALLBACK: _removed, ...withoutFallback } = environment;
     expect((await resolveObjectStorage(withoutFallback)).configId).toBe("instance-s3");
     sqlite.close();
   });

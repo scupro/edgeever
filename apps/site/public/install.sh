@@ -13,8 +13,8 @@ compose_url="${EDGE_EVER_COMPOSE_URL:-}"
 image="${EDGE_EVER_IMAGE:-}"
 version="${EDGE_EVER_VERSION:-}"
 port="${EDGE_EVER_PORT:-}"
-username="${EDGE_EVER_AUTH_USERNAME:-}"
-password="${EDGE_EVER_AUTH_PASSWORD:-}"
+username="${AUTH_USER:-}"
+password="${AUTH_PASSWORD:-}"
 project_name="${EDGE_EVER_PROJECT_NAME:-edgeever}"
 auto_update="${EDGE_EVER_AUTO_UPDATE:-true}"
 generated_password=false
@@ -121,7 +121,7 @@ Options:
 
 The same options can be provided with EDGE_EVER_IMAGE, EDGE_EVER_VERSION,
 EDGE_EVER_COMPOSE_URL, EDGE_EVER_INSTALL_DIR, EDGE_EVER_PORT, and
-EDGE_EVER_AUTH_PASSWORD. Set EDGE_EVER_AUTO_UPDATE=false to disable automatic
+AUTH_PASSWORD. Set EDGE_EVER_AUTO_UPDATE=false to disable automatic
 updates.
 EOF
 }
@@ -319,12 +319,12 @@ if [[ -z "$port" ]]; then
 fi
 
 if [[ -z "$username" ]]; then
-  username="$(read_env_value EDGE_EVER_AUTH_USERNAME || true)"
+  username="$(read_env_value AUTH_USER || true)"
   username="${username:-admin}"
 fi
 
 if [[ -z "$password" ]]; then
-  password="$(read_env_value EDGE_EVER_AUTH_PASSWORD || true)"
+  password="$(read_env_value AUTH_PASSWORD || true)"
 fi
 
 if [[ -z "$password" ]]; then
@@ -375,8 +375,8 @@ temporary_env="$(mktemp "$install_dir/.env.XXXXXX")"
   printf "EDGE_EVER_IMAGE='%s'\n" "$image"
   printf "EDGE_EVER_VERSION='%s'\n" "$version"
   printf "EDGE_EVER_PORT='%s'\n" "$port"
-  printf "EDGE_EVER_AUTH_USERNAME='%s'\n" "$username"
-  printf "EDGE_EVER_AUTH_PASSWORD='%s'\n" "$password"
+  printf "AUTH_USER='%s'\n" "$username"
+  printf "AUTH_PASSWORD='%s'\n" "$password"
 } > "$temporary_env"
 chmod 0600 "$temporary_env"
 mv "$temporary_env" "$env_file"

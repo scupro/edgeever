@@ -10,7 +10,7 @@
 2. 如果 Agent 整合需要 Cloudflare API Token，使用限制到目標帳號的 User API Token。
 3. 部署 API Token 在 Cloudflare **Worker -> Settings -> Build -> API token** 中配置。預設自動生成的 token 可能沒有 D1 權限；部署前應確認其具備目標賬戶的 D1 讀取與編輯權限。
 
-在 Worker 的 **Settings → Variables and Secrets** 中設定執行時 Secret `EDGE_EVER_AUTH_PASSWORD`，不要放入 Builds 構建變數。
+在 Worker 的 **Settings → Variables and Secrets** 中設定執行時 Secret `AUTH_PASSWORD`，不要放入 Builds 構建變數。
 
 普通部署使用 D1 `edgeever`、S3 相容的物件儲存桶與使用者名稱 `admin`。可選的非敏感實例引數放在 **Settings → Build → Build variables and secrets**；這些變數僅供構建使用，部署命令會據此生成臨時 Wrangler 配置。不要修改倉庫中的 `wrangler.toml`。
 

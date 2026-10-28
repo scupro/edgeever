@@ -55,10 +55,10 @@ Click **Save and Deploy** to create the Worker. The first build fails verificati
 
 | Type | Name | Value | Purpose |
 | :--- | :--- | :--- | :--- |
-| **Secret** | `EDGE_EVER_AUTH_PASSWORD` | Preferably at least 32 characters | Administrator login password |
+| **Secret** | `AUTH_PASSWORD` | Preferably at least 32 characters | Administrator login password |
 | **Secret** | `EDGE_EVER_S3_SECRET_ACCESS_KEY` | The secret access key of the object storage account | Object storage credential |
 
-`EDGE_EVER_AUTH_PASSWORD` is the variable name; its value is the administrator login password. It is a Worker runtime Secret, not a Workers Builds variable.
+`AUTH_PASSWORD` is the variable name; its value is the administrator login password. It is a Worker runtime Secret, not a Workers Builds variable.
 
 Return to the build history and retry. Confirm the build and live health check succeed.
 
@@ -71,7 +71,7 @@ Return to the build history and retry. Confirm the build and live health check s
    ```json
    { "ok": true }
    ```
-3. Open the homepage, log in with your configured administrator username (default: `admin`) and `EDGE_EVER_AUTH_PASSWORD`, and start using EdgeEver!
+3. Open the homepage, log in with your configured administrator username (default: `admin`) and `AUTH_PASSWORD`, and start using EdgeEver!
 4. Go back to your Fork's **Actions** tab on GitHub and click **I understand my workflows, go ahead and enable them**.
 5. Manually run **Update deployed EdgeEver** once to ensure future upstream updates can sync, and confirm Cloudflare receives the resulting build event.
 
@@ -93,7 +93,7 @@ To customize an instance, add non-secret values under the Worker's **Settings â†
 
 | Build variable | Purpose |
 | :--- | :--- |
-| `EDGE_EVER_AUTH_USERNAME` | Administrator username; defaults to `admin` |
+| `AUTH_USER` | Administrator username; defaults to `admin` |
 | `EDGE_EVER_WORKER_NAME` | Worker name |
 | `EDGE_EVER_D1_DATABASE_NAME` | D1 database name; its UUID is discovered automatically |
 | `EDGE_EVER_D1_DATABASE_ID` | Optional UUID fallback when discovery is unavailable |

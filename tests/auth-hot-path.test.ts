@@ -51,7 +51,7 @@ describe("authentication hot path", () => {
       new Request("https://edgeever.test/api/v1/auth/session", {
         headers: { Authorization: "Bearer desktop-session-token" },
       }),
-      { DB: createDatabase(statements), EDGE_EVER_AUTH_PASSWORD: "configured-secret" } as never,
+      { DB: createDatabase(statements), AUTH_PASSWORD: "configured-secret" } as never,
       executionContext,
     );
 
@@ -74,7 +74,7 @@ describe("authentication hot path", () => {
       new Request("https://edgeever.test/api/v1/memos/memo_1/share", {
         headers: { Authorization: "Bearer desktop-session-token" },
       }),
-      { DB: createDatabase(statements), EDGE_EVER_AUTH_PASSWORD: "configured-secret" } as never,
+      { DB: createDatabase(statements), AUTH_PASSWORD: "configured-secret" } as never,
       executionContext,
     );
 
@@ -93,7 +93,7 @@ describe("authentication hot path", () => {
       }),
       {
         DB: createDatabase(statements, { lastSeenAt: "2026-08-14T00:00:00.000Z" }),
-        EDGE_EVER_AUTH_PASSWORD: "configured-secret",
+        AUTH_PASSWORD: "configured-secret",
       } as never,
       executionContext,
     );

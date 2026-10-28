@@ -10,7 +10,7 @@ Authorization:
 2. If the Agent integration needs a Cloudflare API token, use a User API Token limited to the target account.
 3. Configure the deployment API token in Cloudflare under **Worker -> Settings -> Build -> API token**. The automatically generated token may lack D1 permissions; confirm it has D1 read and edit permissions for the target account before deploying.
 
-Set `EDGE_EVER_AUTH_PASSWORD` as a runtime Secret under the Worker's **Settings → Variables and Secrets**, not as a Builds variable.
+Set `AUTH_PASSWORD` as a runtime Secret under the Worker's **Settings → Variables and Secrets**, not as a Builds variable.
 
 Ordinary deployments use D1 `edgeever`, an S3-compatible object storage bucket, and username `admin`. Put optional non-secret instance settings under **Settings → Build → Build variables and secrets**. These variables are available only during the build; the deploy command uses them to generate a temporary Wrangler configuration. Keep the tracked `wrangler.toml` unchanged.
 

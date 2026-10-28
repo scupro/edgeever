@@ -160,7 +160,7 @@ export const registerUserRoutes = (
     if (
       isProtectedDemoAccount(
         context.env.EDGE_EVER_DEMO_MODE,
-        context.env.EDGE_EVER_AUTH_USERNAME,
+        context.env.AUTH_USER,
         current.username,
       ) && (input.password !== undefined || input.isDisabled !== undefined)
     ) {

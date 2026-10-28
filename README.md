@@ -18,7 +18,6 @@
   </p>
   <p>
     <a href="https://t.me/+wwUx1BYLrIdiZjY1"><img src="assets/readme/community/telegram.svg" alt="Telegram" width="16" height="16" align="absmiddle" /> Telegram Group</a> &nbsp;|&nbsp;
-    <a href="https://demo.dogbro.store">🌐 Live Demo</a> &nbsp;|&nbsp;
     <a href="#all-platform-clients--browser-extension">📱 Clients & Extension</a> &nbsp;|&nbsp;
     <a href="#features">Feature Matrix & Capabilities</a>
   </p>
@@ -44,12 +43,6 @@ Many users of **note-taking apps and personal knowledge bases** simply want a **
 * **SiYuan & Block-based PKMs**: Powerful with self-hosting support, but their granular "block-level" architecture imposes noticeable cognitive overhead for quick daily capture and continuous prose writing. Furthermore, they lack a true zero-cost serverless deployment tier, and multi-device sync relies on paid official subscriptions or paying extra to unlock S3/WebDAV sync features with your own storage.
 
 **EdgeEver fills this gap**: The entire stack is open source, delivering truly **seamless, low-latency, instant multi-device cloud sync** with full self-hosting freedom. It keeps the three-pane layout you know, stays silky-smooth and lightweight even with 10,000+ notes, and ships native AI agents with zero-cost deployment.
-
-## Online Demo
-
-- Demo: [https://demo.dogbro.store](https://demo.dogbro.store)
-
-The public demo resets every day at 3:00 AM (China Standard Time) and restores sample notes. Do not store private content there.
 
 ## All-Platform Clients & Browser Extension
 
@@ -107,9 +100,9 @@ Deploy EdgeEver entirely through GitHub and Cloudflare:
    Use the repository root, keep Cloudflare's default Workers Builds deploy command,
    and ensure its API token can read and edit D1. Select Save and Deploy.
 4. After the Worker is created, add the user's chosen password as the runtime Secret
-   `EDGE_EVER_AUTH_PASSWORD` (preferably at least 32 characters).
+   `AUTH_PASSWORD` (preferably at least 32 characters).
    The username defaults to `admin`.
-   If the user specifies another, set `EDGE_EVER_AUTH_USERNAME` as a Workers Builds
+   If the user specifies another, set `AUTH_USER` as a Workers Builds
    variable before the next build.
 5. Run the build again, verify `/api/health` and `/api/openapi.json`, then log in
    with that administrator username and password.
@@ -129,8 +122,8 @@ Complete setup in 6 web steps:
 1. **Fork the Repository**: Click **Fork** at the top right of GitHub to fork EdgeEver into your personal account.
 2. **Create Cloudflare Resources**: Create D1 `edgeever` and prepare an S3-compatible object storage bucket (Backblaze B2, Tencent COS, Alibaba OSS, MinIO or Wasabi).
 3. **Import & Configure the Project**: Create a Worker named `edgeever` from the Fork's `main` branch in Cloudflare **Workers & Pages**. Use the repository root and keep Cloudflare's default Workers Builds deploy command, which runs in Cloudflare. Ensure its API token can read and edit D1. The deploy command creates the bindings; do not edit Fork files.
-4. **Choose the Administrator Password**: Choose an administrator password, preferably at least 32 characters. Once the Worker is created, save it as the runtime Secret `EDGE_EVER_AUTH_PASSWORD`.
-5. **Build & Verify**: Save and Deploy creates the Worker and starts a build. The initial build primarily initializes the Worker instance; if it fails due to missing administrator Secret, this is expected behavior. Simply add the runtime Secret `EDGE_EVER_AUTH_PASSWORD` from Step 4 and click retry. The username defaults to `admin`; to use another, set `EDGE_EVER_AUTH_USERNAME` as a Workers Builds variable before retrying. Once deployed, confirm `/api/health` returns `200`, then log in with the configured username and password.
+4. **Choose the Administrator Password**: Choose an administrator password, preferably at least 32 characters. Once the Worker is created, save it as the runtime Secret `AUTH_PASSWORD`.
+5. **Build & Verify**: Save and Deploy creates the Worker and starts a build. The initial build primarily initializes the Worker instance; if it fails due to missing administrator Secret, this is expected behavior. Simply add the runtime Secret `AUTH_PASSWORD` from Step 4 and click retry. The username defaults to `admin`; to use another, set `AUTH_USER` as a Workers Builds variable before retrying. Once deployed, confirm `/api/health` returns `200`, then log in with the configured username and password.
 6. **Enable Automatic Updates**: Open the Fork's **Actions** tab, click **I understand my workflows, go ahead and enable them**, then manually run **Update deployed EdgeEver** once so the Fork can automatically receive future stable releases and fixes.
 
 > 📖 For full step-by-step instructions and configuration details, see the [Online Deployment Guide](docs/deploy-cloudflare-button.md).
@@ -310,4 +303,4 @@ The EdgeEver name, logo, and other brand identifiers distinguish the official pr
 
 EdgeEver is an independent open-source note-taking application developed and maintained by individuals and the community. It is not affiliated with, authorized, sponsored, or endorsed by Evernote Corporation or its affiliates.
 
-EdgeEver is self-hosted software. Except for official demo instances, project maintainers do not host, control, or review user content. Content stored or displayed by an instance is the responsibility of its users or operators and does not represent the maintainers' views.
+EdgeEver is self-hosted software. Project maintainers do not host, control, or review user content. Content stored or displayed by an instance is the responsibility of its users or operators and does not represent the maintainers' views.

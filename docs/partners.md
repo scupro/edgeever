@@ -24,7 +24,7 @@ We welcome and support the following forms of collaboration:
   * Joint technical articles, featured case studies, social media highlights, and open-source advocacy;
   * Collaborative developer workshops, community meetups, and ecosystem synergies.
 * **Infrastructure & Key Resources**:
-  * High-availability cloud compute, object storage (S3/OSS), and global CDN acceleration for our public demo (demo.dogbro.store);
+  * High-availability cloud compute, object storage (S3/OSS), and global CDN acceleration for the project website and documentation;
   * CI/CD build environments and physical device testing clusters;
   * Generous AI model API quotas and developer access.
 * **Professional Tooling & Platform Licenses**:

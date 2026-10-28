@@ -27,7 +27,6 @@ export const plSiteCopy = {
     backToBlog: "Wróć do bloga",
     contact: "Kontakt",
     privacy: "Prywatność",
-    demo: "Demo",
     language: "Język",
     languageMenu: "Zmień język",
     tagAll: "Wszystkie",
@@ -39,7 +38,6 @@ export const plSiteCopy = {
   hero: {
     slogan: plSiteTagline,
     popHighlight: "Nowoczesna baza wiedzy w trzech panelach · Natywna współpraca z AI · Aplikacje na wszystkie platformy",
-    demo: "Demo na żywo",
     agentInstall: "Wdróż z AI",
     getApps: "Pobierz aplikacje:",
     clipper: "Web Clipper",

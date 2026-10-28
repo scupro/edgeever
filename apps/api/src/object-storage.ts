@@ -17,9 +17,9 @@ const deriveObjectStorageCredentialKey = (value: string | undefined) => value
   : undefined;
 
 export type ObjectStorageCredentialEnvironment = {
-  EDGE_EVER_AUTH_PASSWORD?: string;
-  EDGE_EVER_AUTH_PASSWORD_HASH?: string;
-  EDGE_EVER_AUTH_PASSWORD_FALLBACK?: string;
+  AUTH_PASSWORD?: string;
+  AUTH_PASSWORD_HASH?: string;
+  AUTH_PASSWORD_FALLBACK?: string;
   /** Legacy decryption fallback for credentials saved before auth-derived keys. */
   EDGE_EVER_STORAGE_ENCRYPTION_KEY?: string;
 };
@@ -27,15 +27,15 @@ export type ObjectStorageCredentialEnvironment = {
 const resolveAuthDerivedObjectStorageEncryptionKeys = (
   environment: ObjectStorageCredentialEnvironment,
 ) => [
-  deriveObjectStorageCredentialKey(resolveCredentialEncryptionKey(environment.EDGE_EVER_AUTH_PASSWORD)),
-  deriveObjectStorageCredentialKey(resolveCredentialEncryptionKey(environment.EDGE_EVER_AUTH_PASSWORD_HASH)),
+  deriveObjectStorageCredentialKey(resolveCredentialEncryptionKey(environment.AUTH_PASSWORD)),
+  deriveObjectStorageCredentialKey(resolveCredentialEncryptionKey(environment.AUTH_PASSWORD_HASH)),
 ].filter(Boolean) as string[];
 
 export const resolveObjectStorageEncryptionKeys = (
   environment: ObjectStorageCredentialEnvironment,
 ) => [
   ...resolveAuthDerivedObjectStorageEncryptionKeys(environment),
-  deriveObjectStorageCredentialKey(resolveCredentialEncryptionKey(environment.EDGE_EVER_AUTH_PASSWORD_FALLBACK)),
+  deriveObjectStorageCredentialKey(resolveCredentialEncryptionKey(environment.AUTH_PASSWORD_FALLBACK)),
   resolveCredentialEncryptionKey(environment.EDGE_EVER_STORAGE_ENCRYPTION_KEY),
 ].filter(Boolean) as string[];
 
@@ -59,9 +59,9 @@ export type ObjectStorageConfigRow = {
 
 type ObjectStorageEnvironment = {
   storage: { db: DatabaseAdapter; resources?: BlobStoreAdapter };
-  EDGE_EVER_AUTH_PASSWORD?: string;
-  EDGE_EVER_AUTH_PASSWORD_HASH?: string;
-  EDGE_EVER_AUTH_PASSWORD_FALLBACK?: string;
+  AUTH_PASSWORD?: string;
+  AUTH_PASSWORD_HASH?: string;
+  AUTH_PASSWORD_FALLBACK?: string;
   EDGE_EVER_STORAGE_ENCRYPTION_KEY?: string;
   EDGE_EVER_S3_BUCKET?: string;
 };
