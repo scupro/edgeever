@@ -24,7 +24,6 @@ const pngTargets = [
   ["apps/site/public/icon-512.png", 512, { preserveAlpha: true }],
   ["apps/site/public/apple-touch-icon.png", 180, { background: "#16a06e" }],
   ["apps/mobile/assets/icon.png", 512, { background: "#16a06e" }],
-  ["apps/ios/EdgeEver/Resources/Assets.xcassets/AppIcon.appiconset/icon.png", 1024, { background: "#16a06e" }],
   ["apps/extension/public/icons/icon-16.png", 16, { preserveAlpha: true }],
   ["apps/extension/public/icons/icon-32.png", 32, { preserveAlpha: true }],
   ["apps/extension/public/icons/icon-48.png", 48, { preserveAlpha: true }],

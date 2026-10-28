@@ -9,7 +9,6 @@ const TASK_ITEM_LAYOUT_SOURCES = [
   ["./note-html-export.css", '.edgeever-html-content ul[data-type="taskList"] li[data-checked]'],
   ["./note-print.css", '.edgeever-print-content ul[data-type="taskList"] li[data-checked]'],
   ["../../../mobile/src/components/LocalTiptapEditor.tsx", '.edgeever-editor-content ul[data-type="taskList"] li[data-checked]'],
-  ["../../../ios/EditorSource/src/styles.css", '.ProseMirror ul[data-type="taskList"] li[data-checked]'],
 ];
 
 describe("task list layout contract", () => {

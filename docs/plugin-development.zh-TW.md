@@ -2,7 +2,7 @@
 
 [English](plugin-development.md)
 
-EdgeEver 提供客戶端外掛與無程式碼主題擴充套件能力。使用者可從官方市場、公開 GitHub 倉庫或 Manifest 地址安裝擴充套件。已安裝擴充套件隨當前工作區在 Web 與桌面端之間同步，在應用開啟期間執行；Android 與 iOS 原生端暫不執行外掛。
+EdgeEver 提供客戶端外掛與無程式碼主題擴充套件能力。使用者可從官方市場、公開 GitHub 倉庫或 Manifest 地址安裝擴充套件。已安裝擴充套件隨當前工作區在 Web 與桌面端之間同步，在應用開啟期間執行；Android 原生端暫不執行外掛。
 
 > [!NOTE]
 > **安全模型**：客戶端外掛採用受信任程式碼模型（類似 Obsidian）。啟用外掛即代表信任其在客戶端 JavaScript 環境中執行並呼叫外掛 API。清單中的能力宣告（Permissions）用於向使用者披露外掛涉及的功能範圍，不構成強制安全沙箱。主題包為純宣告式 JSON，不執行任何 JavaScript。 `networkHosts` 同樣只是用途宣告，不限制外掛程式碼的網路訪問。桌面外掛還可以透過客戶端橋訪問登入憑據、本機資料及 Agent 能力。

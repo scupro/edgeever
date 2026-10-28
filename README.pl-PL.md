@@ -60,10 +60,7 @@ Publiczne demo resetuje się codziennie o 3:00 czasu chińskiego (UTC+8) i przyw
   <a href="https://github.com/scupro/edgeever/releases/latest"><img src="assets/readme/platforms/windows.svg" alt="Pobierz EdgeEver na Windows" width="40" height="40" /></a>&nbsp;&nbsp;
   <a href="https://github.com/scupro/edgeever/releases/latest"><img src="assets/readme/platforms/tux.svg" alt="Pobierz wersję Preview EdgeEver AppImage na Linux x86_64" width="40" height="40" /></a>&nbsp;&nbsp;
   <a href="https://play.google.com/store/apps/details?id=org.edgeever.mobile&hl=pl"><img src="assets/readme/platforms/google-play.svg" alt="Pobierz EdgeEver na Androida z Google Play" width="40" height="40" /></a>&nbsp;&nbsp;
-  <a href="https://apps.apple.com/pl/app/edgeever/id6792625631"><img src="assets/readme/platforms/app-store.svg" alt="Pobierz EdgeEver na iOS z App Store" width="40" height="40" /></a>
 </p>
-
-> Aplikacja na iOS wymaga Apple ID spoza Chin kontynentalnych.
 
 ### Rozszerzenie Web Clipper
 
@@ -88,7 +85,7 @@ Wszechstronny obszar roboczy łączący zbieranie inspiracji, głębokie tworzen
 | **Zapisywanie i załączniki** | • Obsługa załączników dowolnego formatu (PDF, Office, wideo, archiwa)<br>• Precyzyjne wycinanie tekstu i obrazów ze stron w rozszerzeniu przeglądarki<br>• Udostępnianie systemowe w telefonie do zapisu zdjęć i artykułów | • **Ustrukturyzowane zapisywanie z wielu platform**: Dostosowane do Xiaohongshu, X (Twittera), Zhihu, Reddita, GitHuba, YouTube i 20+ serwisów<br>• **Archiwizacja rozmów WeChat**: Import całych rozmów na macOS ze znacznikami czasu, cytatami, emotikonami i załącznikami<br>• **Cicha kompresja obrazów**: Zmniejszenie rozmiaru o 50–90%; strumieniowe przesyłanie plików do 1 GiB |
 | **Dane i wizualizacje** | • Natywna edycja tabel i renderowanie tabel Markdown<br>• Natywne diagramy Mermaid (schematy blokowe, sekwencje, architektura) | • **Wielowymiarowe tabele AI**: Tworzenie tabel biznesowych z promptu (z tagami, datami i polami wyboru)<br>• **Publiczne formularze zbierania danych**: Udostępnianie formularzy bez logowania i zapis odpowiedzi w czasie rzeczywistym<br>• **Generowanie infografik i map myśli przez AI**: Osi czasu, porównania, macierze i mapy myśli |
 | **AI i ekosystem** | • Asystent AI w panelu bocznym do streszczeń, korekty, tłumaczeń i redakcji<br>• Własne klucze API (BYOK): zgodność z OpenAI, Claude, Gemini i serwerami proxy | • **Protokoły MCP i ACP**: Wbudowany MCP do odczytu/zapisu przez agentów zewnętrznych; ACP w aplikacji desktopowej do współpracy z lokalnymi agentami<br>• **Inteligentne podsumowania RSS AI**: Agregacja źródeł, filtrowanie szumu i generowanie zwięzłych podsumowań<br>• API tworzenia wtyczek do rozbudowy funkcji |
-| **Synchronizacja i fundament** | • Natychmiastowa synchronizacja bez opóźnień na komputerach, telefonach i w sieci bez limitu urządzeń<br>• Oficjalne aplikacje na Web, macOS, Windows, Linux, iOS i Android<br>• Architektura offline-first i kolejka synchronizacji: płynne pisanie bez sieci, automatyczna synchronizacja po połączeniu<br>• Standardowa baza SQLite, bezstratny eksport/import archiwów ZIP i Markdown | • **Zero kosztów serwera na zawsze**: 100% działania w darmowym planie Cloudflare (~150 tys. notatek i ~50 tys. obrazów)<br>• **Elastyczny hosting Docker**: Wdrożenie na VPS, NAS lub domowym serwerze dla milionów notatek z natychmiastową synchronizacją<br>• Ochrona serwera przed atakami brute-force i bezpieczna izolacja |
+| **Synchronizacja i fundament** | • Natychmiastowa synchronizacja bez opóźnień na komputerach, telefonach i w sieci bez limitu urządzeń<br>• Oficjalne aplikacje na Web, macOS, Windows, Linux i Android<br>• Architektura offline-first i kolejka synchronizacji: płynne pisanie bez sieci, automatyczna synchronizacja po połączeniu<br>• Standardowa baza SQLite, bezstratny eksport/import archiwów ZIP i Markdown | • **Zero kosztów serwera na zawsze**: 100% działania w darmowym planie Cloudflare (~150 tys. notatek i ~50 tys. obrazów)<br>• **Elastyczny hosting Docker**: Wdrożenie na VPS, NAS lub domowym serwerze dla milionów notatek z natychmiastową synchronizacją<br>• Ochrona serwera przed atakami brute-force i bezpieczna izolacja |
 
 👉 Wszystkie 18 scenariuszy ze zrzutami ekranu opisuje [pełny przewodnik po funkcjach i zastosowaniach](docs/best-practices.md).
 
@@ -223,7 +220,6 @@ W lokalnym środowisku deweloperskim logowanie następuje automatycznie. Nowa ba
 - Interfejs: Vite, React, React Router, TanStack Query, Tailwind CSS, shadcn/ui i Radix UI.
 - Edytor: TipTap / ProseMirror z obsługą Markdown; PWA korzysta z vite-plugin-pwa, Workbox i Dexie.
 - Android: Expo + React Native w `apps/mobile`, lokalny SQLite i synchronizacja przyrostowa.
-- iOS: natywny SwiftUI w `apps/ios` (iOS 17+), dołączony EditorBundle TipTap, lokalna kopia i kolejka zmian GRDB.
 - Desktop: Electron + proces pomocniczy Rust, SQLite do edycji offline, synchronizacji przyrostowej i lokalnych kopii zapasowych.
 - Web Clipper: Manifest V3, Mozilla Readability i Turndown dla Chrome, Edge i Firefox.
 - Backend: jedna aplikacja biznesowa Hono/Zod z REST API i Remote MCP. Cloudflare używa Workers/D1 i zewnętrznego magazynu obiektów zgodnego z S3, a Docker używa Bun/SQLite oraz plików lokalnych lub S3.
@@ -239,7 +235,6 @@ apps/web          Interfejs Vite + React, PWA, wersje robocze offline i kolejka 
 apps/extension    Rozszerzenie Web Clipper Manifest V3 dla Chrome/Edge/Firefox
 apps/api          Cloudflare Worker + Hono API, punkt końcowy MCP
 apps/mobile       Aplikacja Android Expo + React Native
-apps/ios          Natywna aplikacja iOS SwiftUI (EditorBundle TipTap, GRDB)
 apps/desktop      Powłoka Electron, most preload i pakowanie aplikacji
 apps/site         Oficjalna strona Astro, wdrażana niezależnie
 packages/client   Współdzielony klient API dla aplikacji Web i mobilnej
@@ -249,7 +244,7 @@ crates/desktop-sidecar
 scripts           Wrapper Wrangler, haszowanie haseł, CLI, most MCP stdio, import Evernote ENEX
 migrations        Wspólne migracje D1/SQLite dopisywane bez zmiany wcześniejszych plików
 docs              Dokumentacja architektury, migracji i wdrażania
-.github/workflows CI dla Web, mobile, iOS, pakietów desktopowych, wdrożeń i wydań
+.github/workflows CI dla Web, mobile, pakietów desktopowych, wdrożeń i wydań
 wrangler.toml     Konfiguracja Cloudflare Workers, Assets i D1
 ```
 

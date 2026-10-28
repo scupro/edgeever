@@ -3,17 +3,11 @@ import { existsSync, readdirSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-export const EDGE_EVER_ANDROID_SIGNER_SHA256 =
-  "22bf52a9501c89020f5acc966960152c826bfa64f31e578e858d088f8cd75d87";
-
 const normalizeFingerprint = (value) =>
   value.toLowerCase().replace(/[^0-9a-f]/g, "");
 
 export const parseAllowedAndroidSignerDigests = (value = "") => {
-  const configured = value.split(",").map(normalizeFingerprint).filter(Boolean);
-  const digests = configured.length > 0
-    ? configured
-    : [EDGE_EVER_ANDROID_SIGNER_SHA256];
+  const digests = value.split(",").map(normalizeFingerprint).filter(Boolean);
   if (digests.some((digest) => digest.length !== 64)) {
     throw new Error("Every allowed Android signer must be a SHA-256 fingerprint.");
   }
@@ -22,7 +16,7 @@ export const parseAllowedAndroidSignerDigests = (value = "") => {
 
 export const verifyAndroidSignerOutput = (
   output,
-  allowedSignerDigests = parseAllowedAndroidSignerDigests(),
+  allowedSignerDigests = [],
 ) => {
   const digestMatches = [
     ...output.matchAll(
@@ -46,7 +40,10 @@ export const verifyAndroidSignerOutput = (
     );
   }
 
-  if (!allowedSignerDigests.includes(uniqueSignerDigests[0])) {
+  if (
+    allowedSignerDigests.length > 0 &&
+    !allowedSignerDigests.includes(uniqueSignerDigests[0])
+  ) {
     throw new Error(
       `Android signer mismatch: expected one of ${allowedSignerDigests.join(", ")}, received ${uniqueSignerDigests[0]}.`,
     );

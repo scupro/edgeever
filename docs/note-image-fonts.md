@@ -2,7 +2,7 @@
 
 [繁體中文](note-image-fonts.zh-TW.md)
 
-Body settings, poster design and share images use the same directory of 23 named fonts, including all five fonts in Qiaomu’s designer starter pack. They load remote, version-pinned resources on demand; no additional font binaries are included in Web, desktop, Android or iOS packages. The picker, loader and license notices add a small amount of application code.
+Body settings, poster design and share images use the same directory of 23 named fonts, including all five fonts in Qiaomu’s designer starter pack. They load remote, version-pinned resources on demand; no additional font binaries are included in the Web, desktop or Android packages. The picker, loader and license notices add a small amount of application code.
 
 | Choice | Pinned package and stylesheet |
 | --- | --- |
@@ -25,7 +25,7 @@ Offline reuse requires both the manifest and the relevant character subsets to r
 
 The original four optional fonts use SIL OFL 1.1. The four newly added starter-pack fonts retain their original vendor terms and metadata, rather than being described as OFL. Copyright notices and the license are retained in `packages/shared/src/note-image-remote-font-notices.ts` and included with generated font CSS for OFL fonts. Original-file fonts instead include source attribution in the generated CSS. Font outlines and font-file names are not modified. The CSS family aliases isolate share-image fonts from editor fonts.
 
-Checks for this change include shared unit tests, Web and mobile type checks, the Web build, the iOS editor type check/build, and Chrome image exports before and after reloading with font CDNs blocked. Android USB-device and iOS-device acceptance must still be performed separately; a desktop browser check does not establish native-platform acceptance.
+Checks for this change include shared unit tests, Web and mobile type checks, the Web build, the editor type check/build, and Chrome image exports before and after reloading with font CDNs blocked. Android USB-device acceptance must still be performed separately; a desktop browser check does not establish native-platform acceptance.
 
 The Web picker renders each visible name in its corresponding font, including the selected value. Hidden rows do not start preview downloads. Name previews reuse the same face and persistent resource caches as image export, without generating another embedded base64 stylesheet or fetching paper textures. Failed previews keep a readable system-font label and do not prevent selection.
 
@@ -37,7 +37,7 @@ Body preferences keep their existing storage keys and legacy choices. Selecting 
 
 Posters preserve existing Chinese family names in saved source. These names resolve to catalog IDs at loading time. Template builds load their selected pairing and any explicit faces/fixed text before final layout; object creation and PNG export await the text's fonts. Reopening a serialized poster follows the same path. All 23 poster families now resolve through the common loader. Legacy body choices remain readable and are shown when already selected; new selections use the common directory. Interface typography retains its existing choices.
 
-No font binaries are added to client packages. The shared catalog, loader and preview UI add application code. Android and iOS device acceptance remains separate from Web and editor-bundle checks.
+No font binaries are added to client packages. The shared catalog, loader and preview UI add application code. Android device acceptance remains separate from Web and editor-bundle checks.
 
 ## Existing poster assets
 
@@ -45,4 +45,4 @@ The additional 15 fonts are Noto Serif SC, Anton, Douyin Sans, Ma Shan Zheng, Ji
 
 These existing files are downloaded unchanged, including the already subsetted WOFF2 resources. Their retained copyright and license texts are included in exported CSS via `poster-font-notices.ts`. Latin fonts display Chinese through normal fallback; loading a Latin font does not add Chinese glyphs. No new font binaries are added or copied into client packages. Only catalog, license and application code changes are included.
 
-Android reads the shared catalog directly. The iOS choice projection is generated from it by `bun scripts/sync-font-catalog.mjs`; use `--check` to verify it is current. This keeps persisted share-image choices aligned with the editor renderer. Native device acceptance remains separate from browser verification.
+Android reads the shared catalog directly, keeping persisted share-image choices aligned with the editor renderer. Native device acceptance remains separate from browser verification.

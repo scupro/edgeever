@@ -4,7 +4,7 @@ export const jaSiteTagline =
 export const jaSiteCopy = {
   layout: {
     defaultDescription:
-      "EdgeEver はオープンソースで AI ネイティブな、セルフホスト型のノートと知識ベースです。クラシックな三ペイン（ツリー階層・ノート一覧・エディタ）の高い作業効率を活かしつつ、ローカル ACP Agent 連携、伴走サイドバー、図解ノート、マルチ端末同期を備え、macOS、Windows、Linux、iOS、Android、ブラウザ Clipper に対応。Cloudflare の無料枠または Docker で同じアプリを動かせます。",
+      "EdgeEver はオープンソースで AI ネイティブな、セルフホスト型のノートと知識ベースです。クラシックな三ペイン（ツリー階層・ノート一覧・エディタ）の高い作業効率を活かしつつ、ローカル ACP Agent 連携、伴走サイドバー、図解ノート、マルチ端末同期を備え、macOS、Windows、Linux、Android、ブラウザ Clipper に対応。Cloudflare の無料枠または Docker で同じアプリを動かせます。",
     defaultTitle: `EdgeEver - ${jaSiteTagline}`,
     imageAlt: "EdgeEver ノートアプリのスクリーンショット",
     ogLocale: "ja_JP",
@@ -47,7 +47,7 @@ export const jaSiteCopy = {
     linux: "Linux",
     imageAlt: "EdgeEver のプレビュー",
     badgeText:
-      "💡 対応: macOS、Windows、Linux、iOS、Android、Web Clipper · ネイティブ MCP & ACP 連携 · Cloudflare 無料枠と Docker",
+      "💡 対応: macOS、Windows、Linux、Android、Web Clipper · ネイティブ MCP & ACP 連携 · Cloudflare 無料枠と Docker",
   },
   bento: {
     eyebrow: "WHY EDGEEVER",
@@ -106,7 +106,7 @@ export const jaSiteCopy = {
     card5: {
       badge: "データの主導権",
       title: "全プラットフォームと欠損のない ZIP バックアップ",
-      desc: "macOS、Windows、Linux、ネイティブ iOS、Android、高機能 Web Clipper に対応。欠損のない ZIP 書き出しと標準 SQLite でデータを完全に掌握できます。",
+      desc: "macOS、Windows、Linux、Android、高機能 Web Clipper に対応。欠損のない ZIP 書き出しと標準 SQLite でデータを完全に掌握できます。",
       subBadge: "マルチ端末 + ZIP",
       archiveTitle: "edgeever-backup.zip",
       archiveSub: "Markdown + 添付 + 版履歴",
@@ -114,7 +114,7 @@ export const jaSiteCopy = {
   },
   marquee: {
     title: "全プラットフォーム、柔軟な導入、AI 連携",
-    subtitle: "macOS、ネイティブ iOS / Android から Docker 自前運用、発信向けコピー、Remote MCP まで。",
+    subtitle: "macOS / Android から Docker 自前運用、発信向けコピー、Remote MCP まで。",
     items: [
       {
         tag: "macOS Desktop",
@@ -122,13 +122,6 @@ export const jaSiteCopy = {
         desc: "ローカル SQLite ミラー、ACP ローカル Agent、フォーカスモード、オフライン記録",
         icon: "bx:bxl-apple",
         color: "from-emerald-500/10 to-teal-500/5",
-      },
-      {
-        tag: "iOS Native App",
-        title: "SwiftUI のネイティブ実装",
-        desc: "App Store で公開。共有取り込み、取り消し・やり直し、オフライン SQLite 同期",
-        icon: "bx:bx-mobile",
-        color: "from-teal-500/10 to-emerald-500/5",
       },
       {
         tag: "Android App",
@@ -231,12 +224,12 @@ export const jaSiteCopy = {
       },
       {
         title: "全プラットフォームと複数端末の同期",
-        summary: "macOS、Windows、iOS、Android、ブラウザ Clipper、Web/PWA。商用アプリの端末数制限はありません。",
+        summary: "macOS、Windows、Android、ブラウザ Clipper、Web/PWA。商用アプリの端末数制限はありません。",
         points: [
           "端末数の上限なし: 自前 API なので「2 台まで」のような制限はありません。",
           "macOS デスクトップ: Electron + Rust sidecar + SQLite。ローカルは速く、ACP 連携とオフライン同期に対応。",
           "Windows x64: ローカル SQLite、エクスプローラー右クリック「EdgeEver に送信」、自動更新。",
-          "モバイル: SwiftUI の iOS（App Store）と Android（Google Play と GitHub APK）。取り消し・やり直し対応。",
+          "モバイル: Android（Google Play と GitHub APK）。取り消し・やり直し対応。",
           "全機能 Web Clipper: Chrome、Edge、Firefox 公式拡張。ページ全体、画像、X 投稿、テキストを取り込み。",
         ],
       },

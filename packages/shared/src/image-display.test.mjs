@@ -41,7 +41,6 @@ describe("shared image display widths", () => {
     expect(PHONE_IMAGE_FILL_CSS).toContain(".ProseMirror img[data-width]");
     expect(PHONE_IMAGE_FILL_CSS).toContain(":not(.edgeever-image-card *)");
     expect(readRepoFile("../../../apps/mobile/src/components/LocalTiptapEditor.tsx")).toContain("${PHONE_IMAGE_FILL_CSS}");
-    expect(readRepoFile("../../../apps/ios/EditorSource/src/main.ts")).toContain("installPhoneImageFillStyle(");
     expect(readRepoFile("../../../apps/web/src/main.tsx")).toContain("installPhoneImageFillStyle(");
     expect(readRepoFile("../../../apps/web/src/mobile-edit.tsx")).toContain("installPhoneImageFillStyle(");
   });

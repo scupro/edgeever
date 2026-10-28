@@ -121,7 +121,7 @@ EDGE_EVER_UPDATE_CHANNEL=edge
   4. 日常升級請優先用本工作流，而不是 GitHub **Sync fork**。
   5. 若舊版更新器報錯 `without workflows permission`，請使用倉庫所有者身份執行一次 **Sync fork**，然後重新執行 **Update deployed EdgeEver**。新版更新器會保留 `.github/workflows/**`，後續產品更新不會再觸發這項權限限制。
 - **Git 已 push 但網站沒變**：確認 Workers Builds 是否針對新的 `main` SHA 構建。可選：新增倉庫 Secret `EDGE_EVER_CLOUDFLARE_DEPLOY_HOOK_URL`，讓工作流在 publish 後呼叫 Deploy Hook。
-- **Android 或 iOS App 提示登入被 Cloudflare 或安全策略攔截**：
+- **Android App 提示登入被 Cloudflare 或安全策略攔截**：
   1. 重試一次並記錄 App 顯示的診斷程式碼、Ray ID 和大致時間。在 Cloudflare 中開啟 **Security → Analytics → Events**，找到對應請求並確認其 **Service**、**Action** 和規則 ID，再決定調整哪項防護。
   2. 原生 App 會直接呼叫 `/api/*`，無法完成互動式瀏覽器驗證。不要嘗試在 App 中嵌入該驗證。請繼續啟用 EdgeEver 身份認證及應用層登入限流，但要確保合法 API 流量收到機器可解析的響應，而不是 Managed Challenge 或 Interactive Challenge。
   3. 如果是自定義 WAF 規則發起驗證，請縮小規則範圍，不要驗證 App 所需的 `/api/*` 請求。如果是 Managed Rules 或 Super Bot Fight Mode 誤判，請建立範圍儘可能小的 [Skip 規則或例外](https://developers.cloudflare.com/waf/custom-rules/skip/)，不要籠統關閉無關的安全防護。

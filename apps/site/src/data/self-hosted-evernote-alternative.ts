@@ -26,7 +26,7 @@ export const alternativePageCopy = {
       "Joplin 是英文社群最常見的自託管印象筆記替代。EdgeEver 更接近經典三欄，並同時提供 Cloudflare 免費額度和 Docker。下表只寫倉庫和公開文件裡能核對的事實，不比較「誰全面更好」。",
     compareHeaders: ["", "託管", "佈局", "客戶端", "印象筆記匯入"],
     compareRows: [
-      ["EdgeEver", "Cloudflare 免費額度或 Docker", "三欄筆記本", "macOS / Windows / Linux / iOS / Android / 剪藏", "已文件化的 ENEX + MCP 流程"],
+      ["EdgeEver", "Cloudflare 免費額度或 Docker", "三欄筆記本", "macOS / Windows / Linux / Android / 剪藏", "已文件化的 ENEX + MCP 流程"],
       ["印象筆記", "廠商雲，不可自託管", "三欄筆記本", "全平臺", "—"],
       ["Joplin", "Joplin Server 或自選同步", "筆記本", "官方多端", "支援 ENEX"],
       ["Obsidian", "本地檔案；官方同步收費", "檔案倉庫", "全平臺", "社群方案"],
@@ -82,9 +82,9 @@ export const alternativePageCopy = {
           "可以執行在 Cloudflare 免費額度內，無需另買伺服器。額度會隨 Cloudflare 政策變化；超出後再升級或改用 Docker。",
       },
       {
-        question: "有 iOS 和 Android 客戶端嗎？",
+        question: "有 Android 客戶端嗎？",
         answer:
-          "有。Android 在 Google Play，iOS 在 App Store。iOS 目前需要非中國大陸 Apple ID。另有 Chrome / Edge / Firefox 剪藏擴充套件。",
+          "有。Android 在 Google Play，也可從 GitHub Releases 下載簽名 APK 直接安裝。另有 Chrome / Edge / Firefox 剪藏擴充套件。",
       },
       {
         question: "EdgeEver 和印象筆記是什麼關係？",
@@ -120,7 +120,7 @@ export const alternativePageCopy = {
       "Joplin is the usual self-hosted Evernote alternative in English search results. EdgeEver is closer to the classic three-pane notes app, and it ships both Cloudflare free-tier hosting and Docker. The table only records facts that can be checked in this repository or in those products' public docs. It is not a ranking of which tool is better overall.",
     compareHeaders: ["", "Hosting", "Layout", "Clients", "Evernote import"],
     compareRows: [
-      ["EdgeEver", "Cloudflare free tier or Docker", "Three-pane notebooks", "macOS / Windows / Linux / iOS / Android / clipper", "Documented ENEX + MCP flow"],
+      ["EdgeEver", "Cloudflare free tier or Docker", "Three-pane notebooks", "macOS / Windows / Linux / Android / clipper", "Documented ENEX + MCP flow"],
       ["Evernote", "Vendor cloud, not self-hosted", "Three-pane notebooks", "All major platforms", "—"],
       ["Joplin", "Joplin Server or your sync target", "Notebooks", "Official apps", "ENEX supported"],
       ["Obsidian", "Local files; official sync is paid", "File vault", "All major platforms", "Community tools"],
@@ -176,9 +176,9 @@ export const alternativePageCopy = {
           "A personal deployment can run within Cloudflare's free quotas, with no extra server to rent. Quotas follow Cloudflare's current limits; move to a paid plan or Docker if you outgrow them.",
       },
       {
-        question: "Are there iOS and Android apps?",
+        question: "Is there an Android app?",
         answer:
-          "Yes. Android is on Google Play and iOS is on the App Store. The iOS app currently requires an Apple ID from outside mainland China. Web Clipper extensions are on Chrome, Edge, and Firefox.",
+          "Yes. Android is on Google Play, and a signed APK can be installed directly from GitHub Releases. Web Clipper extensions are on Chrome, Edge, and Firefox.",
       },
       {
         question: "Is EdgeEver affiliated with Evernote?",
@@ -214,7 +214,7 @@ export const alternativePageCopy = {
       "英語圏の検索では Joplin が定番の自前 Evernote 代替です。EdgeEver は古典的な三ペインに近く、Cloudflare 無料枠と Docker の両方を出しています。表はリポジトリと公開ドキュメントで確認できる事実だけです。総合ランキングではありません。",
     compareHeaders: ["", "ホスト", "レイアウト", "クライアント", "Evernote 取り込み"],
     compareRows: [
-      ["EdgeEver", "Cloudflare 無料枠または Docker", "三ペインのノートブック", "macOS / Windows / Linux / iOS / Android / Clipper", "文書化された ENEX + MCP"],
+      ["EdgeEver", "Cloudflare 無料枠または Docker", "三ペインのノートブック", "macOS / Windows / Linux / Android / Clipper", "文書化された ENEX + MCP"],
       ["Evernote", "ベンダークラウド、自前不可", "三ペインのノートブック", "主要プラットフォーム", "—"],
       ["Joplin", "Joplin Server または任意の同期", "ノートブック", "公式マルチ端", "ENEX 対応"],
       ["Obsidian", "ローカルファイル。公式同期は有料", "ファイル倉庫", "主要プラットフォーム", "コミュニティ手段"],
@@ -270,9 +270,9 @@ export const alternativePageCopy = {
           "Cloudflare の無料枠内で動かせ、サーバーを別途借りる必要はありません。枠は Cloudflare の方針に従います。足りなくなったら有料プランか Docker へ移せます。",
       },
       {
-        question: "iOS と Android アプリはありますか？",
+        question: "Android アプリはありますか？",
         answer:
-          "あります。Android は Google Play、iOS は App Store です。iOS は現時点で中国本土以外の Apple ID が必要です。Chrome / Edge / Firefox の Clipper もあります。",
+          "あります。Android は Google Play で配布し、署名済み APK を GitHub Releases から直接インストールすることもできます。Chrome / Edge / Firefox の Clipper もあります。",
       },
       {
         question: "EdgeEver と Evernote の関係は？",
@@ -308,7 +308,7 @@ export const alternativePageCopy = {
       "W anglojęzycznych wynikach wyszukiwania typową samodzielnie hostowaną alternatywą dla Evernote jest Joplin. EdgeEver jest bliższy klasycznej trzypanelowej aplikacji do notatek i oferuje zarówno hosting w darmowym planie Cloudflare, jak i Dockera. Tabela zawiera wyłącznie fakty, które można sprawdzić w tym repozytorium lub w publicznej dokumentacji tych produktów. Nie jest to ranking, które narzędzie jest ogólnie lepsze.",
     compareHeaders: ["", "Hosting", "Układ", "Klienty", "Import z Evernote"],
     compareRows: [
-      ["EdgeEver", "Darmowy plan Cloudflare lub Docker", "Notatniki w trzech panelach", "macOS / Windows / Linux / iOS / Android / Clipper", "Udokumentowany proces ENEX + MCP"],
+      ["EdgeEver", "Darmowy plan Cloudflare lub Docker", "Notatniki w trzech panelach", "macOS / Windows / Linux / Android / Clipper", "Udokumentowany proces ENEX + MCP"],
       ["Evernote", "Chmura dostawcy, bez samodzielnego hostingu", "Notatniki w trzech panelach", "Wszystkie główne platformy", "—"],
       ["Joplin", "Joplin Server lub wybrany cel synchronizacji", "Notatniki", "Oficjalne aplikacje", "Obsługa ENEX"],
       ["Obsidian", "Pliki lokalne; oficjalna synchronizacja jest płatna", "Magazyn plików", "Wszystkie główne platformy", "Narzędzia społeczności"],
@@ -364,9 +364,9 @@ export const alternativePageCopy = {
           "Osobiste wdrożenie może działać w ramach darmowych limitów Cloudflare, bez wynajmowania dodatkowego serwera. Limity zależą od aktualnych zasad Cloudflare; jeśli przestaną wystarczać, przejdź na płatny plan lub Dockera.",
       },
       {
-        question: "Czy są aplikacje na iOS i Androida?",
+        question: "Czy jest aplikacja na Androida?",
         answer:
-          "Tak. Aplikacja na Androida jest w Google Play, a na iOS w App Store. Aplikacja na iOS wymaga obecnie Apple ID spoza Chin kontynentalnych. Rozszerzenia Web Clipper są dostępne dla Chrome, Edge i Firefox.",
+          "Tak. Aplikacja na Androida jest w Google Play, a podpisany plik APK można zainstalować bezpośrednio z GitHub Releases. Rozszerzenia Web Clipper są dostępne dla Chrome, Edge i Firefox.",
       },
       {
         question: "Czy EdgeEver jest powiązany z Evernote?",

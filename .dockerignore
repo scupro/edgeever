@@ -15,7 +15,6 @@ apps/desktop/**
 !apps/desktop/package.json
 apps/extension/**
 !apps/extension/package.json
-apps/ios
 apps/mobile/**
 !apps/mobile/package.json
 apps/site/**

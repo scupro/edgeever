@@ -96,7 +96,7 @@ export const siteCopy = {
   "zh-TW": {
     layout: {
       defaultDescription:
-        "EdgeEver 是開源、原生支援 AI 的自託管筆記與知識庫工作區。保留經典三欄高效體驗，支援 ACP 本機 Agent 深度協同、AI 伴侶側邊欄、視覺化圖表筆記與多端同步，覆蓋 macOS、Windows、Linux、iOS、Android 與瀏覽器剪藏，支援在 Cloudflare 免費額度內執行或使用 Docker 一鍵自託管。",
+        "EdgeEver 是開源、原生支援 AI 的自託管筆記與知識庫工作區。保留經典三欄高效體驗，支援 ACP 本機 Agent 深度協同、AI 伴侶側邊欄、視覺化圖表筆記與多端同步，覆蓋 macOS、Windows、Linux、Android 與瀏覽器剪藏，支援在 Cloudflare 免費額度內執行或使用 Docker 一鍵自託管。",
       defaultTitle: `EdgeEver - ${siteTaglines["zh-TW"]}`,
       imageAlt: "EdgeEver 筆記應用截圖",
       ogLocale: "zh_TW",
@@ -138,7 +138,7 @@ export const siteCopy = {
       windows: "Windows",
       linux: "Linux",
       imageAlt: "EdgeEver product preview",
-      badgeText: "💡 全平臺覆蓋：macOS、Windows、Linux、iOS、Android、剪藏外掛 · 原生 MCP / ACP 協同 · Cloudflare 免費額度 & Docker 一鍵安裝",
+      badgeText: "💡 全平臺覆蓋：macOS、Windows、Linux、Android、剪藏外掛 · 原生 MCP / ACP 協同 · Cloudflare 免費額度 & Docker 一鍵安裝",
     },
     bento: {
       eyebrow: "WHY EDGEEVER",
@@ -196,7 +196,7 @@ export const siteCopy = {
       card5: {
         badge: "全端主權",
         title: "全平臺客戶端覆蓋與無損 ZIP 歸檔",
-        desc: "覆蓋 macOS、Windows、Linux、原生 iOS（SwiftUI）、Android 及全功能剪藏外掛；基於標準 SQLite 與無損 ZIP 匯出，資料完全自主掌控。",
+        desc: "覆蓋 macOS、Windows、Linux、Android 及全功能剪藏外掛；基於標準 SQLite 與無損 ZIP 匯出，資料完全自主掌控。",
         subBadge: "全平臺客戶端 + ZIP",
         archiveTitle: "edgeever-backup.zip",
         archiveSub: "包含 Markdown、Front Matter、附件與歷史版本",
@@ -204,7 +204,7 @@ export const siteCopy = {
     },
     marquee: {
       title: "全平臺客戶端覆蓋、自由部署與 AI 智腦生態",
-      subtitle: "從 macOS、原生 iOS、Android 客戶端，到 Docker 一鍵自託管、微信公眾號排版與 Remote MCP 協同",
+      subtitle: "從 macOS、Android 客戶端，到 Docker 一鍵自託管、微信公眾號排版與 Remote MCP 協同",
       items: [
         {
           tag: "macOS 桌面端",
@@ -212,13 +212,6 @@ export const siteCopy = {
           desc: "本機 SQLite 映象，支援 ACP 本機 Agent、專注模式與離線秒開",
           icon: "bx:bxl-apple",
           color: "from-emerald-500/10 to-teal-500/5",
-        },
-        {
-          tag: "iOS 原生 App",
-          title: "SwiftUI 原生架構",
-          desc: "已上架 App Store，支援微信文章剪藏、撤銷重做與離線 SQLite 同步",
-          icon: "bx:bx-mobile",
-          color: "from-teal-500/10 to-emerald-500/5",
         },
         {
           tag: "Android App",
@@ -321,12 +314,12 @@ export const siteCopy = {
         },
         {
           title: "全平臺客戶端與多端同步",
-          summary: "覆蓋 macOS、Windows、iOS、Android、瀏覽器剪藏外掛與 Web/PWA，擺脫商業軟體的裝置數限制。",
+          summary: "覆蓋 macOS、Windows、Android、瀏覽器剪藏外掛與 Web/PWA，擺脫商業軟體的裝置數限制。",
           points: [
             "不限裝置登入數：自建專屬 API，徹底打碎商業筆記“免費版僅限 2 臺裝置”的枷鎖。",
             "macOS 桌面端：基於 Electron + Rust sidecar + SQLite，兼顧極致本機效能、ACP 本機協同與離線編輯同步。",
             "Windows x64：提供本機 SQLite、資源管理器右鍵“傳送到 EdgeEver”與自動更新。",
-            "移動原生端：iOS 原生 SwiftUI App（已上架 App Store）與 Android App（Google Play / APK），支援撤銷重做與微信文章剪藏。",
+            "移動原生端：Android App（Google Play / APK），支援撤銷重做與微信文章剪藏。",
             "全能瀏覽器剪藏：Chrome、Microsoft Edge 與 Firefox 全上架，支援網頁全文、右鍵圖片、X 推文與選中文字剪藏。",
           ],
         },
@@ -371,7 +364,7 @@ export const siteCopy = {
   "en-US": {
     layout: {
       defaultDescription:
-        "EdgeEver is an open-source, AI-native knowledge base and modern notes workspace. Enjoy a classic three-pane productivity workflow (Tree View · Note List · Editor) across macOS, Windows, Linux, iOS, Android, and Web Clipper, with native ACP local agent synergy, companion sidebar, and visual diagram notes, running within Cloudflare's free tier or on Docker.",
+        "EdgeEver is an open-source, AI-native knowledge base and modern notes workspace. Enjoy a classic three-pane productivity workflow (Tree View · Note List · Editor) across macOS, Windows, Linux, Android, and Web Clipper, with native ACP local agent synergy, companion sidebar, and visual diagram notes, running within Cloudflare's free tier or on Docker.",
       defaultTitle: `EdgeEver - ${siteTaglines["en-US"]}`,
       imageAlt: "EdgeEver notes app screenshot",
       ogLocale: "en_US",
@@ -413,7 +406,7 @@ export const siteCopy = {
       windows: "Windows",
       linux: "Linux",
       imageAlt: "EdgeEver product preview",
-      badgeText: "💡 All Platforms: macOS, Windows, Linux, iOS, Android, Web Clipper · Native MCP & ACP Synergy · Cloudflare Free Tier & Docker",
+      badgeText: "💡 All Platforms: macOS, Windows, Linux, Android, Web Clipper · Native MCP & ACP Synergy · Cloudflare Free Tier & Docker",
     },
     bento: {
       eyebrow: "WHY EDGEEVER",
@@ -471,7 +464,7 @@ export const siteCopy = {
       card5: {
         badge: "Data Sovereignty",
         title: "Apps Across Platforms & Lossless ZIP Backup",
-        desc: "Available on macOS, Windows, Linux, native iOS (SwiftUI), Android, and full-featured Web Clipper. Lossless ZIP export and standard SQLite ensure total ownership.",
+        desc: "Available on macOS, Windows, Linux, Android, and full-featured Web Clipper. Lossless ZIP export and standard SQLite ensure total ownership.",
         subBadge: "Multi-Platform + ZIP",
         archiveTitle: "edgeever-backup.zip",
         archiveSub: "Markdown + Attachments + Revision History",
@@ -479,7 +472,7 @@ export const siteCopy = {
     },
     marquee: {
       title: "Apps Across Platforms, Flexible Deploy & AI Synergy",
-      subtitle: "From macOS, native iOS & Android apps to Docker self-hosting, styled creator copying, and Remote MCP collaboration.",
+      subtitle: "From macOS and Android apps to Docker self-hosting, styled creator copying, and Remote MCP collaboration.",
       items: [
         {
           tag: "macOS Desktop",
@@ -487,13 +480,6 @@ export const siteCopy = {
           desc: "Local SQLite mirror with ACP local agent support, focus mode & instant offline capture",
           icon: "bx:bxl-apple",
           color: "from-emerald-500/10 to-teal-500/5",
-        },
-        {
-          tag: "iOS Native App",
-          title: "Native SwiftUI Architecture",
-          desc: "Published on App Store with share-sheet clipping, undo/redo & offline SQLite sync",
-          icon: "bx:bx-mobile",
-          color: "from-teal-500/10 to-emerald-500/5",
         },
         {
           tag: "Android App",
@@ -596,12 +582,12 @@ export const siteCopy = {
         },
         {
           title: "Apps Across Platforms & Multi-Device Sync",
-          summary: "Available across macOS, Windows, iOS, Android, browser Web Clipper, and Web/PWA, freeing you from commercial device caps.",
+          summary: "Available across macOS, Windows, Android, browser Web Clipper, and Web/PWA, freeing you from commercial device caps.",
           points: [
             "Unlimited Devices: Self-hosted API eliminates commercial restrictions like the '2-device login limit'.",
             "macOS Desktop App: Electron + Rust sidecar + SQLite for blazing fast local performance, ACP synergy, and offline sync.",
             "Windows x64: Local SQLite, Explorer right-click 'Send to EdgeEver', and automatic updates.",
-            "Mobile Native Apps: Native SwiftUI iOS App (on App Store) and Android App (on Google Play & GitHub APK) with undo/redo and WeChat clipping.",
+            "Mobile Native App: Android (Google Play & GitHub APK) with undo/redo and WeChat clipping.",
             "Web Clipper Extension: Official extensions on Chrome, Edge, and Firefox for full articles, right-click images, X posts, and selections.",
           ],
         },

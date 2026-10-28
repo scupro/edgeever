@@ -7,7 +7,7 @@ EdgeEver is an open-source, AI-native personal knowledge base and modern product
 ## Why Sponsor EdgeEver
 
 * **High-Value Technical & Knowledge Worker Audience**: EdgeEver brings together software engineers, self-hosting enthusiasts, researchers, and productivity power users who possess sustained, high-lifetime demand for cloud storage, compute platforms, developer tools, and AI services.
-* **Full-Stack Cross-Platform Matrix**: Spanning macOS, Windows, Linux desktop apps, iOS (native Swift) and Android (Expo) mobile apps, alongside Docker and Cloudflare Serverless runtimes—delivering global, multi-platform brand exposure.
+* **Full-Stack Cross-Platform Matrix**: Spanning macOS, Windows and Linux desktop apps plus the Android (Expo) mobile app, alongside Docker and Cloudflare Serverless runtimes—delivering global, multi-platform brand exposure.
 * **Pioneer in AI Agent & MCP Ecosystem**: Deeply integrated with the Model Context Protocol (MCP) and AI Agent workflows, positioning sponsors at the forefront of the modern AI developer wave.
 
 ---
@@ -34,7 +34,7 @@ We welcome and support the following forms of collaboration:
 
 ## Sponsorship Will Support
 
-* **Multi-Platform Client Evolution**: Maintaining and enhancing smooth experiences across macOS, Windows, Linux, iOS (native Swift), and Android (Expo).
+* **Multi-Platform Client Evolution**: Maintaining and enhancing smooth experiences across macOS, Windows, Linux, and Android (Expo).
 * **Engineering & Release Infrastructure**: Building robust automated testing pipelines, physical device testing, code signing, and global release distribution.
 * **Core Performance & Architecture**: Optimizing response latency, sync reliability, and offline availability for massive note collections.
 * **Documentation & Community Guides**: Authoring comprehensive deployment guides, migration workflows, troubleshooting manuals, and best-practice tutorials.

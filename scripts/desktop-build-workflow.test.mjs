@@ -59,8 +59,8 @@ describe("desktop release workflow", () => {
     expect(mobileWorkflow).not.toContain('releases/tags/${CURRENT_TAG}');
   });
 
-  test("rejects a published APK that is not Play-signed and restores Draft state", () => {
-    expect(mobileWorkflow).toContain("github.event_name == 'release' && secrets.ANDROID_PLAY_APP_SIGNER_SHA256");
+  test("rejects a published APK outside the configured signer and restores Draft state", () => {
+    expect(mobileWorkflow).toContain("EDGE_EVER_ANDROID_ALLOWED_SIGNER_SHA256: ${{ secrets.ANDROID_APP_SIGNER_SHA256 }}");
     expect(mobileWorkflow).toContain('gh release edit "$CURRENT_TAG" --repo "$GITHUB_REPOSITORY" --draft=true');
   });
 

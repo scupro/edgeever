@@ -31,7 +31,7 @@ Drafts are backed up on the current device. A draft based on a different note ve
 
 ## Compatibility and rollout
 
-Android and iOS show the readable preview and text and disable ordinary rich-text editing of poster notes. The API also rejects legacy saves that would strip a poster envelope. This guard requires the updated server. Earlier clients connected to an earlier server do not have that protection. Generic MCP `update_memo` cannot replace poster content.
+Android shows the readable preview and text and disable ordinary rich-text editing of poster notes. The API also rejects legacy saves that would strip a poster envelope. This guard requires the updated server. Earlier clients connected to an earlier server do not have that protection. Generic MCP `update_memo` cannot replace poster content.
 
 No database migration or authentication/update configuration is needed. To roll back the UI, remove the create/edit entries while retaining source, attachments and reader protection. Do not convert posters into ordinary notes or delete the source marker.
 

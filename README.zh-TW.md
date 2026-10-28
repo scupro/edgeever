@@ -60,10 +60,7 @@ EdgeEver 是一款現代化的開源筆記與個人知識庫工作區。它延�
   <a href="https://github.com/scupro/edgeever/releases/latest"><img src="assets/readme/platforms/windows.svg" alt="下載 Windows 使用者端" width="40" height="40" /></a>&nbsp;&nbsp;
   <a href="https://github.com/scupro/edgeever/releases/latest"><img src="assets/readme/platforms/tux.svg" alt="下載 Linux x86_64 AppImage 預覽版" width="40" height="40" /></a>&nbsp;&nbsp;
   <a href="https://play.google.com/store/apps/details?id=org.edgeever.mobile&hl=zh-TW"><img src="assets/readme/platforms/google-play.svg" alt="從 Google Play 下載 Android 使用者端" width="40" height="40" /></a>&nbsp;&nbsp;
-  <a href="https://apps.apple.com/tw/app/edgeever/id6792625631"><img src="assets/readme/platforms/app-store.svg" alt="從 App Store 下載 iOS 使用者端" width="40" height="40" /></a>
 </p>
-
-> iOS 使用者端需要使用非中國大陸區 Apple ID 下載。
 
 ### 瀏覽器網頁擷取外掛
 
@@ -88,7 +85,7 @@ EdgeEver 是一款現代化的開源筆記與個人知識庫工作區。它延�
 | **擷取與附件** | • 桌面與行動端全格式附件上傳（PDF、Office、影音等）<br>• 瀏覽器選取網頁文字與圖片精準擷取<br>• 手機系統分享一鍵轉存全網圖片與微信文章 | • **全渠道結構化擷取**：深度適配小紅書、X (Twitter)、知乎、Reddit、GitHub 等 20+ 平臺<br>• **微信聊天記錄一鍵歸檔**：整段對話轉筆記，保留時間軸、引用、表情與附件<br>• **端側靜默壓縮**：圖片上傳前壓縮 50%–90%；分塊串流上傳安全支援最大 1 GiB 附件 |
 | **資料與視覺化** | • 原生表格編輯與 Markdown 表格繪製<br>• 原生 Mermaid 流程圖、循序圖與架構圖繪製 | • **AI 多維表格**：自然語言一句話產生業務資料庫（含標籤、日期等欄位）<br>• **線上公開收集表單**：多維表格一鍵產生免登入外連結串列單，填報資料即時入庫<br>• **AI 智慧資訊圖與導圖**：一鍵產生時間線、對比圖、象限矩陣及心智圖 |
 | **AI 與生態** | • 側邊伴隨式 AI 助手，選取範圍/全文一鍵摘要、翻譯與修飾潤色<br>• BYOK（自備金鑰）：相容 OpenAI、Anthropic、Gemini 等主流協定 | • **原生 Agent 協定互聯**：內建 MCP（外部 Agent 讀寫筆記）與 ACP（桌面端直接喚起本機 Agent 協同創作）<br>• **AI RSS 智慧訂閱日報**：定時聚合資訊來源，AI 自動過濾雜訊並產生精煉日報<br>• 開放外掛開發檔案自由擴充 |
-| **多端同步與底座** | • 電腦、手機全端秒級無感同步，無裝置數量限制<br>• 官方涵蓋 Web / macOS / Windows / Linux / iOS / Android 全平臺<br>• 離線優先與同步佇列：斷網流暢寫作，連網自動復原並增量同步<br>• 標準 SQLite 儲存，無損 ZIP 封存與 Markdown 匯出匯入 | • **終身零伺服器成本**：100% 執行於 Cloudflare 免費配額（容量約 15 萬條短筆記與 5 萬張圖片）<br>• **彈性 Docker 自託管**：私有 VPS/NAS 一鍵部署，輕鬆承載百萬級筆記與瞬時同步<br>• 伺服端防暴力破解限流保護與安全資料隔離 |
+| **多端同步與底座** | • 電腦、手機全端秒級無感同步，無裝置數量限制<br>• 官方涵蓋 Web / macOS / Windows / Linux / Android 全平臺<br>• 離線優先與同步佇列：斷網流暢寫作，連網自動復原並增量同步<br>• 標準 SQLite 儲存，無損 ZIP 封存與 Markdown 匯出匯入 | • **終身零伺服器成本**：100% 執行於 Cloudflare 免費配額（容量約 15 萬條短筆記與 5 萬張圖片）<br>• **彈性 Docker 自託管**：私有 VPS/NAS 一鍵部署，輕鬆承載百萬級筆記與瞬時同步<br>• 伺服端防暴力破解限流保護與安全資料隔離 |
 
 👉 檢視全部 18 個實機展示與操作效果：**[完整場景與最佳實踐指南](docs/best-practices.zh-TW.md)**
 
@@ -221,7 +218,6 @@ bun run dev
 - 前端：Vite、React、React Router、TanStack Query，UI 基於 Tailwind CSS、shadcn/ui、Radix UI。
 - 編輯器：TipTap / ProseMirror，支援 Markdown；PWA 使用 vite-plugin-pwa、Workbox、Dexie。
 - Android App：`apps/mobile` 中的 Expo + React Native，採用 SQLite 本機儲存與增量同步。
-- iOS App：`apps/ios` 中的原生 SwiftUI（iOS 17+），內建 TipTap EditorBundle、GRDB 本機映象／outbox，介面與 Android 殼層對齊。
 - 原生桌面版：Electron + Rust sidecar，兼顧跨平臺一致體驗與高效能本機資料服務；基於 SQLite 支援離線編輯、連網後增量同步與本機備份。
 - 網頁擷取：Manifest V3、Mozilla Readability、Turndown，支援 Chrome、Microsoft Edge 與 Firefox。
 - 後端：一套基於 Hono/Zod 的業務應用，提供 REST API 與 Remote MCP；Cloudflare 使用 Workers/D1 加外部 S3 相容物件儲存，Docker 使用 Bun/SQLite/本機檔案或 S3。
@@ -237,7 +233,6 @@ apps/web          Vite + React 前端、PWA、離線草稿與同步佇列
 apps/extension    Chrome/Edge/Firefox Manifest V3 網頁擷取擴充功能
 apps/api          Cloudflare Worker + Hono API、MCP endpoint
 apps/mobile       Expo + React Native Android App
-apps/ios          原生 SwiftUI iOS App（TipTap EditorBundle、GRDB）
 apps/desktop      Electron 桌面版殼層、preload bridge 與原生打包設定
 apps/site         Astro 官方網站，可獨立部署
 packages/client   Web 與行動端共享的 API Client
@@ -247,7 +242,7 @@ crates/desktop-sidecar
 scripts           Wrangler 封裝、密碼雜湊、CLI、MCP stdio bridge、Evernote ENEX 匯入
 migrations        D1/SQLite 共用、只增不改的資料庫 migration
 docs              架構、遷移與部署檔案
-.github/workflows Web、行動端、iOS、桌面版打包、部署與 Release 的 CI
+.github/workflows Web、行動端、桌面版打包、部署與 Release 的 CI
 wrangler.toml     Cloudflare Workers、Assets、D1 設定
 ```
 
@@ -299,7 +294,7 @@ content_text      全文搜尋、摘要與快速索引使用
 
 ## 贊助與支援
 
-EdgeEver 是免費開源專案。保持跨平臺使用者端（macOS、Windows、Linux、iOS、Android）的持續演進、真機測試、憑證簽章以及多執行時期生態建設，都需要長期的精力與資源投入。
+EdgeEver 是免費開源專案。保持跨平臺使用者端（macOS、Windows、Linux、Android）的持續演進、真機測試、憑證簽章以及多執行時期生態建設，都需要長期的精力與資源投入。
 
 - [支援 EdgeEver](docs/sponsor.zh-TW.md) —— 透過微信支付或支付寶自願贊助
 - [贊助商與合作夥伴](docs/partners.zh-TW.md) —— 支援基礎設施、開發工具、服務或社群合作

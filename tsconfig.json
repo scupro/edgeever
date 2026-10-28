@@ -26,5 +26,5 @@
     "packages/**/*.ts",
     "packages/**/*.tsx"
   ],
-  "exclude": ["apps/mobile", "apps/ios/EditorSource"]
+  "exclude": ["apps/mobile"]
 }

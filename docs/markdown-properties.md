@@ -27,6 +27,6 @@ Invalid YAML, duplicate keys, unknown YAML tags, oversized headers (over 64 KiB)
 
 Properties use the existing `codeBlock` document node with the `edgeever-frontmatter` language. No database migration is required. Older clients display the YAML as a code block; older codecs may serialize it as a fenced code block, which the new codec recognizes and exports as Front Matter again. Removing the panel or rolling back the client retains that readable representation.
 
-The codec has been checked against the actual `v1.105.0` source with new → old edit → new round trips. This does not replace packaged macOS, Windows, Linux, Android USB-device or iOS cross-version tests. Complete application-level cross-version validation remains required before release. Native Android/iOS editors currently display the property code block rather than the Web property panel.
+The codec has been checked against the actual `v1.105.0` source with new → old edit → new round trips. This does not replace packaged macOS, Windows, Linux, Android USB-device cross-version tests. Complete application-level cross-version validation remains required before release. The native Android editor currently displays the property code block rather than the Web property panel.
 
 This feature does not implement Obsidian vault synchronization, property-specific search, a vault-wide property type registry or full support for Obsidian-specific Markdown extensions.

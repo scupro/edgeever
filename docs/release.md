@@ -62,8 +62,8 @@ notes; edit the Draft directly to adjust credits.
   follow SemVer; do not compress user-visible new capabilities or new platforms
   into `patch` for release cadence (see `AGENTS.md`).
 - The root version identifies the product Release. Native marketing versions
-  change only when that native runtime is rebuilt. Android `versionCode` and
-  iOS build numbers remain independent, monotonically increasing identifiers.
+  change only when that native runtime is rebuilt. Android `versionCode` remains
+  an independent, monotonically increasing identifier.
 - A formal Release contains macOS arm64 and x64 DMGs, architecture-specific
   updater ZIPs, an unsigned Windows x64 Preview installer with an independently
   signed update manifest, a Linux x64 AppImage Preview with updater metadata and a SHA-256 checksum

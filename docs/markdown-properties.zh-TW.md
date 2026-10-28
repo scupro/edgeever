@@ -27,6 +27,6 @@ custom:
 
 屬性使用現有 `codeBlock` 文件節點及 `edgeever-frontmatter` 語言標記，無需資料庫遷移。舊客戶端會顯示 YAML 程式碼塊；舊編解碼器可能將它序列化為圍欄程式碼塊，新編解碼器能再次識別並匯出為 Front Matter。撤回面板或回滾客戶端後，這種可讀形式仍保留。
 
-已使用真實 `v1.105.0` 原始碼檢查「新版 → 舊版編輯 → 新版」編解碼往返。這不能替代打包後的 macOS、Windows、Linux、Android USB 真機或 iOS 跨版本測試；釋出前仍需完成應用級跨版本驗證。Android/iOS 原生編輯器目前顯示屬性程式碼塊，尚未提供 Web 屬性面板。
+已使用真實 `v1.105.0` 原始碼檢查「新版 → 舊版編輯 → 新版」編解碼往返。這不能替代打包後的 macOS、Windows、Linux、Android USB 真機跨版本測試；釋出前仍需完成應用級跨版本驗證。Android 原生編輯器目前顯示屬性程式碼塊，尚未提供 Web 屬性面板。
 
 本功能不包含 Obsidian Vault 檔案同步、屬性專用檢索、整個知識庫統一的屬性型別登錄檔或完整的 Obsidian 專屬 Markdown 擴充套件支援。

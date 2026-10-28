@@ -60,10 +60,7 @@ The public demo resets every day at 3:00 AM (China Standard Time) and restores s
   <a href="https://github.com/scupro/edgeever/releases/latest"><img src="assets/readme/platforms/windows.svg" alt="Download EdgeEver for Windows" width="40" height="40" /></a>&nbsp;&nbsp;
   <a href="https://github.com/scupro/edgeever/releases/latest"><img src="assets/readme/platforms/tux.svg" alt="Download the EdgeEver Linux x86_64 AppImage Preview" width="40" height="40" /></a>&nbsp;&nbsp;
   <a href="https://play.google.com/store/apps/details?id=org.edgeever.mobile"><img src="assets/readme/platforms/google-play.svg" alt="Download EdgeEver for Android from Google Play" width="40" height="40" /></a>&nbsp;&nbsp;
-  <a href="https://apps.apple.com/us/app/edgeever/id6792625631"><img src="assets/readme/platforms/app-store.svg" alt="Download EdgeEver for iOS from the App Store" width="40" height="40" /></a>
 </p>
-
-> The iOS app requires an Apple ID from outside mainland China.
 
 ### Browser Web Clipper Extension
 
@@ -88,7 +85,7 @@ An all-in-one workspace connecting inspiration capture, deep creation, and knowl
 | **Capture & Media** | • Universal attachment uploads (PDF, Office, audio/video, archives)<br>• Browser extension precision clipping for web text & images<br>• Mobile system share sheet to save photos & articles | • **Deep Multi-Platform Structured Clipping**: Deeply adapted for Xiaohongshu, X (Twitter), Zhihu, Reddit, GitHub, YouTube, Bilibili, and 20+ sources<br>• **WeChat Chat History Archiving**: One-click full transcript import on macOS with timestamps, quotes, emojis, and media<br>• **Client-Side Image Compression**: Automatic 50%–90% silent size reduction; chunked streaming safely supports up to 1 GiB files |
 | **Data & Visuals** | • Native table editing & Markdown table rendering<br>• Native Mermaid diagrams (flowcharts, sequence diagrams, architecture) | • **AI Multi-Dimensional Tables**: Prompt-to-database with automatic field typing (tags, dates, selects)<br>• **Public Online Collection Forms**: One-click shareable forms without login, syncing responses into tables in real time<br>• **AI Diagram & Infographic Generation**: In-place creation of timelines, comparison charts, quadrant matrices & mind maps |
 | **AI & Ecosystem** | • Companion sidebar AI assistant for summaries, proofreading & translations<br>• BYOK (Bring Your Own Key): compatible with OpenAI, Claude, Gemini & custom endpoints | • **Native Agent Protocols (MCP & ACP)**: Built-in MCP for external agent read/write; ACP in desktop app to drive local coding agents directly<br>• **AI RSS Daily Digest**: Automated feed aggregation, AI noise filtering, and structured digest generation<br>• Extensible Plugin Development API |
-| **Multi-Device Sync & Foundation** | • Seamless, low-latency sync across desktop, mobile, and web with zero device limits<br>• Official client support across Web, macOS, Windows, Linux, iOS, and Android<br>• Offline-first with auto-sync queue: write smoothly offline, automatically resume and sync when reconnected<br>• Standard SQLite database, lossless ZIP backup & Markdown export/import | • **Zero Server Cost for Life**: 100% runnable on Cloudflare Free tier (~150k short notes & ~50k images)<br>• **Flexible Docker Self-Hosting**: One-click deployment for VPS, NAS, or home server with millions of notes & instant sync<br>• Server-side brute-force protection and tenant security |
+| **Multi-Device Sync & Foundation** | • Seamless, low-latency sync across desktop, mobile, and web with zero device limits<br>• Official client support across Web, macOS, Windows, Linux, and Android<br>• Offline-first with auto-sync queue: write smoothly offline, automatically resume and sync when reconnected<br>• Standard SQLite database, lossless ZIP backup & Markdown export/import | • **Zero Server Cost for Life**: 100% runnable on Cloudflare Free tier (~150k short notes & ~50k images)<br>• **Flexible Docker Self-Hosting**: One-click deployment for VPS, NAS, or home server with millions of notes & instant sync<br>• Server-side brute-force protection and tenant security |
 
 👉 Explore all 18 step-by-step showcases with screenshots: **[Complete Showcase & Workflows Guide](docs/best-practices.md)**
 
@@ -223,7 +220,6 @@ Local development signs in automatically; fresh databases use `owner` / `edgeeve
 - Frontend: Vite, React, React Router, TanStack Query, Tailwind CSS, shadcn/ui, and Radix UI.
 - Editor: TipTap / ProseMirror with Markdown support; PWA uses vite-plugin-pwa, Workbox, and Dexie.
 - Android app: Expo + React Native in `apps/mobile`, with SQLite local storage and incremental sync.
-- iOS app: Native SwiftUI in `apps/ios` (iOS 17+), with a packaged TipTap EditorBundle, GRDB local mirror/outbox, and Android-aligned shell chrome.
 - Native desktop app: Electron + Rust sidecar combines a consistent cross-platform experience with high-performance local data services; SQLite enables offline editing, incremental sync when back online, and local backups.
 - Web clipper: Manifest V3, Mozilla Readability, and Turndown for Chrome, Microsoft Edge, and Firefox.
 - Backend: one Hono/Zod business application with REST API and Remote MCP; Cloudflare uses Workers/D1 plus external S3-compatible object storage, while Docker uses Bun/SQLite/local files or S3.
@@ -239,7 +235,6 @@ apps/web          Vite + React frontend, PWA, offline drafts, and sync queue
 apps/extension    Chrome/Edge/Firefox Manifest V3 web clipper
 apps/api          Cloudflare Worker + Hono API, MCP endpoint
 apps/mobile       Expo + React Native Android app
-apps/ios          Native SwiftUI iOS app (TipTap EditorBundle, GRDB)
 apps/desktop      Electron desktop shell, preload bridge, and native packaging
 apps/site         Astro official website, deployable independently
 packages/client   Shared API client for web and mobile apps
@@ -249,7 +244,7 @@ crates/desktop-sidecar
 scripts           Wrangler wrapper, password hash, CLI, MCP stdio bridge, Evernote ENEX import
 migrations        Shared append-only D1/SQLite database migrations
 docs              Architecture, migration, and deployment docs
-.github/workflows CI for web, mobile, iOS, desktop packaging, deployment, and releases
+.github/workflows CI for web, mobile, desktop packaging, deployment, and releases
 wrangler.toml     Cloudflare Workers, Assets, D1 configuration
 ```
 

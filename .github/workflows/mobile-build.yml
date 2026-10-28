@@ -140,11 +140,10 @@ jobs:
             exit 1
           fi
 
-      - name: Verify existing APK uses the pinned signer
+      - name: Verify existing APK signer
         if: steps.plan.outputs.asset_ready == 'true'
         env:
-          ANDROID_PLAY_APP_SIGNER_SHA256: ${{ secrets.ANDROID_PLAY_APP_SIGNER_SHA256 }}
-          EDGE_EVER_ANDROID_ALLOWED_SIGNER_SHA256: ${{ github.event_name == 'release' && secrets.ANDROID_PLAY_APP_SIGNER_SHA256 || format('22bf52a9501c89020f5acc966960152c826bfa64f31e578e858d088f8cd75d87,{0}', secrets.ANDROID_PLAY_APP_SIGNER_SHA256) }}
+          EDGE_EVER_ANDROID_ALLOWED_SIGNER_SHA256: ${{ secrets.ANDROID_APP_SIGNER_SHA256 }}
           CURRENT_TAG: ${{ inputs.release_tag || github.event.release.tag_name }}
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -156,7 +155,6 @@ jobs:
             --pattern 'edgeever-android-v*-arm64-v8a.apk'
           apk_path="$(find "$RUNNER_TEMP/native-assets" -type f -name 'edgeever-android-v*-arm64-v8a.apk' -print -quit)"
           test -n "$apk_path"
-          test -n "$ANDROID_PLAY_APP_SIGNER_SHA256"
           node scripts/verify-android-apk-signature.mjs "$apk_path"
 
   restore-invalid-published-release:
@@ -196,8 +194,7 @@ jobs:
       - name: Copy latest compatible APK without renaming
         env:
           CURRENT_TAG: ${{ inputs.release_tag || github.event.release.tag_name }}
-          ANDROID_PLAY_APP_SIGNER_SHA256: ${{ secrets.ANDROID_PLAY_APP_SIGNER_SHA256 }}
-          EDGE_EVER_ANDROID_ALLOWED_SIGNER_SHA256: ${{ secrets.ANDROID_PLAY_APP_SIGNER_SHA256 }}
+          EDGE_EVER_ANDROID_ALLOWED_SIGNER_SHA256: ${{ secrets.ANDROID_APP_SIGNER_SHA256 }}
           GH_TOKEN: ${{ github.token }}
           PREVIOUS_TAG: ${{ needs.release-plan.outputs.previous_tag }}
         run: |
@@ -208,7 +205,6 @@ jobs:
             --dir "$RUNNER_TEMP/native-assets"
           test "$(find "$RUNNER_TEMP/native-assets" -type f -name 'edgeever-android-v*-arm64-v8a.apk' | wc -l | tr -d ' ')" = "1"
           apk_path="$(find "$RUNNER_TEMP/native-assets" -type f -name 'edgeever-android-v*-arm64-v8a.apk' -print -quit)"
-          test -n "$ANDROID_PLAY_APP_SIGNER_SHA256"
           node scripts/verify-android-apk-signature.mjs "$apk_path"
           gh release upload "$CURRENT_TAG" "$RUNNER_TEMP/native-assets/"* \
             --repo "$GITHUB_REPOSITORY" \
@@ -298,7 +294,7 @@ jobs:
       - name: Verify release APK signature
         if: github.event_name == 'workflow_dispatch'
         env:
-          EDGE_EVER_ANDROID_ALLOWED_SIGNER_SHA256: 22bf52a9501c89020f5acc966960152c826bfa64f31e578e858d088f8cd75d87,${{ secrets.ANDROID_PLAY_APP_SIGNER_SHA256 }}
+          EDGE_EVER_ANDROID_ALLOWED_SIGNER_SHA256: ${{ secrets.ANDROID_APP_SIGNER_SHA256 }}
         run: node scripts/verify-android-apk-signature.mjs apps/mobile/android/app/build/outputs/apk/release/app-release.apk
 
       - name: Upload APK

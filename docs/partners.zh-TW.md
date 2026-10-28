@@ -7,7 +7,7 @@ EdgeEver 是一款開源、原生支援 AI 的現代化自託管知識庫與生�
 ## 為什麼贊助 EdgeEver
 
 * **高粘性生產力與知識創作者受眾**：EdgeEver 匯聚了大量深度的開發者、自託管極客、研究者與知識管理工作者，使用者群體對雲端儲存、算力平臺、開發工具及 AI 服務具有天然的高需求與長生命週期價值。
-* **全球化多端全棧矩陣**：覆蓋 macOS、Windows、Linux 桌面端，iOS（Swift 原生）與 Android 移動端，以及 Docker / Cloudflare Serverless 雙執行時架構，品牌影響力具備跨平臺與全球化傳播力。
+* **全球化多端全棧矩陣**：覆蓋 macOS、Windows、Linux 桌面端與 Android 移動端，以及 Docker / Cloudflare Serverless 雙執行時架構，品牌影響力具備跨平臺與全球化傳播力。
 * **原生 AI Agent 與 MCP 生態先鋒**：深度融合 Model Context Protocol（MCP）與 Agent 協同，處於當下 AI 工具與開發者基礎設施大爆發的核心敘事交匯點。
 
 ---
@@ -34,7 +34,7 @@ EdgeEver 是一款開源、原生支援 AI 的現代化自託管知識庫與生�
 
 ## 贊助將用於
 
-* **跨平臺客戶端演進**：持續維護與最佳化 macOS、Windows、Linux、iOS（Swift 原生）和 Android（Expo）多端體驗。
+* **跨平臺客戶端演進**：持續維護與最佳化 macOS、Windows、Linux 和 Android（Expo）多端體驗。
 * **工程與釋出基礎設施**：建設穩定可靠的自動化測試、真機測試、跨平臺程式碼簽名與全球分發流水線。
 * **核心效能與架構最佳化**：改善海量筆記場景下的響應效能、資料同步可靠性與離線可用性。
 * **編寫使用檔案與社群教程**：編寫高品質部署指南、遷移手冊、故障排查指南與實踐教程。

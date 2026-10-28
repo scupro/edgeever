@@ -5,7 +5,7 @@
 ## 檔案約束
 
 - **技術棧與背景**：優先參考 `README.md`。
-- **移動端平臺邊界**：Android 客戶端位於 `apps/mobile`，使用 Expo / React Native 實現；iOS 客戶端位於 `apps/ios`，使用 Swift / SwiftUI 原生實現。
+- **移動端平臺邊界**：行動端客戶端位於 `apps/mobile`，使用 Expo / React Native 實現；本倉庫不包含 iOS 客戶端。
 - **雙語同步**：修改中文檔案時必須同步更新對應的英文檔案。修改根目錄 README 時必須同步 `README.md`、`README.zh-TW.md`、`README.ja.md`、`README.pl-PL.md`。
 
 ## 變更風險評估

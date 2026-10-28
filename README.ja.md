@@ -60,10 +60,7 @@ EdgeEver は、オープンソースのノートと知識ベースの作業領�
   <a href="https://github.com/scupro/edgeever/releases/latest"><img src="assets/readme/platforms/windows.svg" alt="Windows 向け EdgeEver をダウンロード" width="40" height="40" /></a>&nbsp;&nbsp;
   <a href="https://github.com/scupro/edgeever/releases/latest"><img src="assets/readme/platforms/tux.svg" alt="Linux x86_64 AppImage Preview をダウンロード" width="40" height="40" /></a>&nbsp;&nbsp;
   <a href="https://play.google.com/store/apps/details?id=org.edgeever.mobile&hl=ja"><img src="assets/readme/platforms/google-play.svg" alt="Google Play から Android 向け EdgeEver をダウンロード" width="40" height="40" /></a>&nbsp;&nbsp;
-  <a href="https://apps.apple.com/jp/app/edgeever/id6792625631"><img src="assets/readme/platforms/app-store.svg" alt="App Store から iOS 向け EdgeEver をダウンロード" width="40" height="40" /></a>
 </p>
-
-> iOS アプリは、中国本土以外の Apple ID が必要です。
 
 ### ブラウザ Web Clipper
 
@@ -88,7 +85,7 @@ EdgeEver は、オープンソースのノートと知識ベースの作業領�
 | **収集とメディア** | • デスクトップ・モバイルでの各種添付ファイル（PDF、Office、音声・動画など）保存<br>• ブラウザ拡張によるテキスト・画像の選択クリップ<br>• スマホの共有メニューから画像や Web 記事を即時保存 | • **高度な構造化クリッピング**：小紅書、X (Twitter)、知乎、Reddit、GitHub、YouTube、Bilibili など 20 以上の主要サービスに対応<br>• **微信チャット履歴の取り込み**：タイムライン、発言者、引用、スタンプ、メディアを完全保持<br>• **クライアント側自動圧縮**：画像アップロード時に 50%〜90% 自動軽量化；最大 1 GiB の分割ストリーミングアップロード対応 |
 | **データと可視化** | • ネイティブ表編集と Markdown テーブル描画<br>• Mermaid 記法によるフローチャート・シーケンス図・構成図の直接描画 | • **AI 多次元テーブル**：プロンプトからタグや日付などの列型を備えた業務テーブルを自動生成<br>• **一般公開集計フォーム**：ログイン不要の Web フォームを発行し、回答をリアルタイムでテーブルへ集約<br>• **AI インフォグラフィック生成**：タイムライン、比較図、マトリクス、マインドマップを自動生成 |
 | **AI とエコシステム** | • サイドバーの伴走型 AI アシスタント（要約、校正、翻訳、推敲）<br>• BYOK（独自 API キー）：OpenAI、Anthropic、Gemini 互換プロトコル対応 | • **ネイティブ Agent プロトコル連携**：外部 Agent が読み書きできる MCP、ローカル Agent を直接呼び出す ACP を標準搭載<br>• **AI RSS 購読日報**：フィードを自動収集し、AI がノイズを排除して構造化日報を作成<br>• 自由な拡張を可能にするプラグイン開発 API |
-| **マルチ端末同期と基盤** | • PC・スマホ・タブレット間で低遅延・シームレスに同期、接続端末数無制限<br>• Web、macOS、Windows、Linux、iOS、Android の全プラットフォーム公式対応<br>• オフラインファーストと自動同期キュー：オフラインでも軽快に執筆、再接続時に自動増分同期<br>• 標準 SQLite、可逆 ZIP アーカイブ・Markdown の入出力に対応 | • **生涯サーバー代ゼロ**：Cloudflare の無料枠で 100% 稼働（短文約 15 万件＋画像約 5 万枚）<br>• **自由な Docker セルフホスト**：自宅サーバー・VPS・NAS にワンクリック配置、数百万件規模の高速同期に対応<br>• サーバー側ブルートフォース保護とセキュリティ隔離 |
+| **マルチ端末同期と基盤** | • PC・スマホ・タブレット間で低遅延・シームレスに同期、接続端末数無制限<br>• Web、macOS、Windows、Linux、Android の全プラットフォーム公式対応<br>• オフラインファーストと自動同期キュー：オフラインでも軽快に執筆、再接続時に自動増分同期<br>• 標準 SQLite、可逆 ZIP アーカイブ・Markdown の入出力に対応 | • **生涯サーバー代ゼロ**：Cloudflare の無料枠で 100% 稼働（短文約 15 万件＋画像約 5 万枚）<br>• **自由な Docker セルフホスト**：自宅サーバー・VPS・NAS にワンクリック配置、数百万件規模の高速同期に対応<br>• サーバー側ブルートフォース保護とセキュリティ隔離 |
 
 👉 全 18 の実機スクリーンショットと解説を見る：**[完全な活用シーンとショーケースガイド](docs/best-practices.md)**
 
@@ -222,7 +219,6 @@ bun run dev
 - フロントエンド: Vite、React、React Router、TanStack Query、Tailwind CSS、shadcn/ui、Radix UI。
 - エディタ: TipTap / ProseMirror と Markdown。PWA は vite-plugin-pwa、Workbox、Dexie。
 - Android アプリ: `apps/mobile` の Expo + React Native。SQLite のローカル保存と差分同期。
-- iOS アプリ: `apps/ios` のネイティブ SwiftUI（iOS 17+）。同梱の TipTap EditorBundle、GRDB のローカルミラー / outbox、Android に揃えたシェル。
 - ネイティブデスクトップ: Electron + Rust sidecar。横断プラットフォームの操作感と、速いローカルデータ。SQLite でオフライン編集、復帰後の差分同期、ローカルバックアップ。
 - Web Clipper: Manifest V3、Mozilla Readability、Turndown。Chrome、Microsoft Edge、Firefox。
 - バックエンド: Hono / Zod の業務アプリ 1 式。REST API と Remote MCP。Cloudflare は Workers / D1 と外部 S3 互換オブジェクトストレージ、Docker は Bun / SQLite / ローカルファイルまたは S3。
@@ -238,7 +234,6 @@ apps/web          Vite + React フロントエンド、PWA、オフライン下�
 apps/extension    Chrome/Edge/Firefox Manifest V3 Web Clipper
 apps/api          Cloudflare Worker + Hono API、MCP
 apps/mobile       Expo + React Native の Android アプリ
-apps/ios          ネイティブ SwiftUI の iOS アプリ（TipTap EditorBundle、GRDB）
 apps/desktop      Electron のデスクトップシェル、preload、ネイティブ梱包
 apps/site         Astro の公式サイト。独立して導入できます
 packages/client   Web とモバイルで共有する API クライアント
@@ -248,7 +243,7 @@ crates/desktop-sidecar
 scripts           Wrangler ラッパ、パスワード hash、CLI、MCP stdio、Evernote ENEX 取り込み
 migrations        D1/SQLite 共用の、追加のみの migration
 docs              アーキテクチャ、移行、導入の文書
-.github/workflows Web、モバイル、iOS、デスクトップ梱包、導入、Release の CI
+.github/workflows Web、モバイル、デスクトップ梱包、導入、Release の CI
 wrangler.toml     Cloudflare Workers、Assets、D1 の設定
 ```
 
@@ -294,7 +289,7 @@ EdgeEver コミュニティへようこそ。Vibe Coding や AI を探求する�
 
 ## スポンサーと支援
 
-EdgeEver は無料のオープンソースプロジェクトです。クロスプラットフォームクライアント（macOS、Windows、Linux、iOS、Android）の継続的な開発、実機テスト、コード署名、複数ランタイムのエコシステム維持には、継続的な時間とリソースの投入が必要です。
+EdgeEver は無料のオープンソースプロジェクトです。クロスプラットフォームクライアント（macOS、Windows、Linux、Android）の継続的な開発、実機テスト、コード署名、複数ランタイムのエコシステム維持には、継続的な時間とリソースの投入が必要です。
 
 - [EdgeEver を支援する](docs/sponsor.md) — WeChat Pay または Alipay による自发的な寄付
 - [スポンサーとパートナー](docs/partners.md) — インフラ、開発ツール、サービス、コミュニティ連携の支援

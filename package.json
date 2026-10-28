@@ -80,7 +80,6 @@
     "lint": "oxlint --deny-warnings apps packages",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "typecheck:mobile": "bun run --cwd apps/mobile typecheck",
-    "typecheck:ios-editor": "bun run --cwd apps/ios/EditorSource typecheck",
     "test:restore-deleted-notebook": "bun scripts/test-restore-deleted-notebook.mjs",
     "test:mcp": "bun scripts/test-mcp.mjs",
     "db:migrate:local": "bun scripts/local-dev.mjs prepare local",

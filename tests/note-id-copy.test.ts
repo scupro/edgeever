@@ -7,7 +7,6 @@ const webEditorSource = readSource("../apps/web/src/components/EditorPane.tsx");
 const webMemoListSource = readSource("../apps/web/src/components/MemoListPane.tsx");
 const webCopyNoticeSource = readSource("../apps/web/src/components/ClipboardCopyNotice.tsx");
 const androidDetailSource = readSource("../apps/mobile/src/screens/WorkspaceMemoDetail.tsx");
-const iosDetailSource = readSource("../apps/ios/EdgeEver/Features/Workspace/MemoDetailView.swift");
 
 describe("copy current note ID", () => {
   test("copies the raw memo ID from the desktop and web note menu", () => {
@@ -25,17 +24,14 @@ describe("copy current note ID", () => {
     expect(webCopyNoticeSource).not.toContain("text-white");
   });
 
-  test("copies the raw memo ID from both native mobile clients", () => {
+  test("copies the raw memo ID from the native Android client", () => {
     expect(androidDetailSource).toContain("Clipboard.setStringAsync(memo.id)");
     expect(androidDetailSource).toContain('resolvedLocale !== "zh-TW" ? "Copy note ID" : "複製筆記 ID"');
     expect(androidDetailSource).toContain("disabled={!canCopyMemoId}");
-    expect(iosDetailSource).toContain("UIPasteboard.general.string = memo.id");
-    expect(iosDetailSource).toContain('env.preferences.t("複製筆記 ID", en: "Copy note ID"');
   });
 
   test("does not present temporary local IDs as agent-readable IDs", () => {
     expect(webEditorSource).toContain("disabled={isLocalMemoId(memo.id)}");
     expect(androidDetailSource).toContain('!memo.id.startsWith("local:")');
-    expect(iosDetailSource).toContain('id.hasPrefix("local:") || id.hasPrefix("local_")');
   });
 });

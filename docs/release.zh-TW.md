@@ -56,7 +56,7 @@ bun run release -- \
 - 正式 Tag 和 Release 標題使用 `vX.Y.Z`。`--bump` 須顯式指定，按 SemVer 選擇；
   禁止因發版節奏把使用者可感知的新能力或新平臺壓成 patch（詳見 `AGENTS.md`）。
 - 根版本表示整體產品 Release。只有對應原生執行時重建時，才更新原生展示版本。
-  Android `versionCode` 和 iOS Build Number 是相互獨立且嚴格遞增的標識。
+  Android `versionCode` 是獨立且嚴格遞增的標識。
 - 每個正式 Release 包含 macOS arm64 與 x64 DMG、按架構區分的更新 ZIP、帶獨立
   簽名更新清單的未簽名 Windows x64 預覽版安裝包、帶更新後設資料與 SHA-256 清單的 Linux x64
   AppImage 預覽版，以及 Android arm64 APK。

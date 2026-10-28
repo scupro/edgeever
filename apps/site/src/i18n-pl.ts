@@ -4,7 +4,7 @@ export const plSiteTagline =
 export const plSiteCopy = {
   layout: {
     defaultDescription:
-      "EdgeEver to otwartoźródłowa, natywnie wspierająca AI baza wiedzy i nowoczesna przestrzeń do notatek. Klasyczny układ trzech paneli (drzewo katalogów · lista notatek · edytor) na macOS, Windows, Linux, iOS, Android i w Web Clipper, z natywną współpracą z lokalnymi agentami ACP, paskiem bocznym towarzysza i notatkami z diagramami. Działa w darmowym planie Cloudflare albo w Dockerze.",
+      "EdgeEver to otwartoźródłowa, natywnie wspierająca AI baza wiedzy i nowoczesna przestrzeń do notatek. Klasyczny układ trzech paneli (drzewo katalogów · lista notatek · edytor) na macOS, Windows, Linux, Android i w Web Clipper, z natywną współpracą z lokalnymi agentami ACP, paskiem bocznym towarzysza i notatkami z diagramami. Działa w darmowym planie Cloudflare albo w Dockerze.",
     defaultTitle: `EdgeEver - ${plSiteTagline}`,
     imageAlt: "Zrzut ekranu aplikacji do notatek EdgeEver",
     ogLocale: "pl_PL",
@@ -47,7 +47,7 @@ export const plSiteCopy = {
     linux: "Linux",
     imageAlt: "Podgląd EdgeEver",
     badgeText:
-      "💡 Wszystkie platformy: macOS, Windows, Linux, iOS, Android, Web Clipper · Natywna współpraca z MCP i ACP · Darmowy plan Cloudflare i Docker",
+      "💡 Wszystkie platformy: macOS, Windows, Linux, Android, Web Clipper · Natywna współpraca z MCP i ACP · Darmowy plan Cloudflare i Docker",
   },
   bento: {
     eyebrow: "WHY EDGEEVER",
@@ -106,7 +106,7 @@ export const plSiteCopy = {
     card5: {
       badge: "Suwerenność danych",
       title: "Aplikacje na wszystkie platformy i bezstratna kopia ZIP",
-      desc: "Dostępny na macOS, Windows, Linux, natywnym iOS (SwiftUI), Androidzie i w pełnym Web Clipper. Bezstratny eksport ZIP i standardowa baza SQLite dają pełną kontrolę nad danymi.",
+      desc: "Dostępny na macOS, Windows, Linux, Androidzie i w pełnym Web Clipper. Bezstratny eksport ZIP i standardowa baza SQLite dają pełną kontrolę nad danymi.",
       subBadge: "Wiele platform + ZIP",
       archiveTitle: "edgeever-backup.zip",
       archiveSub: "Markdown + załączniki + historia wersji",
@@ -114,7 +114,7 @@ export const plSiteCopy = {
   },
   marquee: {
     title: "Aplikacje na wszystkie platformy, elastyczne wdrożenie i współpraca z AI",
-    subtitle: "Od macOS i natywnych aplikacji iOS i Android, przez samodzielny hosting w Dockerze i kopiowanie ze stylami, po współpracę przez Remote MCP.",
+    subtitle: "Od macOS i aplikacji Android, przez samodzielny hosting w Dockerze i kopiowanie ze stylami, po współpracę przez Remote MCP.",
     items: [
       {
         tag: "macOS Desktop",
@@ -122,13 +122,6 @@ export const plSiteCopy = {
         desc: "Lokalna kopia SQLite, obsługa lokalnych agentów ACP, tryb skupienia i szybkie notowanie offline",
         icon: "bx:bxl-apple",
         color: "from-emerald-500/10 to-teal-500/5",
-      },
-      {
-        tag: "iOS Native App",
-        title: "Natywna architektura SwiftUI",
-        desc: "Dostępna w App Store: przechwytywanie z arkusza udostępniania, cofnij/ponów i synchronizacja SQLite offline",
-        icon: "bx:bx-mobile",
-        color: "from-teal-500/10 to-emerald-500/5",
       },
       {
         tag: "Android App",
@@ -231,12 +224,12 @@ export const plSiteCopy = {
       },
       {
         title: "Aplikacje na wszystkie platformy i synchronizacja wielu urządzeń",
-        summary: "Dostępny na macOS, Windows, iOS, Android, w przeglądarkowym Web Clipper i jako Web/PWA – bez komercyjnych limitów urządzeń.",
+        summary: "Dostępny na macOS, Windows, Android, w przeglądarkowym Web Clipper i jako Web/PWA – bez komercyjnych limitów urządzeń.",
         points: [
           "Bez limitu urządzeń: samodzielnie hostowane API eliminuje ograniczenia typu „logowanie na maksymalnie 2 urządzeniach”.",
           "Aplikacja na macOS: Electron + Rust sidecar + SQLite – błyskawiczne działanie lokalne, współpraca przez ACP i synchronizacja offline.",
           "Windows x64: lokalne SQLite, opcja „Wyślij do EdgeEver” w menu kontekstowym Eksploratora i automatyczne aktualizacje.",
-          "Natywne aplikacje mobilne: iOS w SwiftUI (w App Store) i Android (w Google Play oraz jako APK z GitHub) z cofnij/ponów i przechwytywaniem z WeChat.",
+          "Natywna aplikacja mobilna: Android (w Google Play oraz jako APK z GitHub) z cofnij/ponów i przechwytywaniem z WeChat.",
           "Rozszerzenie Web Clipper: oficjalne rozszerzenia dla Chrome, Edge i Firefox – całe artykuły, obrazy z menu kontekstowego, posty z X i zaznaczenia.",
         ],
       },
