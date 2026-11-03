@@ -8,7 +8,7 @@
 
 如果您的 Fork 用於部署 EdgeEver：
 
-- 將 Fork 的 `main` 視為僅用於部署的分支，並交由 **Update deployed EdgeEver** 管理。
+- 將 Fork 的 `main` 視為部署分支；升級時自行合併上游 tag（`git fetch upstream --tags && git merge upstream/<tag>`），倉庫不含定時同步工作流程。
 - 不要直接在這個 `main` 分支上開發功能。
 - 日常開發和部署更新時，不要透過 GitHub **Sync fork** 更新部署用的 `main`。
 - 每項程式碼貢獻都應從官方倉庫最新的 `upstream/main` 建立獨立分支。
@@ -81,4 +81,4 @@ bun run build:web
 
 ## 定製部署
 
-如果您希望將個人產品改動長期保留在部署用的 `main`，這屬於定製部署，而不是普通的程式碼貢獻流程。定製部署需要設定 `EDGE_EVER_PRESERVE_FORK_CHANGES=true`，並自行維護與上游的合併。使用獨立分支貢獻程式碼時不需要設定這個變數。
+如果您希望將個人產品改動長期保留在部署用的 `main`，這屬於定製部署，而不是普通的程式碼貢獻流程。定製部署只需保留自己的提交並自行合併上游 tag，已不再需要任何開關變數。

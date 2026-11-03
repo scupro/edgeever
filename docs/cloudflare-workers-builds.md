@@ -12,23 +12,17 @@ Authorization:
 
 Set `AUTH_PASSWORD` as a runtime Secret under the Worker's **Settings → Variables and Secrets**, not as a Builds variable.
 
-Ordinary deployments use D1 `edgeever`, an S3-compatible object storage bucket, and username `admin`. Put optional non-secret instance settings under **Settings → Build → Build variables and secrets**. These variables are available only during the build; the deploy command uses them to generate a temporary Wrangler configuration. Keep the tracked `wrangler.toml` unchanged.
+Ordinary deployments use D1 `edgeever`, an S3-compatible object storage bucket, and username `admin`. Put optional non-secret instance settings under **Settings → Build → Build variables and secrets**, or directly in `wrangler.toml` (name, `workers_dev`, routes, `compatibility_date`, and a `[vars]` block). Build variables are available only during the build; the deploy command merges them into a temporary Wrangler configuration, with `wrangler.toml` values as defaults.
 
 Without an explicit override, existing deployments keep their current administrator username.
 
 ## Updates and troubleshooting
 
 - A push to `main` builds, applies D1 migrations, deploys, and verifies EdgeEver.
-- **Update deployed EdgeEver** keeps a deployment Fork as an upstream **deploy mirror**:
-  - Default channel `stable` tracks the latest formal Release tag.
-  - Set the GitHub Repository Variable `EDGE_EVER_UPDATE_CHANNEL=edge` to follow upstream `main`.
-  - Read-only forks (no app code changes) apply the target's product snapshot in a new linear commit without installing dependencies or running the project test suite.
-  - Only forks that explicitly set `EDGE_EVER_PRESERVE_FORK_CHANGES=true` merge product changes. A customized merge runs local migrations, the complete non-E2E test suite, type checks, and the production build before pushing; any failure leaves `main` and production unchanged.
-  - Updates preserve the Fork's `.github/workflows/**` and updater helper scripts; `GITHUB_TOKEN` needs no permission to rewrite Actions workflows.
-  - The job **Summary** shows Git and deployment status. *Already on upstream target* means a scheduled run requested no deployment; a successful push still needs confirmation in Cloudflare.
-  - Prefer this workflow over GitHub **Sync fork**. Sync fork follows upstream `main` history and can make the next stable run a deliberate no-op.
+- No scheduled upstream-sync workflow ships with this repository. Upgrade deliberately:
+  - `git remote add upstream https://github.com/scupro/edgeever.git`
+  - `git fetch upstream --tags`
+  - `git merge upstream/<tag>` (or `git rebase upstream/main`), resolve conflicts, then `git push`
+  - Cloudflare builds the pushed commit, so the same pipeline applies migrations and verifies the deployment.
 - Optional: repository secret `EDGE_EVER_CLOUDFLARE_DEPLOY_HOOK_URL` triggers a Cloudflare Deploy Hook after a successful push (useful when the Git integration misses a push).
-- Manually running the workflow triggers a new Cloudflare build even when Git is current.
 - Build failure: inspect the Worker **Deployments** log and confirm the Deployment commit SHA matches Fork `main`.
-- Scheduled update never runs: on a public Fork, enable **Update deployed EdgeEver** under **Actions** (scheduled workflows are disabled by default on forks, and may pause after long inactivity).
-- Update push is rejected with `without workflows permission`: the Fork still has an older updater. Use GitHub **Sync fork** once with the repository owner's permission, then re-run **Update deployed EdgeEver**. Routine product updates do not require **Sync fork** after that bootstrap.

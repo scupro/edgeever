@@ -64,7 +64,7 @@
 
 ---
 
-### 步驟 5：驗證部署、登入與自動更新
+### 步驟 5：驗證部署與登入
 
 1. 構建完成後，Cloudflare 會為您生成一個二級域名（如 `https://edgeever.your-subdomain.workers.dev`）。您也可以在 Worker 的 **Settings → Domains & Routes** 中繫結自己的自定義域名（強烈建議繫結自定義域名以保障國內直連穩定性並提升訪問速度）。
 2. 在瀏覽器開啟該域名下的健康檢查介面：`https://你的域名/api/health`，確認返回 `200` 及 JSON：
@@ -72,20 +72,9 @@
    { "ok": true }
    ```
 3. 開啟主站首頁，輸入您配置的管理員使用者名稱（預設是 `admin`）和密碼（`AUTH_PASSWORD`）測試登入並開始使用。
-4. 返回 Fork 的 GitHub 倉庫 **Actions** 頁面，點選 **I understand my workflows, go ahead and enable them** 啟用工作流。
-5. 手動執行一次 **Update deployed EdgeEver**，確保未來可自動跟進上游更新，並確認 Cloudflare 收到這次構建事件。
+4. 日後要取得上游新版本時，把上游 tag 合併進 Fork 的 `main` 後推送即可，倉庫不含需要啟用的定時同步工作流；指令詳見 [Workers Builds 配置](cloudflare-workers-builds.zh-TW.md)。
 
 ---
-
-## 高階配置：更新通道設定
-
-預設情況下，**Update deployed EdgeEver** 跟隨官方正式 Release（穩定版）。若希望跟隨上游 `main`（Edge 預覽版），請在 Fork 倉庫設定 **GitHub Repository Variable**（**Settings → Secrets and variables → Actions → Variables**）：
-
-```text
-EDGE_EVER_UPDATE_CHANNEL=edge
-```
-
-手動執行工作流時也可以直接選擇 `stable` / `edge`。
 
 ## 高階配置：實例引數
 
@@ -105,7 +94,7 @@ EDGE_EVER_UPDATE_CHANNEL=edge
 | `EDGE_EVER_WORKERS_DEV` | 啟用或禁用 `workers.dev` 路由 |
 | `EDGE_EVER_CUSTOM_DOMAIN` / `EDGE_EVER_ROUTE_PATTERN` | 自定義路由 |
 
-自定義管理員使用者名稱須在重試首次構建前設定；帳號建立後修改該變數不會重新命名帳號。
+自定義管理員使用者名稱須在重試首次構建前設定；帳號建立後修改該變數不會重新命名帳號。若希望設定隨倉庫保留，這些值也可以直接寫在 `wrangler.toml`（例如 `[vars]` 區塊）。
 
 舊部署必須補上 `EDGE_EVER_S3_*` 物件儲存設定才能存放附件；原本的 `RESOURCES` R2 binding 已不再使用。已有專案的顯式構建命令也可繼續使用，詳見 [Workers Builds 配置](cloudflare-workers-builds.zh-TW.md)。
 
@@ -114,12 +103,9 @@ EDGE_EVER_UPDATE_CHANNEL=edge
 ## 常見問題與排錯
 
 - **首次構建失敗**：請檢查 Cloudflare 控制檯中 Worker 的 **Deployments** 構建日誌，確認日誌包含“routing it through EdgeEver's validated deployment pipeline”，D1 資料庫名稱嚴格為 `edgeever`、Workers Builds API Token 具有 D1 讀取和編輯權限，且 `EDGE_EVER_S3_*` 設定指向可連線的儲存桶。如有意使用其他 D1 資料庫，請設定 `EDGE_EVER_D1_DATABASE_NAME`；僅在自動查詢 UUID 不可用時再新增 `EDGE_EVER_D1_DATABASE_ID`。
-- **無法同步上游更新**：
-  1. 開啟 Fork 的 **Actions**，啟用 **Update deployed EdgeEver**（公共 Fork 上定時任務預設關閉）。
-  2. 手動 **Run workflow** 一次，開啟中英雙語 Job **Summary**：會分別展示上游目標、Git 釋出結果、部署觸發狀態，以及線上部署是否已經驗證。
-  3. 若定時執行綠色成功且 Summary 為 *Already on upstream target* / 已對齊，表示 Git 已是該通道目標版本，不是靜默故障。手動執行在已對齊時會自動重新發布所選版本；若此後網站仍舊，請對照 Cloudflare **Deployments** 的 commit SHA。
-  4. 日常升級請優先用本工作流，而不是 GitHub **Sync fork**。
-  5. 若舊版更新器報錯 `without workflows permission`，請使用倉庫所有者身份執行一次 **Sync fork**，然後重新執行 **Update deployed EdgeEver**。新版更新器會保留 `.github/workflows/**`，後續產品更新不會再觸發這項權限限制。
+- **升級到新版本**：
+  1. 倉庫不含定時同步工作流。升級時執行 `git remote add upstream https://github.com/scupro/edgeever.git`、`git fetch upstream --tags`，再 `git merge upstream/<tag>` 後推送；Cloudflare 會針對推送的 commit 重新構建。
+  2. 衝突在本機解決；你在 Fork 中的調整（包含 `wrangler.toml`）會保留。若網站仍是舊版，請對照 Cloudflare **Deployments** 的 commit SHA 與你推送的 commit。
 - **Git 已 push 但網站沒變**：確認 Workers Builds 是否針對新的 `main` SHA 構建。可選：新增倉庫 Secret `EDGE_EVER_CLOUDFLARE_DEPLOY_HOOK_URL`，讓工作流在 publish 後呼叫 Deploy Hook。
 - **Android App 提示登入被 Cloudflare 或安全策略攔截**：
   1. 重試一次並記錄 App 顯示的診斷程式碼、Ray ID 和大致時間。在 Cloudflare 中開啟 **Security → Analytics → Events**，找到對應請求並確認其 **Service**、**Action** 和規則 ID，再決定調整哪項防護。

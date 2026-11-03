@@ -83,6 +83,6 @@ it up; changing or losing it makes saved external credentials unusable.
   EDGE_EVER_PASSWORD='<new password>' bun run auth:reset-password -- --remote --username admin
   ```
 
-## Automatic updates
+## Keeping the instance updated
 
-After manual deployment, configure [Cloudflare Workers Builds](cloudflare-workers-builds.md) and enable **Update deployed EdgeEver** in the Fork's **Actions**.
+After manual deployment, configure [Cloudflare Workers Builds](cloudflare-workers-builds.md) for automatic builds. There is no scheduled upstream-sync workflow: upgrade by merging an upstream tag into your branch and pushing.

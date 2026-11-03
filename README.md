@@ -106,8 +106,9 @@ Deploy EdgeEver entirely through GitHub and Cloudflare:
    variable before the next build.
 5. Run the build again, verify `/api/health` and `/api/openapi.json`, then log in
    with that administrator username and password.
-6. Enable and manually run the GitHub Actions workflow named `Update deployed EdgeEver`
-   once so the Fork can automatically receive future stable releases and fixes.
+6. Optional: to take future releases, merge an upstream tag into the Fork and push
+   (`git fetch upstream --tags && git merge upstream/<tag>`); the repository ships no
+   scheduled upstream-sync workflow.
 ```
 
 > Detailed requirements: [AI Agent Cloudflare Deployment](docs/agent-deploy-cloudflare.md).
@@ -121,10 +122,10 @@ Complete setup in 6 web steps:
 
 1. **Fork the Repository**: Click **Fork** at the top right of GitHub to fork EdgeEver into your personal account.
 2. **Create Cloudflare Resources**: Create D1 `edgeever` and prepare an S3-compatible object storage bucket (Backblaze B2, Tencent COS, Alibaba OSS, MinIO or Wasabi).
-3. **Import & Configure the Project**: Create a Worker named `edgeever` from the Fork's `main` branch in Cloudflare **Workers & Pages**. Use the repository root and keep Cloudflare's default Workers Builds deploy command, which runs in Cloudflare. Ensure its API token can read and edit D1. The deploy command creates the bindings; do not edit Fork files.
+3. **Import & Configure the Project**: Create a Worker named `edgeever` from the Fork's `main` branch in Cloudflare **Workers & Pages**. Use the repository root and keep Cloudflare's default Workers Builds deploy command, which runs in Cloudflare. Ensure its API token can read and edit D1. The deploy command creates the bindings; you may still adjust `wrangler.toml` (including a `[vars]` block for non-secret variables).
 4. **Choose the Administrator Password**: Choose an administrator password, preferably at least 32 characters. Once the Worker is created, save it as the runtime Secret `AUTH_PASSWORD`.
 5. **Build & Verify**: Save and Deploy creates the Worker and starts a build. The initial build primarily initializes the Worker instance; if it fails due to missing administrator Secret, this is expected behavior. Simply add the runtime Secret `AUTH_PASSWORD` from Step 4 and click retry. The username defaults to `admin`; to use another, set `AUTH_USER` as a Workers Builds variable before retrying. Once deployed, confirm `/api/health` returns `200`, then log in with the configured username and password.
-6. **Enable Automatic Updates**: Open the Fork's **Actions** tab, click **I understand my workflows, go ahead and enable them**, then manually run **Update deployed EdgeEver** once so the Fork can automatically receive future stable releases and fixes.
+6. **Optional: Keep the Deployment Updated**: The Fork ships no scheduled upstream-sync workflow. To take a new release, merge the upstream tag into `main` (`git fetch upstream --tags && git merge upstream/<tag>`) and push; Cloudflare rebuilds automatically.
 
 > 📖 For full step-by-step instructions and configuration details, see the [Online Deployment Guide](docs/deploy-cloudflare-button.md).
 

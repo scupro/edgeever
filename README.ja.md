@@ -105,8 +105,8 @@ GitHub と Cloudflare のオンライン操作だけで EdgeEver を導入して
    次のビルド前に Workers Builds 変数 `AUTH_USER` を設定します。
 5. 再度ビルドし、`/api/health` と `/api/openapi.json` を確認してから、
    その管理者ユーザー名とパスワードでログインできることを確認します。
-6. GitHub Actions の `Update deployed EdgeEver` を有効にし、一度手動実行して、
-   Fork が今後の安定版と修正を自動で受け取れるようにします。
+6. 任意：今後のリリースを取り込む場合は、上流のタグを Fork にマージして push します
+   （`git fetch upstream --tags && git merge upstream/<tag>`）。定期同期のワークフローはありません。
 ```
 
 > 詳細な要件: [AI Agent Cloudflare Deployment](docs/agent-deploy-cloudflare.md)。
@@ -120,10 +120,10 @@ GitHub と Cloudflare のオンライン操作だけで EdgeEver を導入して
 
 1. **リポジトリを Fork**：GitHub 右上の **Fork** で、EdgeEver を自分のアカウントへ Fork します。
 2. **Cloudflare リソースを作成**：D1 `edgeever` を作り、Backblaze B2・Tencent COS・Alibaba OSS・MinIO・Wasabi など S3 互換のオブジェクトストレージを用意します。
-3. **プロジェクトを取り込み、設定**：Cloudflare **Workers & Pages** で Fork の `main` ブランチから `edgeever` という名前の Worker を作成します。リポジトリのルートと、Cloudflare 上で実行される Workers Builds の既定のデプロイコマンドを使い、API トークンの D1 読み取り・編集権限を確認します。binding はデプロイコマンドが作るため、Fork 内のファイルは編集しないでください。
+3. **プロジェクトを取り込み、設定**：Cloudflare **Workers & Pages** で Fork の `main` ブランチから `edgeever` という名前の Worker を作成します。リポジトリのルートと、Cloudflare 上で実行される Workers Builds の既定のデプロイコマンドを使い、API トークンの D1 読み取り・編集権限を確認します。binding はデプロイコマンドが作成しますが、`wrangler.toml` は自由に調整できます（`[vars]` で非機密の変数も設定可能）。
 4. **管理者パスワードを準備**：管理者ログイン用パスワードを用意します。32 文字以上を推奨します。Worker 作成後、実行時 Secret `AUTH_PASSWORD` に保存します。
 5. **ビルドと確認**：Save and Deploy で Worker が作成され、ビルドが始まります。初回のビルドは Worker インスタンスを初期化するためのものであり、管理者 Secret 未設定によるエラーは想定内の動作です。手順 4 の実行時 Secret `AUTH_PASSWORD` を追加した後に再試行ボタンを押せばビルドが通過します。管理者ユーザー名の既定値は `admin` です。別の名前を使う場合は、再試行前に Workers Builds 変数 `AUTH_USER` を設定します。導入後に `/api/health` が `200` を返すことを確認し、設定した管理者ユーザー名とパスワードでログインします。
-6. **自動更新を有効化**：Fork の **Actions** タブで **I understand my workflows, go ahead and enable them** を押し、**Update deployed EdgeEver** を一度手動実行して、今後の安定版と修正を自動で受け取れるようにします。
+6. **任意：デプロイの更新**：Fork には定期同期ワークフローがありません。新しいリリースを取り込むには、上流のタグを `main` にマージして push します（`git fetch upstream --tags && git merge upstream/<tag>`）。Cloudflare が自動で再ビルドします。
 
 > 📖 手順と設定の詳細は [Online Deployment Guide](docs/deploy-cloudflare-button.md) を見てください。
 

@@ -8,7 +8,7 @@ Thank you for contributing to EdgeEver. A Fork used for Cloudflare deployment ca
 
 If your Fork is used to deploy EdgeEver:
 
-- Treat the Fork's `main` as a deployment-only branch managed by **Update deployed EdgeEver**.
+- Treat the Fork's `main` as a deployment branch; update it by merging upstream tags (`git fetch upstream --tags && git merge upstream/<tag>`), since no scheduled sync workflow ships.
 - Do not develop features directly on that `main` branch.
 - Do not use GitHub **Sync fork** to update the deployment `main` during routine development or deployment updates.
 - Create each contribution branch directly from the official repository's latest `upstream/main`.
@@ -81,4 +81,4 @@ Platform-specific changes may require additional checks.
 
 ## Customized deployments
 
-Keeping personal product changes permanently on the deployed `main` is a customized deployment, not the normal contribution workflow. Customized deployments must opt in with `EDGE_EVER_PRESERVE_FORK_CHANGES=true` and maintain their own upstream merges. You do not need this setting when contributing through a separate branch.
+Keeping personal product changes permanently on the deployed `main` is a customized deployment, not the normal contribution workflow. Customized deployments keep those commits and merge upstream tags manually; no opt-in variable is required anymore.

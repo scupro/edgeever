@@ -64,7 +64,7 @@ Return to the build history and retry. Confirm the build and live health check s
 
 ---
 
-### Step 5: Verify Deployment, Login & Automatic Updates
+### Step 5: Verify Deployment & Login
 
 1. After deployment completes, Cloudflare will assign a default domain (e.g., `https://edgeever.your-subdomain.workers.dev`). You can also attach your own custom domain in the Worker settings under **Settings → Domains & Routes**.
 2. Visit the health check endpoint in your browser: `https://<your-domain>/api/health`, and confirm it returns HTTP `200` with:
@@ -72,20 +72,9 @@ Return to the build history and retry. Confirm the build and live health check s
    { "ok": true }
    ```
 3. Open the homepage, log in with your configured administrator username (default: `admin`) and `AUTH_PASSWORD`, and start using EdgeEver!
-4. Go back to your Fork's **Actions** tab on GitHub and click **I understand my workflows, go ahead and enable them**.
-5. Manually run **Update deployed EdgeEver** once to ensure future upstream updates can sync, and confirm Cloudflare receives the resulting build event.
+4. To take a later upstream release, merge the upstream tag into the Fork's `main` and push it — the repository ships no scheduled sync workflow. See [Workers Builds configuration](cloudflare-workers-builds.md) for the exact commands.
 
 ---
-
-## Advanced Configuration: Update Channels
-
-By default, **Update deployed EdgeEver** follows official stable Release tags. To follow upstream `main` (Edge preview builds), set this **GitHub Repository Variable** on the Fork (**Settings → Secrets and variables → Actions → Variables**):
-
-```text
-EDGE_EVER_UPDATE_CHANNEL=edge
-```
-
-You can also pick `stable` / `edge` when manually running the workflow.
 
 ## Advanced Configuration: Instance Settings
 
@@ -105,7 +94,7 @@ To customize an instance, add non-secret values under the Worker's **Settings �
 | `EDGE_EVER_WORKERS_DEV` | Enable or disable the `workers.dev` route |
 | `EDGE_EVER_CUSTOM_DOMAIN` / `EDGE_EVER_ROUTE_PATTERN` | Custom routing |
 
-Set a custom administrator username before retrying the initial build; changing the variable after the account exists does not rename it.
+Set a custom administrator username before retrying the initial build; changing the variable after the account exists does not rename it. These values can also live in `wrangler.toml` (for example a `[vars]` block) when you prefer to keep them in the repository.
 
 Older deployments must add the `EDGE_EVER_S3_*` object storage settings before they can store attachments; the former `RESOURCES` R2 binding is no longer used. Existing explicit build commands remain supported; see [Workers Builds configuration](cloudflare-workers-builds.md).
 
@@ -114,12 +103,9 @@ Older deployments must add the `EDGE_EVER_S3_*` object storage settings before t
 ## Troubleshooting
 
 - **Initial build failed**: Check the Worker **Deployments** log for “routing it through EdgeEver's validated deployment pipeline”. Verify that the D1 database is named exactly `edgeever`, that the Workers Builds API token has D1 read/edit permission, and that the `EDGE_EVER_S3_*` settings point at a reachable bucket. For an intentionally different D1 database, set `EDGE_EVER_D1_DATABASE_NAME`; add `EDGE_EVER_D1_DATABASE_ID` only if automatic UUID discovery is unavailable.
-- **Updates not syncing**:
-  1. On the Fork **Actions** tab, enable **Update deployed EdgeEver** (scheduled workflows are off by default on public forks).
-  2. Run it once with **Run workflow**. Open the bilingual job **Summary**: it separately reports the upstream target, Git publish result, deployment trigger, and whether the live deployment was verified.
-  3. A scheduled green run with *Already on upstream target* means Git already matches that channel — not a broken skip. A manual run automatically republishes the selected version when already aligned. If the live site is still old afterward, compare the Cloudflare **Deployments** commit SHA.
-  4. Prefer this workflow over GitHub **Sync fork** for day-to-day upgrades.
-  5. If an old updater fails with `without workflows permission`, use **Sync fork** once as the repository owner, then re-run **Update deployed EdgeEver**. The current updater preserves `.github/workflows/**`, so later product updates do not hit this permission boundary.
+- **Upgrading to a new release**:
+  1. The repository ships no scheduled sync workflow. Upgrade with `git remote add upstream https://github.com/scupro/edgeever.git`, `git fetch upstream --tags`, `git merge upstream/<tag>`, then push; Cloudflare rebuilds the pushed commit.
+  2. Resolve conflicts locally; your instance edits (including `wrangler.toml`) stay in the Fork. If the site still looks old, compare the Cloudflare **Deployments** commit SHA with the commit you pushed.
 - **Push succeeded but site unchanged**: Confirm Workers Builds ran for the new `main` SHA. Optionally add repository secret `EDGE_EVER_CLOUDFLARE_DEPLOY_HOOK_URL` so the workflow can call a Deploy Hook after publish.
 - **The Android app reports that Cloudflare or a security policy blocked sign-in**:
   1. Retry once and record the diagnostic code, Ray ID, and approximate time shown by the app. In Cloudflare, open **Security → Analytics → Events**, find the matching request, and check its **Service**, **Action**, and rule ID before changing any protection.

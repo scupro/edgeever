@@ -12,8 +12,9 @@ export const deploymentPrompts = {
    variable before the next build.
 5. Run the build again, verify \`/api/health\` and \`/api/openapi.json\`, then log in
    with that administrator username and password.
-6. Enable and manually run the GitHub Actions workflow named \`Update deployed EdgeEver\`
-   once so the Fork can automatically receive future stable releases and fixes.`,
+6. Optional: to take future releases, merge an upstream tag into the Fork and push
+   (\`git fetch upstream --tags && git merge upstream/<tag>\`); the repository ships no
+   scheduled upstream-sync workflow.`,
   "zh-TW": `請全程透過 GitHub 和 Cloudflare 線上部署 EdgeEver：
 1. Fork https://github.com/scupro/edgeever。
 2. 在 Cloudflare 中建立 D1 \`edgeever\`，並準備一個存放附件的 S3 相容物件儲存桶。
@@ -25,8 +26,8 @@ export const deploymentPrompts = {
    設定 Workers Builds 建置變數 \`AUTH_USER\`。
 5. 再次建置，驗證 \`/api/health\` 和 \`/api/openapi.json\`，再用該管理員
    使用者名稱和密碼驗證登入。
-6. 啟用並手動執行一次名為 \`Update deployed EdgeEver\` 的 GitHub Actions 工作流程，
-   以便後續自動同步正式版本，持續獲得 EdgeEver 的功能更新與問題修復。`,
+6. 選用：日後若要取得新版本，把上游 tag 合併進 Fork 後推送即可
+   （\`git fetch upstream --tags && git merge upstream/<tag>\`）；倉庫不含定時同步上游的工作流程。`,
 };
 
 export const manualDeploymentCopy = {
@@ -43,7 +44,7 @@ export const manualDeploymentCopy = {
       },
       {
         title: "Import & Configure the Project",
-        body: "Create a Worker named edgeever from the Fork's main branch in Cloudflare Workers & Pages. Use the repository root and keep Cloudflare's default Workers Builds deploy command, which runs in Cloudflare. Ensure its API token can read and edit D1. The deploy command creates the bindings; do not edit Fork files.",
+        body: "Create a Worker named edgeever from the Fork's main branch in Cloudflare Workers & Pages. Use the repository root and keep Cloudflare's default Workers Builds deploy command, which runs in Cloudflare. Ensure its API token can read and edit D1. The deploy command creates the bindings; you may still adjust wrangler.toml (including a [vars] block for non-secret variables).",
       },
       {
         title: "Choose the Administrator Password",
@@ -54,8 +55,8 @@ export const manualDeploymentCopy = {
         body: "Save and Deploy creates the Worker and starts a build. The initial build primarily initializes the Worker instance; if it fails due to missing administrator Secret, this is expected behavior. Simply add the runtime Secret AUTH_PASSWORD from Step 4 and click retry. The username defaults to admin; to use another, set AUTH_USER as a Workers Builds variable before retrying. Once deployed, confirm /api/health returns 200, then log in with the configured username and password.",
       },
       {
-        title: "Enable Automatic Updates",
-        body: "Open the Fork's Actions tab, click I understand my workflows, go ahead and enable them, then manually run Update deployed EdgeEver once so the Fork can automatically receive future stable releases and fixes.",
+        title: "Optional: Keep the Deployment Updated",
+        body: "The Fork ships no scheduled upstream-sync workflow. To take a new release, merge the upstream tag into main (git fetch upstream --tags && git merge upstream/<tag>) and push; Cloudflare rebuilds automatically.",
       },
     ],
   },
@@ -72,7 +73,7 @@ export const manualDeploymentCopy = {
       },
       {
         title: "匯入並設定專案",
-        body: "在 Cloudflare Workers & Pages 中從 Fork 的 main 分支建立名為 edgeever 的 Worker。使用儲存庫根目錄，保留由 Cloudflare 線上執行的 Workers Builds 預設部署指令，並確認其 API Token 具備 D1 讀取及編輯權限。binding 由部署指令產生，不要修改 Fork 中的檔案。",
+        body: "在 Cloudflare Workers & Pages 中從 Fork 的 main 分支建立名為 edgeever 的 Worker。使用儲存庫根目錄，保留由 Cloudflare 線上執行的 Workers Builds 預設部署指令，並確認其 API Token 具備 D1 讀取及編輯權限。binding 由部署指令產生；wrangler.toml 仍可自行調整，包括用 [vars] 設定非敏感變數。",
       },
       {
         title: "準備管理員密碼",
@@ -83,8 +84,8 @@ export const manualDeploymentCopy = {
         body: "儲存並部署會建立 Worker 並啟動建置。首次建置主要用於初始化實例，若因尚未配置管理員 Secret 而報錯屬於預期行為，只需在第 4 步新增執行時 Secret AUTH_PASSWORD 後點選重試建置即可透過。管理員使用者名稱預設為 admin；如需使用其他名稱，請在重試建置前設定 Workers Builds 建置變數 AUTH_USER。部署完成後造訪 /api/health，確認回傳 200，再用設定的管理員使用者名稱和密碼登入。",
       },
       {
-        title: "啟用自動更新",
-        body: "進入 Fork 的 Actions 分頁，點選 I understand my workflows, go ahead and enable them，然後手動執行一次 Update deployed EdgeEver，確保後續能夠自動獲得正式版本的功能更新與修復。",
+        title: "選用：維持部署更新",
+        body: "Fork 不含定時同步上游的工作流程。要取得新版本時，把上游 tag 合併進 main（git fetch upstream --tags && git merge upstream/<tag>）後推送，Cloudflare 會自動重新建置。",
       },
     ],
   },

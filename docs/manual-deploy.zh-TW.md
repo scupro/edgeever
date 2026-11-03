@@ -81,6 +81,6 @@ EdgeEver 會使用從現有實例認證 Secret 派生的專用金鑰加密外部
   EDGE_EVER_PASSWORD='<新密碼>' bun run auth:reset-password -- --remote --username admin
   ```
 
-## 自動更新
+## 更新實例
 
-手動部署完成後，按 [Cloudflare Workers Builds](cloudflare-workers-builds.zh-TW.md) 配置自動部署，並在 Fork 的 **Actions** 中啟用 **Update deployed EdgeEver**。
+手動部署完成後，按 [Cloudflare Workers Builds](cloudflare-workers-builds.zh-TW.md) 配置自動構建。倉庫不含定時同步上游的工作流：升級時自行把上游 tag 合併進分支並推送。
