@@ -23,12 +23,12 @@ This document defines the standard operating specifications and conventions for 
 4. **Configure Login Credentials & Instance Settings**
    - **Worker Secret**: After the Worker exists, add the runtime Secret `AUTH_PASSWORD` for the initial administrator password. Prefer a strong password of at least 32 characters.
    - Keep this password only as a Worker runtime Secret; do not copy it into Workers Builds variables. The standard deploy entrypoint reuses and verifies the existing Secret.
-   - Do not edit `wrangler.toml` or add duplicate bindings in the Dashboard. The deployment command generates the `DB` binding from these standard resource names.
+   - You may edit `wrangler.toml`, including adding a `[vars]` block for non-secret environment variables; the deployment command still generates the `DB` binding from these standard resource names, so do not duplicate bindings in the Dashboard.
    - For an existing Worker deployed from older instructions, do not ask the user to rename the administrator account. With no explicit override, deployment automatically preserves the live administrator username; object storage is always configured through the `EDGE_EVER_S3_*` deployment variables.
 
 5. **Check Workers Builds Settings**
    - Keep the repository root, `main` branch, and default Deploy command `npx wrangler deploy` in Cloudflare's build settings. Existing deployments that already use the explicit `bun run build:cloudflare` and `bun run deploy:cloudflare-builds` commands there may keep them.
-   - The deployment pipeline automatically resolves the D1 UUID from the `edgeever` database name and writes instance settings only to a temporary generated Wrangler configuration. The tracked `wrangler.toml` must remain unchanged; deployment rejects instance-specific values committed there so a Fork cannot diverge on infrastructure configuration.
+   - The deployment pipeline automatically resolves the D1 UUID from the `edgeever` database name and merges instance settings into a temporary generated Wrangler configuration. The tracked `wrangler.toml` may be customized freely — including `name`, `workers_dev`, `[vars]`, routes, and `compatibility_date` — because this Fork deploys its own instance rather than mirroring upstream.
    - Ensure the Workers Builds API token can read and edit D1. Advanced non-secret customization belongs in `EDGE_EVER_*` Workers Builds variables. For a differently named database, set `EDGE_EVER_D1_DATABASE_NAME`; set `EDGE_EVER_D1_DATABASE_ID` only if automatic UUID discovery is unavailable. Passwords remain runtime Secrets.
 
 6. **Start Initial Build & Verify Service**
@@ -37,15 +37,10 @@ This document defines the standard operating specifications and conventions for 
      - Check `https://<your-worker-domain>/api/openapi.json` is reachable and returns JSON `{"ok": true}`.
      - Verify login API using the configured administrator username (default: `admin`) and `AUTH_PASSWORD`.
 
-7. **Verify Upstream Update Channel**
-   - In the Fork's **Actions** tab, enable **Update deployed EdgeEver** (required on public forks: scheduled workflows are disabled by default).
-   - An ordinary Fork is a deployment mirror by default. No update variable is required: the workflow applies the selected upstream Release's product snapshot to `main` before triggering Cloudflare.
-   - The updater preserves the Fork's complete `.github/workflows/**` directory and its two updater helper scripts as a stable local bootstrap layer. Official packaging, signing, testing, and Release workflows remain guarded to `scupro/edgeever` and are never rewritten by downstream product updates.
-   - Only a Fork that intentionally maintains application-code changes should create the Actions repository variable `EDGE_EVER_PRESERVE_FORK_CHANGES=true`. This opts into merges and requires the owner to resolve future conflicts; it is not needed for normal deployments.
-   - Manually trigger **Update deployed EdgeEver** once in the Fork's **Actions** tab. A manual run republishes the selected version even when the Fork is already aligned, ensuring Cloudflare receives a fresh build event.
-   - Open the job **Summary** and confirm it reports Fork mode `mirror`, the upstream target (stable Release or edge `main`), and either an update publish or an explicit *already aligned* result.
-   - Confirm Cloudflare **Deployments** builds the published `main` commit when a push occurred.
-   - Do not edit deployment files or rely on GitHub **Sync fork** for routine upgrades; the workflow is the only synchronization path needed by a normal deployment Fork. Use **Sync fork** once only when an old Fork must receive a newer updater workflow itself, then return to **Update deployed EdgeEver**.
+7. **Keep the Instance Updated**
+   - This deployment is a plain Fork of `scupro/edgeever`; there is no scheduled upstream-sync workflow. Upgrade by pulling the desired upstream tag into the Fork and pushing it, which retriggers the Cloudflare build.
+   - `git remote add upstream https://github.com/scupro/edgeever.git`, then `git fetch upstream --tags` and `git merge upstream/<tag>` (or rebase) on your deployment branch, resolve conflicts, and push.
+   - Verify the redeploy through the `/api/health` check above and the Cloudflare **Deployments** entry for the pushed commit.
 
 ## Optional: Customize the Initial Administrator Username
 

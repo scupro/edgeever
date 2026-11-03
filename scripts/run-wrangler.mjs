@@ -13,12 +13,12 @@ import {
   deployedWorkerSettings,
   DEPLOYMENT_TARGETS_PATH,
   findD1DatabaseIdByName,
+  mergeWranglerVars,
   normalizeD1MigrationSql,
   parseWranglerDeploymentUrls,
   parseWranglerDeploymentVersionId,
   PLACEHOLDER_D1_ID,
   productionVersionIds,
-  repositoryWranglerConfigError,
   resolveWranglerAssetsDirectory,
   runWranglerSync,
   shouldCaptureDeploymentTargets,
@@ -80,7 +80,6 @@ if (requestedInstance !== undefined) {
 
 const repositoryConfigPath = resolve("wrangler.toml");
 const baseConfigPath = resolve(process.env.WRANGLER_CONFIG ?? repositoryConfigPath);
-const usesRepositoryConfig = baseConfigPath === repositoryConfigPath;
 const baseConfigDirectory = dirname(baseConfigPath);
 const instance = process.env.EDGE_EVER_INSTANCE?.trim();
 const instanceKey = instance?.replace(/[^a-zA-Z0-9]/g, "_").toUpperCase();
@@ -97,12 +96,6 @@ const generatedSecretsPath = resolve(
 const generatedLocalDevEnvPath = resolve(".env.wrangler.generated.local");
 let config = readFileSync(baseConfigPath, "utf8");
 let changed = false;
-
-const repositoryConfigError = repositoryWranglerConfigError(config, usesRepositoryConfig);
-if (repositoryConfigError) {
-  writeSync(2, `${repositoryConfigError}\n`);
-  process.exit(1);
-}
 
 const migrationCommand =
   wranglerArgs[0] === "d1"
@@ -337,11 +330,7 @@ const runtimeVarLines = Object.entries(runtimeVars)
 
 if (runtimeVarLines.length > 0) {
   changed = true;
-  config = `${config.trimEnd()}
-
-[vars]
-${runtimeVarLines.join("\n")}
-`;
+  config = mergeWranglerVars(config, runtimeVarLines);
 }
 
 const demoMode = envValue("DEMO_MODE")?.toLowerCase();

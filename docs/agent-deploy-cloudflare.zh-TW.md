@@ -23,12 +23,12 @@
 4. **配置登入憑據與實例引數**
    - **Worker Secret**：Worker 建立後，新增執行時金鑰 `AUTH_PASSWORD`，值為初始管理員登入密碼；建議使用至少 32 個字元的強密碼。
    - 該密碼只配置為 Worker 執行時 Secret，不要複製到 Workers Builds 構建變數；標準部署入口會複用並驗證已存在的 Secret。
-   - 不要修改 `wrangler.toml`，也不要在控制檯重複新增 binding。部署命令會根據標準資源名稱生成 `DB` binding。
+   - 可以修改 `wrangler.toml`，包含新增 `[vars]` 區塊設定非敏感環境變數；部署命令仍會根據標準資源名稱生成 `DB` binding，因此不要在控制檯重複新增 binding。
    - 對按舊版檔案部署的已有 Worker，不要要求使用者重新命名管理員帳號。沒有顯式覆蓋時，部署會自動保留線上管理員使用者名稱；物件儲存一律透過 `EDGE_EVER_S3_*` 部署變數設定。
 
 5. **檢查 Workers Builds 配置**
    - 在 Cloudflare 的構建設定中保持倉庫根目錄、`main` 分支和預設部署命令 `npx wrangler deploy`。已有部署若在構建設定中使用顯式的 `bun run build:cloudflare` 與 `bun run deploy:cloudflare-builds` 命令，可繼續沿用。
-   - 部署流程會根據 `edgeever` 資料庫名稱自動查詢 D1 UUID，並把所有實例引數僅寫入臨時生成的 Wrangler 配置。受版本控制的 `wrangler.toml` 必須保持不變；若把實例專屬配置提交到該檔案，部署會直接拒絕，避免 Fork 因基礎設施配置產生分叉。
+   - 部署流程會根據 `edgeever` 資料庫名稱自動查詢 D1 UUID，並把實例引數合併寫入臨時生成的 Wrangler 配置。受版本控制的 `wrangler.toml` 可自由調整，包括 `name`、`workers_dev`、`[vars]`、路由與 `compatibility_date`，因為本 Fork 部署的是自有實例，而非上游映象。
    - 請確保 Workers Builds API Token 具有 D1 讀取和編輯權限。高階非敏感自定義引數應放在 `EDGE_EVER_*` Workers Builds 構建變數中。如使用其他資料庫名稱，設定 `EDGE_EVER_D1_DATABASE_NAME`；僅在無法自動查詢 UUID 時設定 `EDGE_EVER_D1_DATABASE_ID`。密碼始終屬於執行時 Secret。
 
 6. **啟動首次構建與服務驗證**
@@ -37,15 +37,10 @@
      - 檢查 `https://<你的 Worker 域名>/api/openapi.json` 可以訪問，且 JSON 含 `"ok": true`。
      - 使用配置的管理員使用者名稱（預設 `admin`）和 `AUTH_PASSWORD` 驗證登入 API。
 
-7. **驗證上游更新通道**
-   - 在 Fork 倉庫的 **Actions** 標籤頁中啟用 **Update deployed EdgeEver**（公共 Fork 上定時任務預設關閉，必須手動啟用）。
-   - 普通 Fork 預設作為部署映象，無需配置任何更新變數：工作流會把所選上游 Release 的產品程式碼快照應用到 `main`，再觸發 Cloudflare。
-   - 更新器會把 Fork 自己的完整 `.github/workflows/**` 目錄及兩個更新輔助指令碼作為穩定的本機引導層保留。官方打包、簽名、測試與 Release 工作流繼續透過 `scupro/edgeever` 倉庫門禁限制執行，也不會被下游產品更新改寫。
-   - 只有明確維護了應用程式碼修改的 Fork，才應建立 Actions 倉庫變數 `EDGE_EVER_PRESERVE_FORK_CHANGES=true`。啟用後改為 merge，並由倉庫所有者處理未來衝突；普通部署無需設定。
-   - 在 Fork 的 **Actions** 中手動執行一次 **Update deployed EdgeEver**。即使 Fork 已對齊，手動執行也會重新發布所選版本，確保 Cloudflare 收到新的構建事件。
-   - 開啟 Job **Summary**，確認 Fork mode 為 `mirror`，並顯示上游目標（stable Release 或 edge `main`），以及「已釋出更新」或明確的「已對齊」結果。
-   - 若發生了 push，確認 Cloudflare **Deployments** 構建的是對應的 `main` commit。
-   - 普通部署 Fork 不應修改部署檔案，日常升級也不要依賴 GitHub **Sync fork**；本工作流就是唯一需要的同步路徑。只有舊 Fork 必須取得新版更新工作流本身時，才使用一次 **Sync fork**，之後繼續使用 **Update deployed EdgeEver**。
+7. **更新實例**
+   - 本部署就是 `scupro/edgeever` 的普通 Fork，倉庫不含任何定時同步上游的工作流程。升級時把所需上游 tag 合併進 Fork 並推送，即可重新觸發 Cloudflare 構建。
+   - 執行 `git remote add upstream https://github.com/scupro/edgeever.git`，再 `git fetch upstream --tags`，於部署分支 `git merge upstream/<tag>`（或 rebase）並解決衝突後推送。
+   - 推送後依上方 `/api/health` 檢查，並在 Cloudflare **Deployments** 確認對應 commit 已重新部署。
 
 ## 可選：自定義初始管理員使用者名稱
 

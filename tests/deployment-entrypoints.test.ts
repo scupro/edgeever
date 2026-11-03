@@ -14,11 +14,7 @@ import {
   deploymentPrompts,
   manualDeploymentCopy,
 } from "../apps/site/src/deployment-prompts";
-import {
-  decideUpstreamSync,
-  shouldRedeploy,
-} from "../scripts/upstream-sync-plan.mjs";
-import { repositoryWranglerConfigError } from "../scripts/wrangler-runner.mjs";
+import { mergeWranglerVars } from "../scripts/wrangler-runner.mjs";
 import {
   edgeEverDeploymentEnvironment,
   hasPlaceholderD1Binding,
@@ -44,53 +40,6 @@ const extractSection = (document: string, sectionHeading: string) => {
 };
 const normalizeMarkdownCopy = (value: string) =>
   value.replace(/[`*]/g, "").replace(/\s+/g, " ").trim();
-const runFixtureGit = (cwd: string, ...args: string[]) => {
-  const result = spawnSync("git", args, { cwd, encoding: "utf8" });
-  if (result.error) throw result.error;
-  if (result.status !== 0) {
-    throw new Error(
-      `git ${args.join(" ")} failed:\n${result.stdout.trim()}\n${result.stderr.trim()}`,
-    );
-  }
-};
-const fixtureGitStatus = (cwd: string, ...args: string[]) =>
-  spawnSync("git", args, { cwd, encoding: "utf8" }).status;
-const writeFixtureFile = (cwd: string, path: string, content: string) => {
-  const absolutePath = resolve(cwd, path);
-  mkdirSync(resolve(absolutePath, ".."), { recursive: true });
-  writeFileSync(absolutePath, content);
-};
-const initializeSyncFixture = (cwd: string) => {
-  runFixtureGit(cwd, "init", "-b", "main");
-  runFixtureGit(cwd, "config", "user.name", "EdgeEver Test");
-  runFixtureGit(cwd, "config", "user.email", "edgeever-test@example.com");
-  runFixtureGit(cwd, "config", "core.autocrlf", "false");
-};
-const prepareFixtureUpstreamSync = (
-  cwd: string,
-  alignMode: "merge" | "snapshot",
-  targetRevision: string,
-) => {
-  const result = spawnSync(
-    "node",
-    [resolve(repositoryRoot, "scripts/prepare-upstream-sync.mjs"), "prepare"],
-    {
-      cwd,
-      encoding: "utf8",
-      env: {
-        ...process.env,
-        EDGE_SYNC_ALIGN_MODE: alignMode,
-        EDGE_SYNC_BASE_COMMIT: "HEAD",
-        EDGE_SYNC_TARGET_COMMIT: targetRevision,
-      },
-    },
-  );
-  if (result.error) throw result.error;
-  if (result.status !== 0) {
-    throw new Error(`prepare-upstream-sync failed:\n${result.stdout}\n${result.stderr}`);
-  }
-};
-
 describe("Cloudflare deployment entrypoints", () => {
   test("all entrypoints converge on the common deployment pipeline", () => {
     const packageJson = JSON.parse(readRepositoryFile("package.json"));
@@ -220,36 +169,34 @@ describe("Cloudflare deployment entrypoints", () => {
     );
     expect(runner).toContain('"d1", "list", "--json"');
     expect(runner).toContain("findD1DatabaseIdByName");
-    expect(runner).toContain("repositoryWranglerConfigError(config, usesRepositoryConfig)");
     expect(runner).not.toContain("replace the database_id placeholder");
     expect(englishAgentDoc).toContain("automatically resolves the D1 UUID");
     expect(chineseAgentDoc).toContain("自動查詢 D1 UUID");
   });
 
-  test("rejects instance-specific values in the repository Wrangler config", () => {
-    const repositoryConfig = readRepositoryFile("wrangler.toml");
-    expect(repositoryConfig).toContain('[version_metadata]\nbinding = "CF_VERSION_METADATA"');
-    const instanceConfigs = [
-      repositoryConfig.replace('name = "edgeever"', 'name = "my-notes"'),
-      repositoryConfig.replace("workers_dev = true", "workers_dev = false"),
-      repositoryConfig.replace('database_name = "edgeever"', 'database_name = "my-notes"'),
-      repositoryConfig.replace(
-        'database_id = "00000000-0000-0000-0000-000000000000"',
-        'database_id = "11111111-1111-1111-1111-111111111111"',
-      ),
-      repositoryConfig.replace('compatibility_date = "2026-06-26"', 'compatibility_date = "2026-08-17"'),
-      `${repositoryConfig}\n[vars]\nAUTH_USER = "owner"\n`,
-      `${repositoryConfig}\n[[routes]]\npattern = "notes.example.com"\ncustom_domain = true\n`,
-    ];
+  test("merges deployment variables into an existing [vars] table", () => {
+    const config = [
+      'name = "edgeever"',
+      "",
+      "[vars]",
+      'AUTH_USER = "admin"',
+      'CUSTOM = "keep"',
+      "",
+      "[observability]",
+      "enabled = true",
+      "",
+    ].join("\n");
 
-    for (const instanceConfig of instanceConfigs) {
-      const error = repositoryWranglerConfigError(instanceConfig, true);
-      expect(error).toContain("Refusing instance-specific setting");
-      expect(error).toContain("EDGE_EVER_*");
-      expect(error).toContain("WRANGLER_CONFIG");
-    }
-    expect(repositoryWranglerConfigError(repositoryConfig, true)).toBeUndefined();
-    expect(repositoryWranglerConfigError(instanceConfigs[0], false)).toBeUndefined();
+    const merged = mergeWranglerVars(config, ['AUTH_USER = "owner"', 'NEW = "x"']);
+
+    expect(merged.match(/^\[vars\]$/gm)).toHaveLength(1);
+    expect(merged).toContain('AUTH_USER = "owner"');
+    expect(merged).not.toContain('AUTH_USER = "admin"');
+    expect(merged).toContain('CUSTOM = "keep"');
+    expect(merged).toContain('NEW = "x"');
+    expect(merged).toContain("[observability]\nenabled = true");
+    expect(mergeWranglerVars('name = "edgeever"\n', ['A = "b"']))
+      .toContain('[vars]\nA = "b"');
   });
 
   test("keeps D1 resolver diagnostics out of Wrangler JSON stdout", () => {
@@ -439,406 +386,6 @@ describe("Cloudflare deployment entrypoints", () => {
     }
   });
 
-  test("deployed repositories receive guarded daily upstream updates", () => {
-    const workflow = readRepositoryFile(".github/workflows/sync-edgeever-upstream.yml");
-    const bunConfig = readRepositoryFile("bunfig.toml");
-    const packageJson = JSON.parse(readRepositoryFile("package.json"));
-    const scripts = packageJson.scripts as Record<string, string>;
-
-    expect(workflow).toContain("github.repository != 'tianma-if/edgeever'");
-    expect(workflow).toContain("UPSTREAM_REPOSITORY: tianma-if/edgeever");
-    expect(workflow).toContain("Require a GitHub Fork");
-    expect(workflow).toContain(".fork");
-    expect(workflow).toContain("EDGE_EVER_UPDATE_CHANNEL");
-    expect(workflow).toContain("stable)");
-    expect(workflow).toContain("edge)");
-    expect(workflow).toContain("FORCE_REDEPLOY: ${{ github.event_name == 'workflow_dispatch' }}");
-    expect(workflow).not.toContain("force_redeploy:");
-    expect(workflow).toContain("bun run db:migrate:local");
-    expect(bunConfig).toContain('pathIgnorePatterns = ["tests/e2e/**"]');
-    expect(scripts.test).toBe("bun run test:bulk && bun run test:integration");
-    expect(scripts["test:bulk"]).toContain("--path-ignore-patterns='tests/e2e/**'");
-    expect(scripts["test:bulk"]).toContain("apps/api/src/companion-learning.test.mjs");
-    expect(scripts["test:bulk"]).toContain("apps/api/src/resource-upload-integration.test.mjs");
-    expect(scripts["test:bulk"]).toContain("apps/desktop/src/main/workbuddy-auth.test.mjs");
-    expect(scripts["test:bulk"]).toContain("apps/desktop/src/main/acp-cleanup.test.mjs");
-    expect(scripts["test:integration"]).toBe(
-      "bun test apps/api/src/companion-learning.test.mjs apps/api/src/resource-upload-integration.test.mjs && bun test --cwd apps/desktop src/main/workbuddy-auth.test.mjs src/main/acp-cleanup.test.mjs",
-    );
-    expect(workflow).toContain("bun run test");
-    expect(workflow.match(/if: steps\.upstream\.outputs\.align_mode == 'merge'/g)).toHaveLength(2);
-    expect(workflow).toContain("git push origin HEAD:main");
-    expect(workflow).not.toContain("git push --force-with-lease origin HEAD:main");
-    expect(workflow).not.toContain("git reset --hard");
-    expect(workflow).toContain("scripts/prepare-upstream-sync.mjs");
-    expect(workflow).toContain("':(exclude).github/workflows/**'");
-    expect(workflow).toContain("planner_path");
-    expect(workflow).toContain('if [ "${align_mode}" = "reset" ]');
-    expect(workflow).toContain("Refusing to publish an update that changes the downstream updater");
-    expect(workflow).toContain("content_matches_target");
-    expect(workflow).toContain("already_on_target");
-    expect(workflow).toContain("fork_mode=mirror");
-    expect(workflow).toContain("GITHUB_STEP_SUMMARY");
-    expect(workflow).toContain("name: Sync Fork and trigger deployment");
-    expect(workflow).toContain("name: Report result / 輸出結果");
-    expect(workflow).toContain("::notice title=Manual redeploy / 手動重新部署");
-    expect(workflow).toContain("PUBLISH_OUTCOME: ${{ steps.publish.outcome }}");
-    expect(workflow).toContain("DEPLOY_TRIGGER_OUTCOME: ${{ steps.deploy.outcome }}");
-    expect(workflow).toContain("| Git publish / Git 釋出 |");
-    expect(workflow).toContain("| Deployment trigger / 部署觸發 |");
-    expect(workflow).toContain("| Live deployment / 線上部署 |");
-    expect(workflow).toContain("Not verified by this workflow / 本工作流未驗證");
-    expect(workflow).toContain("EDGE_EVER_CLOUDFLARE_DEPLOY_HOOK_URL");
-    expect(workflow).toContain("EDGE_EVER_PRESERVE_FORK_CHANGES");
-    expect(workflow).toContain("PRESERVE_FORK_CHANGES");
-    expect(workflow).not.toContain("upstream_merge_base");
-    expect(workflow).not.toContain("local_app_changes");
-    expect(workflow).toContain("scripts/upstream-sync-plan.mjs");
-    expect(workflow).toContain("Prefer this workflow over GitHub **Sync fork**");
-  });
-
-  test("forks skip every workflow job except upstream updates", () => {
-    const workflowsDirectory = resolve(repositoryRoot, ".github/workflows");
-    const workflowFiles = readdirSync(workflowsDirectory)
-      .filter((file) => /\.ya?ml$/.test(file))
-      .filter((file) => file !== "sync-edgeever-upstream.yml");
-
-    for (const file of workflowFiles) {
-      const workflow = readRepositoryFile(`.github/workflows/${file}`);
-      const jobs = workflow.slice(workflow.indexOf("\njobs:\n") + "\njobs:\n".length);
-      const jobStarts = [...jobs.matchAll(/^  ([A-Za-z0-9_-]+):\s*$/gm)];
-
-      expect(jobStarts.length).toBeGreaterThan(0);
-      for (const [index, match] of jobStarts.entries()) {
-        const nextJob = jobStarts[index + 1];
-        const job = jobs.slice(match.index, nextJob?.index);
-        expect(job).toMatch(/github\.repository == '(?:scupro|tianma-if)\/edgeever'/);
-      }
-    }
-  });
-
-  test("republishes an already-aligned deploy mirror when redeploy is requested", () => {
-    expect(
-      decideUpstreamSync({
-        contentMatchesTarget: true,
-        forceRedeploy: true,
-        headEqualsTarget: true,
-        headIsAncestorOfTarget: true,
-        preserveForkChanges: false,
-        targetIsAncestorOfHead: true,
-      }),
-    ).toEqual({
-      alignMode: "none",
-      reason: "already_on_target",
-      republishOnly: true,
-      updateRequired: false,
-    });
-  });
-
-  test("manual dispatch redeploys through an older Fork workflow", () => {
-    expect(shouldRedeploy({
-      eventName: "workflow_dispatch",
-      forceRedeploy: false,
-    })).toBe(true);
-    expect(shouldRedeploy({
-      eventName: "schedule",
-      forceRedeploy: false,
-    })).toBe(false);
-  });
-
-  test("snapshots a deploy mirror that moved ahead of the stable release", () => {
-    expect(
-      decideUpstreamSync({
-        contentMatchesTarget: false,
-        forceRedeploy: false,
-        headEqualsTarget: false,
-        headIsAncestorOfTarget: false,
-        preserveForkChanges: false,
-        targetIsAncestorOfHead: true,
-      }),
-    ).toEqual({
-      alignMode: "snapshot",
-      reason: "deploy_mirror_ahead",
-      republishOnly: false,
-      updateRequired: true,
-    });
-  });
-
-  test("preserves changes only when a customized fork explicitly opts in", () => {
-    expect(
-      decideUpstreamSync({
-        contentMatchesTarget: false,
-        forceRedeploy: false,
-        headEqualsTarget: false,
-        headIsAncestorOfTarget: false,
-        preserveForkChanges: true,
-        targetIsAncestorOfHead: true,
-      }),
-    ).toEqual({
-      alignMode: "none",
-      reason: "customized_contains_target",
-      republishOnly: false,
-      updateRequired: false,
-    });
-  });
-
-  test("merges a diverged customized fork only after explicit opt-in", () => {
-    expect(
-      decideUpstreamSync({
-        contentMatchesTarget: false,
-        forceRedeploy: false,
-        headEqualsTarget: false,
-        headIsAncestorOfTarget: false,
-        preserveForkChanges: true,
-        targetIsAncestorOfHead: false,
-      }),
-    ).toEqual({
-      alignMode: "merge",
-      reason: "customized_merge",
-      republishOnly: false,
-      updateRequired: true,
-    });
-  });
-
-  test("prepares a linear product snapshot without changing downstream workflows", () => {
-    const workingDirectory = mkdtempSync(resolve(tmpdir(), "edgeever-upstream-snapshot-"));
-
-    try {
-      initializeSyncFixture(workingDirectory);
-      writeFixtureFile(workingDirectory, "app.txt", "base\n");
-      writeFixtureFile(workingDirectory, "removed.txt", "remove me\n");
-      writeFixtureFile(
-        workingDirectory,
-        ".github/workflows/sync-edgeever-upstream.yml",
-        "name: downstream base\n",
-      );
-      writeFixtureFile(
-        workingDirectory,
-        "scripts/prepare-upstream-sync.mjs",
-        "// downstream prepare helper\n",
-      );
-      writeFixtureFile(
-        workingDirectory,
-        "scripts/upstream-sync-plan.mjs",
-        "// downstream planner\n",
-      );
-      runFixtureGit(workingDirectory, "add", ".");
-      runFixtureGit(workingDirectory, "commit", "-m", "base");
-
-      runFixtureGit(workingDirectory, "checkout", "-b", "upstream");
-      writeFixtureFile(workingDirectory, "app.txt", "upstream target\n");
-      writeFixtureFile(workingDirectory, "added.txt", "added upstream\n");
-      writeFixtureFile(
-        workingDirectory,
-        ".github/workflows/sync-edgeever-upstream.yml",
-        "name: upstream changed\n",
-      );
-      writeFixtureFile(
-        workingDirectory,
-        ".github/workflows/windows-test-signing.yml",
-        "name: official only\n",
-      );
-      writeFixtureFile(
-        workingDirectory,
-        "scripts/prepare-upstream-sync.mjs",
-        "// upstream prepare helper\n",
-      );
-      writeFixtureFile(
-        workingDirectory,
-        "scripts/upstream-sync-plan.mjs",
-        "// upstream planner\n",
-      );
-      rmSync(resolve(workingDirectory, "removed.txt"));
-      runFixtureGit(workingDirectory, "add", "-A");
-      runFixtureGit(workingDirectory, "commit", "-m", "upstream target");
-
-      runFixtureGit(workingDirectory, "checkout", "-b", "downstream", "main");
-      writeFixtureFile(workingDirectory, "app.txt", "stale downstream product\n");
-      writeFixtureFile(
-        workingDirectory,
-        ".github/workflows/sync-edgeever-upstream.yml",
-        "name: downstream updater\n",
-      );
-      runFixtureGit(workingDirectory, "add", ".");
-      runFixtureGit(workingDirectory, "commit", "-m", "downstream state");
-      runFixtureGit(workingDirectory, "tag", "downstream-base");
-
-      prepareFixtureUpstreamSync(workingDirectory, "snapshot", "upstream");
-
-      expect(readFileSync(resolve(workingDirectory, "app.txt"), "utf8")).toBe(
-        "upstream target\n",
-      );
-      expect(readFileSync(resolve(workingDirectory, "added.txt"), "utf8")).toBe(
-        "added upstream\n",
-      );
-      expect(readFileSync(resolve(
-        workingDirectory,
-        ".github/workflows/sync-edgeever-upstream.yml",
-      ), "utf8")).toBe("name: downstream updater\n");
-      expect(readFileSync(resolve(
-        workingDirectory,
-        "scripts/prepare-upstream-sync.mjs",
-      ), "utf8")).toBe("// downstream prepare helper\n");
-      expect(readFileSync(resolve(
-        workingDirectory,
-        "scripts/upstream-sync-plan.mjs",
-      ), "utf8")).toBe("// downstream planner\n");
-      expect(readdirSync(resolve(workingDirectory, ".github/workflows"))).toEqual([
-        "sync-edgeever-upstream.yml",
-      ]);
-      expect(fixtureGitStatus(
-        workingDirectory,
-        "diff",
-        "--cached",
-        "--quiet",
-        "--",
-        ".github/workflows",
-        "scripts/prepare-upstream-sync.mjs",
-        "scripts/upstream-sync-plan.mjs",
-      )).toBe(0);
-
-      runFixtureGit(workingDirectory, "commit", "-m", "sync upstream product");
-      expect(fixtureGitStatus(workingDirectory, "diff", "--quiet", "downstream-base", "HEAD^"))
-        .toBe(0);
-      expect(fixtureGitStatus(workingDirectory, "rev-parse", "--verify", "HEAD^2"))
-        .not.toBe(0);
-      expect(fixtureGitStatus(
-        workingDirectory,
-        "diff",
-        "--quiet",
-        "upstream",
-        "HEAD",
-        "--",
-        ".",
-        ":(exclude).github/workflows/**",
-        ":(exclude)scripts/prepare-upstream-sync.mjs",
-        ":(exclude)scripts/upstream-sync-plan.mjs",
-      )).toBe(0);
-      expect(fixtureGitStatus(
-        workingDirectory,
-        "diff",
-        "--quiet",
-        "downstream-base",
-        "HEAD",
-        "--",
-        ".github/workflows",
-        "scripts/prepare-upstream-sync.mjs",
-        "scripts/upstream-sync-plan.mjs",
-      )).toBe(0);
-    } finally {
-      rmSync(workingDirectory, { force: true, recursive: true });
-    }
-  });
-
-  test("flattens customized merges and preserves their downstream workflows", () => {
-    const workingDirectory = mkdtempSync(resolve(tmpdir(), "edgeever-upstream-merge-"));
-
-    try {
-      initializeSyncFixture(workingDirectory);
-      writeFixtureFile(workingDirectory, "upstream.txt", "base\n");
-      writeFixtureFile(workingDirectory, "custom.txt", "base\n");
-      writeFixtureFile(
-        workingDirectory,
-        ".github/workflows/sync-edgeever-upstream.yml",
-        "name: base\n",
-      );
-      runFixtureGit(workingDirectory, "add", ".");
-      runFixtureGit(workingDirectory, "commit", "-m", "base");
-
-      runFixtureGit(workingDirectory, "checkout", "-b", "upstream");
-      writeFixtureFile(workingDirectory, "upstream.txt", "upstream target\n");
-      writeFixtureFile(
-        workingDirectory,
-        ".github/workflows/sync-edgeever-upstream.yml",
-        "name: upstream workflow\n",
-      );
-      runFixtureGit(workingDirectory, "add", ".");
-      runFixtureGit(workingDirectory, "commit", "-m", "upstream target");
-      runFixtureGit(workingDirectory, "tag", "upstream-v1");
-
-      runFixtureGit(workingDirectory, "checkout", "-b", "downstream", "main");
-      writeFixtureFile(workingDirectory, "custom.txt", "downstream customization\n");
-      writeFixtureFile(
-        workingDirectory,
-        ".github/workflows/sync-edgeever-upstream.yml",
-        "name: downstream updater\n",
-      );
-      runFixtureGit(workingDirectory, "add", ".");
-      runFixtureGit(workingDirectory, "commit", "-m", "customized downstream");
-      runFixtureGit(workingDirectory, "tag", "downstream-base");
-
-      prepareFixtureUpstreamSync(workingDirectory, "merge", "upstream-v1");
-
-      expect(readFileSync(resolve(workingDirectory, "upstream.txt"), "utf8")).toBe(
-        "upstream target\n",
-      );
-      expect(readFileSync(resolve(workingDirectory, "custom.txt"), "utf8")).toBe(
-        "downstream customization\n",
-      );
-      expect(readFileSync(resolve(
-        workingDirectory,
-        ".github/workflows/sync-edgeever-upstream.yml",
-      ), "utf8")).toBe("name: downstream updater\n");
-
-      runFixtureGit(
-        workingDirectory,
-        "commit",
-        "-m",
-        "sync customized fork",
-        "-m",
-        "EdgeEver-Upstream-Commit: upstream-v1",
-      );
-      expect(fixtureGitStatus(workingDirectory, "diff", "--quiet", "downstream-base", "HEAD^"))
-        .toBe(0);
-      expect(fixtureGitStatus(workingDirectory, "rev-parse", "--verify", "HEAD^2"))
-        .not.toBe(0);
-      expect(fixtureGitStatus(
-        workingDirectory,
-        "diff",
-        "--quiet",
-        "downstream-base",
-        "HEAD",
-        "--",
-        ".github/workflows",
-      )).toBe(0);
-
-      runFixtureGit(workingDirectory, "checkout", "upstream");
-      writeFixtureFile(workingDirectory, "upstream.txt", "upstream target v2\n");
-      writeFixtureFile(
-        workingDirectory,
-        ".github/workflows/sync-edgeever-upstream.yml",
-        "name: upstream workflow v2\n",
-      );
-      runFixtureGit(workingDirectory, "add", ".");
-      runFixtureGit(workingDirectory, "commit", "-m", "upstream target v2");
-      runFixtureGit(workingDirectory, "tag", "upstream-v2");
-      runFixtureGit(workingDirectory, "checkout", "downstream");
-      prepareFixtureUpstreamSync(workingDirectory, "merge", "upstream-v2");
-
-      expect(readFileSync(resolve(workingDirectory, "upstream.txt"), "utf8")).toBe(
-        "upstream target v2\n",
-      );
-      expect(readFileSync(resolve(workingDirectory, "custom.txt"), "utf8")).toBe(
-        "downstream customization\n",
-      );
-      expect(readFileSync(resolve(
-        workingDirectory,
-        ".github/workflows/sync-edgeever-upstream.yml",
-      ), "utf8")).toBe("name: downstream updater\n");
-      runFixtureGit(
-        workingDirectory,
-        "commit",
-        "-m",
-        "sync customized fork v2",
-        "-m",
-        "EdgeEver-Upstream-Commit: upstream-v2",
-      );
-      expect(fixtureGitStatus(workingDirectory, "rev-parse", "--verify", "HEAD^2"))
-        .not.toBe(0);
-    } finally {
-      rmSync(workingDirectory, { force: true, recursive: true });
-    }
-  }, 20_000);
 
   test("public deployment documentation exposes only Fork and Agent paths", () => {
     const englishReadme = readRepositoryFile("README.md");
@@ -906,15 +453,14 @@ describe("Cloudflare deployment entrypoints", () => {
     const chineseAgentDoc = readRepositoryFile("docs/agent-deploy-cloudflare.zh-TW.md");
 
     expect(englishAgentDoc).toContain("Workers & Pages");
-    expect(englishAgentDoc).toContain("Update deployed EdgeEver");
-    expect(englishAgentDoc).toContain("deployment mirror by default");
-    expect(englishAgentDoc).toContain("EDGE_EVER_PRESERVE_FORK_CHANGES");
+    expect(englishAgentDoc).toContain("no scheduled upstream-sync workflow");
+    expect(englishAgentDoc).toContain("[vars]");
     expect(englishAgentDoc).not.toContain("bun run deploy:manual");
     expect(englishAgentDoc).not.toContain("deploy:setup");
     expect(englishAgentDoc).not.toContain(".env.local");
     expect(chineseAgentDoc).toContain("Workers & Pages");
-    expect(chineseAgentDoc).toContain("預設作為部署映象");
-    expect(chineseAgentDoc).toContain("EDGE_EVER_PRESERVE_FORK_CHANGES");
+    expect(chineseAgentDoc).toContain("不含任何定時同步上游的工作流程");
+    expect(chineseAgentDoc).toContain("[vars]");
     expect(chineseAgentDoc).not.toContain("bun run deploy:manual");
     expect(chineseAgentDoc).not.toContain("bun run deploy:manual");
   });

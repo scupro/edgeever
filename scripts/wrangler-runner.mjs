@@ -1,44 +1,61 @@
 import { spawnSync } from "node:child_process";
-import { createHash } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 export const PLACEHOLDER_D1_ID = "00000000-0000-0000-0000-000000000000";
 
-const REPOSITORY_WRANGLER_VALUES = {
-  name: "edgeever",
-  workers_dev: "true",
-  database_name: "edgeever",
-  database_id: PLACEHOLDER_D1_ID,
-};
-const REPOSITORY_WRANGLER_SHA256 = "2d9487007dd0523956fe12f3943ea6a05ec4c513c13b9acedd6172987e9e0ff3";
+const TOML_SECTION_PATTERN = /^\s*\[\[?.+?\]?\]\s*$/;
+const TOML_ENTRY_PATTERN = /^([A-Za-z0-9_]+)\s*=/;
 
-const configValue = (config, key) => {
-  const match = config.match(new RegExp(`^${key}\\s*=\\s*(?:"([^"]*)"|(true|false))`, "m"));
-  return match?.[1] ?? match?.[2];
-};
+// Merge deployment-provided values into an existing [vars] table instead of
+// appending a second table, which would make the generated TOML invalid.
+// Values supplied by the deployment environment win over tracked defaults.
+export const mergeWranglerVars = (config, varLines) => {
+  if (varLines.length === 0) return config;
+  const normalized = config.replace(/\r\n/g, "\n");
+  const lines = normalized.split("\n");
+  const headerIndex = lines.findIndex((line) => line.trim() === "[vars]");
+  if (headerIndex === -1) {
+    return `${normalized.trimEnd()}\n\n[vars]\n${varLines.join("\n")}\n`;
+  }
 
-export const repositoryWranglerConfigError = (config, usesRepositoryConfig) => {
-  if (!usesRepositoryConfig) return undefined;
+  let endIndex = lines.length;
+  for (let index = headerIndex + 1; index < lines.length; index += 1) {
+    if (TOML_SECTION_PATTERN.test(lines[index])) {
+      endIndex = index;
+      break;
+    }
+  }
 
-  const changedEntry = Object.entries(REPOSITORY_WRANGLER_VALUES)
-    .find(([key, expected]) => configValue(config, key) !== expected);
-  const instanceSection = ["[[routes]]", "[vars]", "[triggers]"]
-    .find((section) => config.includes(section));
-  const normalizedConfig = config.replace(/\r\n/g, "\n");
-  const repositoryConfigChanged = createHash("sha256")
-    .update(normalizedConfig)
-    .digest("hex") !== REPOSITORY_WRANGLER_SHA256;
-  if (!changedEntry && !instanceSection && !repositoryConfigChanged) return undefined;
+  const overrides = new Map();
+  for (const line of varLines) {
+    const key = line.match(TOML_ENTRY_PATTERN)?.[1];
+    if (key) overrides.set(key, line);
+  }
 
-  const changedSetting = changedEntry?.[0] ?? instanceSection ?? "tracked file contents";
+  const merged = [];
+  const seen = new Set();
+  for (let index = headerIndex + 1; index < endIndex; index += 1) {
+    const key = lines[index].match(TOML_ENTRY_PATTERN)?.[1];
+    if (key && overrides.has(key)) {
+      if (seen.has(key)) continue;
+      merged.push(overrides.get(key));
+      seen.add(key);
+      continue;
+    }
+    merged.push(lines[index]);
+  }
+  const pending = [...overrides].filter(([key]) => !seen.has(key)).map(([, line]) => line);
+  if (pending.length > 0) {
+    while (merged.length > 0 && merged[merged.length - 1].trim() === "") merged.pop();
+    merged.push(...pending);
+  }
 
-  return [
-    `Refusing instance-specific setting ${changedSetting} in the repository wrangler.toml.`,
-    "Restore the tracked file from upstream.",
-    "Provide deployment settings through EDGE_EVER_* Workers Builds variables,",
-    "or point WRANGLER_CONFIG at an external configuration file for an advanced deployment.",
-  ].join(" ");
+  const body = merged.join("\n").trimEnd();
+  const head = lines.slice(0, headerIndex + 1).join("\n");
+  const rest = lines.slice(endIndex).join("\n").trimEnd();
+  const mergedConfig = rest ? `${head}\n${body}\n\n${rest}` : `${head}\n${body}`;
+  return `${mergedConfig.trimEnd()}\n`;
 };
 
 export const resolveWranglerCliPath = (cwd = resolve(".")) =>
