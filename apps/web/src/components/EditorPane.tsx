@@ -255,6 +255,7 @@ import { ImageViewer } from "./editor/ImageViewer";
 import { PdfAttachment } from "./editor/PdfAttachment";
 import { FileAttachment } from "./editor/FileAttachment";
 import { createInlineFieldExtension } from "./editor/InlineField";
+import { insertExternalMediaPaste } from "./editor/markdown-media-paste";
 import { createPluginEmbedExtension } from "./editor/PluginEmbed";
 import { useEditorDocumentActions } from "./editor/useEditorDocumentActions";
 import { useEditorSaveStatus } from "./editor/useEditorSaveStatus";
@@ -1383,10 +1384,16 @@ const RichEditorPane = ({
         return true;
       },
       transformPastedHTML: (html) => wrapDetailsContentHtml(html),
-      handlePaste: (_view, event) => {
+      handlePaste: (view, event) => {
         const files = getResourceFilesFromDataTransfer(event.clipboardData);
 
         if (files.length === 0) {
+          // External media pasted as plain text must be parsed, otherwise the
+          // literal markdown or <audio>/<video> tag lands in the document.
+          if (insertExternalMediaPaste(view, event.clipboardData?.getData("text/plain") ?? "")) {
+            event.preventDefault();
+            return true;
+          }
           return false;
         }
 
