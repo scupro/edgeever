@@ -1,6 +1,6 @@
 import { mergeAttributes, Node } from "@tiptap/core";
 import type { TiptapDoc, TiptapMark, TiptapNode, TiptapTextNode } from "./content";
-import { resolveAttachmentKind } from "./attachment-kind";
+import { resolveAttachmentKind, resolvePlayableMediaMimeType } from "./attachment-kind";
 import { getAttachmentFilenameFromLabel } from "./resource-links";
 import { normalizeAttachmentByteSize } from "./attachment-metadata";
 
@@ -19,12 +19,20 @@ const RESOURCE_URL_PATTERN = /(?:\/api\/v1\/resources\/|edgeever-(?:resource|sta
 const escapeMarkdownLabel = (value: string) =>
   value.replace(/\\/g, "\\\\").replace(/\[/g, "\\[").replace(/\]/g, "\\]");
 
+/**
+ * Remote audio/video URLs must become attachment nodes even without an
+ * "Attachment:" label, otherwise a pasted external `.mp3`/`.mp4` link stays a
+ * plain link and the read-only view shows source text instead of a player.
+ */
+export const isPlayableMediaUrl = (url: string) =>
+  resolvePlayableMediaMimeType(null, url) !== null;
+
 export const isFileAttachmentLink = (label: string, url: string) => {
   if (resolveAttachmentKind(null, getAttachmentFilenameFromLabel(label)) === "pdf" || resolveAttachmentKind(null, url) === "pdf") {
     return false;
   }
   // A link title can end in a file extension without linking to a file (for example, "arXiv cs.AI").
-  return ATTACHMENT_LABEL_PATTERN.test(label) || RESOURCE_URL_PATTERN.test(url);
+  return isPlayableMediaUrl(url) || ATTACHMENT_LABEL_PATTERN.test(label) || RESOURCE_URL_PATTERN.test(url);
 };
 
 export const FileAttachment = Node.create({
@@ -92,13 +100,15 @@ export const FileAttachment = Node.create({
 
   parseMarkdown: (token) => {
     const label = token.label || "Attachment";
+    const url = token.url || "";
+    const mediaMime = resolvePlayableMediaMimeType(null, url);
     return {
       type: FILE_ATTACHMENT_NODE_TYPE,
       attrs: {
-        url: token.url || "",
+        url,
         label,
-        filename: getAttachmentFilenameFromLabel(label),
-        mimeType: "",
+        filename: resolveAttachmentFilename(label, url, mediaMime),
+        mimeType: mediaMime ?? "",
         byteSize: null,
         displayMode: "inline",
       },
@@ -130,13 +140,76 @@ export const FileAttachment = Node.create({
 const getLinkMark = (node: TiptapTextNode): TiptapMark | undefined =>
   node.marks?.find((mark) => mark.type === "link" && typeof mark.attrs?.href === "string");
 
-const getLinkAttachmentAttrs = (link: TiptapMark | undefined, label: string) => ({
-  filename: typeof link?.attrs?.attachmentFilename === "string"
-    ? link.attrs.attachmentFilename
-    : getAttachmentFilenameFromLabel(label),
-  mimeType: typeof link?.attrs?.attachmentMimeType === "string" ? link.attrs.attachmentMimeType : "",
-  byteSize: normalizeAttachmentByteSize(link?.attrs?.attachmentByteSize),
-});
+const filenameFromUrl = (url: string) => {
+  const clean = url.split(/[?#]/)[0] ?? "";
+  return clean.split("/").filter(Boolean).pop() ?? "";
+};
+
+const looksLikeFilename = (value: string) => /\.[a-z0-9]{1,8}$/i.test(value.trim());
+
+/**
+ * A playable attachment must keep an extension-bearing filename (or an explicit
+ * media mime type); otherwise `resolveAttachmentKind` classifies it as a plain
+ * file and the editor renders a file chip instead of an audio/video player.
+ */
+const resolveAttachmentFilename = (label: string, url: string, mediaMime: string | null) => {
+  const fromLabel = getAttachmentFilenameFromLabel(label);
+  if (!mediaMime) return fromLabel;
+  if (fromLabel && looksLikeFilename(fromLabel)) return fromLabel;
+  return filenameFromUrl(url) || fromLabel;
+};
+
+const createPlayableMediaAttachment = (src: string, alt: string) => {
+  const mediaMime = resolvePlayableMediaMimeType(null, src);
+  const label = alt.trim() || filenameFromUrl(src) || "Attachment";
+  return {
+    type: FILE_ATTACHMENT_NODE_TYPE,
+    attrs: {
+      url: src,
+      label,
+      filename: resolveAttachmentFilename(label, src, mediaMime),
+      mimeType: mediaMime ?? "",
+      byteSize: null,
+      displayMode: "inline",
+    },
+  };
+};
+
+/**
+ * `![video](https://host/clip.mp4)` parses as an image node whose src is not an
+ * image, which renders as a broken image even in read-only mode. Convert those
+ * (and nested occurrences) into playable attachment nodes.
+ */
+export const upgradePlayableMediaImages = (doc: TiptapDoc): TiptapDoc => {
+  const upgradeNode = (node: TiptapNode | TiptapTextNode, insideParagraph: boolean): TiptapNode | TiptapTextNode => {
+    if ("text" in node) return node;
+    const src = node.type === "image" && typeof node.attrs?.src === "string" ? node.attrs.src.trim() : "";
+    if (src && isPlayableMediaUrl(src)) {
+      const alt = typeof node.attrs?.alt === "string" ? node.attrs.alt : "";
+      const attachment = createPlayableMediaAttachment(src, alt);
+      return insideParagraph ? attachment : { type: "paragraph", content: [attachment] };
+    }
+    if (!node.content) return node;
+    const childInsideParagraph = node.type === "paragraph" || node.type === "heading";
+    const content = node.content.map((child) => upgradeNode(child, childInsideParagraph));
+    return content.some((child, index) => child !== node.content?.[index]) ? { ...node, content } : node;
+  };
+
+  const content = doc.content.map((node) => upgradeNode(node, false));
+  return content.some((node, index) => node !== doc.content[index]) ? { ...doc, content } : doc;
+};
+
+const getLinkAttachmentAttrs = (link: TiptapMark | undefined, label: string, url = "") => {
+  const mediaMime = resolvePlayableMediaMimeType(null, url);
+  const declaredMime = typeof link?.attrs?.attachmentMimeType === "string" ? link.attrs.attachmentMimeType : "";
+  return {
+    filename: typeof link?.attrs?.attachmentFilename === "string"
+      ? link.attrs.attachmentFilename
+      : resolveAttachmentFilename(label, url, mediaMime),
+    mimeType: declaredMime || mediaMime || "",
+    byteSize: normalizeAttachmentByteSize(link?.attrs?.attachmentByteSize),
+  };
+};
 
 /** Upgrade legacy standalone attachment links while preserving ordinary web links. */
 export const upgradeStandaloneFileLinks = (doc: TiptapDoc): TiptapDoc => {
@@ -170,7 +243,7 @@ export const upgradeStandaloneFileLinks = (doc: TiptapDoc): TiptapDoc => {
               attrs: {
                 url: href,
                 label: child.text,
-                ...getLinkAttachmentAttrs(link, child.text),
+                ...getLinkAttachmentAttrs(link, child.text, href),
               },
             }],
           };

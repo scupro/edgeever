@@ -5,7 +5,8 @@ import {
 } from "./document-extensions";
 import { MERGE_DIVIDER_NODE_TYPE } from "./merge-divider";
 import { PDF_ATTACHMENT_NODE_TYPE, upgradeStandalonePdfLinks } from "./pdf-attachment";
-import { FILE_ATTACHMENT_NODE_TYPE, upgradeStandaloneFileLinks } from "./file-attachment";
+import { FILE_ATTACHMENT_NODE_TYPE, upgradePlayableMediaImages, upgradeStandaloneFileLinks } from "./file-attachment";
+import { normalizeHtmlMediaTags, normalizeRemoteImageLinks, upgradeRemoteImageLinks } from "./external-media";
 import {
   BLOCK_MATH_NODE_TYPE,
   createEdgeEverMarkdownMathematics,
@@ -49,7 +50,9 @@ export {
   FILE_ATTACHMENT_NODE_TYPE,
   FILE_DISPLAY_MODES,
   isFileAttachmentLink,
+  isPlayableMediaUrl,
   resolveFileDisplayMode,
+  upgradePlayableMediaImages,
   upgradeStandaloneFileLinks,
 } from "./file-attachment";
 export type { FileDisplayMode } from "./file-attachment";
@@ -153,13 +156,18 @@ export const markdownToDoc = (markdown: string): TiptapDoc => {
   }
 
   const header = splitMarkdownFrontMatter(normalized);
-  const parsed = markdownManager.parse(expandExtraBlankLinesForParse(header?.body ?? normalized)) as TiptapDoc;
-  return {
+  const parsed = markdownManager.parse(
+    expandExtraBlankLinesForParse(
+      normalizeHtmlMediaTags(normalizeRemoteImageLinks(header?.body ?? normalized)),
+    ),
+  ) as TiptapDoc;
+  const normalizedDoc: TiptapDoc = {
     ...parsed,
     content: [...(header ? [createFrontMatterNode(header.source)] : []),
       ...groupConsecutiveImagesIntoGalleries(parsed.content.map(withDefaultImageWidths)),
       ...(header && !parsed.content.length ? [{ type: "paragraph" }] : [])],
   };
+  return upgradePlayableMediaImages(upgradeStandaloneFileLinks(normalizedDoc));
 };
 
 const docContainsNodeType = (doc: TiptapDoc, nodeType: string): boolean => {
@@ -197,9 +205,11 @@ export const resolveMemoContentDoc = (
   contentMarkdown: string | null | undefined
 ): TiptapDoc => {
   const currentDoc = contentJson && Array.isArray(contentJson.content)
-    ? upgradeMathCodeFences(normalizeImageGalleries(
-        upgradeStandaloneFileLinks(upgradeStandalonePdfLinks(upgradeLegacyAttachmentLinks(contentJson))),
-      ))
+    ? upgradeRemoteImageLinks(upgradeMathCodeFences(normalizeImageGalleries(
+        upgradePlayableMediaImages(upgradeStandaloneFileLinks(
+          upgradeStandalonePdfLinks(upgradeLegacyAttachmentLinks(contentJson)),
+        )),
+      )), NEW_IMAGE_WIDTH_PERCENT)
     : emptyDoc();
   if (getFrontMatterSource(currentDoc) !== null) return currentDoc;
   if (
