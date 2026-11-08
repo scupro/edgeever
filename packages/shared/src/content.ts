@@ -6,7 +6,7 @@ import {
 import { MERGE_DIVIDER_NODE_TYPE } from "./merge-divider";
 import { PDF_ATTACHMENT_NODE_TYPE, upgradeStandalonePdfLinks } from "./pdf-attachment";
 import { FILE_ATTACHMENT_NODE_TYPE, upgradePlayableMediaImages, upgradeStandaloneFileLinks } from "./file-attachment";
-import { normalizeHtmlMediaTags, normalizeRemoteImageLinks, upgradeRemoteImageLinks } from "./external-media";
+import { normalizeHtmlMediaTags, normalizeRemoteImageLinks, upgradeMediaPasteParagraphs, upgradeRemoteImageLinks } from "./external-media";
 import {
   BLOCK_MATH_NODE_TYPE,
   createEdgeEverMarkdownMathematics,
@@ -205,11 +205,11 @@ export const resolveMemoContentDoc = (
   contentMarkdown: string | null | undefined
 ): TiptapDoc => {
   const currentDoc = contentJson && Array.isArray(contentJson.content)
-    ? upgradeRemoteImageLinks(upgradeMathCodeFences(normalizeImageGalleries(
+    ? upgradeRemoteImageLinks(upgradeMediaPasteParagraphs(upgradeMathCodeFences(normalizeImageGalleries(
         upgradePlayableMediaImages(upgradeStandaloneFileLinks(
           upgradeStandalonePdfLinks(upgradeLegacyAttachmentLinks(contentJson)),
         )),
-      )), NEW_IMAGE_WIDTH_PERCENT)
+      ))), NEW_IMAGE_WIDTH_PERCENT)
     : emptyDoc();
   if (getFrontMatterSource(currentDoc) !== null) return currentDoc;
   if (

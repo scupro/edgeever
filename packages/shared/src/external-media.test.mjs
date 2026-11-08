@@ -105,4 +105,44 @@ describe("external media links", () => {
       attrs: { mimeType: "video/mp4" },
     });
   });
+  test("re-parses a media link that an older version stored as literal text", () => {
+    const legacy = {
+      type: "doc",
+      content: [{
+        type: "paragraph",
+        content: [{ type: "text", text: "[貼上的音訊](https://cdn.example.com/song.mp3)" }],
+      }],
+    };
+    expect(resolveMemoContentDoc(legacy, "").content[0]?.content?.[0]).toMatchObject({
+      type: FILE_ATTACHMENT_NODE_TYPE,
+      attrs: { mimeType: "audio/mpeg", filename: "song.mp3" },
+    });
+  });
+
+  test("re-parses a raw audio tag stored as literal text", () => {
+    const legacy = {
+      type: "doc",
+      content: [{
+        type: "paragraph",
+        content: [{ type: "text", text: '<audio controls src="https://cdn.example.com/song.mp3"></audio>' }],
+      }],
+    };
+    const content = resolveMemoContentDoc(legacy, "").content[0]?.content ?? [];
+    expect(content[0]?.type).toBe(FILE_ATTACHMENT_NODE_TYPE);
+  });
+
+  test("leaves ordinary prose stored as text untouched", () => {
+    const text = "普通文字，含 *星號* 與 [連結](https://example.com/page)。";
+    const legacy = { type: "doc", content: [{ type: "paragraph", content: [{ type: "text", text }] }] };
+    expect(resolveMemoContentDoc(legacy, "").content[0]?.content?.[0]).toMatchObject({ type: "text", text });
+  });
+
+  test("does not re-parse emphasised text as markdown", () => {
+    const legacy = {
+      type: "doc",
+      content: [{ type: "paragraph", content: [{ type: "text", text: "看 *這個* 連結 https://example.com/a.mp3" }] }],
+    };
+    const content = resolveMemoContentDoc(legacy, "").content[0]?.content ?? [];
+    expect(content.some((child) => child.type === "text" && child.marks?.length)).toBe(false);
+  });
 });

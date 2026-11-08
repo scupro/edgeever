@@ -14,6 +14,7 @@
  * every pasted image URL would change the meaning of ordinary notes.
  */
 import type { TiptapDoc, TiptapNode, TiptapTextNode } from "./content";
+import { markdownToDoc } from "./content";
 import { EMPTY_EXTERNAL_LINK_NODE_TYPE } from "./empty-external-link";
 
 const IMAGE_EXTENSION_PATTERN = /\.(?:apng|avif|bmp|gif|ico|jpe?g|png|svg|webp)(?:[?#]|$)/i;
@@ -35,7 +36,7 @@ export const isRemoteImageUrl = (value: unknown): value is string =>
 
 const CODE_FENCE_SEGMENT = /(```[\s\S]*?```|~~~[\s\S]*?~~~|\$\$[\s\S]*?\$\$)/g;
 const DETAILS_SEGMENT = /(<details\b[\s\S]*?<\/details\s*>)/i;
-const HTML_MEDIA_TAG_PATTERN = /<(audio|video)\b[^>]*?\bsrc\s*=\s*["']([^"']+)["'][^>]*>/gi;
+const HTML_MEDIA_TAG_PATTERN = /<(audio|video)\b[^>]*?\bsrc\s*=\s*["']([^"']+)["'][^>]*>\s*(?:<\/\1\s*>)?/gi;
 const MARKDOWN_LINK_PATTERN = /(?<!!)\[([^\]\n]*)\]\((https?:\/\/[^\s)]+)\)/g;
 
 /**
@@ -128,4 +129,48 @@ export const upgradeRemoteImageLinks = (doc: TiptapDoc, defaultWidth: unknown): 
 
   const content = doc.content.map(visit);
   return content.some((node, index) => node !== doc.content[index]) ? { ...doc, content } : doc;
+};
+const MEDIA_PASTE_MARKER = /\]\(\s*https?:\/\/[^\s)]*\.(?:aac|flac|m4a|m4v|mov|mp3|mp4|oga|ogg|ogv|opus|wav|webm)(?:[?#][^\s)]*)?\s*\)|<(?:audio|video)\b[^>]*?\bsrc\s*=\s*["']https?:\/\/[^"']+["']/i;
+
+/**
+ * Notes written by older versions stored a pasted media link (or a raw
+ * `<audio>` / `<video>` tag) as literal text, because nothing parsed pasted
+ * plain text as Markdown. Re-parse those paragraphs so existing notes heal
+ * without being edited by hand.
+ */
+export const upgradeMediaPasteParagraphs = (doc: TiptapDoc): TiptapDoc => {
+  const toNodes = (text: string): TiptapNode[] | null => {
+    if (!MEDIA_PASTE_MARKER.test(text)) return null;
+    let parsed: TiptapDoc;
+    try {
+      parsed = markdownToDoc(text);
+    } catch {
+      return null;
+    }
+    return parsed.content.some((node) => node.type === "paragraph" && node.content?.some((child) => "text" in child))
+      ? null
+      : parsed.content;
+  };
+
+  const visit = (node: TiptapNode): TiptapNode[] => {
+    if (node.type === "paragraph") {
+      const text = (node.content ?? []).every((child) => "text" in child && !child.marks?.length)
+        ? (node.content ?? []).map((child) => ("text" in child ? child.text : "")).join("")
+        : null;
+      if (text) {
+        const nodes = toNodes(text);
+        if (nodes) return nodes;
+      }
+    }
+    if (!node.content) return [node];
+    const content = node.content.flatMap((child) => ("text" in child ? [child] : visit(child)));
+    return content.length === node.content.length && content.every((child, index) => child === node.content?.[index])
+      ? [node]
+      : [{ ...node, content }];
+  };
+
+  const content = doc.content.flatMap(visit);
+  return content.length === doc.content.length && content.every((node, index) => node === doc.content[index])
+    ? doc
+    : { ...doc, content };
 };
